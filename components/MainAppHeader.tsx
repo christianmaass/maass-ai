@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient';
+import { getSupabaseClient } from '../supabaseClient';
 import { useRouter } from 'next/router';
 import LoginModal from './LoginModal';
 
@@ -10,10 +10,12 @@ const MainAppHeader: React.FC = () => {
 
   useEffect(() => {
     const getUser = async () => {
+      const supabase = getSupabaseClient();
       const { data } = await supabase.auth.getUser();
       setUser(data.user);
     };
     getUser();
+    const supabase = getSupabaseClient();
     // Listen auf Auth-Änderungen (Login/Logout)
     const { data: listener } = supabase.auth.onAuthStateChange(() => {
       getUser();
@@ -24,6 +26,7 @@ const MainAppHeader: React.FC = () => {
   }, []);
 
   const handleLogout = async () => {
+    const supabase = getSupabaseClient();
     await supabase.auth.signOut();
     setUser(null);
     router.push('/');
@@ -73,10 +76,10 @@ const MainAppHeader: React.FC = () => {
               </button>
             ) : (
               <button
+                onClick={handleLogout}
                 className="ml-6 px-5 py-2 bg-gray-800 text-white rounded-lg font-bold hover:bg-gray-900 transition-colors"
-                onClick={() => setShowLogin(true)}
               >
-                Login
+                Logout
               </button>
             )}
           </li>

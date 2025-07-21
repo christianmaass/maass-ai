@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '../supabaseClient';
+import { getSupabaseClient } from '../supabaseClient';
 import { useRouter } from 'next/router';
 
 interface MainNavaaHeaderProps {
@@ -21,6 +21,7 @@ const LoginModal: React.FC<MainNavaaHeaderProps> = ({ isOpen, onClose, onSuccess
     e.preventDefault();
     setLoading(true);
     setError(null);
+    const supabase = getSupabaseClient();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
