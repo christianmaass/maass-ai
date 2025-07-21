@@ -15,7 +15,7 @@ const SPECIFIC_PROMPT = "Du bist ein hilfreicher KI-Assistent für die Testseite
 const ChatGPTDialog: React.FC = () => {
   // Debug: Zeige, ob der API-Key geladen wird
   React.useEffect(() => {
-    console.log('VITE_OPENAI_API_KEY:', import.meta.env.VITE_OPENAI_API_KEY ? 'Vorhanden' : 'Nicht gesetzt');
+
   }, []);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
@@ -30,11 +30,10 @@ const ChatGPTDialog: React.FC = () => {
     setMessages(newMessages);
     setInput('');
     try {
-      const response = await fetch('http://localhost:8787/v1/chat/completions', {
+      const response = await fetch('/api/openai-proxy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`, // API-Key aus .env.local
         },
         body: JSON.stringify({
           model: 'gpt-3.5-turbo',
