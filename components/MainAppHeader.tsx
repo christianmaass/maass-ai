@@ -50,19 +50,19 @@ const MainAppHeader: React.FC = () => {
                 <a href="#user" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">User</a>
               </li>
               <li>
-                <a href="#progress" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Dein Fortschritt</a>
+                <a href="#progress" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Home</a>
               </li>
             </>
           ) : (
             <>
               <li>
-                <a href="#dashboard" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Dashboard</a>
+                <a href="#dashboard" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Warum navaa?</a>
               </li>
               <li>
-                <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Dein Fortschritt</a>
+                <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Für wen?</a>
               </li>
               <li>
-                <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Profil</a>
+                <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">So funktioniert es</a>
               </li>
             </>
           )}
@@ -76,10 +76,10 @@ const MainAppHeader: React.FC = () => {
               </button>
             ) : (
               <button
-                onClick={handleLogout}
+                onClick={() => setShowLogin(true)}
                 className="ml-6 px-5 py-2 bg-gray-800 text-white rounded-lg font-bold hover:bg-gray-900 transition-colors"
               >
-                Logout
+                Login
               </button>
             )}
           </li>
