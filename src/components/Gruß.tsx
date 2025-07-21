@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Gruß.tsx
+// Displays a greeting or welcome message, possibly personalized.
 export default function Gruß() {
   return (
     <div className="mt-4 p-4 bg-blue-100 rounded">

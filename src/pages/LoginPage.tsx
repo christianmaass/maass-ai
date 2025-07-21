@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { supabase } from './supabaseClient';
+import logo from '../assets/logo-navaa.png';
+import { supabase } from '../supabaseClient';
 
 interface LoginProps {
   onLogin: () => void;
 }
 
-import './loginpage-custom.css';
+
 
 const LoginPage: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -31,32 +32,31 @@ const LoginPage: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center loginpage-bg">
-      <div className="loginpage-logo">
-        <img src="https://christianmaass.com/logo-maass.png" alt="Christian Maaß Logo" width={120} height={60} />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+      <div className="flex justify-center items-center mb-9">
+        <img src={logo} alt="navaa Logo" width={120} height={60} />
       </div>
-      <form style={{ width: '100%', maxWidth: 380 }} onSubmit={handleSubmit}>
-        <h2 className="loginpage-title">Login</h2>
-        <label className="loginpage-label">E-Mail-Adresse</label>
+      <form className="w-full max-w-md bg-white rounded-lg shadow p-8" onSubmit={handleSubmit}>
+        <label className="block text-gray-800 font-semibold mb-2">E-Mail-Adresse</label>
         <input
           type="email"
-          className="loginpage-input"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:border-gray-800 focus:ring-2 focus:ring-gray-800 text-base font-sans"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
         />
-        <label className="block mb-2 text-gray-700">Passwort</label>
+        <label className="block text-gray-800 font-semibold mb-2">Passwort</label>
         <input
           type="password"
-          className="w-full px-3 py-2 border rounded mb-4"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:border-gray-800 focus:ring-2 focus:ring-gray-800 text-base font-sans"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
         />
-        {error && <div className="text-red-500 mb-4 text-sm">{error}</div>}
+        {error && <div className="text-red-500 mb-4 text-sm font-sans">{error}</div>}
         <button
           type="submit"
-          className="loginpage-btn"
+          className="w-full py-3 bg-gray-800 text-white rounded-lg font-bold text-lg hover:bg-gray-900 transition-colors disabled:opacity-60"
           disabled={loading}
         >
           {loading ? 'Anmelden…' : 'Login'}
