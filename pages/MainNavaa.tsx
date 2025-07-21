@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import { useRouter } from 'next/router';
-import { supabase } from '../supabaseClient';
+import { getSupabaseClient } from '../supabaseClient';
 import MainNavaaHeader from '../components/MainNavaaHeader';
 
 const MainNavaa: React.FC = () => {
@@ -14,6 +14,7 @@ const MainNavaa: React.FC = () => {
 
   useEffect(() => {
     const getUser = async () => {
+      const supabase = getSupabaseClient();
       const { data } = await supabase.auth.getUser();
       setUser(data.user);
       if (!data.user) {
@@ -21,6 +22,7 @@ const MainNavaa: React.FC = () => {
       }
     };
     getUser();
+    const supabase = getSupabaseClient();
     const { data: listener } = supabase.auth.onAuthStateChange(() => {
       getUser();
     });
@@ -30,6 +32,7 @@ const MainNavaa: React.FC = () => {
   }, []);
 
   const handleLogout = async () => {
+    const supabase = getSupabaseClient();
     await supabase.auth.signOut();
     setUser(null);
     router.push('/');
@@ -39,6 +42,7 @@ const MainNavaa: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    const supabase = getSupabaseClient();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
