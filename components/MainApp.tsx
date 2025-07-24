@@ -9,6 +9,7 @@ const MainApp: React.FC = () => {
     <div>
       <MainAppHeader />
       <HeroBanner />
+
       <ContentSections />
       <Footer />
     </div>

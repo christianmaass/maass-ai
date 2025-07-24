@@ -33,39 +33,26 @@ const MainAppHeader: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-[#f5f8fa]">
+    <header className="w-full bg-[#fcfdfe]">
       <LoginModal
         isOpen={showLogin}
         onClose={() => setShowLogin(false)}
         onSuccess={() => setShowLogin(false)}
       />
-      <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 bg-[#f5f8fa]">
+      <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 bg-[#fcfdfe]">
         <div className="flex items-center gap-2">
           <img src="/logo-navaa.png" alt="navaa.ai Logo" className="h-20 w-20 object-contain" />
         </div>
         <ul className="flex gap-6 items-center">
-          {user ? (
-            <>
-              <li>
-                <a href="#user" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">User</a>
-              </li>
-              <li>
-                <a href="#progress" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Home</a>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <a href="#dashboard" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Warum navaa?</a>
-              </li>
-              <li>
-                <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Für wen?</a>
-              </li>
-              <li>
-                <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">So funktioniert es</a>
-              </li>
-            </>
-          )}
+          <li>
+            <a href="#dashboard" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Warum navaa?</a>
+          </li>
+          <li>
+            <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Für wen?</a>
+          </li>
+          <li>
+            <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">So funktioniert es</a>
+          </li>
           <li>
             {user ? (
               <button

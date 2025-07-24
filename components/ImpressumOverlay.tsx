@@ -1,16 +1,16 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-const ImpressumOverlay: React.FC = () => {
-  const router = useRouter();
+interface ImpressumOverlayProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-  const handleClose = () => {
-    router.back();
-  };
+const ImpressumOverlay: React.FC<ImpressumOverlayProps> = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-70 backdrop-blur-sm">
       <Head>
         <title>Impressum</title>
       </Head>
@@ -18,7 +18,7 @@ const ImpressumOverlay: React.FC = () => {
         <button
           type="button"
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-xl"
-          onClick={handleClose}
+          onClick={onClose}
           aria-label="Schließen"
         >
           ×

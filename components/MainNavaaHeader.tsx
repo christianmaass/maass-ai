@@ -6,8 +6,8 @@ interface MainNavaaHeaderProps {
 
 const MainNavaaHeader: React.FC<MainNavaaHeaderProps> = ({ onLogout }) => {
   return (
-    <header className="w-full bg-[#f5f8fa]">
-      <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 bg-[#f5f8fa]">
+    <header className="w-full bg-[#fcfdfe] sticky top-0 z-50">
+      <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 bg-[#fcfdfe]">
         <div className="flex items-center gap-2">
           <img src="/logo-navaa.png" alt="navaa.ai Logo" className="h-20 w-20 object-contain" />
         </div>
