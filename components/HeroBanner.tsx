@@ -14,7 +14,7 @@ export default function HeroBanner() {
           <p className="text-lg md:text-xl text-gray-700 mb-8 font-sans">
             AI-Accelerated Learning: navaa hilft dir dabei - mit echten Cases, direktem Feedback und strukturierter Reflexion.
           </p>
-          <Link href="/chat" className="inline-block px-8 py-3 bg-[#ff8200] text-white font-bold rounded-xl shadow hover:bg-[#ff9900] transition-colors text-lg">
+          <Link href="/chat" className="inline-block px-8 py-3 bg-[#00bfae] text-white font-bold rounded-xl shadow hover:bg-[#009688] transition-colors text-lg">
             Für die Testphase bewerben
           </Link>
         </div>

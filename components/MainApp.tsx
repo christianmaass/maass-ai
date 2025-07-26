@@ -1,17 +1,30 @@
 import React from 'react';
-import MainAppHeader from './MainAppHeader';
+import UnifiedHeader from './UnifiedHeader';
 import HeroBanner from './HeroBanner';
-import ContentSections from './ContentSections';
+import TargetAudienceSection from './TargetAudienceSection';
+import TestimonialSection from './TestimonialSection';
+import CredentialsSection from './CredentialsSection';
+// import MetricsSection from './MetricsSection'; // Auskommentiert - Metriken noch nicht verfügbar
+import BenefitOverview from './BenefitOverview';
+import FAQSection from './FAQSection';
+import StickyCTA from './StickyCTA';
 import Footer from './Footer';
+
 
 const MainApp: React.FC = () => {
   return (
     <div>
-      <MainAppHeader />
-      <HeroBanner />
+      <UnifiedHeader variant="marketing" />
 
-      <ContentSections />
+      <HeroBanner />
+      <CredentialsSection />
+      <TargetAudienceSection />
+      <BenefitOverview />
+      <TestimonialSection />
+      {/* <MetricsSection /> */} {/* Auskommentiert - Metriken noch nicht verfügbar */}
+      <FAQSection />
       <Footer />
+      <StickyCTA />
     </div>
   );
 };

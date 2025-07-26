@@ -48,27 +48,27 @@ export default function Footer() {
           <div>
             <h4 className="text-base font-bold mb-3 text-gray-900">navaa für</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-700 hover:text-gray-900">Privatpersonen</a></li>
-              <li><a href="#" className="text-gray-700 hover:text-gray-900">Unternehmen</a></li>
-              <li><a href="#" className="text-gray-700 hover:text-gray-900">Hochschulen</a></li>
+              <li><a href="#" className="text-[#00bfae] hover:text-[#009688]">Privatpersonen</a></li>
+              <li><a href="#" className="text-[#00bfae] hover:text-[#009688]">Unternehmen</a></li>
+              <li><a href="#" className="text-[#00bfae] hover:text-[#009688]">Hochschulen</a></li>
             </ul>
           </div>
           {/* Box 3 */}
           <div>
             <h4 className="text-base font-bold mb-3 text-gray-900">Unternehmen</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-700 hover:text-gray-900">Team</a></li>
-              <li><a href="#warum" className="text-gray-700 hover:text-gray-900">Warum navaa?</a></li>
-              <li><a href="#" className="text-gray-700 hover:text-gray-900">Kontakt</a></li>
+              <li><a href="#" className="text-[#00bfae] hover:text-[#009688]">Team</a></li>
+              <li><a href="/lernansatz" className="text-[#00bfae] hover:text-[#009688]">Unser Lernansatz</a></li>
+              <li><a href="#" className="text-[#00bfae] hover:text-[#009688]">Kontakt</a></li>
             </ul>
           </div>
           {/* Box 4 */}
           <div>
             <h4 className="text-base font-bold mb-3 text-gray-900">Rechtliches</h4>
             <ul className="space-y-2">
-              <li><button onClick={() => setShowImpressum(true)} className="text-gray-700 hover:text-gray-900 text-left">Impressum</button></li>
-              <li><a href="#" className="text-gray-700 hover:text-gray-900">Datenschutzerklärung</a></li>
-              <li><a href="#" className="text-gray-700 hover:text-gray-900">Barrierefreiheitserklärung</a></li>
+              <li><button onClick={() => setShowImpressum(true)} className="text-[#00bfae] hover:text-[#009688] text-left">Impressum</button></li>
+              <li><a href="#" className="text-[#00bfae] hover:text-[#009688]">Datenschutzerklärung</a></li>
+              <li><a href="#" className="text-[#00bfae] hover:text-[#009688]">Barrierefreiheitserklärung</a></li>
             </ul>
           </div>
         </div>

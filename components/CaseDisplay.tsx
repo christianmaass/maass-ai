@@ -1,10 +1,5 @@
 import React from 'react';
-import { CaseData } from './Describtion_Case_Start';
-
-interface CaseDisplayProps {
-  caseData: CaseData | null;
-  loading?: boolean;
-}
+import { CaseData, CaseDisplayProps } from '../types/case.types';
 
 const CaseDisplay: React.FC<CaseDisplayProps> = ({ caseData, loading }) => {
   if (loading) {

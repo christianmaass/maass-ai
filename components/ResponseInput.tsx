@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import { CaseData } from './Describtion_Case_Start';
+import { CaseData, ResponseInputProps } from '../types/case.types';
 import { getSupabaseClient } from '../supabaseClient';
-
-interface ResponseInputProps {
-  caseData: CaseData | null;
-  onResponseSubmitted?: (responseId: string) => void;
-}
 
 const ResponseInput: React.FC<ResponseInputProps> = ({ caseData, onResponseSubmitted }) => {
   const [response, setResponse] = useState('');

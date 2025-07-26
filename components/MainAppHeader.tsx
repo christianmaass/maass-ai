@@ -1,43 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { getSupabaseClient } from '../supabaseClient';
-import { useRouter } from 'next/router';
-import LoginModal from './LoginModal';
+import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { useProfile } from '../hooks/useProfile';
+import AuthModal from './AuthModal';
 
 const MainAppHeader: React.FC = () => {
-  const [user, setUser] = useState<any>(null);
-  const [showLogin, setShowLogin] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    const getUser = async () => {
-      const supabase = getSupabaseClient();
-      const { data } = await supabase.auth.getUser();
-      setUser(data.user);
-    };
-    getUser();
-    const supabase = getSupabaseClient();
-    // Listen auf Auth-Änderungen (Login/Logout)
-    const { data: listener } = supabase.auth.onAuthStateChange(() => {
-      getUser();
-    });
-    return () => {
-      listener?.subscription.unsubscribe();
-    };
-  }, []);
+  const { user, logout, loading } = useAuth();
+  const { profile, profileLoading, isAdmin } = useProfile();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
 
   const handleLogout = async () => {
-    const supabase = getSupabaseClient();
-    await supabase.auth.signOut();
-    setUser(null);
-    router.push('/');
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  const openLogin = () => {
+    setAuthMode('login');
+    setShowAuthModal(true);
+  };
+
+  const openRegister = () => {
+    setAuthMode('register');
+    setShowAuthModal(true);
   };
 
   return (
     <header className="w-full bg-[#fcfdfe]">
-      <LoginModal
-        isOpen={showLogin}
-        onClose={() => setShowLogin(false)}
-        onSuccess={() => setShowLogin(false)}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode={authMode}
       />
       <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 bg-[#fcfdfe]">
         <div className="flex items-center gap-2">
@@ -54,20 +49,42 @@ const MainAppHeader: React.FC = () => {
             <a href="#profile" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">So funktioniert es</a>
           </li>
           <li>
+            <a href="/preise" className="text-gray-800 font-medium hover:text-gray-600 transition-colors font-sans">Preise</a>
+          </li>
+          {user && isAdmin && (
+            <li>
+              <a href="/admin" className="text-red-600 font-medium hover:text-red-800 transition-colors font-sans">Admin</a>
+            </li>
+          )}
+          <li>
             {user ? (
-              <button
-                onClick={handleLogout}
-                className="bg-gray-800 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-900 transition-colors"
-              >
-                Logout
-              </button>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-gray-600">
+                  Hallo, {profile?.name || user.email}!
+                </span>
+                <button
+                  onClick={handleLogout}
+                  disabled={loading}
+                  className="bg-[#00bfae] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#009688] transition-colors disabled:opacity-50"
+                >
+                  {loading ? 'Wird abgemeldet...' : 'Abmelden'}
+                </button>
+              </div>
             ) : (
-              <button
-                onClick={() => setShowLogin(true)}
-                className="ml-6 px-5 py-2 bg-gray-800 text-white rounded-lg font-bold hover:bg-gray-900 transition-colors"
-              >
-                Login
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={openLogin}
+                  className="px-4 py-2 text-[#00bfae] border border-[#00bfae] rounded-lg font-semibold hover:bg-[#00bfae] hover:text-white transition-colors"
+                >
+                  Anmelden
+                </button>
+                <button
+                  onClick={openRegister}
+                  className="px-4 py-2 bg-[#00bfae] text-white rounded-lg font-semibold hover:bg-[#009688] transition-colors"
+                >
+                  Registrieren
+                </button>
+              </div>
             )}
           </li>
         </ul>

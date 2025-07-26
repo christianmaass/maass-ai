@@ -26,6 +26,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    // 1. CASE-LIMIT PRÜFUNG - User-Tarif und Usage prüfen
+    const { data: tariffInfo, error: tariffError } = await supabase
+      .from('user_tariff_info')
+      .select('*')
+      .eq('user_id', user_id)
+      .single();
+
+    if (tariffError) {
+      console.error('Error fetching user tariff info:', tariffError);
+      return res.status(403).json({ 
+        error: 'Unable to verify user subscription',
+        code: 'TARIFF_CHECK_FAILED'
+      });
+    }
+
+    // Case-Limits prüfen
+    const canCreateCase = checkCaseLimits(tariffInfo);
+    if (!canCreateCase) {
+      return res.status(403).json({
+        error: 'Case limit reached',
+        code: 'LIMIT_REACHED',
+        details: {
+          casesUsedThisWeek: tariffInfo.cases_used_this_week || 0,
+          casesLimitWeek: tariffInfo.cases_per_week || 5,
+          tariffName: tariffInfo.tariff_name,
+          upgradeRequired: true
+        }
+      });
+    }
+
     // Case Type Details abrufen
     const { data: caseType, error: caseTypeError } = await supabase
       .from('case_types')
@@ -83,6 +113,14 @@ Halte es konkret, realistisch und praxisnah.`;
       return res.status(500).json({ error: 'Failed to save case' });
     }
 
+    // 2. USAGE TRACKING - User-Case-Count aktualisieren
+    try {
+      await supabase.rpc('update_user_usage', { p_user_id: user_id });
+    } catch (usageError) {
+      console.error('Error updating user usage:', usageError);
+      // Nicht kritisch - Case wurde erstellt, nur Usage-Tracking fehlgeschlagen
+    }
+
     res.status(200).json({
       case: savedCase,
       case_type: caseType
@@ -92,4 +130,22 @@ Halte es konkret, realistisch und praxisnah.`;
     console.error('Error generating case:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+}
+
+// Helper function to check if user can create more cases
+function checkCaseLimits(tariffInfo: any): boolean {
+  // Unbegrenzte Tarife (Business, Bildungsträger)
+  if (tariffInfo.cases_per_week === -1 || tariffInfo.cases_per_month === -1) {
+    return true;
+  }
+
+  // Wöchentliches Limit prüfen
+  const weeklyLimitReached = (tariffInfo.cases_used_this_week || 0) >= (tariffInfo.cases_per_week || 5);
+  
+  // Monatliches Limit prüfen (falls definiert)
+  const monthlyLimitReached = tariffInfo.cases_per_month && 
+    (tariffInfo.cases_used_this_month || 0) >= tariffInfo.cases_per_month;
+
+  // User kann Case erstellen, wenn beide Limits nicht erreicht sind
+  return !weeklyLimitReached && !monthlyLimitReached;
 }
