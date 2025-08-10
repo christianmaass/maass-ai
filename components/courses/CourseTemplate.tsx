@@ -38,7 +38,7 @@
  * @author navaa Development Team
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Heading, Text } from '../ui/Typography';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -439,6 +439,11 @@ export default function CourseTemplate({ courseSlug }: CourseTemplateProps) {
     router.push(`/tracks/${course.slug}/expert`);
   };
 
+  // Memoized handler passed to OnboardingContainer to keep stable identity
+  const handleOnboardingStepChange = useCallback((current: number, total: number) => {
+    setOnboardingStep({ current, total });
+  }, []);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-navaa-warm-beige flex items-center justify-center">
@@ -498,7 +503,7 @@ export default function CourseTemplate({ courseSlug }: CourseTemplateProps) {
               <OnboardingContainer
                 hideHeader
                 onBackToCourse={() => setShowOnboarding(false)}
-                onStepChange={(current, total) => setOnboardingStep({ current, total })}
+                onStepChange={handleOnboardingStepChange}
               />
             }
           />

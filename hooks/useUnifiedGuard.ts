@@ -120,6 +120,15 @@ function calculateRoutingDecision(
     subscription_tier,
   } = factors;
 
+  // Treat explicit course navigation as course intent to avoid overzealous onboarding redirects
+  // Examples: /courses/strategy-track, /courses/<slug>, /tracks/strategy
+  const routePathOnly = currentRoute.split('?')[0] || currentRoute;
+  const isCourseIntent =
+    routePathOnly.startsWith('/course') || // actual course route in this app
+    routePathOnly.startsWith('/courses') || // future-proof alias
+    routePathOnly === '/tracks/strategy' ||
+    routePathOnly.startsWith('/tracks/strategy');
+
   // 1. Authentication Check (highest priority)
   if (config.requireAuth && !isAuthenticated) {
     return {
@@ -133,8 +142,11 @@ function calculateRoutingDecision(
   // User should go to onboarding ONLY if: no onboarding completed AND no active enrollments
   const shouldRedirectToOnboarding = !onboarding_completed && !hasActiveEnrollments;
 
+  // Do not force onboarding if user explicitly navigates to a course page.
+  // In that case, proceed to subscription/tier checks first.
   if (
     shouldRedirectToOnboarding &&
+    !isCourseIntent &&
     config.newUserRedirect &&
     currentRoute !== config.newUserRedirect
   ) {
@@ -284,8 +296,24 @@ export function useUnifiedGuard(config: UnifiedGuardConfig) {
 
         // Debug logging
         if (config.debugMode) {
+          // Derive debug-only helpers to verify course-intent logic
+          const routePathOnly = (factors.currentRoute.split('?')[0] ||
+            factors.currentRoute) as string;
+          const debugIsCourseIntent =
+            routePathOnly.startsWith('/course') ||
+            routePathOnly.startsWith('/courses') ||
+            routePathOnly === '/tracks/strategy' ||
+            routePathOnly.startsWith('/tracks/strategy');
+          const debugShouldRedirectToOnboarding =
+            !factors.onboarding_completed && !factors.hasActiveEnrollments;
+
           console.log('🛡️ UnifiedGuard - Routing decision:', {
             factors,
+            derived: {
+              routePathOnly,
+              isCourseIntent: debugIsCourseIntent,
+              shouldRedirectToOnboarding: debugShouldRedirectToOnboarding,
+            },
             decision,
             config,
           });

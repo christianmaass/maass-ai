@@ -20,7 +20,6 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ currentPage }) => {
               width={64}
               height={64}
               className="h-16 w-16 object-contain"
-              priority
             />
             <div className="flex flex-col">
               <span className="text-xl font-bold text-gray-900">navaa.ai</span>

@@ -8,7 +8,7 @@ export default function CredentialsSection() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Expertise Indicators */}
         <div className="text-center">
-          <div className="flex flex-wrap justify-center items-center gap-8 text-gray-600 text-xl">
+          <div className="flex flex-wrap justify-center items-center gap-8 text-gray-700 leading-relaxed max-w-2xl mx-auto mb-8">
             <div className="flex items-center">
               <span className="text-xl mr-2">🎯</span>
               <span>Personalisierte Lernpfade</span>

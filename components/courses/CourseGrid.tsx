@@ -84,16 +84,17 @@ export default function CourseGrid({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch courses with fallback to mock data
+  // Fetch courses with fallback to mock data (StrictMode-safe)
   useEffect(() => {
+    let isMounted = true;
+    const ac = new AbortController();
+
     async function fetchCourses() {
       try {
-        // Try API first, fallback to mock data if auth fails
         const headers: Record<string, string> = {
           'Content-Type': 'application/json',
         };
 
-        // Add JWT token if available (navaa Guidelines compliant)
         if (session?.access_token) {
           headers['Authorization'] = `Bearer ${session.access_token}`;
         }
@@ -101,28 +102,24 @@ export default function CourseGrid({
         const response = await fetch('/api/courses', {
           method: 'GET',
           headers,
+          signal: ac.signal,
         });
 
         if (response.ok) {
           const data = await response.json();
-
-          // Extract courses array from API response (navaa Guidelines compliant)
           let coursesData = data.courses || data;
 
-          // Ensure coursesData is an array
           if (!Array.isArray(coursesData)) {
             console.warn('API response is not an array, using mock data');
             throw new Error('Invalid API response format');
           }
 
-          // Limit courses if specified
           if (maxCourses) {
             coursesData = coursesData.slice(0, maxCourses);
           }
 
-          setCourses(coursesData);
+          if (isMounted) setCourses(coursesData);
         } else {
-          // Fallback to mock data for demo purposes
           console.warn('API failed, using mock data');
           const mockCourses = [
             {
@@ -153,11 +150,11 @@ export default function CourseGrid({
             coursesData = mockCourses.slice(0, maxCourses);
           }
 
-          setCourses(coursesData);
+          if (isMounted) setCourses(coursesData);
         }
-      } catch (err) {
+      } catch (err: any) {
+        if (ac.signal.aborted) return; // component unmounted or route change
         console.error('Error fetching courses:', err);
-        // Even on error, provide mock data
         const mockCourses = [
           {
             id: 'strategy-track',
@@ -176,13 +173,18 @@ export default function CourseGrid({
             foundation_cases: [],
           },
         ];
-        setCourses(mockCourses);
+        if (isMounted) setCourses(mockCourses);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     }
 
     fetchCourses();
+
+    return () => {
+      isMounted = false;
+      ac.abort();
+    };
   }, [maxCourses, session?.access_token]);
 
   // Handle course selection

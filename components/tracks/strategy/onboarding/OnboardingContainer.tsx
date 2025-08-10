@@ -41,6 +41,8 @@ const OnboardingContainer: React.FC<OnboardingContainerProps> = ({
 
   const totalSteps = 5;
 
+  // Notify parent when the numeric values change.
+  // Parent now memoizes onStepChange with useCallback, so it's safe to include.
   useEffect(() => {
     if (onStepChange) onStepChange(currentStep, totalSteps);
   }, [currentStep, totalSteps, onStepChange]);
