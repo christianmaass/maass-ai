@@ -99,7 +99,6 @@ export default function UnifiedHeader({ variant = 'marketing' }: UnifiedHeaderPr
               width={80}
               height={80}
               className="h-20 w-20 object-contain"
-              priority
             />
           </Link>
         </div>
