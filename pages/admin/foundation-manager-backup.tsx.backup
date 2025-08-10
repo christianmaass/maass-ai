@@ -1,0 +1,764 @@
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { getSupabaseClient } from '../../supabaseClient';
+
+interface FoundationCase {
+  id: string;
+  title: string;
+  cluster: string;
+  difficulty: number;
+  frameworks: string[];
+  interaction_type: string;
+  content: any;
+  step_configuration: StepConfig[];
+  introduction?: string;
+  situation?: string;
+  question?: string;
+  context?: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+interface StepConfig {
+  title: string;
+  learning_forms: string[];
+  input_type: 'text' | 'speech' | 'both';
+  ai_enabled: boolean;
+  framework?: string;
+  skip: boolean;
+}
+
+const DEFAULT_5_STEPS: StepConfig[] = [
+  {
+    title: 'Problemverständnis & Zielklärung',
+    learning_forms: ['multiple_choice'],
+    input_type: 'both',
+    ai_enabled: true,
+    skip: false
+  },
+  {
+    title: 'Hypothesenbildung',
+    learning_forms: ['framework', 'tips_hints'],
+    input_type: 'both',
+    ai_enabled: true,
+    skip: false
+  },
+  {
+    title: 'Analyse und Zahlenarbeit',
+    learning_forms: ['framework', 'free_text'],
+    input_type: 'both',
+    ai_enabled: false,
+    skip: false
+  },
+  {
+    title: 'Synthetisieren & Optionen bewerten',
+    learning_forms: ['tips_hints', 'gpt_response'],
+    input_type: 'both',
+    ai_enabled: true,
+    skip: false
+  },
+  {
+    title: 'Empfehlung & Executive Summary',
+    learning_forms: ['free_text', 'gpt_response'],
+    input_type: 'both',
+    ai_enabled: true,
+    skip: false
+  }
+];
+
+const LEARNING_FORMS = [
+  { id: 'multiple_choice', name: 'Multiple Choice', icon: '☑️' },
+  { id: 'free_text', name: 'Freie Eingabe', icon: '✍️' },
+  { id: 'framework', name: 'Framework-Vorlage', icon: '📋' },
+  { id: 'tips_hints', name: 'Tipps & Hinweise', icon: '💭' },
+  { id: 'gpt_response', name: 'KI-Feedback', icon: '🤖' },
+  { id: 'no_task', name: 'Kein Task', icon: '⏭️' }
+];
+
+const AVAILABLE_FRAMEWORKS = [
+  { id: 'profit_tree', name: 'Profit Tree', icon: '📊', description: 'Gewinnanalyse: Umsatz - Kosten' },
+  { id: 'revenue_tree', name: 'Revenue Tree', icon: '💰', description: 'Umsatzanalyse: Kunden × Preis' },
+  { id: 'market_entry', name: 'Market Entry Framework', icon: '🌍', description: 'Markteintrittsstrategie' },
+  { id: 'cost_structure', name: 'Cost Structure Analysis', icon: '💸', description: 'Kostenoptimierung' },
+  { id: 'porter_5_forces', name: 'Porter 5 Forces', icon: '⚔️', description: 'Wettbewerbsanalyse' },
+  { id: 'go_to_market', name: 'Go-to-Market Strategy', icon: '🎯', description: 'Produktlaunch-Strategie' },
+  { id: 'process_optimization', name: 'Process Optimization', icon: '🔄', description: 'Effizienzsteigerung' },
+  { id: 'ma_framework', name: 'M&A Framework', icon: '🤝', description: 'Akquisitionsbewertung' },
+  { id: 'digital_transformation', name: 'Digital Transformation', icon: '🔮', description: 'Digitalisierungsstrategie' },
+  { id: 'scaling_framework', name: 'Scaling Framework', icon: '📈', description: 'Skalierungsstrategie' },
+  { id: 'pricing_framework', name: 'Pricing Framework', icon: '💲', description: 'Preisstrategie' },
+  { id: 'restructuring_framework', name: 'Restructuring Framework', icon: '🔧', description: 'Restrukturierung' }
+];
+
+export default function FoundationManager() {
+  const { user } = useAuth();
+  const [foundationCases, setFoundationCases] = useState<FoundationCase[]>([]);
+  const [selectedCase, setSelectedCase] = useState<FoundationCase | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [generateLoading, setGenerateLoading] = useState(false);
+  const [generateError, setGenerateError] = useState('');
+  const [generateSuccess, setGenerateSuccess] = useState('');
+
+  useEffect(() => {
+    loadFoundationCases();
+  }, []);
+
+  const loadFoundationCases = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      console.log('🔄 Loading Foundation Cases...');
+      const supabase = getSupabaseClient();
+      
+      if (!supabase) {
+        throw new Error('Supabase client not available');
+      }
+      
+      const { data, error } = await supabase
+        .from('foundation_cases')
+        .select('*')
+        .order('difficulty');
+
+      if (error) {
+        console.error('❌ Supabase error:', error);
+        throw error;
+      }
+      
+      console.log('✅ Loaded cases:', data?.length || 0);
+      setFoundationCases(data || []);
+      
+      if (!data || data.length === 0) {
+        setError('Keine Foundation Cases in der Datenbank gefunden');
+      }
+      
+    } catch (err) {
+      console.error('💥 Error loading cases:', err);
+      setError(`Fehler beim Laden der Foundation Cases: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateStepConfig = (stepIndex: number, updates: Partial<StepConfig>) => {
+    if (!selectedCase) return;
+    
+    // Use existing step_configuration or default steps as fallback
+    const currentStepConfig = selectedCase.step_configuration || DEFAULT_5_STEPS;
+    const newStepConfig = [...currentStepConfig];
+    newStepConfig[stepIndex] = { ...newStepConfig[stepIndex], ...updates };
+    
+    setSelectedCase({
+      ...selectedCase,
+      step_configuration: newStepConfig
+    });
+  };
+
+  const handleUpdateCaseContent = (field: string, value: any) => {
+    if (!selectedCase) return;
+    
+    setSelectedCase({
+      ...selectedCase,
+      content: {
+        ...selectedCase.content,
+        [field]: value
+      }
+    });
+  };
+
+  const handleSaveCaseDescription = async () => {
+    if (!selectedCase) return;
+    
+    setSaving(true);
+    setError('');
+    setSuccess('');
+    
+    try {
+      const supabase = getSupabaseClient();
+      
+      const { error } = await supabase
+        .from('foundation_cases')
+        .update({ 
+          content: selectedCase.content,
+          introduction: selectedCase.content?.introduction,
+          situation: selectedCase.content?.situation,
+          question: selectedCase.content?.question,
+          context: selectedCase.content?.context
+        })
+        .eq('id', selectedCase.id);
+
+      if (error) throw error;
+
+      setSuccess('Fallbeschreibung erfolgreich gespeichert! ✅');
+      await loadFoundationCases();
+      
+    } catch (error) {
+      console.error('Error saving case description:', error);
+      setError('Fehler beim Speichern der Fallbeschreibung');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleGenerateStepContent = async (stepIndex: number) => {
+    if (!selectedCase) return;
+    
+    const currentStepConfig = selectedCase.step_configuration || DEFAULT_5_STEPS;
+    const step = currentStepConfig[stepIndex];
+    
+    setGenerateLoading(true);
+    setGenerateError('');
+    setGenerateSuccess('');
+    
+    try {
+      console.log('🚀 Generating content for step:', stepIndex, step.title);
+      
+      const response = await fetch('/api/foundation/generate-content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          case_id: selectedCase.id,
+          step_index: stepIndex,
+          step_title: step.title,
+          learning_forms: step.learning_forms,
+          framework: step.framework,
+          case_description: {
+            introduction: selectedCase.content?.introduction,
+            situation: selectedCase.content?.situation,
+            question: selectedCase.content?.question,
+            context: selectedCase.content?.context
+          }
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Content generation failed');
+      }
+      
+      const result = await response.json();
+      
+      // Show success message with details
+      let successMessage = '✨ Content erfolgreich generiert!';
+      const generated = result.generated_content;
+      
+      if (generated.multiple_choice_questions) {
+        successMessage += ` 🎯 ${generated.multiple_choice_questions.length} MC-Fragen`;
+      }
+      if (generated.framework_template) {
+        successMessage += ` 🔧 ${generated.framework_template.type} Template`;
+      }
+      if (generated.tips_and_hints) {
+        const totalTips = (generated.tips_and_hints.tips?.length || 0) + 
+                         (generated.tips_and_hints.hints?.length || 0) + 
+                         (generated.tips_and_hints.best_practices?.length || 0);
+        successMessage += ` 💡 ${totalTips} Tipps & Hinweise`;
+      }
+      
+      setGenerateSuccess(successMessage);
+      
+      // Refresh case data to show generated content
+      await loadFoundationCases();
+      
+      // Update selected case with new content
+      if (selectedCase) {
+        const updatedCase = {
+          ...selectedCase,
+          content: {
+            ...selectedCase.content,
+            ...generated
+          }
+        };
+        setSelectedCase(updatedCase);
+      }
+      
+    } catch (error) {
+      console.error('Error generating content:', error);
+      setGenerateError(
+        error instanceof Error 
+          ? `Fehler: ${error.message}` 
+          : 'Fehler beim Generieren des Contents'
+      );
+    } finally {
+      setGenerateLoading(false);
+    }
+  };
+
+  const handleSaveStepConfig = async () => {
+    if (!selectedCase) return;
+    
+    setSaving(true);
+    setError('');
+    setSuccess('');
+    
+    try {
+      const supabase = getSupabaseClient();
+      
+      const { error } = await supabase
+        .from('foundation_cases')
+        .update({ 
+          step_configuration: selectedCase.step_configuration 
+        })
+        .eq('id', selectedCase.id);
+
+      if (error) throw error;
+
+      setSuccess('Step-Konfiguration erfolgreich gespeichert! ✅');
+      await loadFoundationCases();
+      
+    } catch (error) {
+      console.error('Error saving step config:', error);
+      setError('Fehler beim Speichern der Step-Konfiguration');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Lade Foundation Cases...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Foundation Case Manager</h1>
+            <p className="mt-2 text-gray-600">
+              Verwalte und konfiguriere Foundation Cases mit Framework-Auswahl und Content-Generation
+            </p>
+          </div>
+
+          {/* Status Messages */}
+          {error && (
+            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              {error}
+            </div>
+          )}
+          {success && (
+            <div className="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+              {success}
+            </div>
+          )}
+          {generateSuccess && (
+            <div className="mb-4 bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded">
+              {generateSuccess}
+            </div>
+          )}
+          {generateError && (
+            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              {generateError}
+            </div>
+          )}
+          {generateLoading && (
+            <div className="mb-4 bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded flex items-center">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-yellow-600 mr-2"></div>
+              Content wird generiert... Dies kann bis zu 30 Sekunden dauern.
+            </div>
+          )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Case List */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Foundation Cases</h3>
+                <button
+                  onClick={loadFoundationCases}
+                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                  disabled={loading}
+                >
+                  🔄 Aktualisieren
+                </button>
+              </div>
+              
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="text-gray-500 mt-2">Lade Cases...</p>
+                </div>
+              ) : error ? (
+                <div className="text-center py-8">
+                  <div className="text-red-500 mb-4">❌</div>
+                  <p className="text-red-600 text-sm mb-4">{error}</p>
+                  <button
+                    onClick={loadFoundationCases}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
+                  >
+                    Erneut versuchen
+                  </button>
+                </div>
+              ) : foundationCases.length === 0 ? (
+                <div className="text-center py-8">
+                  <div className="text-gray-400 mb-2">📋</div>
+                  <p className="text-gray-500 text-sm">Keine Foundation Cases gefunden</p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {foundationCases.map((foundationCase) => (
+                    <div
+                      key={foundationCase.id}
+                      className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                        selectedCase?.id === foundationCase.id
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                      onClick={() => setSelectedCase(foundationCase)}
+                    >
+                      <div className="font-medium text-gray-900">{foundationCase.title}</div>
+                      <div className="text-sm text-gray-500">
+                        {foundationCase.cluster} • Level {foundationCase.difficulty}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Case Editor */}
+          <div className="lg:col-span-2">
+            {selectedCase ? (
+              <div className="bg-white rounded-lg shadow">
+                <div className="px-6 py-4 border-b border-gray-200">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-lg font-medium text-gray-900">
+                      {selectedCase.title}
+                    </h2>
+                    <button
+                      onClick={handleSaveStepConfig}
+                      disabled={saving}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
+                    >
+                      {saving ? 'Speichern...' : 'Konfiguration speichern'}
+                    </button>
+                  </div>
+                </div>
+                {/* Case content would go here */}
+              </div>
+            ) : (
+              <div className="bg-gray-50 rounded-lg p-8 text-center">
+                <p className="text-gray-500">Wählen Sie einen Case zum Bearbeiten aus</p>
+              </div>
+            )}
+          </div>
+                  <div className="px-6 py-4 border-b border-gray-200">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-lg font-medium text-gray-900">
+                        {selectedCase.title}
+                      </h2>
+                      <button
+                        onClick={handleSaveStepConfig}
+                        disabled={saving}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
+                      >
+                        {saving ? 'Speichern...' : 'Konfiguration speichern'}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    {/* Basic Info */}
+                    <div className="mb-8">
+                      <h3 className="text-md font-medium text-gray-900 mb-4">Case Information</h3>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="font-medium">Cluster:</span> {selectedCase.cluster}
+                        </div>
+                        <div>
+                          <span className="font-medium">Frameworks:</span> {selectedCase.frameworks?.join(', ') || 'Keine'}
+                        </div>
+                        <div>
+                          <span className="font-medium">Schwierigkeit:</span> {selectedCase.difficulty}/12
+                        </div>
+                        <div>
+                          <span className="font-medium">Interaction Type:</span> {selectedCase.interaction_type}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Case Description Editor */}
+                    <div className="mb-8">
+                      <h3 className="text-md font-medium text-gray-900 mb-4">📝 Fallbeschreibung bearbeiten</h3>
+                      <div className="space-y-4">
+                        {/* Introduction */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Einleitung
+                          </label>
+                          <textarea
+                            value={selectedCase.content?.introduction || ''}
+                            onChange={(e) => handleUpdateCaseContent('introduction', e.target.value)}
+                            rows={3}
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Framework-Einleitung und Kontext..."
+                          />
+                        </div>
+
+                        {/* Situation */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Situation
+                          </label>
+                          <textarea
+                            value={selectedCase.content?.situation || ''}
+                            onChange={(e) => handleUpdateCaseContent('situation', e.target.value)}
+                            rows={4}
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Detaillierte Situationsbeschreibung des Unternehmens..."
+                          />
+                        </div>
+
+                        {/* Question */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Zentrale Fragestellung
+                          </label>
+                          <textarea
+                            value={selectedCase.content?.question || ''}
+                            onChange={(e) => handleUpdateCaseContent('question', e.target.value)}
+                            rows={2}
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Die zentrale Frage, die gelöst werden soll..."
+                          />
+                        </div>
+
+                        {/* Context (optional) */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Zusätzlicher Kontext
+                            <span className="text-gray-500 text-xs ml-1">(optional, eine Zeile pro Punkt)</span>
+                          </label>
+                          <textarea
+                            value={selectedCase.content?.context?.join('\n') || ''}
+                            onChange={(e) => handleUpdateCaseContent('context', e.target.value.split('\n').filter(line => line.trim()))}
+                            rows={3}
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Zusätzliche Kontextinformationen...\nEine pro Zeile"
+                          />
+                        </div>
+
+                        {/* Save Description Button */}
+                        <div className="flex justify-end">
+                          <button
+                            onClick={handleSaveCaseDescription}
+                            disabled={saving}
+                            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 disabled:opacity-50 text-sm"
+                          >
+                            💾 Beschreibung speichern
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Step Configuration */}
+                    <div>
+                      <h3 className="text-md font-medium text-gray-900 mb-4">
+                        🔧 Step Configuration & Framework Selection
+                      </h3>
+                      <div className="space-y-6">
+                        {(selectedCase.step_configuration || DEFAULT_5_STEPS).map((step, index) => (
+                          <div key={index} className="border border-gray-200 rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-4">
+                              <h4 className="font-medium text-gray-900">
+                                Step {index + 1}: {step.title}
+                              </h4>
+                              <label className="flex items-center">
+                                <input
+                                  type="checkbox"
+                                  checked={!step.skip}
+                                  onChange={(e) => handleUpdateStepConfig(index, { skip: !e.target.checked })}
+                                  className="mr-2"
+                                />
+                                <span className="text-sm text-gray-600">Aktiv</span>
+                              </label>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              {/* Learning Forms */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                  Lernformen
+                                </label>
+                                <div className="space-y-2">
+                                  {LEARNING_FORMS.map((form) => (
+                                    <label key={form.id} className="flex items-center">
+                                      <input
+                                        type="checkbox"
+                                        checked={step.learning_forms.includes(form.id)}
+                                        onChange={(e) => {
+                                          const newForms = e.target.checked
+                                            ? [...step.learning_forms, form.id]
+                                            : step.learning_forms.filter(f => f !== form.id);
+                                          handleUpdateStepConfig(index, { learning_forms: newForms });
+                                        }}
+                                        className="mr-2"
+                                      />
+                                      <span className="text-sm">
+                                        {form.icon} {form.name}
+                                      </span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Input Type */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                  Eingabetyp
+                                </label>
+                                <div className="space-y-2">
+                                  {[
+                                    { value: 'text', label: '📝 Nur Text' },
+                                    { value: 'speech', label: '🎤 Nur Sprache' },
+                                    { value: 'both', label: '🔄 Text & Sprache' }
+                                  ].map((option) => (
+                                    <label key={option.value} className="flex items-center">
+                                      <input
+                                        type="radio"
+                                        name={`input_type_${index}`}
+                                        value={option.value}
+                                        checked={step.input_type === option.value}
+                                        onChange={(e) => handleUpdateStepConfig(index, { input_type: e.target.value as 'text' | 'speech' | 'both' })}
+                                        className="mr-2"
+                                      />
+                                      <span className="text-sm">{option.label}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* AI Settings */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                  KI-Integration
+                                </label>
+                                <label className="flex items-center">
+                                  <input
+                                    type="checkbox"
+                                    checked={step.ai_enabled}
+                                    onChange={(e) => handleUpdateStepConfig(index, { ai_enabled: e.target.checked })}
+                                    className="mr-2"
+                                  />
+                                  <span className="text-sm">🤖 KI aktiviert</span>
+                                </label>
+                              </div>
+                            </div>
+
+                            {/* Framework Selection & Content Generation */}
+                            {step.learning_forms.includes('framework') && (
+                              <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h5 className="text-sm font-medium text-blue-900 mb-3">🔧 Framework & Content-Generation</h5>
+                                
+                                {/* Framework Selection */}
+                                <div className="mb-4">
+                                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Framework auswählen
+                                  </label>
+                                  <select
+                                    value={step.framework || ''}
+                                    onChange={(e) => handleUpdateStepConfig(index, { framework: e.target.value })}
+                                    className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                  >
+                                    <option value="">Framework auswählen...</option>
+                                    {AVAILABLE_FRAMEWORKS.map((framework) => (
+                                      <option key={framework.id} value={framework.id}>
+                                        {framework.icon} {framework.name} - {framework.description}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+
+                                {/* Content Generation Button */}
+                                <div className="flex items-center justify-between">
+                                  <div className="text-xs text-gray-600">
+                                    Generiert Templates basierend auf Fallbeschreibung
+                                  </div>
+                                  <button
+                                    onClick={() => handleGenerateStepContent(index)}
+                                    disabled={!step.framework || generateLoading}
+                                    className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                  >
+                                    📝 Content generieren
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Multiple Choice Content Generation */}
+                            {step.learning_forms.includes('multiple_choice') && (
+                              <div className="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h5 className="text-sm font-medium text-green-900 mb-3">❓ Multiple Choice Generation</h5>
+                                
+                                <div className="flex items-center justify-between">
+                                  <div className="text-xs text-gray-600">
+                                    Generiert 4 MC-Fragen basierend auf Fallbeschreibung
+                                  </div>
+                                  <button
+                                    onClick={() => handleGenerateStepContent(index)}
+                                    disabled={generateLoading}
+                                    className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 disabled:opacity-50"
+                                  >
+                                    🎯 MC-Fragen generieren
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Tips & Hints Content Generation */}
+                            {step.learning_forms.includes('tips_hints') && (
+                              <div className="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h5 className="text-sm font-medium text-yellow-900 mb-3">💡 Tipps & Hinweise Generation</h5>
+                                
+                                <div className="flex items-center justify-between">
+                                  <div className="text-xs text-gray-600">
+                                    Generiert kontextuelle Hinweise für diesen Step
+                                  </div>
+                                  <button
+                                    onClick={() => handleGenerateStepContent(index)}
+                                    disabled={generateLoading}
+                                    className="bg-yellow-600 text-white px-3 py-1 rounded text-sm hover:bg-yellow-700 disabled:opacity-50"
+                                  >
+                                    💭 Hinweise generieren
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-white rounded-lg shadow p-8 text-center">
+                  <div className="text-gray-400 mb-4">
+                    <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Kein Case ausgewählt</h3>
+                  <p className="text-gray-600">
+                    Wähle einen Foundation Case aus der Liste links, um ihn zu bearbeiten.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

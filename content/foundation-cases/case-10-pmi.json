@@ -1,0 +1,155 @@
+{
+  "id": "case-10",
+  "title": "Post-Merger Integration: GlobalTech Fusion",
+  "category": "foundation",
+  "cluster": "Organisation & Transformation",
+  "tool": "PMI Framework",
+  "difficulty": 10,
+  "estimated_duration": 55,
+  "interaction_type": "free_form_with_hints",
+  "learning_objectives": [
+    "Post-Merger Integration systematisch planen und steuern",
+    "Synergien identifizieren und realisieren",
+    "Change Management in Integrationsprozessen",
+    "Cultural Integration und Talent Retention"
+  ],
+  "scenario": {
+    "company": "GlobalTech AG",
+    "industry": "Technology/Software",
+    "situation": "GlobalTech AG (2.500 MA, 400 Mio. € Umsatz) hat CloudSystems (800 MA, 120 Mio. € Umsatz) für 300 Mio. € akquiriert. Die Due Diligence ist abgeschlossen, der Deal wurde vor 4 Wochen geschlossen. Jetzt beginnt die kritische Phase der Integration. Geplante Synergien: 50 Mio. € jährlich ab Jahr 2. Beide Unternehmen haben unterschiedliche Kulturen und Systeme.",
+    "challenge": "Entwickeln Sie einen umfassenden PMI-Plan für die ersten 18 Monate. Fokussieren Sie sich auf Synergien-Realisierung, Cultural Integration und Risiko-Mitigation.",
+    "context": "GlobalTech ist traditioneller, prozessorientiert. CloudSystems ist agil, startup-ähnlich. Überschneidungen bei 30% der Kunden. IT-Systeme sind inkompatibel. Key Talent Retention ist kritisch für Synergien."
+  },
+  "help_system": {
+    "available": true,
+    "type": "selective_hints",
+    "total_hints": 5,
+    "user_selectable": 3,
+    "hint_categories": [
+      {
+        "id": "synergies",
+        "title": "Synergien-Realisierung",
+        "description": "Tipps zur Identifikation und Umsetzung von Merger-Synergien"
+      },
+      {
+        "id": "cultural_integration",
+        "title": "Cultural Integration",
+        "description": "Tipps zum Management kultureller Unterschiede"
+      },
+      {
+        "id": "systems_integration",
+        "title": "Systems Integration",
+        "description": "Tipps zur IT- und Prozess-Integration"
+      },
+      {
+        "id": "talent_retention",
+        "title": "Talent Retention",
+        "description": "Tipps zur Mitarbeiterbindung und Change Management"
+      },
+      {
+        "id": "governance",
+        "title": "Integration Governance",
+        "description": "Tipps zur Steuerung und Organisation der Integration"
+      }
+    ],
+    "hints": {
+      "synergies": [
+        "💰 Priorisieren Sie Quick Wins: Revenue-Synergien durch Cross-Selling sind oft schneller realisierbar als Cost-Synergien durch Konsolidierung.",
+        "📊 Tracken Sie Synergien granular: Definieren Sie konkrete KPIs und Verantwortlichkeiten für jede Synergie. 'Soft Synergies' werden oft nicht realisiert."
+      ],
+      "cultural_integration": [
+        "🤝 Schaffen Sie Mixed Teams: Kombinieren Sie GlobalTech-Prozess-Expertise mit CloudSystems-Agilität. Vermeiden Sie 'Sieger vs. Verlierer'-Mentalität.",
+        "🎯 Definieren Sie neue gemeinsame Werte: Weder reine GlobalTech- noch CloudSystems-Kultur, sondern eine neue, hybride Identität entwickeln."
+      ],
+      "systems_integration": [
+        "⚙️ API-First-Ansatz: Statt kompletter System-Migration zunächst APIs für Datenintegration. Vollständige Integration kann 2-3 Jahre dauern.",
+        "🔄 Parallel-Betrieb planen: Systeme müssen parallel laufen während der Migration. Downtime kann Kundenbeziehungen gefährden."
+      ],
+      "talent_retention": [
+        "👥 Identifizieren Sie Critical Talent: Erstellen Sie eine Liste der Top 50 Schlüsselpersonen und entwickeln Sie individuelle Retention-Pläne.",
+        "💼 Schaffen Sie neue Karrierewege: Integration bietet Wachstumschancen. Kommunizieren Sie diese proaktiv, bevor Talente abwandern."
+      ],
+      "governance": [
+        "🏗️ Etablieren Sie Integration Management Office (IMO): Zentrale Steuerung mit klaren Entscheidungskompetenzen und Eskalationswegen.",
+        "📅 100-Tage-Plan: Definieren Sie konkrete Meilensteine für die ersten 100 Tage. Diese Phase ist kritisch für den Integrationserfolg."
+      ]
+    }
+  },
+  "structured_input": {
+    "instructions": "Entwickeln Sie einen umfassenden Post-Merger Integration Plan für GlobalTech/CloudSystems. Arbeiten Sie eigenständig und wählen Sie 3 von 5 Tipp-Kategorien für Unterstützung.",
+    "hint_selection": {
+      "required": true,
+      "instruction": "Wählen Sie 3 der 5 Tipp-Kategorien aus, die für Ihre PMI-Planung am wichtigsten sind:",
+      "max_selections": 3
+    },
+    "mbb_criteria": [
+      {
+        "id": "problemstrukturierung",
+        "title": "Problemstrukturierung",
+        "prompt": "Strukturieren Sie die PMI-Herausforderungen systematisch. Welche Integrationsbereiche sind kritisch und wie priorisieren Sie diese?",
+        "guidance": "Entwickeln Sie einen strukturierten Ansatz zur Integration. Denken Sie an verschiedene Integrationsdimensionen und deren Abhängigkeiten.",
+        "max_words": 400
+      },
+      {
+        "id": "analytik",
+        "title": "Analytik",
+        "prompt": "Analysieren Sie die Synergien-Potentiale detailliert. Quantifizieren Sie Revenue- und Cost-Synergien und bewerten Sie deren Realisierungswahrscheinlichkeit.",
+        "guidance": "Seien Sie spezifisch bei Synergien-Berechnungen. Berücksichtigen Sie auch Integrations-Kosten und Risiken.",
+        "max_words": 500
+      },
+      {
+        "id": "strategie",
+        "title": "Strategie",
+        "prompt": "Entwickeln Sie eine umfassende Integrationsstrategie. Wie balancieren Sie Geschwindigkeit vs. Stabilität, und welche Integrations-Philosophie verfolgen Sie?",
+        "guidance": "Entscheiden Sie zwischen verschiedenen Integrations-Ansätzen (Absorption, Symbiose, Preservation). Berücksichtigen Sie Cultural Fit und Business-Ziele.",
+        "max_words": 450
+      },
+      {
+        "id": "empfehlung",
+        "title": "Empfehlung",
+        "prompt": "Erstellen Sie einen konkreten 18-Monats-PMI-Plan mit Meilensteinen, Verantwortlichkeiten und Erfolgskriterien.",
+        "guidance": "Strukturieren Sie den Plan in Phasen mit klaren Deliverables. Definieren Sie auch Risiko-Mitigation und Governance-Strukturen.",
+        "max_words": 500
+      },
+      {
+        "id": "kommunikation",
+        "title": "Kommunikation",
+        "prompt": "Entwickeln Sie eine Kommunikationsstrategie für alle Stakeholder. Wie managen Sie Erwartungen und schaffen Sie Buy-in für die Integration?",
+        "guidance": "Berücksichtigen Sie verschiedene Stakeholder-Gruppen mit unterschiedlichen Sorgen und Interessen. Change Communication ist kritisch.",
+        "max_words": 400
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "PMI-Bereiche systematisch strukturiert und priorisiert",
+    "Synergien realistisch quantifiziert und mit Umsetzungsplan",
+    "Cultural Integration und Change Management berücksichtigt",
+    "Governance-Strukturen und Risiko-Mitigation definiert"
+  ],
+  "tool_mastery_indicators": [
+    "Kann komplexe Integrationsprojekte strukturiert planen",
+    "Balanciert verschiedene PMI-Dimensionen (Culture, Systems, Processes)",
+    "Entwickelt realistische Synergien-Pläne mit Umsetzungs-Roadmap",
+    "Erstellt effektive Change-Management- und Kommunikationsstrategien"
+  ],
+  "common_mistakes": [
+    "Überschätzung der Synergien ohne Berücksichtigung von Integrations-Kosten",
+    "Vernachlässigung der Cultural Integration zugunsten von System-Integration",
+    "Zu aggressive Timeline ohne ausreichende Risiko-Puffer",
+    "Unzureichende Kommunikation führt zu Unsicherheit und Talent-Abwanderung"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende PMI-Struktur mit Identifikation der kritischen Integrationsbereiche",
+    "target": "Umfassender PMI-Plan mit quantifizierten Synergien und Change-Management",
+    "excellent": "Vollständige PMI-Strategie mit detaillierter Roadmap, Governance und Stakeholder-Management"
+  },
+  "reference_answer": {
+    "summary": "Strukturierter 18-Monats-PMI-Plan für GlobalTech/CloudSystems mit Fokus auf Cultural Integration, schrittweise System-Integration und aggressive Synergien-Realisierung. Hybrid-Kultur entwickeln, API-First IT-Integration, Critical Talent retention durch neue Karrierewege.",
+    "key_insights": [
+      "Cultural Integration ist oft kritischer für PMI-Erfolg als System-Integration",
+      "Quick Wins in den ersten 100 Tagen schaffen Momentum für langfristige Integration",
+      "Talent Retention erfordert proaktive individuelle Pläne für Schlüsselpersonen",
+      "Synergien-Realisierung braucht klare Governance und granulares Tracking"
+    ]
+  }
+}

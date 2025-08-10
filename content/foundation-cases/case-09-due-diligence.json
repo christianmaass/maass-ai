@@ -1,0 +1,173 @@
+{
+  "id": "case-09",
+  "title": "Due Diligence: TechAcquisition Bewertung",
+  "category": "foundation",
+  "cluster": "Strategie & Priorisierung",
+  "tool": "Due Diligence Framework",
+  "difficulty": 9,
+  "estimated_duration": 50,
+  "interaction_type": "free_form_with_hints",
+  "learning_objectives": [
+    "Due Diligence-Prozesse systematisch planen und durchführen",
+    "Kritische Bewertungsbereiche identifizieren und priorisieren",
+    "Deal-Breaker und Value-Driver erkennen",
+    "Risiko-Rendite-Profile von Akquisitionen bewerten"
+  ],
+  "scenario": {
+    "company": "InnovaCorp AG",
+    "industry": "Private Equity/M&A",
+    "situation": "InnovaCorp, ein mittelständischer Technologiekonzern (500 Mio. € Umsatz), plant die Akquisition von DataSolutions, einem KI-Startup mit 15 Mio. € Umsatz und 80 Mitarbeitern. Der Kaufpreis liegt bei 120 Mio. € (8x Umsatz). DataSolutions hat proprietäre KI-Algorithmen für Predictive Analytics und wächst 150% jährlich, ist aber noch nicht profitabel.",
+    "challenge": "Führen Sie eine umfassende Due Diligence durch und bewerten Sie die Akquisition systematisch. Identifizieren Sie kritische Risiken und Werttreiber.",
+    "context": "InnovaCorp will durch die Akquisition seine Digital-Transformation beschleunigen und neue KI-Capabilities aufbauen. Das Management von DataSolutions soll übernommen werden. Synergien von 20 Mio. € jährlich werden erwartet."
+  },
+  "tool_explanation": {
+    "name": "Due Diligence Framework",
+    "description": "Systematischer Ansatz zur umfassenden Bewertung von Akquisitionszielen mit strukturierter Analyse aller kritischen Bereiche.",
+    "key_areas": [
+      "Financial DD: Finanzielle Performance, Forecasts, Working Capital",
+      "Commercial DD: Markt, Kunden, Wettbewerb, Wachstumspotential",
+      "Operational DD: Prozesse, Systeme, Organisation, Management",
+      "Legal DD: Verträge, IP, Compliance, Haftungsrisiken",
+      "Technical DD: Technologie, IT-Systeme, Cybersecurity"
+    ],
+    "evaluation_framework": [
+      "Deal-Breaker: Kritische Risiken, die den Deal verhindern könnten",
+      "Value-Driver: Faktoren, die den Unternehmenswert steigern",
+      "Synergien: Potentiale durch Integration",
+      "Integration-Risks: Herausforderungen bei der Zusammenführung"
+    ],
+    "application": "Due Diligence hilft dabei, Akquisitionsrisiken zu minimieren und Wertschöpfungspotentiale zu maximieren."
+  },
+  "help_system": {
+    "available": true,
+    "type": "selective_hints",
+    "total_hints": 5,
+    "user_selectable": 3,
+    "hint_categories": [
+      {
+        "id": "financial",
+        "title": "Financial Due Diligence",
+        "description": "Tipps zur finanziellen Bewertung und Forecasting"
+      },
+      {
+        "id": "commercial",
+        "title": "Commercial Due Diligence",
+        "description": "Tipps zu Markt-, Kunden- und Wettbewerbsanalyse"
+      },
+      {
+        "id": "technical",
+        "title": "Technical Due Diligence",
+        "description": "Tipps zur Technologie- und IP-Bewertung"
+      },
+      {
+        "id": "integration",
+        "title": "Integration Planning",
+        "description": "Tipps zur Post-Merger-Integration und Synergien"
+      },
+      {
+        "id": "risk_assessment",
+        "title": "Risk Assessment",
+        "description": "Tipps zur Risikobewertung und Deal-Breaker-Identifikation"
+      }
+    ],
+    "hints": {
+      "financial": [
+        "💰 Analysieren Sie die Qualität der Umsätze: Sind sie recurring oder projektbasiert? Bei SaaS-Unternehmen ist ARR (Annual Recurring Revenue) kritischer als Gesamtumsatz.",
+        "📊 Prüfen Sie die Unit Economics: Customer Acquisition Cost (CAC) vs. Lifetime Value (LTV). Das LTV/CAC-Verhältnis sollte >3 sein für nachhaltige Profitabilität."
+      ],
+      "commercial": [
+        "🎯 Bewerten Sie die Marktposition: Ist DataSolutions First Mover oder Fast Follower? In schnell wachsenden KI-Märkten kann sich die Wettbewerbslandschaft schnell ändern.",
+        "👥 Analysieren Sie die Kundenkonzentration: Wie abhängig ist das Unternehmen von Top-Kunden? Bei B2B-Software sind >20% Umsatz mit einem Kunden ein Risiko."
+      ],
+      "technical": [
+        "🔬 Prüfen Sie die IP-Landschaft: Sind die KI-Algorithmen wirklich proprietär oder basieren sie auf Open-Source? Gibt es Patente oder nur Trade Secrets?",
+        "⚙️ Bewerten Sie die Technologie-Skalierbarkeit: Kann die Infrastruktur das geplante Wachstum unterstützen? Cloud-native Architekturen skalieren besser als Legacy-Systeme."
+      ],
+      "integration": [
+        "🔄 Planen Sie die Datenintegration: Wie können InnovaCorp-Daten in DataSolutions-Algorithmen integriert werden? Datenqualität ist oft der Flaschenhals bei KI-Synergien.",
+        "👨‍💼 Bewerten Sie Cultural Fit: Startup-Kultur vs. Konzernstrukturen. Wie können Sie die Innovationskraft erhalten während Sie Prozesse standardisieren?"
+      ],
+      "risk_assessment": [
+        "⚠️ Identifizieren Sie Regulatory Risks: KI-Regulierung entwickelt sich schnell (EU AI Act). Könnten neue Gesetze das Geschäftsmodell beeinträchtigen?",
+        "🔒 Prüfen Sie Cybersecurity-Risiken: KI-Unternehmen sind attraktive Ziele für IP-Diebstahl. Sind die Sicherheitsstandards ausreichend für einen Konzern?"
+      ]
+    }
+  },
+  "structured_input": {
+    "instructions": "Führen Sie eine umfassende Due Diligence für die DataSolutions-Akquisition durch. Arbeiten Sie eigenständig und nutzen Sie bei Bedarf die verfügbaren Tipps. Wählen Sie zu Beginn 3 von 5 Tipp-Kategorien aus, die für Sie am relevantesten sind.",
+    "hint_selection": {
+      "required": true,
+      "instruction": "Wählen Sie 3 der 5 Tipp-Kategorien aus, die Sie bei der Case-Bearbeitung unterstützen sollen:",
+      "max_selections": 3
+    },
+    "mbb_criteria": [
+      {
+        "id": "problemstrukturierung",
+        "title": "Problemstrukturierung",
+        "prompt": "Strukturieren Sie die Due Diligence systematisch. Welche Bereiche müssen untersucht werden und wie priorisieren Sie diese?",
+        "guidance": "Entwickeln Sie einen strukturierten Ansatz zur DD-Planung. Denken Sie an verschiedene DD-Bereiche und deren Relevanz für diesen spezifischen Deal.",
+        "max_words": 400
+      },
+      {
+        "id": "analytik",
+        "title": "Analytik",
+        "prompt": "Führen Sie eine detaillierte Analyse der kritischen DD-Bereiche durch. Bewerten Sie Risiken, Chancen und Deal-Breaker quantitativ und qualitativ.",
+        "guidance": "Nutzen Sie verfügbare Daten und Branchenkenntnisse für eine fundierte Bewertung. Seien Sie spezifisch bei Risiken und Werttreibern.",
+        "max_words": 500
+      },
+      {
+        "id": "strategie",
+        "title": "Strategie",
+        "prompt": "Entwickeln Sie eine strategische Bewertung der Akquisition. Wie passt DataSolutions zu InnovaCorp und welche Synergien sind realistisch?",
+        "guidance": "Bewerten Sie den strategischen Fit und entwickeln Sie einen Plan zur Wertschöpfung. Berücksichtigen Sie auch alternative Strategien.",
+        "max_words": 450
+      },
+      {
+        "id": "empfehlung",
+        "title": "Empfehlung",
+        "prompt": "Geben Sie eine klare Empfehlung ab: Soll InnovaCorp die Akquisition durchführen? Zu welchem Preis und unter welchen Bedingungen?",
+        "guidance": "Fassen Sie Ihre Analyse zusammen und geben Sie eine eindeutige Empfehlung mit Begründung. Definieren Sie auch Deal-Bedingungen.",
+        "max_words": 350
+      },
+      {
+        "id": "kommunikation",
+        "title": "Kommunikation",
+        "prompt": "Wie würden Sie Ihre DD-Ergebnisse dem InnovaCorp-Vorstand präsentieren? Strukturieren Sie eine überzeugende Argumentation.",
+        "guidance": "Denken Sie an die Perspektive der Entscheider. Welche Informationen sind kritisch für die Investitionsentscheidung?",
+        "max_words": 350
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "Due Diligence-Bereiche systematisch strukturiert und priorisiert",
+    "Deal-Breaker und Value-Driver klar identifiziert",
+    "Synergien realistisch bewertet und quantifiziert",
+    "Risiko-Rendite-Profil der Akquisition fundiert analysiert"
+  ],
+  "tool_mastery_indicators": [
+    "Kann Due Diligence-Prozesse eigenständig planen und strukturieren",
+    "Identifiziert kritische Risiken und Werttreiber in Akquisitionen",
+    "Bewertet strategischen Fit und Synergien realistisch",
+    "Erstellt fundierte Akquisitionsempfehlungen mit klaren Bedingungen"
+  ],
+  "common_mistakes": [
+    "Fokus nur auf finanzielle Kennzahlen ohne strategische Bewertung",
+    "Überschätzung von Synergien ohne Implementierungsplan",
+    "Vernachlässigung von Integration-Risiken und Cultural Fit",
+    "Unzureichende Bewertung von Technologie- und IP-Risiken"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende DD-Struktur mit Identifikation der wichtigsten Risiken",
+    "target": "Umfassende DD-Analyse mit quantifizierter Risiko-Chancen-Bewertung",
+    "excellent": "Vollständige DD-Empfehlung mit strategischer Bewertung, Preisanalyse und Integrations-Roadmap"
+  },
+  "reference_answer": {
+    "summary": "Strukturierte Due Diligence für DataSolutions-Akquisition: Empfehlung für Akquisition zu 90 Mio. € (7.5x Umsatz) mit klaren Integration-Bedingungen und Risiko-Mitigation. Fokus auf IP-Schutz, Talent-Retention und schrittweise Integration.",
+    "key_insights": [
+      "Bei Tech-Akquisitionen ist IP-Due-Diligence oft kritischer als Financial DD",
+      "Cultural Integration ist bei Startup-Akquisitionen der häufigste Grund für Misserfolg",
+      "KI-Unternehmen haben spezifische Risiken (Regulierung, Datenqualität, Algorithmus-Bias)",
+      "Synergien in Tech-Deals sind oft überschätzt - konservative Bewertung ist wichtig"
+    ]
+  }
+}

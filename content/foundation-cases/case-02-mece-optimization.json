@@ -1,0 +1,231 @@
+{
+  "id": "case-02",
+  "title": "MECE-Analyse: RetailMax Kostenoptimierung",
+  "category": "foundation",
+  "cluster": "Leistung & Wirtschaftlichkeit",
+  "tool": "MECE-Prinzip",
+  "difficulty": 2,
+  "estimated_duration": 15,
+  "learning_objectives": [
+    "Das MECE-Prinzip (Mutually Exclusive, Collectively Exhaustive) verstehen und anwenden",
+    "Kostenstrukturen systematisch und vollständig analysieren",
+    "Überschneidungen und Lücken in der Problemstrukturierung vermeiden",
+    "Optimierungshebel priorisieren basierend auf MECE-Analyse"
+  ],
+  "scenario": {
+    "company": "RetailMax",
+    "industry": "Einzelhandel",
+    "situation": "RetailMax, eine mittelständische Einzelhandelskette mit 45 Filialen, kämpft mit steigenden Betriebskosten. Der Geschäftsführer möchte eine systematische Kostenoptimierung durchführen, ohne die Servicequalität zu beeinträchtigen. Die Gesamtkosten sind in den letzten 2 Jahren um 18% gestiegen, während der Umsatz nur um 8% gewachsen ist.",
+    "challenge": "Entwickeln Sie eine MECE-strukturierte Analyse der Kostenbereiche und identifizieren Sie die wichtigsten Optimierungshebel.",
+    "context": "RetailMax hat bisher nur oberflächliche Kostensenkungsmaßnahmen durchgeführt. Eine systematische, vollständige Analyse aller Kostenbereiche fehlt."
+  },
+  "tool_explanation": {
+    "name": "MECE-Prinzip",
+    "description": "MECE steht für 'Mutually Exclusive, Collectively Exhaustive' - ein Strukturierungsprinzip aus der Strategieberatung.",
+    "key_principles": [
+      "Mutually Exclusive: Kategorien überschneiden sich nicht",
+      "Collectively Exhaustive: Alle relevanten Aspekte sind abgedeckt",
+      "Vollständigkeit: Keine wichtigen Bereiche werden vergessen",
+      "Klarheit: Eindeutige Zuordnung ohne Doppelzählungen"
+    ],
+    "application": "Bei Kostenanalysen hilft MECE dabei, alle Kostenbereiche systematisch zu erfassen und Optimierungspotentiale vollständig zu identifizieren."
+  },
+  "multiple_choice": {
+    "instructions": "Beantworten Sie die folgenden Fragen zum MECE-Prinzip und zur Kostenstrukturierung. Jede Frage baut Ihr Verständnis für systematische Problemanalyse auf.",
+    "questions": [
+      {
+        "id": "mc1",
+        "question": "Welche der folgenden Kostenkategorien für RetailMax ist NICHT MECE-konform strukturiert?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Personalkosten | Mietkosten | Warenkosten | Energiekosten",
+            "correct": true,
+            "explanation": "Richtig! Diese Struktur ist MECE-konform: Die Kategorien überschneiden sich nicht und decken die Hauptkostenbereiche vollständig ab."
+          },
+          {
+            "id": "b",
+            "text": "Fixkosten | Variable Kosten | Personalkosten | Sonstige Kosten",
+            "correct": false,
+            "explanation": "Diese Struktur verletzt MECE: Personalkosten können sowohl fix als auch variabel sein - es gibt Überschneidungen zwischen den Kategorien."
+          },
+          {
+            "id": "c",
+            "text": "Direkte Kosten | Indirekte Kosten | Gemeinkosten",
+            "correct": false,
+            "explanation": "Diese Struktur ist nicht MECE: Gemeinkosten sind eine Unterkategorie der indirekten Kosten - es gibt Überschneidungen."
+          },
+          {
+            "id": "d",
+            "text": "Hohe Kosten | Mittlere Kosten | Niedrige Kosten | Unbekannte Kosten",
+            "correct": false,
+            "explanation": "Diese Struktur ist nicht MECE: Die Grenzen zwischen 'hoch', 'mittel' und 'niedrig' sind subjektiv und überschneiden sich."
+          }
+        ]
+      },
+      {
+        "id": "mc2",
+        "question": "RetailMax möchte die Personalkosten MECE-strukturiert analysieren. Welche Gliederung ist am besten geeignet?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Verkaufspersonal | Verwaltung | Management | Aushilfen",
+            "correct": false,
+            "explanation": "Nicht MECE: Aushilfen können in allen anderen Kategorien vorkommen (Verkauf, Verwaltung, Management)."
+          },
+          {
+            "id": "b",
+            "text": "Vollzeit | Teilzeit | Geringfügig Beschäftigte | Auszubildende",
+            "correct": true,
+            "explanation": "Exzellent! Diese Struktur ist MECE: Jeder Mitarbeiter gehört genau einer Kategorie an, alle Beschäftigungsformen sind abgedeckt."
+          },
+          {
+            "id": "c",
+            "text": "Teure Mitarbeiter | Günstige Mitarbeiter | Neue Mitarbeiter",
+            "correct": false,
+            "explanation": "Nicht MECE: 'Teuer/günstig' und 'neu' überschneiden sich, und die Kategorien sind nicht vollständig."
+          },
+          {
+            "id": "d",
+            "text": "Motivierte | Unmotivierte | Erfahrene | Unerfahrene Mitarbeiter",
+            "correct": false,
+            "explanation": "Nicht MECE: Motivation und Erfahrung sind verschiedene Dimensionen, die sich überschneiden können."
+          }
+        ]
+      },
+      {
+        "id": "mc3",
+        "question": "Welcher Ansatz verletzt das MECE-Prinzip bei der Analyse von Optimierungshebeln?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Kostensenkung | Effizienzsteigerung | Prozessoptimierung",
+            "correct": false,
+            "explanation": "Diese Kategorien überschneiden sich stark: Effizienzsteigerung und Prozessoptimierung führen oft zu Kostensenkung."
+          },
+          {
+            "id": "b",
+            "text": "Kurzfristige Maßnahmen | Mittelfristige Maßnahmen | Langfristige Maßnahmen",
+            "correct": true,
+            "explanation": "Richtig! Diese zeitbasierte Struktur ist MECE: Jede Maßnahme hat einen klaren Zeithorizont ohne Überschneidungen."
+          },
+          {
+            "id": "c",
+            "text": "Personaloptimierung | Mietverhandlung | Energieeffizienz | IT-Optimierung",
+            "correct": true,
+            "explanation": "Richtig! Diese funktionsbasierte Struktur ist MECE: Klare Abgrenzung der Optimierungsbereiche ohne Überschneidungen."
+          },
+          {
+            "id": "d",
+            "text": "Große Einsparungen | Kleine Einsparungen | Mittlere Einsparungen",
+            "correct": false,
+            "explanation": "Diese Struktur ist nicht MECE: Die Grenzen zwischen 'groß', 'mittel' und 'klein' sind subjektiv und unscharf."
+          }
+        ]
+      },
+      {
+        "id": "mc4",
+        "question": "Warum ist das MECE-Prinzip besonders wichtig bei Kostenoptimierungsprojekten?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Es macht die Analyse komplizierter und detaillierter",
+            "correct": false,
+            "explanation": "Nein, MECE macht die Analyse strukturierter, nicht komplizierter. Komplexität ist nicht das Ziel."
+          },
+          {
+            "id": "b",
+            "text": "Es verhindert Doppelzählungen und stellt sicher, dass keine Kostenbereiche übersehen werden",
+            "correct": true,
+            "explanation": "Exzellent! MECE verhindert sowohl Überschneidungen (Doppelzählungen) als auch Lücken in der Analyse - essentiell für vollständige Kostenoptimierung."
+          },
+          {
+            "id": "c",
+            "text": "Es reduziert die Anzahl der zu analysierenden Kostenbereiche",
+            "correct": false,
+            "explanation": "MECE reduziert nicht die Anzahl der Bereiche, sondern strukturiert sie systematisch für vollständige Abdeckung."
+          },
+          {
+            "id": "d",
+            "text": "Es garantiert automatisch hohe Kosteneinsparungen",
+            "correct": false,
+            "explanation": "MECE ist ein Strukturierungsprinzip, keine Garantie für Einsparungen. Es hilft bei der systematischen Identifikation von Potentialen."
+          }
+        ]
+      }
+    ]
+  },
+  "hypothesis_steps": [
+    {
+      "id": "step1",
+      "title": "MECE-Kostenstruktur entwickeln",
+      "prompt": "Entwickeln Sie eine MECE-konforme Struktur für die Hauptkostenbereiche von RetailMax. Berücksichtigen Sie dabei, dass es sich um eine Einzelhandelskette mit 45 Filialen handelt.",
+      "guidance": "Denken Sie an die wichtigsten Kostenkategorien im Einzelhandel und stellen Sie sicher, dass sich diese nicht überschneiden und alle relevanten Bereiche abdecken.",
+      "ideal_response": "MECE-Kostenstruktur für RetailMax:\n\n1. PERSONALKOSTEN\n   - Verkaufspersonal in Filialen\n   - Verwaltung und Backoffice\n   - Filialleitung und Management\n   - Zentrale/Hauptverwaltung\n\n2. IMMOBILIENKOSTEN\n   - Mieten für Verkaufsflächen\n   - Nebenkosten (Strom, Heizung, Wasser)\n   - Instandhaltung und Renovierung\n\n3. WARENKOSTEN\n   - Wareneinkauf\n   - Logistik und Transport\n   - Lagerhaltung\n\n4. BETRIEBSKOSTEN\n   - IT-Systeme und Software\n   - Marketing und Werbung\n   - Versicherungen\n   - Sonstige Verwaltungskosten",
+      "evaluation_criteria": [
+        "Vollständigkeit: Alle wichtigen Kostenbereiche erfasst",
+        "Mutually Exclusive: Keine Überschneidungen zwischen Kategorien",
+        "Collectively Exhaustive: Keine wichtigen Bereiche vergessen",
+        "Einzelhandels-spezifisch: Branchenrelevante Kostenstruktur"
+      ]
+    },
+    {
+      "id": "step2",
+      "title": "Optimierungshebel identifizieren",
+      "prompt": "Identifizieren Sie für jeden Hauptkostenbereich konkrete Optimierungshebel. Strukturieren Sie diese nach dem MECE-Prinzip und priorisieren Sie nach Umsetzbarkeit und Einsparpotential.",
+      "guidance": "Für jeden Kostenbereich sollten Sie spezifische, umsetzbare Maßnahmen vorschlagen. Vermeiden Sie Überschneidungen zwischen den Hebeln.",
+      "ideal_response": "MECE-strukturierte Optimierungshebel:\n\n1. PERSONALKOSTEN-OPTIMIERUNG\n   - Schichtplanung optimieren (bessere Auslastung)\n   - Teilzeit-/Aushilfenanteil erhöhen in Schwachlastzeiten\n   - Weiterbildung für höhere Produktivität\n   - Automatisierung von Routinetätigkeiten\n\n2. IMMOBILIENKOSTEN-OPTIMIERUNG\n   - Mietverhandlungen bei Vertragsverlängerungen\n   - Energieeffizienz-Maßnahmen (LED, Heizungsoptimierung)\n   - Flächenoptimierung (Verkaufsfläche vs. Lager)\n   - Standortkonsolidierung bei unprofitablen Filialen\n\n3. WARENKOSTEN-OPTIMIERUNG\n   - Einkaufskonditionen verbessern (Mengenrabatte)\n   - Bestandsmanagement optimieren (weniger Lagerhaltung)\n   - Logistikrouten effizienter gestalten\n   - Lieferantenanzahl reduzieren (bessere Konditionen)\n\n4. BETRIEBSKOSTEN-OPTIMIERUNG\n   - IT-Systeme konsolidieren\n   - Marketing-ROI verbessern\n   - Versicherungen neu ausschreiben\n   - Prozesse digitalisieren",
+      "evaluation_criteria": [
+        "MECE-Konformität: Hebel überschneiden sich nicht",
+        "Konkretheit: Spezifische, umsetzbare Maßnahmen",
+        "Priorisierung: Berücksichtigung von Aufwand und Nutzen",
+        "Vollständigkeit: Alle Kostenbereiche abgedeckt"
+      ]
+    },
+    {
+      "id": "step3",
+      "title": "Umsetzungsroadmap entwickeln",
+      "prompt": "Entwickeln Sie eine MECE-strukturierte Umsetzungsroadmap für die identifizierten Optimierungshebel. Berücksichtigen Sie dabei Abhängigkeiten, Ressourcen und Zeithorizonte.",
+      "guidance": "Strukturieren Sie die Maßnahmen so, dass keine Überschneidungen entstehen und alle wichtigen Aspekte der Umsetzung berücksichtigt sind.",
+      "ideal_response": "MECE-Umsetzungsroadmap:\n\n1. SOFORTMASSNAHMEN (0-3 Monate)\n   - Energieeffizienz: LED-Umrüstung starten\n   - Personal: Schichtplanung optimieren\n   - Einkauf: Lieferantenverhandlungen beginnen\n   - Verwaltung: Versicherungen neu ausschreiben\n\n2. KURZE FRIST (3-6 Monate)\n   - Immobilien: Mietverhandlungen für auslaufende Verträge\n   - IT: Systemkonsolidierung planen und umsetzen\n   - Logistik: Routenoptimierung implementieren\n   - Personal: Automatisierungsprojekte starten\n\n3. MITTLERE FRIST (6-12 Monate)\n   - Standorte: Unprofitable Filialen evaluieren\n   - Prozesse: Digitalisierungsprojekte umsetzen\n   - Personal: Weiterbildungsprogramme etablieren\n   - Warenwirtschaft: Bestandsmanagement optimieren\n\n4. LANGE FRIST (12+ Monate)\n   - Standortstrategie: Konsolidierung umsetzen\n   - Organisationsstruktur: Zentrale Funktionen optimieren\n   - Technologie: Vollständige Digitalisierung\n   - Lieferanten: Strategische Partnerschaften aufbauen",
+      "evaluation_criteria": [
+        "Zeitliche MECE-Struktur: Klare Abgrenzung der Phasen",
+        "Machbarkeit: Realistische Zeithorizonte",
+        "Abhängigkeiten: Berücksichtigung von Voraussetzungen",
+        "Vollständigkeit: Alle Hebel in Roadmap integriert"
+      ]
+    }
+  ],
+  "concept_checkpoints": [
+    "MECE-Prinzip verstanden und korrekt angewendet",
+    "Kostenstruktur vollständig und ohne Überschneidungen erfasst",
+    "Optimierungshebel systematisch identifiziert",
+    "Umsetzungsroadmap strukturiert und realistisch entwickelt"
+  ],
+  "tool_mastery_indicators": [
+    "Kann MECE-konforme Strukturen selbständig entwickeln",
+    "Erkennt Überschneidungen und Lücken in Problemstrukturen",
+    "Wendet MECE-Prinzip auf verschiedene Geschäftsbereiche an",
+    "Strukturiert komplexe Probleme systematisch und vollständig"
+  ],
+  "common_mistakes": [
+    "Überschneidende Kategorien verwenden (z.B. 'Fixkosten' und 'Personalkosten')",
+    "Unvollständige Strukturen entwickeln (wichtige Bereiche vergessen)",
+    "Zu detaillierte Untergliederung ohne klare Abgrenzung",
+    "MECE-Prinzip nur oberflächlich anwenden ohne Validierung"
+  ],
+  "success_criteria": {
+    "minimum": "MECE-Prinzip verstanden, grundlegende Kostenstruktur entwickelt",
+    "target": "Vollständige MECE-Analyse mit konkreten Optimierungshebeln",
+    "excellent": "Systematische MECE-Anwendung mit durchdachter Umsetzungsroadmap"
+  },
+  "reference_answer": {
+    "summary": "Vollständige MECE-Analyse der RetailMax-Kostenstruktur mit systematischer Identifikation von Optimierungshebeln und strukturierter Umsetzungsroadmap.",
+    "key_insights": [
+      "MECE-Prinzip ermöglicht vollständige und überschneidungsfreie Kostenanalyse",
+      "Systematische Strukturierung verhindert das Übersehen wichtiger Optimierungspotentiale",
+      "Zeitbasierte Roadmap-Struktur ist MECE-konform und umsetzungsorientiert",
+      "Einzelhandels-spezifische Kostenstruktur berücksichtigt Branchenbesonderheiten"
+    ]
+  }
+}

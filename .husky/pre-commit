@@ -1,0 +1,19 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged
+
+# Secret scan with Gitleaks (optional locally, mandatory in CI)
+if command -v gitleaks >/dev/null 2>&1; then
+  echo "\n🔐 Running Gitleaks pre-commit scan on staged changes..."
+  gitleaks protect --staged --redact --config=.gitleaks.toml
+  STATUS=$?
+  if [ $STATUS -ne 0 ]; then
+    echo "\n❌ Gitleaks detected potential secrets. Commit aborted."
+    echo "👉 Review findings, remove secrets, rotate keys if needed, then commit again."
+    exit 1
+  fi
+else
+  echo "\n⚠️  Gitleaks not installed locally. Skipping local secret scan (CI will run it)."
+  echo "   Install with: brew install gitleaks"
+fi

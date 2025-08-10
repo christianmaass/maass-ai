@@ -1,0 +1,119 @@
+{
+  "id": "case-06",
+  "title": "Customer Journey Optimierung: FinanceApp Conversion",
+  "category": "foundation",
+  "cluster": "Wachstum & Markt",
+  "tool": "Customer Journey Mapping",
+  "difficulty": 6,
+  "estimated_duration": 35,
+  "interaction_type": "structured_mbb",
+  "learning_objectives": [
+    "Customer Journey systematisch analysieren und optimieren",
+    "Touchpoints und Pain Points identifizieren",
+    "Conversion-Funnel verstehen und verbessern",
+    "Datengetriebene CX-Optimierung entwickeln"
+  ],
+  "scenario": {
+    "company": "FinanceApp GmbH",
+    "industry": "FinTech/Personal Finance",
+    "situation": "FinanceApp, eine deutsche Personal Finance App mit 500.000 Downloads, hat ein Conversion-Problem. Nur 8% der App-Downloads werden zu zahlenden Kunden (Benchmark: 15%). Das Unternehmen verliert monatlich 200.000 € potentiellen Umsatz durch schlechte Conversion. Die Customer Journey von Download bis Zahlung dauert durchschnittlich 14 Tage.",
+    "challenge": "Analysieren Sie die Customer Journey systematisch und entwickeln Sie konkrete Optimierungsmaßnahmen zur Verdopplung der Conversion Rate.",
+    "context": "FinanceApp bietet Premium-Features für 9,99€/Monat. Die App hat gute Bewertungen (4.2/5), aber viele Nutzer brechen nach dem Onboarding ab. Hauptkonkurrenten haben 12-18% Conversion Rates."
+  },
+  "tool_explanation": {
+    "name": "Customer Journey Mapping",
+    "description": "Systematische Methode zur Visualisierung und Analyse aller Berührungspunkte eines Kunden mit einem Unternehmen.",
+    "key_components": [
+      "Touchpoints: Alle Interaktionspunkte zwischen Kunde und Unternehmen",
+      "Pain Points: Probleme und Frustrationen in der Customer Journey",
+      "Moments of Truth: Kritische Entscheidungsmomente",
+      "Emotional Journey: Gefühlsverlauf des Kunden"
+    ],
+    "analysis_dimensions": [
+      "Awareness: Wie werden Kunden aufmerksam?",
+      "Consideration: Wie evaluieren sie die Lösung?",
+      "Purchase: Was führt zur Kaufentscheidung?",
+      "Onboarding: Wie ist der erste Eindruck?",
+      "Usage: Wie ist die Nutzungserfahrung?",
+      "Retention: Was hält Kunden langfristig?"
+    ],
+    "application": "Customer Journey Mapping hilft dabei, die Kundenperspektive zu verstehen und systematisch Verbesserungspotentiale zu identifizieren."
+  },
+  "structured_input": {
+    "instructions": "Analysieren Sie die Customer Journey von FinanceApp systematisch anhand der MBB-Kriterien. Nutzen Sie Customer Journey Mapping für eine strukturierte Optimierung.",
+    "mbb_criteria": [
+      {
+        "id": "problemstrukturierung",
+        "title": "Problemstrukturierung",
+        "prompt": "Strukturieren Sie das Conversion-Problem systematisch. Zerlegen Sie die Customer Journey in Phasen und identifizieren Sie die kritischen Entscheidungspunkte.",
+        "guidance": "Denken Sie an den kompletten Funnel von Awareness bis Retention. Wo genau verliert FinanceApp Kunden?",
+        "ideal_response": "CUSTOMER JOURNEY PROBLEMSTRUKTURIERUNG:\n\n1. CONVERSION-FUNNEL ANALYSE\nGesamtproblem: 8% Conversion vs. 15% Benchmark (-7 Prozentpunkte)\nPotential: 200.000€/Monat zusätzlicher Umsatz\n\n2. JOURNEY-PHASEN BREAKDOWN\nPhase 1: AWARENESS → DOWNLOAD\n- App Store Visibility\n- Marketing Touchpoints\n- Erste Wahrnehmung\n\nPhase 2: DOWNLOAD → REGISTRATION\n- App Store Download\n- Erste App-Öffnung\n- Registrierungsprozess\n\nPhase 3: REGISTRATION → ONBOARDING\n- Account-Setup\n- Datenverknüpfung (Bankkonten)\n- Feature-Erklärung\n\nPhase 4: ONBOARDING → TRIAL USAGE\n- Erste Nutzung der App\n- Feature-Discovery\n- Value Realization\n\nPhase 5: TRIAL → PREMIUM CONVERSION\n- Paywall-Encounter\n- Premium-Features-Test\n- Kaufentscheidung\n\nPhase 6: PREMIUM → RETENTION\n- Continued Usage\n- Feature-Adoption\n- Renewal-Decision\n\n3. KRITISCHE ENTSCHEIDUNGSPUNKTE\nMoment of Truth 1: Erste App-Öffnung (Wow-Moment?)\nMoment of Truth 2: Bank-Verknüpfung (Vertrauen?)\nMoment of Truth 3: Erste Insights (Value Delivery?)\nMoment of Truth 4: Paywall-Begegnung (Timing & Messaging?)\nMoment of Truth 5: Premium-Trial (Feature-Wert?)\n\n4. HYPOTHETISCHE PROBLEM-BEREICHE\n- Onboarding zu komplex/lang\n- Value Proposition unklar\n- Paywall-Timing suboptimal\n- Premium-Features nicht überzeugend\n- Trust-Barrieren bei Finanz-Daten",
+        "max_words": 300
+      },
+      {
+        "id": "analytik",
+        "title": "Analytik",
+        "prompt": "Analysieren Sie die Conversion-Daten entlang der Customer Journey. Identifizieren Sie die größten Drop-off-Punkte und quantifizieren Sie das Optimierungspotential.",
+        "guidance": "Nutzen Sie Funnel-Analyse und Cohort-Daten. Wo sind die größten Verluste und welche Hebel haben das höchste Impact-Potential?",
+        "ideal_response": "CUSTOMER JOURNEY DATENANALYSE:\n\n1. FUNNEL-ANALYSE (Monatliche Kohorte)\nApp Store Views: 1.000.000\n→ Downloads: 100.000 (10% Conversion)\n→ Registrierung: 70.000 (70% von Downloads)\n→ Onboarding abgeschlossen: 35.000 (50% von Registrierung)\n→ Erste Nutzung (7 Tage): 21.000 (60% von Onboarding)\n→ Premium Trial gestartet: 12.000 (57% von aktiven Nutzern)\n→ Premium Conversion: 8.000 (67% von Trial, 8% Gesamt)\n\n2. DROP-OFF HOTSPOTS\nGrößte Verluste:\n1. Onboarding: 50% Drop-off (35.000 Verlust)\n2. Erste Nutzungswoche: 40% Drop-off (14.000 Verlust)\n3. Download → Registrierung: 30% Drop-off (30.000 Verlust)\n\n3. BENCHMARK-VERGLEICH\nFinanceApp vs. Best Practice:\n- Download → Registrierung: 70% vs. 80% (-10pp)\n- Onboarding Completion: 50% vs. 70% (-20pp)\n- Trial → Premium: 67% vs. 75% (-8pp)\n- Gesamt-Conversion: 8% vs. 15% (-7pp)\n\n4. IMPACT-POTENTIAL-ANALYSE\nOptimierung Onboarding (+20pp):\n- Zusätzliche Premium-Kunden: +14.000/Monat\n- Zusätzlicher Umsatz: +140.000€/Monat\n\nOptimierung Erste Nutzung (+15pp):\n- Zusätzliche Premium-Kunden: +7.500/Monat\n- Zusätzlicher Umsatz: +75.000€/Monat\n\nOptimierung Registrierung (+10pp):\n- Zusätzliche Premium-Kunden: +5.600/Monat\n- Zusätzlicher Umsatz: +56.000€/Monat\n\n5. CUSTOMER LIFETIME VALUE\nDurchschnittliche Retention: 18 Monate\nMonatlicher ARPU: 9,99€\nCustomer LTV: 180€\nCustomer Acquisition Cost: 25€\nLTV/CAC Ratio: 7.2 (sehr gesund)\n\n6. ZEITANALYSE\nDurchschnittliche Journey-Dauer: 14 Tage\n- Download → Registrierung: 1 Tag\n- Registrierung → Onboarding: 2 Tage\n- Onboarding → Erste Nutzung: 3 Tage\n- Erste Nutzung → Trial: 5 Tage\n- Trial → Premium: 3 Tage\n\nOptimierungspotential: Verkürzung auf 7-10 Tage",
+        "max_words": 350
+      },
+      {
+        "id": "strategie",
+        "title": "Strategie",
+        "prompt": "Entwickeln Sie eine umfassende Customer Journey Optimierungsstrategie. Priorisieren Sie Maßnahmen nach Impact und Umsetzbarkeit.",
+        "guidance": "Fokussieren Sie sich auf die identifizierten Drop-off-Punkte. Welche Maßnahmen haben das beste Kosten-Nutzen-Verhältnis?",
+        "ideal_response": "CUSTOMER JOURNEY OPTIMIERUNGSSTRATEGIE:\n\n1. PRIORISIERUNG NACH IMPACT\nTier 1 (Sofort, hoher Impact):\n- Onboarding-Optimierung\n- Erste Nutzungserfahrung\n- Paywall-Timing\n\nTier 2 (Mittelfristig, mittlerer Impact):\n- Registrierungsprozess\n- Premium-Feature-Kommunikation\n- Retention-Mechanismen\n\nTier 3 (Langfristig, strategisch):\n- Personalisierung\n- Community-Features\n- Advanced Analytics\n\n2. ONBOARDING-OPTIMIERUNG (Priorität 1)\nProblem: 50% Drop-off, zu komplex\nLösung: Progressive Onboarding\n- Schritt 1: Nur E-Mail + Passwort (keine Bankdaten)\n- Schritt 2: Demo-Modus mit Beispieldaten\n- Schritt 3: Erste Insights ohne Bankverknüpfung\n- Schritt 4: Bankverknüpfung nach Value-Demonstration\n\nErwarteter Impact: +20pp Completion Rate\nUmsetzungszeit: 4 Wochen\nKosten: 50.000€ Entwicklung\n\n3. ERSTE NUTZUNGSERFAHRUNG (Priorität 2)\nProblem: 40% Drop-off nach Onboarding\nLösung: Guided First Experience\n- Interaktive Tutorial-Tour\n- Gamification-Elemente (Progress Bar)\n- Quick Wins (sofortige Insights)\n- Push-Notifications für Re-Engagement\n\nErwarteter Impact: +15pp Retention\nUmsetzungszeit: 6 Wochen\nKosten: 75.000€\n\n4. PAYWALL-OPTIMIERUNG (Priorität 3)\nProblem: Suboptimales Timing und Messaging\nLösung: Smart Paywall\n- Behavioral Triggers (nicht zeitbasiert)\n- Personalisierte Premium-Vorschläge\n- Social Proof und Testimonials\n- Freemium-Limits intelligenter setzen\n\nErwarteter Impact: +8pp Trial→Premium\nUmsetzungszeit: 3 Wochen\nKosten: 30.000€\n\n5. REGISTRIERUNGSOPTIMIERUNG (Priorität 4)\nProblem: 30% Drop-off bei Registrierung\nLösung: Frictionless Signup\n- Social Login (Google, Apple)\n- Gastmodus für erste Exploration\n- Progressive Profiling\n- Trust-Signale (Sicherheit, Datenschutz)\n\nErwarteter Impact: +10pp Registrierung\nUmsetzungszeit: 2 Wochen\nKosten: 20.000€\n\n6. RETENTION-OPTIMIERUNG (Priorität 5)\nProblem: Langfristige Kundenbindung\nLösung: Engagement-Ecosystem\n- Weekly Financial Health Reports\n- Goal-Setting und Achievement\n- Community-Features\n- Personalisierte Insights\n\nErwarteter Impact: +3 Monate LTV\nUmsetzungszeit: 12 Wochen\nKosten: 150.000€\n\nGESAMT-IMPACT PROGNOSE:\n- Conversion Rate: 8% → 16% (+100%)\n- Zusätzlicher Umsatz: +200.000€/Monat\n- ROI: 650% in 12 Monaten\n- Payback Period: 1,8 Monate",
+        "max_words": 400
+      },
+      {
+        "id": "empfehlung",
+        "title": "Empfehlung",
+        "prompt": "Geben Sie eine konkrete Empfehlung für die nächsten 6 Monate. Welche Maßnahmen sollen in welcher Reihenfolge umgesetzt werden?",
+        "guidance": "Priorisieren Sie nach Quick Wins und nachhaltiger Wirkung. Berücksichtigen Sie Ressourcen und Abhängigkeiten.",
+        "ideal_response": "EMPFEHLUNG: 6-MONATS-OPTIMIERUNGSPLAN\n\n1. SOFORTIGE UMSETZUNG (Monat 1-2)\nPaywall-Optimierung (Quick Win):\n- Behavioral Triggers implementieren\n- A/B-Test verschiedener Messaging-Varianten\n- Social Proof hinzufügen\nInvestment: 30.000€\nErwarteter Impact: +25.000€/Monat ab Monat 2\n\nRegistrierungs-Verbesserung:\n- Social Login integrieren\n- Gastmodus entwickeln\nInvestment: 20.000€\nErwarteter Impact: +15.000€/Monat ab Monat 3\n\n2. MITTELFRISTIGE OPTIMIERUNG (Monat 2-4)\nOnboarding-Redesign (Größter Impact):\n- Progressive Onboarding-Flow\n- Demo-Modus mit Beispieldaten\n- Schrittweise Bankverknüpfung\nInvestment: 50.000€\nErwarteter Impact: +140.000€/Monat ab Monat 5\n\n3. LANGFRISTIGE VERBESSERUNG (Monat 4-6)\nFirst Experience Optimization:\n- Guided Tutorial entwickeln\n- Gamification-Elemente\n- Smart Notifications\nInvestment: 75.000€\nErwarteter Impact: +75.000€/Monat ab Monat 7\n\nGESAMT-ROADMAP:\n\nMONAT 1:\n- Paywall A/B-Tests starten\n- Social Login implementieren\n- Baseline-Metriken definieren\n\nMONAT 2:\n- Paywall-Optimierungen live\n- Onboarding-Redesign beginnen\n- Erste Ergebnisse messen\n\nMONAT 3:\n- Registrierungs-Verbesserungen live\n- Onboarding-Prototyp testen\n- User Research für First Experience\n\nMONAT 4:\n- Neues Onboarding live (Beta)\n- First Experience Entwicklung\n- Conversion-Tracking optimieren\n\nMONAT 5:\n- Onboarding vollständig ausgerollt\n- First Experience Beta-Test\n- Performance-Monitoring\n\nMONAT 6:\n- Alle Optimierungen live\n- Ergebnisse evaluieren\n- Nächste Optimierungsrunde planen\n\nERWARTETE ERGEBNISSE:\n- Monat 6: Conversion Rate 14-16%\n- Zusätzlicher Umsatz: +255.000€/Monat\n- Gesamt-Investment: 175.000€\n- ROI: 350% in 6 Monaten\n\nERFOLGSMESUNG:\n- Wöchentliche Conversion-Reports\n- A/B-Test-Ergebnisse\n- User Feedback und NPS\n- Cohort-Analyse\n\nRISIKO-MITIGATION:\n- Schrittweise Ausrollung (nicht Big Bang)\n- A/B-Tests für alle Änderungen\n- Rollback-Pläne vorbereitet\n- User Research begleitend",
+        "max_words": 350
+      },
+      {
+        "id": "kommunikation",
+        "title": "Kommunikation",
+        "prompt": "Wie würden Sie diese Customer Journey Optimierung dem Product Team und der Geschäftsführung präsentieren?",
+        "guidance": "Denken Sie an verschiedene Stakeholder-Perspektiven. Product Team braucht Details, GF braucht Business Case.",
+        "ideal_response": "STAKEHOLDER-KOMMUNIKATION:\n\n1. EXECUTIVE SUMMARY (Geschäftsführung)\n\"Unsere Conversion Rate liegt 50% unter Benchmark. Mit systematischer Customer Journey Optimierung können wir 200.000€ zusätzlichen monatlichen Umsatz generieren bei 175.000€ Investment - ROI 350% in 6 Monaten.\"\n\nKernbotschaften:\n- Problem: Verlieren 200.000€/Monat durch schlechte Conversion\n- Lösung: Systematische Journey-Optimierung in 4 Phasen\n- Ergebnis: Verdopplung der Conversion Rate auf 16%\n- Investment: 175.000€ über 6 Monate\n- Return: 255.000€ zusätzlicher monatlicher Umsatz\n\n2. PRODUCT TEAM BRIEFING\n\"Datengetriebene Optimierung mit klaren Prioritäten:\"\n\nPriorität 1: Paywall-Optimierung (Quick Win)\n- Behavioral Triggers statt Zeit-basiert\n- A/B-Test Framework aufbauen\n- Social Proof integrieren\n- Timeline: 2 Wochen\n\nPriorität 2: Onboarding-Redesign (Größter Impact)\n- Progressive Disclosure Prinzip\n- Demo-Modus für Trust-Building\n- Micro-Interactions für Engagement\n- Timeline: 6 Wochen\n\nPriorität 3: First Experience (Nachhaltigkeit)\n- Guided Onboarding mit Tooltips\n- Gamification für Engagement\n- Smart Push-Notifications\n- Timeline: 8 Wochen\n\nTechnische Anforderungen:\n- A/B-Testing-Framework\n- Enhanced Analytics\n- User Behavior Tracking\n- Performance Monitoring\n\n3. MARKETING TEAM ALIGNMENT\n\"Journey-Optimierung unterstützt Marketing-Ziele:\"\n- Bessere Conversion = niedrigere CAC\n- Improved Onboarding = bessere Reviews\n- Higher Retention = höhere LTV\n- Mehr Referrals durch bessere Experience\n\n4. CHANGE MANAGEMENT\nTeam-Kommunikation:\n- Wöchentliche Progress Updates\n- Monatliche Results Reviews\n- Quartalsweise Strategy Adjustments\n- Erfolge feiern und learnings teilen\n\nUser-Kommunikation:\n- Beta-Programm für Power User\n- Feedback-Kanäle etablieren\n- Transparenz über Verbesserungen\n- Community-Involvement\n\n5. PRÄSENTATIONSSTRUKTUR\nSlide 1: Problem Statement (Conversion Gap)\nSlide 2: Current State Analysis (Funnel Data)\nSlide 3: Opportunity Sizing (200k€/Monat)\nSlide 4: Solution Overview (4-Phase Approach)\nSlide 5: Implementation Roadmap (6 Monate)\nSlide 6: Expected Results (ROI 350%)\nSlide 7: Resource Requirements (175k€, Team)\nSlide 8: Success Metrics (KPIs)\nSlide 9: Risk Mitigation (A/B-Tests, Rollback)\nSlide 10: Next Steps (Approval & Kickoff)\n\n6. ENTSCHEIDUNGSVORLAGE\n\"Wir bitten um Freigabe für:\"\n- Budget: 175.000€ über 6 Monate\n- Ressourcen: 2 Entwickler, 1 Designer, 1 PM\n- Timeline: Start sofort, erste Ergebnisse Monat 2\n- Success Criteria: 14% Conversion Rate nach 6 Monaten",
+        "max_words": 350
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "Customer Journey systematisch in Phasen zerlegt",
+    "Drop-off-Punkte quantitativ identifiziert",
+    "Optimierungsmaßnahmen nach Impact priorisiert",
+    "Umsetzungsplan mit ROI-Berechnung entwickelt"
+  ],
+  "tool_mastery_indicators": [
+    "Kann Customer Journeys datengetrieben analysieren",
+    "Identifiziert kritische Touchpoints und Pain Points",
+    "Entwickelt priorisierte Optimierungsstrategien",
+    "Erstellt umsetzbare CX-Verbesserungspläne"
+  ],
+  "common_mistakes": [
+    "Fokus auf Symptome statt Root Causes",
+    "Zu viele Optimierungen parallel ohne Priorisierung",
+    "Vernachlässigung der Datengrundlage",
+    "Unterschätzung der Umsetzungskomplexität"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende Journey-Analyse mit Problemidentifikation",
+    "target": "Datengetriebene Optimierungsstrategie mit konkreten Maßnahmen",
+    "excellent": "Vollständiger Optimierungsplan mit ROI-Kalkulation und Umsetzungsroadmap"
+  },
+  "reference_answer": {
+    "summary": "Systematische Customer Journey Optimierung für FinanceApp mit Fokus auf Onboarding, First Experience und Paywall-Timing. Verdopplung der Conversion Rate von 8% auf 16% durch 4-Phasen-Ansatz mit 350% ROI.",
+    "key_insights": [
+      "Onboarding ist oft der kritischste Drop-off-Punkt in FinTech-Apps",
+      "Progressive Disclosure reduziert Friction bei sensiblen Finanzdaten",
+      "Behavioral Triggers sind effektiver als zeitbasierte Paywalls",
+      "Quick Wins schaffen Momentum für größere Optimierungsprojekte"
+    ]
+  }
+}

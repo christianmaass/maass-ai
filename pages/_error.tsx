@@ -1,5 +1,8 @@
 import React from 'react';
 import { NextPageContext } from 'next';
+import Link from 'next/link';
+import UnifiedHeader from '../components/layout/UnifiedHeader';
+import Footer from '../components/layout/Footer';
 
 interface ErrorProps {
   statusCode?: number;
@@ -7,17 +10,55 @@ interface ErrorProps {
 
 function Error({ statusCode }: ErrorProps) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
-      <h1 className="text-6xl font-bold text-gray-800 mb-4">{statusCode || 'Error'}</h1>
-      <p className="text-lg text-gray-600 mb-8">
-        {statusCode
-          ? `Ein Fehler ${statusCode} ist aufgetreten.`
-          : 'Ein Fehler ist aufgetreten.'}
-      </p>
-      <a href="/" className="px-6 py-3 bg-gray-800 text-white rounded-lg font-bold hover:bg-gray-900 transition-colors">
-        Zurück zur Startseite
-      </a>
-    </div>
+    <>
+      <UnifiedHeader variant="marketing" />
+      <div className="navaa-page navaa-bg-primary min-h-screen flex flex-col">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-16">
+          <div className="text-center max-w-md">
+            {/* Error Icon */}
+            <div className="mb-8">
+              <div className="text-8xl font-bold text-gray-300 mb-4">{statusCode || 'Error'}</div>
+              <div className="w-24 h-1 bg-[#00bfae] mx-auto rounded-full"></div>
+            </div>
+
+            {/* Error Message */}
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              {statusCode === 404 ? 'Seite nicht gefunden' : 'Ein Fehler ist aufgetreten'}
+            </h1>
+            <p className="text-lg text-gray-600 mb-8">
+              {statusCode
+                ? `Ein Fehler ${statusCode} ist aufgetreten. Bitte versuchen Sie es später erneut.`
+                : 'Ein unerwarteter Fehler ist aufgetreten.'}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="space-y-4">
+              <Link
+                href="/"
+                className="inline-block w-full px-6 py-3 bg-[#00bfae] text-white rounded-lg font-semibold hover:bg-[#009688] transition-colors"
+              >
+                Zur Startseite
+              </Link>
+              <Link
+                href="/dashboard"
+                className="inline-block w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+              >
+                Zum Dashboard
+              </Link>
+            </div>
+
+            {/* Help Text */}
+            <p className="text-sm text-gray-500 mt-8">
+              Benötigen Sie Hilfe? Kontaktieren Sie unser{' '}
+              <Link href="/impressum" className="text-[#00bfae] hover:underline">
+                Support-Team
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 

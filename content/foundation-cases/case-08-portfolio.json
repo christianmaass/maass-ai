@@ -1,0 +1,117 @@
+{
+  "id": "case-08",
+  "title": "Portfolio-Optimierung: MediaGroup Restrukturierung",
+  "category": "foundation",
+  "cluster": "Strategie & Priorisierung",
+  "tool": "Portfolio Analysis Framework",
+  "difficulty": 8,
+  "estimated_duration": 45,
+  "interaction_type": "structured_mbb",
+  "learning_objectives": [
+    "Portfolio-Analyse systematisch durchführen und bewerten",
+    "BCG-Matrix und andere Portfolio-Tools anwenden",
+    "Ressourcenallokation zwischen Geschäftsbereichen optimieren",
+    "Portfolio-Restrukturierungsstrategien entwickeln"
+  ],
+  "scenario": {
+    "company": "MediaGroup Deutschland AG",
+    "industry": "Medien/Publishing",
+    "situation": "MediaGroup, ein diversifizierter Medienkonzern mit 2.500 Mitarbeitern und 450 Mio. € Umsatz, kämpft mit unterschiedlicher Performance seiner 5 Geschäftsbereiche. Der Vorstand fordert eine strategische Portfolio-Optimierung. Print-Medien schrumpfen (-15% p.a.), während Digital-Bereiche wachsen (+25% p.a.). Der Gesamtkonzern stagniert bei 2% Wachstum.",
+    "challenge": "Analysieren Sie das Portfolio systematisch und entwickeln Sie eine Restrukturierungsstrategie zur Optimierung von Wachstum und Profitabilität.",
+    "context": "Die 5 Bereiche: Print-Zeitungen (180 Mio. €), Digital-Media (120 Mio. €), TV-Produktion (80 Mio. €), Event-Marketing (50 Mio. €), Podcast-Plattform (20 Mio. €). Unterschiedliche Margen und Wachstumsraten. 150 Mio. € verfügbar für Investitionen."
+  },
+  "tool_explanation": {
+    "name": "Portfolio Analysis Framework",
+    "description": "Systematischer Ansatz zur Bewertung und Optimierung von Geschäftsportfolios mit verschiedenen Analyse-Tools und Strategieoptionen.",
+    "key_tools": [
+      "BCG-Matrix: Marktanteil vs. Marktwachstum (Stars, Cash Cows, Question Marks, Dogs)",
+      "GE-McKinsey-Matrix: Marktattraktivität vs. Wettbewerbsposition",
+      "Parenting-Advantage: Synergien und Mehrwert durch Konzernzugehörigkeit",
+      "Portfolio-Balance: Risiko-Rendite-Diversifikation"
+    ],
+    "strategic_options": [
+      "Build: Investition und Ausbau",
+      "Hold: Status quo beibehalten",
+      "Harvest: Cash-Generierung maximieren",
+      "Divest: Verkauf oder Schließung"
+    ],
+    "application": "Portfolio-Analyse hilft dabei, Ressourcen optimal zu allokieren und strategische Entscheidungen über Geschäftsbereiche zu treffen."
+  },
+  "structured_input": {
+    "instructions": "Analysieren Sie das MediaGroup-Portfolio systematisch anhand der MBB-Kriterien. Nutzen Sie Portfolio-Analyse-Tools für eine strukturierte Bewertung und Optimierung.",
+    "mbb_criteria": [
+      {
+        "id": "problemstrukturierung",
+        "title": "Problemstrukturierung",
+        "prompt": "Strukturieren Sie die Portfolio-Optimierungsaufgabe systematisch. Definieren Sie Bewertungskriterien und entwickeln Sie einen Analyserahmen für die 5 Geschäftsbereiche.",
+        "guidance": "Denken Sie an verschiedene Portfolio-Dimensionen: Wachstum, Profitabilität, Marktposition, Synergien. Wie können Sie die Bereiche systematisch vergleichen?",
+        "ideal_response": "PORTFOLIO-OPTIMIERUNG STRUKTURIERUNG:\n\n1. KERNPROBLEM-DEFINITION\nHerausforderung: Stagnierendes Konzernwachstum (2% vs. Markt 8%)\nUrsache: Heterogene Performance der 5 Geschäftsbereiche\nZiel: Portfolio-Optimierung für nachhaltiges Wachstum und Profitabilität\nRessourcen: 150 Mio. € Investitionsbudget verfügbar\n\n2. GESCHÄFTSBEREICHE-ÜBERSICHT\nPrint-Zeitungen: 180 Mio. € (40% des Umsatzes)\n- Traditionelles Kerngeschäft, etablierte Marken\n- Struktureller Niedergang (-15% p.a.)\n- Hohe Cash-Generierung, aber sinkend\n\nDigital-Media: 120 Mio. € (27% des Umsatzes)\n- Online-Portale, Social Media, Content\n- Starkes Wachstum (+25% p.a.)\n- Noch nicht profitabel, hohe Investitionen\n\nTV-Produktion: 80 Mio. € (18% des Umsatzes)\n- Content-Produktion für Dritte\n- Moderates Wachstum (+5% p.a.)\n- Stabile Margen, etablierte Kundenbeziehungen\n\nEvent-Marketing: 50 Mio. € (11% des Umsatzes)\n- Corporate Events, Messen, Konferenzen\n- Volatiles Geschäft (+10% p.a. pre-COVID)\n- Hohe Margen, aber konjunkturabhängig\n\nPodcast-Plattform: 20 Mio. € (4% des Umsatzes)\n- Neue Geschäftseinheit, Start-up-Charakter\n- Explosives Wachstum (+150% p.a.)\n- Noch Verluste, aber großes Potential",
+        "max_words": 300
+      },
+      {
+        "id": "analytik",
+        "title": "Analytik",
+        "prompt": "Führen Sie eine detaillierte Portfolio-Analyse durch. Positionieren Sie die 5 Geschäftsbereiche in der BCG-Matrix und bewerten Sie deren Performance quantitativ.",
+        "guidance": "Nutzen Sie verfügbare Daten für Marktwachstum, Marktanteil, Profitabilität. Erstellen Sie eine fundierte BCG-Matrix und weitere Portfolio-Metriken.",
+        "ideal_response": "PORTFOLIO-ANALYSE MEDIAGROUP:\n\n1. BCG-MATRIX POSITIONIERUNG\n\nSTARS (Hohes Wachstum, Hoher Marktanteil):\n- Podcast-Plattform\n  * Marktwachstum: +40% p.a. (Gesamtmarkt)\n  * Marktanteil: 15% (Top 3 in Deutschland)\n  * Status: Wachstumsstar, aber noch verlustreich\n\nCASH COWS (Niedriges Wachstum, Hoher Marktanteil):\n- Print-Zeitungen\n  * Marktwachstum: -15% p.a. (schrumpfender Markt)\n  * Marktanteil: 25% (Marktführer)\n  * EBITDA-Marge: 18% (120 Mio. € Cash-Generierung)\n\n- TV-Produktion\n  * Marktwachstum: +5% p.a. (reifer Markt)\n  * Marktanteil: 12% (etablierter Player)\n  * EBITDA-Marge: 15% (stabile Cash-Generierung)\n\nQUESTION MARKS (Hohes Wachstum, Niedriger Marktanteil):\n- Digital-Media\n  * Marktwachstum: +25% p.a. (boomender Markt)\n  * Marktanteil: 8% (Challenger-Position)\n  * EBITDA-Marge: -5% (noch Investitionsphase)\n\nDOGS (Niedriges Wachstum, Niedriger Marktanteil):\n- Event-Marketing\n  * Marktwachstum: +3% p.a. (post-COVID Recovery)\n  * Marktanteil: 6% (Nischenspieler)\n  * EBITDA-Marge: 12% (profitabel, aber begrenzt)",
+        "max_words": 350
+      },
+      {
+        "id": "strategie",
+        "title": "Strategie",
+        "prompt": "Entwickeln Sie eine umfassende Portfolio-Restrukturierungsstrategie. Definieren Sie für jeden Geschäftsbereich eine klare strategische Richtung und Ressourcenallokation.",
+        "guidance": "Nutzen Sie die Portfolio-Analyse für strategische Entscheidungen. Welche Bereiche sollen ausgebaut, gehalten oder verkauft werden?",
+        "ideal_response": "PORTFOLIO-RESTRUKTURIERUNGSSTRATEGIE:\n\n1. STRATEGISCHE VISION 2029\n\"Von traditionellem Medienkonzern zu digitalem Content-Ecosystem\"\n\nZielportfolio:\n- 60% Digital-First Content (Digital + Podcast)\n- 25% Premium Content Production (TV)\n- 15% Legacy Cash Generation (Print optimiert)\n- 0% Event-Marketing (Divestment)\n\n2. BEREICHSSTRATEGIEN\n\nPODCAST-PLATTFORM: BUILD (Star → Cash Cow)\nStrategie: Aggressive Expansion zur Marktführerschaft\nInvestment: 50 Mio. € über 3 Jahre\nZiele:\n- Marktanteil: 15% → 30% (Marktführer)\n- Umsatz: 20 Mio. € → 100 Mio. € (2029)\n- EBITDA-Marge: -20% → +25%\n\nDIGITAL-MEDIA: BUILD (Question Mark → Star)\nStrategie: Marktanteil-Offensive durch Content-Excellence\nInvestment: 60 Mio. € über 3 Jahre\nZiele:\n- Marktanteil: 8% → 15%\n- Umsatz: 120 Mio. € → 250 Mio. € (2029)\n- EBITDA-Marge: -5% → +15%\n\nTV-PRODUKTION: HOLD (Cash Cow optimieren)\nStrategie: Effizienz steigern, Premium-Positionierung\nInvestment: 25 Mio. € über 3 Jahre\nZiele:\n- Umsatz: 80 Mio. € → 100 Mio. € (2029)\n- EBITDA-Marge: 15% → 20%\n\nPRINT-ZEITUNGEN: HARVEST (Cash Cow melken)\nStrategie: Managed Decline mit Cash-Optimierung\nInvestment: 15 Mio. € (Effizienz)\nZiele:\n- Umsatz: 180 Mio. € → 120 Mio. € (2029)\n- EBITDA-Marge: 18% → 25% (durch Kostensenkung)\n\nEVENT-MARKETING: DIVEST (Dog verkaufen)\nStrategie: Verkauf an spezialisierten Event-Konzern\nErlös: 40 Mio. € (8x EBITDA)\nBegründung: Keine strategischen Synergien",
+        "max_words": 350
+      },
+      {
+        "id": "empfehlung",
+        "title": "Empfehlung",
+        "prompt": "Fassen Sie Ihre Portfolio-Strategie zusammen und definieren Sie konkrete nächste Schritte für die Umsetzung der Transformation.",
+        "guidance": "Priorisieren Sie die wichtigsten Maßnahmen und erstellen Sie einen klaren Umsetzungsplan mit Meilensteinen.",
+        "ideal_response": "PORTFOLIO-EMPFEHLUNG: DIGITAL-FIRST TRANSFORMATION\n\nSTRATEGISCHE EMPFEHLUNG:\nMediaGroup soll sich von einem traditionellen Medienkonzern zu einem digitalen Content-Ecosystem transformieren. Fokus auf Podcast-Plattform und Digital-Media als Wachstumstreiber.\n\nKERN-TRANSFORMATION:\n1. Podcast-Plattform zur Marktführerschaft ausbauen\n2. Digital-Media aggressiv skalieren\n3. Event-Marketing verkaufen (40 Mio. € Erlös)\n4. Print-Geschäft optimiert abwickeln\n5. TV-Produktion auf Premium-Content fokussieren\n\nFINANZIELLE ZIELE 2029:\n- Umsatz: 470 Mio. € (+4% CAGR)\n- EBITDA-Marge: 18% (vs. 9% heute)\n- Digital-Anteil: 75% (vs. 31% heute)\n- ROI: 25% auf 150 Mio. € Investment\n\nNÄCHSTE SCHRITTE (120 Tage):\n\nMONAT 1: Strategische Weichenstellung\n- Vorstandsbeschluss & Transformation-Office\n- Event-Marketing Divestment initiieren\n- Budget-Freigabe: 50 Mio. € für Jahr 1\n\nMONAT 2: Digital-Offensive\n- Podcast-Akquisitions-Pipeline aufbauen\n- Digital-Media Investment verdoppeln\n- Video-Content-Strategie implementieren\n\nMONAT 3: Operational Excellence\n- Print-Restrukturierung (20% Kostensenkung)\n- TV-Premium-Positionierung\n- Streaming-Content-Pipeline\n\nMONAT 4: Synergien & Integration\n- Content-Synergien realisieren\n- Technologie-Integration\n- Cross-Platform-Strategy\n\nERFOLGSKRITERIEN (120 Tage):\n- Event-Marketing: LOI mit Käufer\n- Podcast: 2 Akquisitionen abgeschlossen\n- Digital: 50% Wachstum in Video-Content\n- Print: 15% Kostensenkung erreicht\n- TV: 3 neue Streaming-Deals",
+        "max_words": 300
+      },
+      {
+        "id": "kommunikation",
+        "title": "Kommunikation",
+        "prompt": "Wie würden Sie diese Portfolio-Transformation verschiedenen Stakeholdern kommunizieren?",
+        "guidance": "Berücksichtigen Sie Mitarbeiter, Investoren, Kunden. Jede Gruppe braucht eine angepasste Botschaft.",
+        "ideal_response": "STAKEHOLDER-KOMMUNIKATIONSSTRATEGIE:\n\n1. INVESTOREN & ANALYSTEN\nKernbotschaft: \"Wertschaffung durch strategische Portfolio-Transformation\"\n\nInvestor-Call:\n\"MediaGroup transformiert sich zum führenden digitalen Content-Ecosystem:\n- Portfolio-Fokus auf wachstumsstarke Digital-Bereiche\n- 150 Mio. € Investment für 25% ROI\n- EBITDA-Marge: 9% → 18% bis 2029\n- Digital-Anteil: 31% → 75%\n\nFinanzielle Highlights:\n- Event-Marketing Divestment: 40 Mio. € Erlös\n- Podcast-Marktführerschaft: 20 → 100 Mio. € Umsatz\n- Digital-Media Skalierung: 120 → 250 Mio. € Umsatz\"\n\n2. MITARBEITER-KOMMUNIKATION\nKernbotschaft: \"Gemeinsam in die digitale Zukunft\"\n\nAll-Hands-Meeting:\n\"Die Medienbranche wandelt sich - wir gestalten aktiv mit:\n- Investition in digitale Wachstumsbereiche\n- +200 neue Arbeitsplätze in Podcast/Digital\n- Weiterbildung und Umschulung für alle\n- Event-Marketing: Verkauf mit Übernahmegarantien\n\nIhr Beitrag ist entscheidend für unseren Erfolg!\"\n\n3. KUNDEN-KOMMUNIKATION\nKernbotschaft: \"Mehr Content, bessere Qualität, neue Formate\"\n\nKunden-Newsletter:\n\"MediaGroup investiert in die Zukunft des Contents:\n- Erweiterte Digital-Reichweite durch Podcast-Expansion\n- Cross-Platform-Advertising-Möglichkeiten\n- Premium-TV-Produktionen für Streaming\n- Innovative Video-Content-Formate\"\n\n4. KOMMUNIKATIONS-TIMELINE\nWoche 1: Interne Kommunikation (Management)\nWoche 2: Mitarbeiter-Information (Town Hall)\nWoche 3: Investoren-Call\nWoche 4: Kunden-Newsletter\nWoche 6: Öffentliche Pressemitteilung\n\nERFOLGSMESUNG:\n- Mitarbeiter-Umfrage: >70% Zustimmung\n- Investor-Feedback: Positive Bewertung\n- Medien-Coverage: Neutral bis positiv",
+        "max_words": 300
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "BCG-Matrix korrekt angewendet und Bereiche positioniert",
+    "Portfolio-Strategien systematisch entwickelt (Build/Hold/Harvest/Divest)",
+    "Ressourcenallokation nach strategischen Prioritäten",
+    "Synergien zwischen Geschäftsbereichen identifiziert und genutzt"
+  ],
+  "tool_mastery_indicators": [
+    "Kann Portfolio-Analysen strukturiert durchführen",
+    "Entwickelt strategische Optionen für verschiedene Geschäftsbereiche",
+    "Optimiert Ressourcenallokation basierend auf Portfolio-Position",
+    "Erstellt umsetzbare Portfolio-Restrukturierungsstrategien"
+  ],
+  "common_mistakes": [
+    "Fokus nur auf finanzielle Performance ohne strategische Bewertung",
+    "Vernachlässigung von Synergien zwischen Geschäftsbereichen",
+    "Zu emotionale Entscheidungen bei traditionellen Geschäften",
+    "Unterschätzung der Umsetzungskomplexität bei Portfolio-Änderungen"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende Portfolio-Analyse mit BCG-Matrix-Positionierung",
+    "target": "Strukturierte Portfolio-Strategie mit klaren Bereichsstrategien",
+    "excellent": "Vollständige Portfolio-Transformation mit Umsetzungsplan und Stakeholder-Management"
+  },
+  "reference_answer": {
+    "summary": "Digital-First Transformation für MediaGroup: Podcast-Plattform und Digital-Media als Wachstumstreiber, TV-Produktion optimieren, Print-Geschäft harvesten, Event-Marketing verkaufen. 150 Mio. € Investment für 25% ROI und Steigerung des Digital-Anteils auf 75%.",
+    "key_insights": [
+      "Portfolio-Transformation erfordert klare strategische Prioritäten und Mut zu Divestments",
+      "BCG-Matrix hilft bei objektiver Bewertung emotionaler Geschäftsentscheidungen",
+      "Synergien zwischen Geschäftsbereichen können Wettbewerbsvorteile schaffen",
+      "Erfolgreiche Portfolio-Optimierung braucht strukturierte Umsetzung und Change Management"
+    ]
+  }
+}

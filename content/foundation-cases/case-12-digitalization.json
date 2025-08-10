@@ -1,0 +1,124 @@
+{
+  "id": "case-12",
+  "title": "Digitalisierungsstrategie: TraditionCorp Digital Transformation",
+  "category": "foundation",
+  "cluster": "Organisation & Transformation",
+  "tool": "Digital Transformation Framework",
+  "difficulty": 12,
+  "estimated_duration": 60,
+  "interaction_type": "minimal_support",
+  "learning_objectives": [
+    "Umfassende Digitalisierungsstrategien eigenständig entwickeln",
+    "Alle gelernten Frameworks situativ und integriert anwenden",
+    "Komplexe Transformationsprojekte ganzheitlich durchdenken",
+    "Strategische, operative und kulturelle Dimensionen verknüpfen"
+  ],
+  "scenario": {
+    "company": "TraditionCorp AG",
+    "industry": "Traditioneller Maschinenbau",
+    "situation": "TraditionCorp, ein 150 Jahre alter Maschinenbauer (5.000 MA, 800 Mio. € Umsatz), steht vor der größten Transformation seiner Geschichte. Neue digitale Wettbewerber bieten Software-as-a-Service-Lösungen statt physischer Maschinen. Kunden fordern zunehmend digitale Services, Predictive Maintenance und IoT-Integration. Das Unternehmen hat bisher nur 5% seines Umsatzes digital generiert.",
+    "challenge": "Als neu ernannter Chief Digital Officer entwickeln Sie eine umfassende 5-Jahres-Digitalisierungsstrategie. Transformieren Sie TraditionCorp von einem Maschinenbauer zu einem digitalen Industrie-4.0-Unternehmen.",
+    "context": "Starke Ingenieurskultur, hohe Produktqualität, loyale Kunden, aber: veraltete IT-Systeme, digitale Skills-Gaps, traditionelle Denkweise. Konkurrenz durch Tesla-ähnliche Disruptoren. 200 Mio. € Budget für 5 Jahre verfügbar."
+  },
+  "tool_explanation": {
+    "name": "Digital Transformation Framework",
+    "description": "Ganzheitlicher Ansatz zur strategischen Digitalisierung von traditionellen Unternehmen mit Integration aller Geschäftsdimensionen.",
+    "key_dimensions": [
+      "Business Model Innovation: Neue digitale Geschäftsmodelle und Revenue Streams",
+      "Technology Transformation: IT-Modernisierung und digitale Capabilities",
+      "Operational Excellence: Prozessdigitalisierung und Automatisierung",
+      "Customer Experience: Digitale Touchpoints und Services",
+      "Organizational Change: Skills, Kultur und Strukturen",
+      "Ecosystem Integration: Partnerschaften und Plattform-Strategien"
+    ],
+    "transformation_levels": [
+      "Digitization: Analoge Prozesse digitalisieren",
+      "Digitalization: Geschäftsprozesse digital optimieren",
+      "Digital Transformation: Geschäftsmodell fundamental ändern"
+    ],
+    "application": "Das Framework ermöglicht systematische Transformation traditioneller Unternehmen zu digitalen Marktführern."
+  },
+  "help_system": {
+    "available": true,
+    "type": "minimal_hints",
+    "total_hints": 3,
+    "user_selectable": 1,
+    "hint_categories": [
+      {
+        "id": "strategic_frameworks",
+        "title": "Strategische Frameworks",
+        "description": "Erinnerung an alle gelernten strategischen Analyse-Tools"
+      },
+      {
+        "id": "implementation_focus",
+        "title": "Umsetzungsfokus",
+        "description": "Tipps zur praktischen Implementierung von Transformationen"
+      },
+      {
+        "id": "integration_thinking",
+        "title": "Integratives Denken",
+        "description": "Hinweise zur Verknüpfung verschiedener Geschäftsdimensionen"
+      }
+    ],
+    "hints": {
+      "strategic_frameworks": [
+        "🧠 Nutzen Sie alle gelernten Tools: Profit Tree (Digitalisierungs-ROI), MECE (Transformationsbereiche), Portfolio-Matrix (Digital vs. Traditional), Customer Journey (B2B-Digitalisierung), Strategic Decision Framework (Build vs. Buy vs. Partner), Due Diligence (Digital Capabilities), PMI (Akquisitions-Integration), Leadership (Change Management)."
+      ],
+      "implementation_focus": [
+        "⚡ Denken Sie in Minimum Viable Products (MVPs): Starten Sie mit digitalen Pilotprojekten statt Big-Bang-Transformation. Lernen Sie schnell, iterieren Sie oft, skalieren Sie erfolgreiche Ansätze."
+      ],
+      "integration_thinking": [
+        "🔗 Verknüpfen Sie alle Dimensionen: Technologie allein reicht nicht - Sie brauchen neue Geschäftsmodelle, veränderte Prozesse, digitale Skills, angepasste Kultur UND die richtige Führung. Ganzheitlich denken, phasenweise umsetzen."
+      ]
+    }
+  },
+  "structured_input": {
+    "instructions": "Entwickeln Sie als Chief Digital Officer eine vollständige 5-Jahres-Digitalisierungsstrategie für TraditionCorp. Dies ist Ihr Masterpiece - nutzen Sie alle gelernten Frameworks und Methoden. Wählen Sie maximal 1 Tipp-Kategorie für minimale Unterstützung.",
+    "hint_selection": {
+      "required": false,
+      "instruction": "Optional: Wählen Sie maximal 1 Tipp-Kategorie für minimale Unterstützung:",
+      "max_selections": 1
+    },
+    "mbb_criteria": [
+      {
+        "id": "complete_analysis",
+        "title": "Vollständige Strategieanalyse",
+        "prompt": "Entwickeln Sie eine umfassende Digitalisierungsstrategie für TraditionCorp. Nutzen Sie alle gelernten Frameworks und Methoden eigenständig.",
+        "guidance": "Dies ist Ihr Abschluss-Case. Zeigen Sie Ihr vollständiges strategisches Denken: von der Problemstrukturierung über die Analyse bis zur Umsetzung. Integrieren Sie alle Dimensionen der digitalen Transformation.",
+        "max_words": 1200
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "Alle gelernten Frameworks situativ und integriert angewendet",
+    "Digitale Transformation ganzheitlich durchdacht (Technologie + Business Model + Kultur)",
+    "Komplexe Transformationsstrategie eigenständig entwickelt",
+    "Strategische, operative und kulturelle Dimensionen erfolgreich verknüpft"
+  ],
+  "tool_mastery_indicators": [
+    "Kann komplexe Digitalisierungsstrategien vollständig eigenständig entwickeln",
+    "Integriert alle gelernten Frameworks situativ und sinnvoll",
+    "Denkt ganzheitlich über alle Transformationsdimensionen",
+    "Erstellt umsetzbare Digital-Transformation-Roadmaps mit realistischen Meilensteinen"
+  ],
+  "common_mistakes": [
+    "Fokus nur auf Technologie ohne Berücksichtigung von Geschäftsmodell und Kultur",
+    "Unterschätzung der Komplexität und Dauer von digitalen Transformationen",
+    "Vernachlässigung der Change-Management-Dimension bei traditionellen Unternehmen",
+    "Zu theoretische Strategien ohne praktische Umsetzungsschritte"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende Digitalisierungsstrategie mit Technologie- und Geschäftsmodell-Fokus",
+    "target": "Umfassende Digital-Transformation-Strategie mit Integration mehrerer gelernter Frameworks",
+    "excellent": "Vollständige, ganzheitliche Digitalisierungsstrategie mit strategischer Tiefe, operativer Umsetzbarkeit und kultureller Transformation - Masterpiece-Level"
+  },
+  "reference_answer": {
+    "summary": "Ganzheitliche 5-Jahres-Digital-Transformation für TraditionCorp: Von Maschinenbauer zu Industrial-IoT-Plattform. Neue digitale Geschäftsmodelle (SaaS, Predictive Maintenance), Technologie-Modernisierung, Kulturwandel durch Change Management, strategische Partnerschaften. Integration aller gelernten Frameworks für systemische Transformation.",
+    "key_insights": [
+      "Digitale Transformation ist primär eine Geschäftsmodell-Transformation, nicht nur IT-Modernisierung",
+      "Traditionelle Unternehmen haben oft versteckte digitale Assets (Daten, Kundenbeziehungen, Domain-Expertise)",
+      "Erfolgreiche Digital Transformation erfordert Integration aller strategischen Frameworks",
+      "Cultural Change ist oft der kritischste Erfolgsfaktor bei traditionellen Unternehmen"
+    ]
+  }
+}
