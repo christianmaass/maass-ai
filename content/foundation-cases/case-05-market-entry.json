@@ -1,0 +1,117 @@
+{
+  "id": "case-05",
+  "title": "Markteintritt: GreenTech Expansion nach Frankreich",
+  "category": "foundation",
+  "cluster": "Wachstum & Markt",
+  "tool": "Market Entry Framework",
+  "difficulty": 5,
+  "estimated_duration": 30,
+  "interaction_type": "structured_mbb",
+  "learning_objectives": [
+    "Markteintrittsentscheidungen systematisch analysieren",
+    "Go-to-Market-Strategien entwickeln und bewerten",
+    "Markteintrittsbarrieren und -risiken identifizieren",
+    "Timing und Ressourcenallokation für internationale Expansion optimieren"
+  ],
+  "scenario": {
+    "company": "GreenTech Solutions",
+    "industry": "Cleantech/Erneuerbare Energien",
+    "situation": "GreenTech Solutions, ein deutscher Hersteller von Solarpanel-Montagesystemen mit 120 Mitarbeitern und 25 Mio. € Umsatz, erwägt die Expansion nach Frankreich. Das Unternehmen ist in Deutschland Marktführer in einem Nischensegment und sieht großes Potential im französischen Markt aufgrund der Energiewende-Politik.",
+    "challenge": "Bewerten Sie die Markteintrittsstrategie für Frankreich und entwickeln Sie eine konkrete Go-to-Market-Strategie.",
+    "context": "Der französische Solarmarkt wächst 40% jährlich, aber es gibt etablierte lokale Player. GreenTech hat innovative Technologie, aber keine internationale Erfahrung. Budget: 3 Mio. € für die ersten 2 Jahre."
+  },
+  "tool_explanation": {
+    "name": "Market Entry Framework",
+    "description": "Systematischer Ansatz zur Bewertung und Planung von Markteintrittsentscheidungen mit strukturierter Analyse aller relevanten Faktoren.",
+    "key_components": [
+      "Marktattraktivität: Größe, Wachstum, Profitabilität, Trends",
+      "Wettbewerbsanalyse: Player, Positionierung, Stärken/Schwächen",
+      "Markteintrittsbarrieren: Regulatorisch, technisch, finanziell",
+      "Go-to-Market-Strategie: Kanäle, Pricing, Positionierung, Timeline"
+    ],
+    "entry_modes": [
+      "Export: Direkter Verkauf aus Deutschland",
+      "Lokale Partnerschaft: Joint Venture oder Distributoren",
+      "Akquisition: Kauf eines lokalen Players",
+      "Greenfield: Aufbau eigener Tochtergesellschaft"
+    ],
+    "application": "Das Framework hilft dabei, Markteintrittsentscheidungen datenbasiert zu treffen und erfolgreiche Expansionsstrategien zu entwickeln."
+  },
+  "structured_input": {
+    "instructions": "Analysieren Sie den Markteintritt systematisch anhand der MBB-Kriterien. Nutzen Sie das Market Entry Framework für eine strukturierte Bewertung.",
+    "mbb_criteria": [
+      {
+        "id": "problemstrukturierung",
+        "title": "Problemstrukturierung",
+        "prompt": "Strukturieren Sie die Markteintrittsentscheidung systematisch. Welche Hauptfragen müssen beantwortet werden und wie hängen sie zusammen?",
+        "guidance": "Nutzen Sie eine Issue Tree oder Framework-Struktur. Denken Sie an: Marktattraktivität, Wettbewerbsposition, Eintrittsbarrieren, Go-to-Market-Strategie.",
+        "ideal_response": "MARKTEINTRITTSENTSCHEIDUNG - STRUKTURIERUNG:\n\n1. SOLL GreenTech in Frankreich eintreten?\n   1.1 Marktattraktivität\n       - Marktgröße und Wachstum\n       - Profitabilitätspotential\n       - Regulatorische Unterstützung\n   1.2 Wettbewerbsfähigkeit\n       - Technologievorsprung\n       - Kostenposition\n       - Markenbekanntheit\n   1.3 Strategische Passung\n       - Synergien mit Deutschland\n       - Ressourcenverfügbarkeit\n       - Risiko-Rendite-Profil\n\n2. WIE soll der Markteintritt erfolgen?\n   2.1 Eintrittsmodus\n       - Export vs. lokale Präsenz\n       - Partnerschaft vs. Eigenaufbau\n       - Timing und Geschwindigkeit\n   2.2 Go-to-Market-Strategie\n       - Zielkundensegmente\n       - Vertriebskanäle\n       - Preispositionierung\n   2.3 Ressourcenallokation\n       - Budget und Investment\n       - Personal und Expertise\n       - Zeitplan und Meilensteine\n\n3. WANN und in welchem UMFANG?\n   3.1 Timing\n       - Marktreife und -entwicklung\n       - Wettbewerbssituation\n       - Interne Bereitschaft\n   3.2 Skalierung\n       - Pilotphase vs. Full Launch\n       - Regionale Fokussierung\n       - Produktportfolio-Umfang",
+        "max_words": 300
+      },
+      {
+        "id": "analytik",
+        "title": "Analytik",
+        "prompt": "Führen Sie eine quantitative und qualitative Analyse des französischen Marktes durch. Bewerten Sie Marktpotential, Wettbewerb und Erfolgswahrscheinlichkeit.",
+        "guidance": "Nutzen Sie verfügbare Daten und Schätzungen. Denken Sie an Marktgröße, Wachstumsraten, Kundensegmente, Wettbewerberanalyse und Barrieren.",
+        "ideal_response": "MARKTANALYSE FRANKREICH:\n\n1. MARKTPOTENTIAL\nMarktgröße:\n- Französischer Solarmarkt: 2,5 Mrd. € (2024)\n- Montagesysteme-Segment: ~400 Mio. € (16% des Gesamtmarkts)\n- GreenTech Nischensegment: ~80 Mio. € (20% der Montagesysteme)\n\nWachstum:\n- Gesamtmarkt: +40% p.a. (nächste 3 Jahre)\n- Treiber: EU Green Deal, französische Energiewende-Ziele\n- Potential für GreenTech: 8-12 Mio. € Umsatz in Jahr 3\n\n2. WETTBEWERBSANALYSE\nHauptkonkurrenten:\n- Schletter (Deutschland): 25% Marktanteil, etabliert\n- Esdec (Niederlande): 20% Marktanteil, stark in Dach\n- Lokale Player: 30% kombiniert, Preisfokus\n- Sonstige: 25%\n\nGreenTech Wettbewerbsposition:\n- Technologievorsprung: Innovative Befestigungssysteme\n- Kostenposition: 10-15% teurer, aber höhere Qualität\n- Markenbekanntheit: Null in Frankreich\n\n3. MARKTEINTRITTSBARRIEREN\nNiedrig-mittel:\n- Regulatorisch: EU-Standards, keine spezifischen Barrieren\n- Technisch: CE-Zertifizierung bereits vorhanden\n- Finanziell: 3 Mio. € Budget ausreichend für Markteintritt\n- Kulturell: Ähnliche Geschäftspraktiken wie Deutschland\n\n4. ERFOLGSPROGNOSE\nBase Case: 15% Marktanteil in Nischensegment nach 3 Jahren\n- Umsatz: 12 Mio. € (Jahr 3)\n- Investment: 3 Mio. € (Jahre 1-2)\n- ROI: 35% nach 3 Jahren\n- Break-even: Monat 18",
+        "max_words": 350
+      },
+      {
+        "id": "strategie",
+        "title": "Strategie",
+        "prompt": "Entwickeln Sie eine konkrete Go-to-Market-Strategie für GreenTech in Frankreich. Berücksichtigen Sie Eintrittsmodus, Timing, Positionierung und Ressourcenallokation.",
+        "guidance": "Entscheiden Sie sich für einen spezifischen Ansatz und begründen Sie diesen. Denken Sie an verschiedene Eintrittsmodi und deren Vor-/Nachteile.",
+        "ideal_response": "GO-TO-MARKET-STRATEGIE FRANKREICH:\n\n1. EINTRITTSMODUS: Hybrid-Ansatz\nPhase 1 (Monate 1-6): Export + Lokaler Partner\n- Distributorpartnerschaft mit etabliertem Player\n- Minimales Risiko, schneller Marktzugang\n- Marktlernen und Kundenvalidierung\n\nPhase 2 (Monate 7-18): Lokale Präsenz aufbauen\n- Sales Office in Paris (3-5 Mitarbeiter)\n- Direkter Kundenkontakt und Support\n- Lokale Lagerhaltung für schnelle Lieferung\n\nPhase 3 (Monate 19+): Vollständige Marktpräsenz\n- Lokale Produktion evaluieren\n- Erweiterte Produktlinie\n- Marktführerschaft in Nischensegment\n\n2. ZIELKUNDENSTRATEGIE\nPrimäre Zielgruppe: Premium-Installateure\n- 50-200 Mitarbeiter Unternehmen\n- Fokus auf Qualität und Innovation\n- Bereitschaft für Preispremium\n\nSekundäre Zielgruppe: Große EPC-Contractors\n- Utility-Scale Projekte\n- Technische Differenzierung wichtig\n- Langfristige Partnerschaften\n\n3. POSITIONIERUNG\n\"German Engineering Excellence\"\n- Qualitäts- und Innovationsführer\n- 15% Preispremium gerechtfertigt\n- Fokus auf TCO (Total Cost of Ownership)\n- Technischer Support und Service\n\n4. VERTRIEBSSTRATEGIE\nKanal-Mix:\n- 60% Direktvertrieb (eigenes Sales Team)\n- 30% Distributorpartner (regionale Abdeckung)\n- 10% Online/E-Commerce (kleinere Kunden)\n\nSales-Approach:\n- Consultative Selling\n- Technische Demos und Pilotprojekte\n- Referenzprojekte aus Deutschland\n- Lokale Ingenieursunterstützung\n\n5. MARKETING & KOMMUNIKATION\n- Teilnahme an Intersolar Europe (München/Paris)\n- Fachmedien und Webinare\n- Lokale Installateur-Schulungen\n- Case Studies und Referenzen\n\n6. RESSOURCENALLOKATION (3 Mio. € Budget)\nJahr 1: 1,8 Mio. €\n- Personal: 800k € (Sales Team, Support)\n- Marketing: 400k € (Messen, Content, PR)\n- Operations: 600k € (Office, Lager, IT)\n\nJahr 2: 1,2 Mio. €\n- Skalierung Sales Team\n- Erweiterte Marketingaktivitäten\n- Lokale Lagerhaltung ausbauen",
+        "max_words": 400
+      },
+      {
+        "id": "empfehlung",
+        "title": "Empfehlung",
+        "prompt": "Geben Sie eine klare Empfehlung ab: Soll GreenTech in Frankreich eintreten? Wenn ja, mit welcher Strategie und welchen nächsten Schritten?",
+        "guidance": "Fassen Sie Ihre Analyse zusammen und geben Sie eine eindeutige Empfehlung mit Begründung. Seien Sie spezifisch bei den nächsten Schritten.",
+        "ideal_response": "EMPFEHLUNG: JA - Markteintritt Frankreich mit Hybrid-Strategie\n\nBEGRÜNDUNG:\n1. Attraktiver Markt: 400 Mio. € Segment, 40% Wachstum\n2. Wettbewerbsfähige Position: Technologievorsprung rechtfertigt Premium\n3. Niedrige Barrieren: EU-Standards, ähnliche Geschäftskultur\n4. Starker Business Case: ROI 35%, Break-even Monat 18\n5. Strategische Logik: Diversifikation, Skalierung der Innovation\n\nEMPFOHLENE STRATEGIE:\nHybrid-Ansatz mit phasenweisem Aufbau:\n- Start: Distributorpartnerschaft (Risikominimierung)\n- Ausbau: Lokale Präsenz (Kundennähe)\n- Skalierung: Vollständige Marktpräsenz\n\nERWARTETE ERGEBNISSE:\n- Jahr 1: 2 Mio. € Umsatz\n- Jahr 2: 6 Mio. € Umsatz\n- Jahr 3: 12 Mio. € Umsatz (15% Marktanteil)\n- ROI: 35% nach 3 Jahren\n\nNÄCHSTE SCHRITTE (nächste 90 Tage):\n\n1. SOFORT (Woche 1-2):\n- Go-Entscheidung durch Geschäftsführung\n- Projektteam etablieren (Projektleiter benennen)\n- Budget freigeben (1,8 Mio. € Jahr 1)\n\n2. MARKTVALIDIERUNG (Woche 3-8):\n- 3-5 potentielle Distributoren identifizieren\n- Kundengespräche mit 10-15 Zielkunden\n- Wettbewerberanalyse vertiefen\n- Regulatorische Anforderungen final klären\n\n3. PARTNERAUSWAHL (Woche 9-12):\n- Distributor-Verhandlungen und -auswahl\n- Pilotprojekte definieren (2-3 Referenzkunden)\n- Sales-Material lokalisieren\n- Preismodell für französischen Markt finalisieren\n\nRISIKO-MITIGATION:\n- Monatliches Monitoring der KPIs\n- Quartalsweise Go/No-Go-Entscheidungen\n- Exit-Strategie definiert (falls <50% der Ziele erreicht)\n- Lokaler Advisory Board etablieren\n\nERFOLGSKRITERIEN Jahr 1:\n- 5 aktive Distributoren\n- 20 Neukunden akquiriert\n- 2 Mio. € Umsatz erreicht\n- Break-even operativ erreicht",
+        "max_words": 350
+      },
+      {
+        "id": "kommunikation",
+        "title": "Kommunikation",
+        "prompt": "Wie würden Sie diese Empfehlung der Geschäftsführung von GreenTech präsentieren? Strukturieren Sie Ihre Argumentation überzeugend.",
+        "guidance": "Denken Sie an die Perspektive der Entscheider. Was sind deren Hauptsorgen und wie adressieren Sie diese?",
+        "ideal_response": "PRÄSENTATION FÜR GESCHÄFTSFÜHRUNG:\n\n1. EXECUTIVE SUMMARY\n\"Frankreich bietet GreenTech die Chance, den Umsatz in 3 Jahren um 50% zu steigern bei 35% ROI. Empfehlung: Sofortiger Markteintritt mit risikoarmer Hybrid-Strategie.\"\n\n2. WARUM JETZT?\n- Markt-Timing optimal: 40% Wachstum, EU Green Deal\n- First-Mover-Advantage in unserem Nischensegment\n- Wettbewerber noch nicht etabliert\n- Unsere Technologie hat 2-3 Jahre Vorsprung\n\n3. BUSINESS CASE\nInvestment: 3 Mio. € über 2 Jahre\nReturn: 12 Mio. € Umsatz ab Jahr 3\nROI: 35% (vs. 15% bei Deutschland-Expansion)\nRisiko: Niedrig durch phasenweisen Aufbau\n\n4. RISIKO-MANAGEMENT\n\"Wir gehen kalkulierte Risiken ein:\"\n- Start mit Distributoren (kein eigenes Investment)\n- Monatliche KPI-Reviews mit Go/No-Go-Optionen\n- Exit-Strategie definiert\n- Bewährtes Team aus Deutschland-Erfolg\n\n5. STRATEGISCHE BEDEUTUNG\n- Diversifikation: Weniger Deutschland-Abhängigkeit\n- Skalierung: Amortisation der F&E-Kosten\n- Lernen: Vorbereitung für weitere EU-Märkte\n- Wettbewerb: Defensive gegen internationale Player\n\n6. KONKRETE NÄCHSTE SCHRITTE\n\"Bei Ihrer Zustimmung heute:\"\n- Projektleiter startet nächste Woche\n- Erste Kundengespräche in 3 Wochen\n- Distributor-Verträge in 8 Wochen\n- Erste Umsätze in 4 Monaten\n\n7. ENTSCHEIDUNGSVORLAGE\n\"Ich bitte um Ihre Zustimmung für:\"\n- Budget: 1,8 Mio. € für Jahr 1\n- Projektleiter: [Name] (50% Freistellung)\n- Timeline: Start sofort, Review nach 6 Monaten\n- Erfolgskriterien: 2 Mio. € Umsatz Jahr 1\n\nSCHLUSS:\n\"Diese Chance kommt nur einmal. Der französische Markt entwickelt sich jetzt - mit oder ohne uns. Lassen Sie uns dabei sein und unseren Erfolg europaweit skalieren.\"",
+        "max_words": 300
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "Market Entry Framework systematisch angewendet",
+    "Marktattraktivität quantitativ bewertet",
+    "Go-to-Market-Strategie konkret entwickelt",
+    "Risiken identifiziert und Mitigation geplant"
+  ],
+  "tool_mastery_indicators": [
+    "Kann Markteintrittsentscheidungen strukturiert analysieren",
+    "Entwickelt umsetzbare Go-to-Market-Strategien",
+    "Balanciert Chancen und Risiken realistisch",
+    "Erstellt überzeugende Business Cases für Expansion"
+  ],
+  "common_mistakes": [
+    "Überschätzung der eigenen Wettbewerbsposition",
+    "Unterschätzung lokaler Marktbesonderheiten",
+    "Zu aggressive Timeline ohne Risiko-Puffer",
+    "Vernachlässigung der Ressourcenanforderungen"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende Marktanalyse und Eintrittsentscheidung",
+    "target": "Strukturierte Analyse mit konkreter Go-to-Market-Strategie",
+    "excellent": "Vollständiger Business Case mit Risikomanagement und Umsetzungsplan"
+  },
+  "reference_answer": {
+    "summary": "Systematische Markteintrittsstrategie für GreenTech in Frankreich mit Hybrid-Ansatz: Distributorpartnerschaft → lokale Präsenz → vollständige Marktpräsenz. ROI 35%, Break-even Monat 18.",
+    "key_insights": [
+      "Phasenweiser Markteintritt reduziert Risiken bei gleichzeitiger Geschwindigkeit",
+      "Technologievorsprung rechtfertigt Premium-Positionierung",
+      "Lokale Partnerschaften beschleunigen Marktdurchdringung",
+      "Timing ist kritisch - First-Mover-Advantage nutzen"
+    ]
+  }
+}

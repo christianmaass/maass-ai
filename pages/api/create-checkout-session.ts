@@ -8,15 +8,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (!stripe) {
-    console.log('DEBUG: Stripe Secret Key:', process.env.STRIPE_SECRET_KEY ? 'EXISTS' : 'MISSING');
-    console.log('DEBUG: Publishable Key:', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ? 'EXISTS' : 'MISSING');
-    return res.status(500).json({ 
-      error: 'Stripe is not configured',
-      debug: {
-        secretKey: process.env.STRIPE_SECRET_KEY ? 'EXISTS' : 'MISSING',
-        publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ? 'EXISTS' : 'MISSING'
-      }
-    });
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(
+        'Stripe is not configured. Check STRIPE_SECRET_KEY and NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.',
+      );
+    }
+    return res.status(500).json({ error: 'Stripe is not configured' });
   }
 
   try {
@@ -29,8 +26,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const supabase = getSupabaseClient();
 
     // User authentifizieren
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
     if (authError || !user) {
       return res.status(401).json({ error: 'Unauthorized - please log in' });
     }
@@ -93,12 +93,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     return res.status(200).json({ sessionId: session.id });
-
   } catch (error) {
     console.error('Error creating checkout session:', error);
-    return res.status(500).json({ 
+    return res.status(500).json({
       error: 'Failed to create checkout session',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 }

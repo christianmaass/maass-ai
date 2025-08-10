@@ -1,6 +1,7 @@
 // pages/api/rate-text.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { withOpenAIRateLimit } from '../../lib/rateLimiter';
 
 const openaiApiKey = process.env.OPENAI_API_KEY;
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -8,7 +9,9 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const PROMPT = (userText: string) => `Du bist ein Experte für Problemstrukturierung. Bewerte den folgenden Text eines Nutzers entlang dieser Dimension auf einer Skala von 0 bis 10 (0 = sehr schlecht, 10 = exzellent). Gib zuerst nur die Zahl, dann ein kurzes Feedback (max. 2 Sätze), z. B.:
+const PROMPT = (
+  userText: string,
+) => `Du bist ein Experte für Problemstrukturierung. Bewerte den folgenden Text eines Nutzers entlang dieser Dimension auf einer Skala von 0 bis 10 (0 = sehr schlecht, 10 = exzellent). Gib zuerst nur die Zahl, dann ein kurzes Feedback (max. 2 Sätze), z. B.:
 
 Score: 7
 Feedback: Der Text zeigt eine gute Strukturierung, könnte aber noch klarer gegliedert sein.
@@ -16,7 +19,7 @@ Feedback: Der Text zeigt eine gute Strukturierung, könnte aber noch klarer gegl
 Nutzertext:  
 ${userText}`;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -33,13 +36,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${openaiApiKey}`,
+        Authorization: `Bearer ${openaiApiKey}`,
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: PROMPT(input_text) },
-        ],
+        messages: [{ role: 'system', content: PROMPT(input_text) }],
         max_tokens: 120,
         temperature: 0.2,
       }),
@@ -80,3 +81,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // 3. Ergebnis zurückgeben
   return res.status(200).json({ score: gptScore, feedback: gptFeedback });
 }
+
+// Export handler with OpenAI rate limiting (10 requests per minute)
+export default withOpenAIRateLimit(handler);

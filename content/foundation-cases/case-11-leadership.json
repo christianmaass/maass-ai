@@ -1,0 +1,155 @@
+{
+  "id": "case-11",
+  "title": "Leadership Challenge: CrisisCorp Transformation",
+  "category": "foundation",
+  "cluster": "Organisation & Transformation",
+  "tool": "Leadership & Change Framework",
+  "difficulty": 11,
+  "estimated_duration": 60,
+  "interaction_type": "free_form_with_hints",
+  "learning_objectives": [
+    "Leadership-Herausforderungen in Transformationssituationen meistern",
+    "Change Management und Stakeholder-Alignment",
+    "Organisationskultur gezielt entwickeln und steuern",
+    "Führungsstile situativ anpassen und Teams motivieren"
+  ],
+  "scenario": {
+    "company": "CrisisCorp Industries",
+    "industry": "Manufacturing/Industrial",
+    "situation": "Sie sind neuer CEO von CrisisCorp (3.000 MA, 600 Mio. € Umsatz), einem traditionellen Industrieunternehmen in der Krise. Das Unternehmen verliert seit 3 Jahren Marktanteile (-25%), die Mitarbeitermotivation ist niedrig (Employee Engagement 35%), und digitale Wettbewerber drängen in den Markt. Der Aufsichtsrat erwartet eine komplette Transformation in 24 Monaten.",
+    "challenge": "Entwickeln Sie als CEO eine umfassende Leadership- und Transformationsstrategie. Wie führen Sie das Unternehmen durch den Wandel und schaffen nachhaltigen Erfolg?",
+    "context": "Traditionelle Hierarchien, risk-averse Kultur, veraltete Technologie. Starke Gewerkschaften, skeptische Belegschaft. Aber: solide Finanzlage, starke Marken, loyale Kunden. 18 Monate bis zur nächsten Aufsichtsratssitzung."
+  },
+  "help_system": {
+    "available": true,
+    "type": "selective_hints",
+    "total_hints": 5,
+    "user_selectable": 3,
+    "hint_categories": [
+      {
+        "id": "vision_strategy",
+        "title": "Vision & Strategy",
+        "description": "Tipps zur Entwicklung einer überzeugenden Transformations-Vision"
+      },
+      {
+        "id": "change_management",
+        "title": "Change Management",
+        "description": "Tipps zur Führung von Veränderungsprozessen"
+      },
+      {
+        "id": "stakeholder_management",
+        "title": "Stakeholder Management",
+        "description": "Tipps zum Management verschiedener Interessensgruppen"
+      },
+      {
+        "id": "culture_transformation",
+        "title": "Culture Transformation",
+        "description": "Tipps zur gezielten Kulturentwicklung"
+      },
+      {
+        "id": "leadership_style",
+        "title": "Leadership Style",
+        "description": "Tipps zur situativen Führung in Transformationen"
+      }
+    ],
+    "hints": {
+      "vision_strategy": [
+        "🎯 Entwickeln Sie eine 'Burning Platform': Machen Sie die Dringlichkeit des Wandels für alle spürbar. Ohne Krisenbewusstsein gibt es keine Veränderungsbereitschaft.",
+        "🚀 Vision muss emotional und rational überzeugen: 'Wir werden der digitale Marktführer' ist besser als 'Wir müssen uns digitalisieren'. Positive Zukunft statt Angst-Motivation."
+      ],
+      "change_management": [
+        "📈 Kotter's 8-Stufen-Modell anwenden: Urgency → Coalition → Vision → Communication → Empowerment → Short-term Wins → Consolidation → Anchoring.",
+        "🏆 Quick Wins sind essentiell: Zeigen Sie in den ersten 90 Tagen konkrete Erfolge. Vertrauen entsteht durch Ergebnisse, nicht durch Worte."
+      ],
+      "stakeholder_management": [
+        "⚖️ Gewerkschaften als Partner gewinnen: Transparenz über Arbeitsplatz-Sicherheit und Weiterbildung. Transformation MIT den Mitarbeitern, nicht GEGEN sie.",
+        "👥 Identifizieren Sie Change Champions: 15-20% Early Adopters können 60% der Belegschaft überzeugen. Investieren Sie in diese Multiplikatoren."
+      ],
+      "culture_transformation": [
+        "🔄 Culture follows Structure: Ändern Sie Anreizsysteme, Beförderungskriterien und Entscheidungsprozesse. Kultur ändert sich durch neue Erfahrungen, nicht durch Poster.",
+        "📊 Messen Sie Kulturwandel: Employee Engagement, Innovation-Rate, Entscheidungsgeschwindigkeit. Was gemessen wird, wird gemanagt."
+      ],
+      "leadership_style": [
+        "🎭 Situative Führung: Directive Leadership für Krisenbewältigung, Participative Leadership für Vision-Entwicklung, Delegative Leadership für Innovation.",
+        "💪 Authentizität ist kritisch: Zeigen Sie Verletzlichkeit und Lernbereitschaft. 'Ich weiß nicht alles, aber wir finden es gemeinsam heraus' schafft Vertrauen."
+      ]
+    }
+  },
+  "structured_input": {
+    "instructions": "Entwickeln Sie als neuer CEO eine umfassende Leadership-Strategie für die CrisisCorp-Transformation. Arbeiten Sie eigenständig und wählen Sie 3 von 5 Tipp-Kategorien zur Unterstützung.",
+    "hint_selection": {
+      "required": true,
+      "instruction": "Wählen Sie 3 der 5 Tipp-Kategorien aus, die für Ihre CEO-Leadership-Strategie am wichtigsten sind:",
+      "max_selections": 3
+    },
+    "mbb_criteria": [
+      {
+        "id": "problemstrukturierung",
+        "title": "Problemstrukturierung",
+        "prompt": "Analysieren Sie die Leadership-Herausforderungen systematisch. Welche sind die kritischen Hebel für erfolgreiche Transformation?",
+        "guidance": "Strukturieren Sie die komplexen Herausforderungen eines CEO in einer Transformationssituation. Priorisieren Sie nach Impact und Dringlichkeit.",
+        "max_words": 400
+      },
+      {
+        "id": "analytik",
+        "title": "Analytik",
+        "prompt": "Bewerten Sie die aktuelle Situation detailliert. Welche Stärken können Sie nutzen, welche Schwächen müssen Sie adressieren?",
+        "guidance": "Führen Sie eine ehrliche Situationsanalyse durch. Bewerten Sie interne und externe Faktoren, die Ihre Transformation beeinflussen.",
+        "max_words": 450
+      },
+      {
+        "id": "strategie",
+        "title": "Strategie",
+        "prompt": "Entwickeln Sie Ihre Leadership- und Transformationsstrategie. Wie führen Sie das Unternehmen durch den Wandel?",
+        "guidance": "Definieren Sie Ihren Leadership-Ansatz, Change-Strategie und Transformations-Roadmap. Berücksichtigen Sie verschiedene Stakeholder-Gruppen.",
+        "max_words": 500
+      },
+      {
+        "id": "empfehlung",
+        "title": "Empfehlung",
+        "prompt": "Erstellen Sie einen konkreten 24-Monats-Aktionsplan. Was sind Ihre ersten 100 Tage als CEO?",
+        "guidance": "Definieren Sie konkrete Schritte, Meilensteine und Erfolgskriterien. Seien Sie spezifisch bei Timing und Verantwortlichkeiten.",
+        "max_words": 500
+      },
+      {
+        "id": "kommunikation",
+        "title": "Kommunikation",
+        "prompt": "Wie kommunizieren Sie als CEO die Transformation? Entwickeln Sie eine Kommunikationsstrategie für alle Stakeholder.",
+        "guidance": "Berücksichtigen Sie verschiedene Zielgruppen mit unterschiedlichen Sorgen. CEO-Kommunikation muss authentisch und überzeugend sein.",
+        "max_words": 400
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "Leadership-Herausforderungen systematisch strukturiert und priorisiert",
+    "Change Management Prinzipien verstanden und angewendet",
+    "Stakeholder-spezifische Strategien entwickelt",
+    "Authentische CEO-Kommunikation und Vision entwickelt"
+  ],
+  "tool_mastery_indicators": [
+    "Kann komplexe Leadership-Situationen strukturiert analysieren",
+    "Entwickelt situationsgerechte Führungsstrategien",
+    "Balanciert verschiedene Stakeholder-Interessen erfolgreich",
+    "Erstellt umsetzbare Transformations-Roadmaps mit Change Management"
+  ],
+  "common_mistakes": [
+    "Unterschätzung der emotionalen Dimension von Veränderungen",
+    "Zu schnelle Transformation ohne ausreichendes Change Management",
+    "Vernachlässigung von Stakeholder-Alignment und Kommunikation",
+    "Fokus nur auf Strategie ohne Berücksichtigung der Organisationskultur"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende Leadership-Strategie mit Identifikation der kritischen Herausforderungen",
+    "target": "Umfassende Transformations-Strategie mit Change Management und Stakeholder-Alignment",
+    "excellent": "Vollständige CEO-Leadership-Strategie mit detaillierter Roadmap, Kommunikationsplan und Kulturwandel-Programm"
+  },
+  "reference_answer": {
+    "summary": "CEO-Leadership-Strategie für CrisisCorp: Burning Platform kommunizieren, Change Coalition aufbauen, digitale Vision entwickeln, Quick Wins in ersten 100 Tagen, Gewerkschaften als Partner gewinnen, Kultur durch neue Strukturen ändern. 24-Monats-Transformation mit situativer Führung.",
+    "key_insights": [
+      "CEO-Leadership in Transformationen erfordert Balance zwischen Dringlichkeit und Empathie",
+      "Change Management ist wichtiger als die perfekte Strategie - Execution beats Strategy",
+      "Authentizität und Verletzlichkeit schaffen mehr Vertrauen als perfekte Fassaden",
+      "Kulturwandel passiert durch neue Erfahrungen und Strukturen, nicht durch Kommunikation allein"
+    ]
+  }
+}

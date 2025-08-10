@@ -1,44 +1,40 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+/**
+ * ADMIN USERS API
+ * Migrated to navaa Auth Guidelines (WP-C1)
+ *
+ * COMPLIANCE:
+ * - Uses requireRole('admin') middleware (MANDATORY)
+ * - JWT token validation via auth middleware
+ * - Role-based access control for admin operations
+ * - No manual JWT extraction or admin validation
+ *
+ * @version 2.0.0 (WP-C1 Backend Migration)
+ */
+
+import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { validateAdmin } from '../../../lib/schemas/admin.schemas';
+import { requireRole, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// Main API handler with Auth Middleware (WP-C1 Migration)
+async function adminUsersHandler(req: AuthenticatedRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Get user from Auth Middleware (WP-C1 Migration)
+  const userId = getUserId(req); // User already validated by requireRole('admin') middleware
+
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      return res.status(401).json({ error: 'No authorization header' });
-    }
-
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
-
-    if (authError || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
-    }
-
-    // Check if user is admin
-    const { data: profile, error: profileError } = await supabase
-      .from('user_profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (profileError || profile?.role !== 'admin') {
-      return res.status(403).json({ error: 'Admin access required' });
-    }
-
     // Get all users
     const { data: users, error: usersError } = await supabase
       .from('user_profiles')
-      .select('id, email, name, first_name, last_name, role, created_at, expires_at')
+      .select('id, email, first_name, last_name, role, created_at, expires_at')
       .order('created_at', { ascending: false });
 
     if (usersError) {
@@ -46,13 +42,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ error: 'Error fetching users' });
     }
 
-    res.status(200).json({ 
+    // ✅ PHASE 1: Sichere Zod-Validation für Response (additive, non-breaking)
+    const responseData = {
       users: users || [],
-      total: users?.length || 0
-    });
+      total_count: users?.length || 0,
+      admin_count: users?.filter((u) => u.role === 'admin').length || 0,
+      test_user_count: users?.filter((u) => u.role === 'test_user').length || 0,
+    };
 
+    const zodValidationResult = validateAdmin.usersResponse(responseData);
+
+    if (!zodValidationResult.success) {
+      // ⚠️ WARNUNG loggen, aber NICHT abbrechen (backwards compatibility)
+      console.warn('🔍 Admin Users Response validation failed (non-breaking):', {
+        errors: zodValidationResult.error.issues,
+        endpoint: '/api/admin/users',
+      });
+    } else {
+      console.log('✅ Admin Zod validation passed: users response');
+    }
+
+    res.status(200).json(responseData);
   } catch (error) {
     console.error('Error in users API:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+// Export handler with requireRole middleware (WP-C1 Migration)
+export default requireRole('admin')(adminUsersHandler);

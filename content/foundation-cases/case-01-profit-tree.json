@@ -1,0 +1,297 @@
+{
+  "id": "f01-profit-tree",
+  "title": "TechCorp Gewinnrückgang analysieren",
+  "cluster": "performance",
+  "difficulty": 1,
+  "case_order": 1,
+  "estimated_time": 15,
+  "assessment_mode": "concept_only",
+  "scaffolding_level": 4,
+
+  "primary_tool": "Profit Tree",
+  "secondary_tools": ["MECE", "Root Cause Analysis"],
+
+  "situation": "TechCorp ist ein mittelständisches Software-Unternehmen mit 200 Mitarbeitern, das ERP-Lösungen für kleine und mittlere Unternehmen entwickelt. Das Unternehmen war in den letzten 5 Jahren sehr erfolgreich und konnte kontinuierlich wachsen.\n\nIn den letzten 12 Monaten ist jedoch ein besorgniserregender Trend zu beobachten: Obwohl der Umsatz stabil geblieben ist (€15 Mio.), ist der Gewinn um 35% von €3 Mio. auf €1,95 Mio. gesunken.\n\nDer CEO ist beunruhigt und möchte verstehen, was die Ursachen für diesen drastischen Gewinnrückgang sind.",
+
+  "question": "Warum ist der Gewinn von TechCorp um 35% gesunken, obwohl der Umsatz stabil geblieben ist?",
+
+  "context": [
+    "Umsatz 2023: €15 Mio. (stabil zu 2022)",
+    "Gewinn 2022: €3 Mio. (20% Marge)",
+    "Gewinn 2023: €1,95 Mio. (13% Marge)",
+    "Mitarbeiteranzahl: von 180 auf 200 gestiegen",
+    "Hauptprodukt: ERP-Software für KMU",
+    "Marktposition: Etablierter Player im deutschen Markt"
+  ],
+
+  "tool_explanation": "Ein **Profit Tree** ist ein strukturiertes Framework zur systematischen Analyse von Gewinnveränderungen. Es zerlegt den Gewinn in seine Grundkomponenten:\n\n**Gewinn = Umsatz - Kosten**\n\n**Umsatz = Anzahl Kunden × Durchschnittlicher Umsatz pro Kunde**\n**Kosten = Fixkosten + Variable Kosten**\n\nDurch diese Aufschlüsselung können wir systematisch identifizieren, welche Faktoren für Gewinnveränderungen verantwortlich sind. Das Profit Tree hilft dabei, **MECE** (Mutually Exclusive, Collectively Exhaustive) zu denken und keine wichtigen Bereiche zu übersehen.",
+
+  "multiple_choice_section": {
+    "introduction": "Bevor wir mit der Analyse beginnen, lass uns sicherstellen, dass du die Grundlagen des Profit Trees verstehst.",
+    "questions": [
+      {
+        "id": "mc1",
+        "question": "Welche Hauptkomponenten gehören in einen Profit Tree?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Umsatz und Kosten",
+            "correct": true,
+            "explanation": "Richtig! Der Gewinn ergibt sich aus Umsatz minus Kosten. Diese beiden Hauptkategorien bilden die erste Ebene des Profit Trees."
+          },
+          {
+            "id": "b",
+            "text": "Kunden, Produkte und Märkte",
+            "correct": false,
+            "explanation": "Das sind wichtige Geschäftselemente, aber nicht die Hauptkomponenten eines Profit Trees. Diese Faktoren beeinflussen Umsatz und Kosten, sind aber eine Ebene tiefer anzusiedeln."
+          },
+          {
+            "id": "c",
+            "text": "Fixkosten und variable Kosten",
+            "correct": false,
+            "explanation": "Das ist nur ein Teil des Profit Trees - nämlich die Aufschlüsselung der Kosten. Du vergisst die Umsatzseite, die genauso wichtig ist."
+          },
+          {
+            "id": "d",
+            "text": "Anzahl Kunden und Preis pro Kunde",
+            "correct": false,
+            "explanation": "Das ist die Aufschlüsselung der Umsatzseite, aber du vergisst die Kostenseite. Ein vollständiger Profit Tree braucht beide Seiten."
+          }
+        ]
+      },
+      {
+        "id": "mc2",
+        "question": "TechCorp hat stabilen Umsatz, aber sinkenden Gewinn. Was ist die wahrscheinlichste Ursache?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Die Kosten sind gestiegen",
+            "correct": true,
+            "explanation": "Exzellent! Wenn Umsatz = Gewinn + Kosten, und der Umsatz stabil ist, aber der Gewinn sinkt, dann müssen die Kosten gestiegen sein. Das ist die logische Schlussfolgerung."
+          },
+          {
+            "id": "b",
+            "text": "Die Kundenzahl ist gesunken",
+            "correct": false,
+            "explanation": "Wenn die Kundenzahl gesunken wäre, würde normalerweise auch der Umsatz sinken. Da der Umsatz aber stabil ist, ist das nicht die Hauptursache."
+          },
+          {
+            "id": "c",
+            "text": "Die Preise sind gesunken",
+            "correct": false,
+            "explanation": "Sinkende Preise würden zu sinkendem Umsatz führen. Da der Umsatz stabil ist, können die Preise nicht die Hauptursache sein."
+          },
+          {
+            "id": "d",
+            "text": "Der Markt ist geschrumpft",
+            "correct": false,
+            "explanation": "Ein schrumpfender Markt würde sich normalerweise in sinkendem Umsatz zeigen. Da der Umsatz stabil ist, ist das nicht die primäre Ursache."
+          }
+        ]
+      },
+      {
+        "id": "mc3",
+        "question": "Welche Kostenkategorien sollten wir bei TechCorp prioritär analysieren?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Nur die Personalkosten, da 20 neue Mitarbeiter eingestellt wurden",
+            "correct": false,
+            "explanation": "Personalkosten sind wichtig, aber eine vollständige Analyse sollte alle Kostenkategorien betrachten. Es könnten auch andere Kosten gestiegen sein."
+          },
+          {
+            "id": "b",
+            "text": "Personalkosten, IT-Infrastruktur, Marketing und sonstige Betriebskosten",
+            "correct": true,
+            "explanation": "Perfekt! Eine systematische MECE-Analyse aller Hauptkostenkategorien ist der richtige Ansatz. So übersehen wir keine wichtigen Kostentreiber."
+          },
+          {
+            "id": "c",
+            "text": "Nur die variablen Kosten, da diese mit dem Geschäft schwanken",
+            "correct": false,
+            "explanation": "Bei einem Software-Unternehmen sind die meisten Kosten fix (Personal, Büro, etc.). Variable Kosten sind oft gering, daher wäre dieser Fokus zu eng."
+          },
+          {
+            "id": "d",
+            "text": "Nur externe Kosten wie Beratung und Software-Lizenzen",
+            "correct": false,
+            "explanation": "Externe Kosten sind nur ein Teil des Gesamtbilds. Die größten Kostenpositionen bei TechCorp sind wahrscheinlich interne Kosten wie Personal."
+          }
+        ]
+      },
+      {
+        "id": "mc4",
+        "question": "Was ist der Hauptunterschied zwischen einem Profit Tree und einer P&L (Gewinn- und Verlustrechnung)?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ein Profit Tree ist detaillierter als eine P&L",
+            "correct": false,
+            "explanation": "Nicht ganz richtig. Eine P&L kann sehr detailliert sein. Der Unterschied liegt nicht im Detailgrad, sondern im Zweck und der Struktur."
+          },
+          {
+            "id": "b",
+            "text": "Ein Profit Tree ist ein analytisches Framework, eine P&L ist ein Reporting-Dokument",
+            "correct": true,
+            "explanation": "Exzellent! Ein Profit Tree ist ein Analyse-Tool zur systematischen Problemlösung, während eine P&L primär der Berichterstattung dient. Das Profit Tree hilft beim strategischen Denken."
+          },
+          {
+            "id": "c",
+            "text": "Eine P&L zeigt nur Vergangenheitsdaten, ein Profit Tree nur Zukunftsdaten",
+            "correct": false,
+            "explanation": "Das ist nicht korrekt. Beide können sowohl historische als auch prognostizierte Daten enthalten. Der Unterschied liegt in der Verwendung als Analyse- vs. Reporting-Tool."
+          },
+          {
+            "id": "d",
+            "text": "Es gibt keinen Unterschied, das sind nur verschiedene Namen",
+            "correct": false,
+            "explanation": "Das ist falsch. Obwohl beide mit Gewinn und Kosten arbeiten, haben sie völlig unterschiedliche Zwecke: Analyse vs. Berichterstattung."
+          }
+        ]
+      }
+    ]
+  },
+
+  "hypothesis_section": {
+    "introduction": "Jetzt, da du die Grundlagen verstehst, lass uns systematisch Hypothesen entwickeln. Denke dabei an den Profit Tree und die MECE-Struktur.",
+    "prompts": [
+      {
+        "id": "h1",
+        "prompt": "**Schritt 1: Haupthypothese formulieren**\n\nBasierend auf den Informationen (stabiler Umsatz, sinkender Gewinn), formuliere deine Haupthypothese in einem Satz:\n\n*Warum ist der Gewinn von TechCorp gesunken?*",
+        "ideal_answer": "Die Kosten von TechCorp sind überproportional gestiegen, während der Umsatz stabil geblieben ist, was zu einem Rückgang der Gewinnmarge von 20% auf 13% geführt hat.",
+        "evaluation_criteria": [
+          "Erkennt, dass Kosten die Hauptursache sind",
+          "Bezieht sich auf die konkreten Zahlen",
+          "Formuliert klar und präzise"
+        ],
+        "feedback_hints": {
+          "good_indicators": ["Kosten gestiegen", "Umsatz stabil", "Marge gesunken"],
+          "missing_elements": ["Konkrete Zahlen", "Kausalität", "Präzision"],
+          "common_mistakes": [
+            "Fokus auf Umsatz statt Kosten",
+            "Zu vage Formulierung",
+            "Keine Zahlen"
+          ]
+        }
+      },
+      {
+        "id": "h2",
+        "prompt": "**Schritt 2: Kostenhypothesen entwickeln**\n\nWelche 3 spezifischen Kostenkategorien könnten für den Anstieg verantwortlich sein? Begründe jede Hypothese kurz:\n\n1. Kostenkategorie 1: _____ weil _____\n2. Kostenkategorie 2: _____ weil _____\n3. Kostenkategorie 3: _____ weil _____",
+        "ideal_answer": "1. Personalkosten: 20 neue Mitarbeiter (+11% Headcount) führen zu höheren Gehältern und Nebenkosten\n2. IT-Infrastruktur: Mehr Mitarbeiter benötigen zusätzliche Hardware, Software-Lizenzen und Cloud-Kapazitäten\n3. Büro- und Betriebskosten: Größeres Team benötigt mehr Bürofläche, höhere Nebenkosten",
+        "evaluation_criteria": [
+          "Identifiziert relevante Kostenkategorien",
+          "Verknüpft mit gegebenen Informationen (20 neue MA)",
+          "Logische Begründung für jede Kategorie"
+        ],
+        "feedback_hints": {
+          "good_indicators": ["Personalkosten", "IT-Kosten", "Bürokosten", "Bezug zu 20 neuen MA"],
+          "missing_elements": ["Begründung", "Quantifizierung", "Priorisierung"],
+          "common_mistakes": [
+            "Zu vage Kategorien",
+            "Keine Verbindung zu Fakten",
+            "Unrealistische Hypothesen"
+          ]
+        }
+      },
+      {
+        "id": "h3",
+        "prompt": "**Schritt 3: Priorisierung und nächste Schritte**\n\nWelche deiner 3 Hypothesen würdest du zuerst testen und warum? Welche konkreten Daten würdest du anfordern?",
+        "ideal_answer": "Priorität 1: Personalkosten - größter Kostenfaktor bei Software-Unternehmen und direkter Bezug zu +20 Mitarbeitern. Daten: Gehaltsabrechnungen 2022 vs 2023, Einstellungsdaten, Durchschnittsgehälter neue vs bestehende MA.\n\nDiese Hypothese hat die höchste Wahrscheinlichkeit und den größten potenziellen Impact.",
+        "evaluation_criteria": [
+          "Logische Priorisierung basierend auf Impact/Wahrscheinlichkeit",
+          "Konkrete Datenanforderungen",
+          "Begründung der Prioritätensetzung"
+        ],
+        "feedback_hints": {
+          "good_indicators": [
+            "Personalkosten priorisiert",
+            "Konkrete Daten genannt",
+            "Impact-Begründung"
+          ],
+          "missing_elements": ["Priorisierungslogik", "Spezifische Daten", "Testbarkeit"],
+          "common_mistakes": ["Keine Priorisierung", "Vage Datenanfragen", "Unrealistische Tests"]
+        }
+      }
+    ]
+  },
+
+  "concept_checkpoints": [
+    "Versteht Profit Tree Grundstruktur (Gewinn = Umsatz - Kosten)",
+    "Kann logische Schlussfolgerungen aus gegebenen Daten ziehen",
+    "Erkennt MECE-Prinzip bei Kostenanalyse",
+    "Formuliert testbare, spezifische Hypothesen",
+    "Kann Hypothesen nach Impact/Wahrscheinlichkeit priorisieren",
+    "Verknüpft Hypothesen mit konkreten Datenanforderungen"
+  ],
+
+  "tool_mastery_indicators": [
+    "Nutzt Profit Tree zur systematischen Problemzerlegung",
+    "Wendet MECE-Denken bei Hypothesenentwicklung an",
+    "Identifiziert relevante Kostenkategorien für Software-Unternehmen",
+    "Verbindet quantitative Daten mit qualitativen Hypothesen"
+  ],
+
+  "ideal_case_solution": "**Profit Tree Analyse für TechCorp:**\n\n**Problem:** Gewinn ↓ 35% bei stabilem Umsatz → Kosten müssen ↑ sein\n\n**Kostenanalyse (MECE):**\n1. **Personalkosten** (Hauptverdächtiger): +20 MA (+11%) = ca. +€1-1.5 Mio\n2. **IT-Infrastruktur**: Mehr Lizenzen, Hardware, Cloud = ca. +€200-300k\n3. **Büro/Betrieb**: Größere Fläche, Nebenkosten = ca. +€100-200k\n\n**Hypothese:** Personalkosten sind um ~€1.2 Mio gestiegen (20 MA × €60k Durchschnitt), was 80% des Gewinnrückgangs (€1.05 Mio) erklärt.\n\n**Nächste Schritte:** Personalkosten-Analyse, dann IT- und Betriebskosten validieren.",
+
+  "common_mistakes": [
+    {
+      "mistake": "Fokus auf Umsatzseite trotz stabiler Umsätze",
+      "feedback": "Da der Umsatz stabil ist, liegt das Problem auf der Kostenseite. Konzentriere dich auf die Kostenanalyse."
+    },
+    {
+      "mistake": "Zu vage Hypothesen ohne Bezug zu gegebenen Fakten",
+      "feedback": "Nutze die Information über 20 neue Mitarbeiter! Das ist ein konkreter Hinweis auf gestiegene Personalkosten."
+    },
+    {
+      "mistake": "Keine MECE-Struktur bei Kostenanalyse",
+      "feedback": "Denke systematisch: Welche Hauptkostenkategorien gibt es bei einem Software-Unternehmen? Personal, IT, Büro, Marketing, etc."
+    },
+    {
+      "mistake": "Keine Quantifizierung oder Priorisierung",
+      "feedback": "Versuche die Hypothesen zu quantifizieren: 20 MA × Durchschnittsgehalt = geschätzte Kostensteigerung."
+    }
+  ],
+
+  "success_criteria": {
+    "minimum_pass": {
+      "score_threshold": 6,
+      "required_elements": [
+        "Erkennt Kosten als Hauptproblem",
+        "Nennt Personalkosten als wichtigste Kategorie",
+        "Bezieht sich auf 20 neue Mitarbeiter"
+      ]
+    },
+    "good_performance": {
+      "score_threshold": 8,
+      "required_elements": [
+        "Systematische MECE-Kostenanalyse",
+        "Quantifizierte Hypothesen",
+        "Logische Priorisierung",
+        "Konkrete Datenanforderungen"
+      ]
+    },
+    "excellent_performance": {
+      "score_threshold": 9,
+      "required_elements": [
+        "Vollständiger Profit Tree Ansatz",
+        "Präzise Quantifizierung",
+        "Strategische Implikationen erkannt",
+        "Professionelle Consulting-Sprache"
+      ]
+    }
+  },
+
+  "estimated_solution_time": {
+    "multiple_choice": 5,
+    "hypotheses": 8,
+    "review": 2
+  },
+
+  "learning_objectives": [
+    "Profit Tree als systematisches Analyse-Framework verstehen",
+    "MECE-Prinzip bei Problemzerlegung anwenden",
+    "Quantitative Daten mit qualitativen Hypothesen verknüpfen",
+    "Hypothesen nach Impact und Testbarkeit priorisieren",
+    "Consulting-typische Strukturierung und Sprache entwickeln"
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "id": "case-07",
+  "title": "Strategische Entscheidung: AutoParts Make-or-Buy",
+  "category": "foundation",
+  "cluster": "Strategie & Priorisierung",
+  "tool": "Strategic Decision Framework",
+  "difficulty": 7,
+  "estimated_duration": 40,
+  "interaction_type": "structured_mbb",
+  "learning_objectives": [
+    "Komplexe strategische Entscheidungen strukturiert analysieren",
+    "Make-or-Buy-Entscheidungen systematisch bewerten",
+    "Strategische Optionen entwickeln und vergleichen",
+    "Risiko-Rendite-Abwägungen in strategischen Kontexten treffen"
+  ],
+  "scenario": {
+    "company": "AutoParts Excellence GmbH",
+    "industry": "Automotive/Zulieferer",
+    "situation": "AutoParts Excellence, ein deutscher Tier-1-Zulieferer mit 1.200 Mitarbeitern und 180 Mio. € Umsatz, steht vor einer kritischen strategischen Entscheidung. Der größte Kunde (BMW) fordert eine 25%ige Kostensenkung für ein Schlüsselkomponent (Bremssysteme) bis 2026. Gleichzeitig bietet ein chinesischer Hersteller an, diese Komponente für 40% weniger zu produzieren.",
+    "challenge": "Entscheiden Sie, ob AutoParts die Produktion auslagern, selbst optimieren oder eine alternative Strategie verfolgen soll.",
+    "context": "Das Bremssystem-Geschäft macht 60% des Umsatzes aus (108 Mio. €). Eigenproduktion erfordert 50 Mio. € Investment in neue Anlagen. Auslagerung würde 400 Arbeitsplätze betreffen. Qualität und Liefersicherheit sind kritisch."
+  },
+  "tool_explanation": {
+    "name": "Strategic Decision Framework",
+    "description": "Systematischer Ansatz zur Analyse und Bewertung komplexer strategischer Entscheidungen mit mehreren Optionen und Unsicherheiten.",
+    "key_components": [
+      "Option Generation: Entwicklung aller relevanten strategischen Alternativen",
+      "Criteria Definition: Bewertungskriterien und deren Gewichtung",
+      "Option Evaluation: Systematische Bewertung jeder Option",
+      "Risk Assessment: Identifikation und Bewertung von Risiken",
+      "Decision Matrix: Strukturierte Entscheidungsfindung",
+      "Implementation Planning: Umsetzungsplanung der gewählten Option"
+    ],
+    "evaluation_criteria": [
+      "Financial Impact: NPV, ROI, Cash Flow",
+      "Strategic Fit: Alignment mit Unternehmensstrategie",
+      "Risk Profile: Operationelle und strategische Risiken",
+      "Feasibility: Umsetzbarkeit und Ressourcenanforderungen",
+      "Stakeholder Impact: Auswirkungen auf alle Beteiligten"
+    ],
+    "application": "Das Framework hilft dabei, komplexe strategische Entscheidungen objektiv zu bewerten und die beste Option unter Unsicherheit zu identifizieren."
+  },
+  "structured_input": {
+    "instructions": "Analysieren Sie die Make-or-Buy-Entscheidung systematisch anhand der MBB-Kriterien. Nutzen Sie das Strategic Decision Framework für eine strukturierte Bewertung aller Optionen.",
+    "mbb_criteria": [
+      {
+        "id": "problemstrukturierung",
+        "title": "Problemstrukturierung",
+        "prompt": "Strukturieren Sie die strategische Entscheidungssituation systematisch. Definieren Sie das Kernproblem, entwickeln Sie strategische Optionen und identifizieren Sie Bewertungskriterien.",
+        "guidance": "Denken Sie über Make-or-Buy hinaus. Welche weiteren strategischen Optionen gibt es? Welche Kriterien sind für AutoParts entscheidend?",
+        "ideal_response": "STRATEGISCHE ENTSCHEIDUNGSSTRUKTUR:\n\n1. KERNPROBLEM-DEFINITION\nHauptherausforderung: 25% Kostensenkung bei Bremssystemen gefordert\nZeitrahmen: Bis 2026 (2 Jahre)\nUmsatz-Impact: 108 Mio. € (60% des Gesamtumsatzes)\nArbeitsplatz-Impact: Bis zu 400 Stellen betroffen\n\n2. STRATEGISCHE OPTIONEN\nOption A: MAKE - Eigenproduktion optimieren\n- Investition in neue Anlagen (50 Mio. €)\n- Prozessoptimierung und Automatisierung\n- Kostensenkung durch Effizienzsteigerung\n\nOption B: BUY - Vollständige Auslagerung\n- Chinesischer Partner (40% Kostenvorteil)\n- Komplette Produktionsverlagerung\n- Fokus auf andere Geschäftsbereiche\n\nOption C: HYBRID - Teilauslagerung\n- Kritische Komponenten in Deutschland\n- Standardteile aus China\n- Risikodiversifikation\n\nOption D: STRATEGIC PARTNERSHIP\n- Joint Venture mit chinesischem Partner\n- Technologietransfer und Kostensenkung\n- Gemeinsame Marktbearbeitung\n\nOption E: VERTICAL INTEGRATION\n- Rückwärtsintegration zu Rohstoffen\n- Vorwärtsintegration zu Endkunden\n- Margenoptimierung entlang der Wertschöpfungskette\n\nOption F: MARKET EXIT\n- Verkauf des Bremssystem-Geschäfts\n- Fokus auf profitablere Segmente\n- Kapital für neue Geschäftsfelder\n\n3. BEWERTUNGSKRITERIEN\nFinanzielle Kriterien (40%):\n- NPV über 5 Jahre\n- Investitionsbedarf\n- Cash Flow Impact\n- Break-even Zeitpunkt\n\nStrategische Kriterien (30%):\n- Wettbewerbsposition\n- Kundenzufriedenheit\n- Technologiekontrolle\n- Marktposition\n\nRisiko-Kriterien (20%):\n- Lieferketten-Risiko\n- Qualitätsrisiko\n- Politische Risiken\n- Abhängigkeitsrisiken\n\nStakeholder-Kriterien (10%):\n- Mitarbeiter-Impact\n- Kunden-Akzeptanz\n- Lieferanten-Beziehungen\n- Gesellschaftliche Verantwortung",
+        "max_words": 350
+      },
+      {
+        "id": "analytik",
+        "title": "Analytik",
+        "prompt": "Führen Sie eine quantitative Bewertung der strategischen Optionen durch. Berechnen Sie NPV, ROI und weitere relevante Kennzahlen für jede Option.",
+        "guidance": "Nutzen Sie die verfügbaren Daten für eine fundierte Finanzanalyse. Berücksichtigen Sie auch qualitative Faktoren und Risiken.",
+        "ideal_response": "QUANTITATIVE OPTIONSBEWERTUNG (5-Jahres-Horizont):\n\n1. OPTION A: MAKE - Eigenproduktion optimieren\nInvestition: 50 Mio. € (Jahr 1)\nKostensenkung: 20% erreichbar (vs. 25% gefordert)\nJährliche Einsparungen: 22 Mio. € ab Jahr 2\nNPV (8% WACC): +35 Mio. €\nROI: 28%\nBreak-even: Monat 30\nRisiko-Adjustierung: -15% (Technologierisiko)\n\n2. OPTION B: BUY - Vollständige Auslagerung\nInvestition: 5 Mio. € (Transition)\nKostensenkung: 40% sofort\nJährliche Einsparungen: 43 Mio. € ab Jahr 1\nNPV (8% WACC): +145 Mio. €\nROI: 2.900%\nBreak-even: Monat 3\nRisiko-Adjustierung: -30% (Qualitäts-/Lieferrisiko)\n\n3. OPTION C: HYBRID - Teilauslagerung\nInvestition: 25 Mio. € (Anlagen + Transition)\nKostensenkung: 30% kombiniert\nJährliche Einsparungen: 32 Mio. € ab Jahr 2\nNPV (8% WACC): +85 Mio. €\nROI: 180%\nBreak-even: Monat 18\nRisiko-Adjustierung: -20% (Komplexitätsrisiko)\n\n4. OPTION D: STRATEGIC PARTNERSHIP\nInvestition: 15 Mio. € (JV-Aufbau)\nKostensenkung: 35% durch Synergien\nJährliche Einsparungen: 38 Mio. € ab Jahr 2\nNPV (8% WACC): +110 Mio. €\nROI: 420%\nBreak-even: Monat 12\nRisiko-Adjustierung: -25% (Partnerrisiko)\n\n5. OPTION E: VERTICAL INTEGRATION\nInvestition: 80 Mio. € (Akquisitionen)\nKostensenkung: 15% + Margensteigerung\nJährliche Einsparungen: 25 Mio. € ab Jahr 3\nNPV (8% WACC): -10 Mio. €\nROI: -5%\nBreak-even: Nicht erreicht\nRisiko-Adjustierung: -35% (Integrationsrisiko)\n\n6. OPTION F: MARKET EXIT\nErlös: 120 Mio. € (Verkauf)\nOpportunitätskosten: 108 Mio. € Umsatz p.a.\nReinvestition NPV: 80 Mio. € (neue Geschäfte)\nNetto-NPV: +200 Mio. €\nROI: 67%\nRisiko-Adjustierung: -10% (Marktrisiko)\n\nRISIKO-ADJUSTIERTE BEWERTUNG:\n1. Market Exit: +180 Mio. € NPV\n2. Strategic Partnership: +83 Mio. € NPV\n3. Hybrid: +68 Mio. € NPV\n4. Buy: +102 Mio. € NPV\n5. Make: +30 Mio. € NPV\n6. Vertical Integration: -17 Mio. € NPV\n\nSENSITIVITÄTSANALYSE:\n- Währungsrisiko (EUR/CNY): ±15% Impact\n- Qualitätsprobleme: -25% NPV bei Option B\n- BMW-Vertragsverlust: -80% NPV alle Optionen\n- Rohstoffpreise: ±10% Impact",
+        "max_words": 400
+      },
+      {
+        "id": "strategie",
+        "title": "Strategie",
+        "prompt": "Entwickeln Sie eine umfassende strategische Empfehlung. Berücksichtigen Sie nicht nur die Finanzanalyse, sondern auch strategische Fit, Risiken und langfristige Positionierung.",
+        "guidance": "Welche Option passt am besten zur langfristigen Strategie von AutoParts? Wie können Risiken mitigiert werden?",
+        "ideal_response": "STRATEGISCHE EMPFEHLUNG: HYBRID-ANSATZ MIT PARTNERSHIP\n\n1. EMPFOHLENE STRATEGIE\nKombination aus Option C (Hybrid) + Option D (Partnership):\n\nPhase 1 (Jahr 1): Strategic Partnership etablieren\n- Joint Venture mit chinesischem Partner (51% AutoParts, 49% Partner)\n- Technologietransfer und Prozessoptimierung\n- Pilotproduktion für unkritische Komponenten\n\nPhase 2 (Jahr 2): Hybride Produktion\n- Kritische Sicherheitskomponenten in Deutschland\n- Standardkomponenten in China (JV)\n- Qualitätssicherung durch deutsche Standards\n\nPhase 3 (Jahr 3+): Skalierung und Optimierung\n- Vollständige Integration der Lieferkette\n- Weitere Kostensenkungen durch Lernkurve\n- Expansion in andere Produktlinien\n\n2. STRATEGISCHE VORTEILE\nKostenziel erreichen:\n- 30% Kostensenkung (vs. 25% gefordert)\n- Schrittweise Umsetzung reduziert Risiken\n- Flexibilität für weitere Optimierungen\n\nRisikominimierung:\n- Diversifizierte Produktion (Deutschland + China)\n- Qualitätskontrolle durch deutsche Führung\n- Schrittweise Transition ohne Schocktherapie\n\nStrategische Positionierung:\n- Technologieführerschaft beibehalten\n- Kostenführerschaft in Standardkomponenten\n- Zugang zu chinesischem Markt\n\n3. WETTBEWERBSVORTEILE\nKurzfristig (1-2 Jahre):\n- Kostensenkung um 30% erreicht\n- Qualitätsstandards beibehalten\n- Liefersicherheit gewährleistet\n\nMittelfristig (3-5 Jahre):\n- Marktführerschaft in Europa gefestigt\n- Expansion nach China möglich\n- Technologie-Edge durch JV-Synergien\n\nLangfristig (5+ Jahre):\n- Globale Wettbewerbsfähigkeit\n- Diversifizierte Risikobasis\n- Optionen für weitere Expansion\n\n4. RISIKOMANAGEMENT\nOperationelle Risiken:\n- Dual-Sourcing für kritische Komponenten\n- Qualitäts-Audits und -Standards\n- Backup-Lieferanten definiert\n\nStrategische Risiken:\n- JV-Governance klar definiert\n- IP-Schutz durch Verträge\n- Exit-Optionen vereinbart\n\nFinanzielle Risiken:\n- Währungshedging für CNY-Exposure\n- Stufenweise Investition\n- Performance-basierte Meilensteine\n\n5. STAKEHOLDER-MANAGEMENT\nMitarbeiter:\n- 200 Arbeitsplätze in Deutschland erhalten\n- 200 Arbeitsplätze in neue Bereiche umgeschult\n- Keine betriebsbedingten Kündigungen\n\nKunden (BMW):\n- Kostenziel übererfüllt (30% vs. 25%)\n- Qualitätsstandards beibehalten\n- Liefersicherheit durch Dual-Sourcing\n\nLieferanten:\n- Strategische Partner in Deutschland gehalten\n- Neue Partnerschaften in China\n- Win-Win durch Volumensteigerung\n\n6. IMPLEMENTATION ROADMAP\nMonate 1-3: Partner-Due-Diligence und JV-Gründung\nMonate 4-6: Pilotproduktion und Qualifizierung\nMonate 7-12: Schrittweise Produktionsverlagerung\nMonate 13-18: Vollständige Hybridproduktion\nMonate 19-24: Optimierung und Skalierung\n\nINVESTMENT: 40 Mio. € über 2 Jahre\nERWARTETER NPV: 95 Mio. € (risiko-adjustiert)\nROI: 240%\nBreak-even: Monat 15",
+        "max_words": 450
+      },
+      {
+        "id": "empfehlung",
+        "title": "Empfehlung",
+        "prompt": "Fassen Sie Ihre strategische Empfehlung zusammen und definieren Sie konkrete nächste Schritte für die Umsetzung.",
+        "guidance": "Geben Sie eine klare, umsetzbare Empfehlung mit Zeitplan und Verantwortlichkeiten.",
+        "ideal_response": "STRATEGISCHE EMPFEHLUNG: HYBRID-PARTNERSHIP-STRATEGIE\n\nKLARE EMPFEHLUNG:\nAutoParts soll eine Kombination aus Strategic Partnership und Hybrid-Produktion verfolgen. Dies erreicht die geforderte Kostensenkung von 25% (tatsächlich 30%), minimiert Risiken und positioniert das Unternehmen für langfristigen Erfolg.\n\nKERNELEMENTE:\n1. Joint Venture mit chinesischem Partner (51%/49%)\n2. Kritische Komponenten in Deutschland\n3. Standardkomponenten in China\n4. Schrittweise Umsetzung über 24 Monate\n\nBUSINESS CASE:\n- Investment: 40 Mio. € über 2 Jahre\n- NPV: 95 Mio. € (risiko-adjustiert)\n- ROI: 240%\n- Kostensenkung: 30% (übererfüllt BMW-Forderung)\n- Arbeitsplätze: 200 erhalten, 200 umgeschult\n\nNÄCHSTE SCHRITTE (90-TAGE-PLAN):\n\nWOCHE 1-2: ENTSCHEIDUNG & TEAM-AUFBAU\n- Vorstandsbeschluss für Hybrid-Partnership-Strategie\n- Projektteam etablieren (Projektleiter: Dr. Schmidt)\n- Steering Committee mit GF, Produktion, Finance\n- Budget freigeben (5 Mio. € für Due Diligence)\n\nWOCHE 3-6: PARTNER-IDENTIFIKATION\n- Longlist von 10 chinesischen Partnern erstellen\n- Shortlist auf 3 Partner reduzieren\n- Erste Gespräche und Capability-Assessment\n- NDA-Verträge abschließen\n\nWOCHE 7-10: DUE DILIGENCE\n- Technische Due Diligence (Qualitätsstandards)\n- Kommerzielle Due Diligence (Kostenstrukturen)\n- Legal Due Diligence (IP-Schutz, Verträge)\n- Cultural Fit Assessment\n\nWOCHE 11-12: PARTNER-AUSWAHL & LOI\n- Final Partner Selection\n- Letter of Intent unterzeichnen\n- Term Sheet für JV verhandeln\n- Projektplan für Phase 1 finalisieren\n\nERFOLGSKRITERIEN (90 Tage):\n- JV-Partner ausgewählt und LOI unterzeichnet\n- Detaillierter Umsetzungsplan erstellt\n- BMW über Strategie informiert und Zustimmung erhalten\n- Mitarbeiter über Pläne informiert\n\nRISIKO-MITIGATION:\n- Wöchentliche Steering Committee Meetings\n- Monatliche BMW-Updates\n- Quartalsweise Go/No-Go-Entscheidungen\n- Backup-Optionen (Plan B: Vollauslagerung) vorbereitet\n\nKOMMUNIKATIONSPLAN:\n- Mitarbeiter: Town Hall Meeting in Woche 2\n- BMW: Executive Briefing in Woche 4\n- Lieferanten: Information nach Partner-Auswahl\n- Öffentlichkeit: Pressemitteilung nach JV-Gründung\n\nBUDGET-FREIGABE ERFORDERLICH:\n- Sofort: 5 Mio. € (Due Diligence & Setup)\n- Monat 6: 15 Mio. € (JV-Investment)\n- Monat 12: 20 Mio. € (Produktionsaufbau)\n\nVERANTWORTLICHKEITEN:\n- Gesamtprojektleitung: Dr. Schmidt (CTO)\n- Partner-Due-Diligence: Hr. Wang (Einkauf)\n- Technische Integration: Fr. Müller (Produktion)\n- Legal & Compliance: Hr. Fischer (Legal)\n- Change Management: Fr. Weber (HR)",
+        "max_words": 400
+      },
+      {
+        "id": "kommunikation",
+        "title": "Kommunikation",
+        "prompt": "Wie würden Sie diese strategische Entscheidung verschiedenen Stakeholdern kommunizieren? Berücksichtigen Sie unterschiedliche Perspektiven und Sorgen.",
+        "guidance": "Denken Sie an Mitarbeiter, Kunden, Lieferanten und Investoren. Jede Gruppe hat andere Prioritäten und Sorgen.",
+        "ideal_response": "STAKEHOLDER-KOMMUNIKATIONSSTRATEGIE:\n\n1. MITARBEITER-KOMMUNIKATION\nKernbotschaft: \"Arbeitsplätze sichern durch intelligente Strategie\"\n\nTown Hall Meeting (Woche 2):\n\"Liebe Kolleginnen und Kollegen,\nBMW fordert 25% Kostensenkung - eine Herausforderung, die wir nur gemeinsam meistern können. Unsere Antwort: Hybrid-Partnership-Strategie.\n\nWas bedeutet das für Sie?\n- 200 Arbeitsplätze bleiben in Deutschland (kritische Produktion)\n- 200 Kollegen werden in zukunftsträchtige Bereiche umgeschult\n- Keine betriebsbedingten Kündigungen\n- Investition in neue Technologien und Qualifikationen\n\nWarum dieser Weg?\n- Kostenziel wird übererfüllt (30% statt 25%)\n- Deutsche Qualitätsstandards bleiben\n- Zukunftssicherung durch globale Wettbewerbsfähigkeit\n\nIhr Beitrag ist entscheidend für den Erfolg!\"\n\nFAQ-Session und regelmäßige Updates alle 2 Wochen.\n\n2. KUNDEN-KOMMUNIKATION (BMW)\nKernbotschaft: \"Kostenziel übererfüllt bei höchster Qualität\"\n\nExecutive Briefing (Woche 4):\n\"Sehr geehrte Damen und Herren,\nwir haben Ihre Kostensenkungsanforderung nicht nur ernst genommen, sondern eine Strategie entwickelt, die Ihre Erwartungen übertrifft:\n\n✓ 30% Kostensenkung (vs. 25% gefordert)\n✓ Deutsche Qualitätsstandards beibehalten\n✓ Liefersicherheit durch Dual-Sourcing\n✓ Kontinuierliche Verbesserung durch Innovation\n\nUnsere Hybrid-Partnership-Strategie kombiniert deutsche Ingenieurskunst mit globaler Kosteneffizienz. Sie profitieren von:\n- Übererfüllung Ihrer Kostenziele\n- Höchste Sicherheitsstandards für kritische Komponenten\n- Diversifizierte, resiliente Lieferkette\n- Zugang zu Innovationen aus beiden Märkten\n\nTimeline: Erste Kosteneinsparungen ab Q3 2025\"\n\n3. LIEFERANTEN-KOMMUNIKATION\nKernbotschaft: \"Partnerschaft stärken durch strategische Neuausrichtung\"\n\nLieferanten-Meeting (nach Partner-Auswahl):\n\"Geschätzte Partner,\nunsere Hybrid-Strategie schafft neue Chancen für alle:\n\nFür deutsche Lieferanten:\n- Kritische Komponenten bleiben in Deutschland\n- Neue Technologie-Partnerschaften\n- Volumensteigerung durch Effizienzgewinne\n\nFür internationale Partner:\n- Zugang zu deutschen Qualitätsstandards\n- Expansion in europäische Märkte\n- Langfristige strategische Partnerschaften\n\nWir setzen auf bewährte Partnerschaften und bauen diese aus.\"\n\n4. INVESTOREN/BANKEN-KOMMUNIKATION\nKernbotschaft: \"Wertschaffung durch strategische Transformation\"\n\nInvestor Update:\n\"Sehr geehrte Investoren,\nAutoParts positioniert sich strategisch für nachhaltiges Wachstum:\n\nFinanzielle Highlights:\n- NPV: 95 Mio. € über 5 Jahre\n- ROI: 240%\n- Kostensenkung: 30% erreicht\n- Investment: 40 Mio. € über 2 Jahre\n\nStrategische Vorteile:\n- Globale Wettbewerbsfähigkeit\n- Diversifizierte Risikobasis\n- Technologieführerschaft beibehalten\n- Zugang zu Wachstumsmärkten\n\nDie Transformation stärkt unsere Marktposition nachhaltig.\"\n\n5. ÖFFENTLICHKEIT/MEDIEN\nKernbotschaft: \"Innovation und Verantwortung in der Transformation\"\n\nPressemitteilung (nach JV-Gründung):\n\"AutoParts Excellence geht strategische Partnerschaft ein\n\nDas Unternehmen stärkt seine globale Wettbewerbsfähigkeit durch innovatives Hybrid-Modell. Deutsche Ingenieursexzellenz trifft auf globale Effizienz.\n\nHighlights:\n- Arbeitsplätze in Deutschland gesichert\n- Investition in Zukunftstechnologien\n- Nachhaltiges Wachstum durch strategische Partnerschaft\n- Stärkung der deutschen Automobilzulieferer-Industrie\"\n\n6. KOMMUNIKATIONS-TIMELINE\nWoche 1: Interne Kommunikation (Management)\nWoche 2: Mitarbeiter-Information (Town Hall)\nWoche 4: Kunden-Briefing (BMW)\nWoche 8: Lieferanten-Meeting\nWoche 12: Investor-Update\nWoche 16: Öffentliche Kommunikation\n\nERFOLGSMESUNG:\n- Mitarbeiter-Umfrage: >70% Zustimmung\n- Kunden-Feedback: Positive Bewertung\n- Medien-Coverage: Neutral bis positiv\n- Investor-Reaktion: Stabile Bewertung",
+        "max_words": 450
+      }
+    ]
+  },
+  "concept_checkpoints": [
+    "Strategische Optionen systematisch entwickelt und bewertet",
+    "Quantitative und qualitative Faktoren integriert",
+    "Risiko-Rendite-Abwägungen strukturiert durchgeführt",
+    "Stakeholder-Perspektiven berücksichtigt und adressiert"
+  ],
+  "tool_mastery_indicators": [
+    "Kann komplexe strategische Entscheidungen strukturiert analysieren",
+    "Entwickelt und bewertet multiple strategische Optionen",
+    "Integriert finanzielle, strategische und Risiko-Faktoren",
+    "Erstellt umsetzbare Strategieempfehlungen mit Stakeholder-Management"
+  ],
+  "common_mistakes": [
+    "Fokus nur auf finanzielle Kriterien ohne strategische Betrachtung",
+    "Zu wenige strategische Optionen entwickelt",
+    "Risiken unterschätzt oder nicht quantifiziert",
+    "Stakeholder-Impact vernachlässigt"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegende Optionsbewertung mit finanzieller Analyse",
+    "target": "Strukturierte strategische Analyse mit mehreren Optionen und Risikobewertung",
+    "excellent": "Vollständige strategische Empfehlung mit Umsetzungsplan und Stakeholder-Management"
+  },
+  "reference_answer": {
+    "summary": "Hybrid-Partnership-Strategie für AutoParts: Joint Venture mit chinesischem Partner für Standardkomponenten, kritische Teile bleiben in Deutschland. 30% Kostensenkung bei 240% ROI und Erhalt von 200 Arbeitsplätzen.",
+    "key_insights": [
+      "Komplexe strategische Entscheidungen erfordern multiple Optionen und systematische Bewertung",
+      "Hybrid-Ansätze können Risiken minimieren und Vorteile verschiedener Strategien kombinieren",
+      "Stakeholder-Management ist kritisch für erfolgreiche Strategieumsetzung",
+      "Schrittweise Umsetzung reduziert Risiken bei strategischen Transformationen"
+    ]
+  }
+}

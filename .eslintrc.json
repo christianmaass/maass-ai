@@ -1,7 +1,56 @@
 {
-  "extends": ["react-app", "react-app/jest", "plugin:react/recommended", "prettier"],
-  "plugins": ["react"],
+  "extends": ["next/core-web-vitals", "prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["components/sections/**/*.tsx"],
+      "rules": {
+        "no-restricted-syntax": [
+          "warn",
+          {
+            "selector": "JSXOpeningElement[name.name='h1']",
+            "message": "Use <Heading variant=\"h1\"> instead of <h1> in marketing sections."
+          },
+          {
+            "selector": "JSXOpeningElement[name.name='h2']",
+            "message": "Use <Heading variant=\"h2\"> instead of <h2> in marketing sections."
+          },
+          {
+            "selector": "JSXOpeningElement[name.name='h3']",
+            "message": "Use <Heading variant=\"h3\"> instead of <h3> in marketing sections."
+          },
+          {
+            "selector": "JSXOpeningElement[name.name='p']",
+            "message": "Use <Text> instead of <p> in marketing sections."
+          }
+        ]
+      }
+    },
+    {
+      "files": ["pages/preise.tsx"],
+      "rules": {
+        "no-restricted-syntax": [
+          "warn",
+          {
+            "selector": "JSXOpeningElement[name.name='h1']",
+            "message": "Use <Heading variant=\"h1\"> instead of <h1> on marketing pages."
+          },
+          {
+            "selector": "JSXOpeningElement[name.name='h2']",
+            "message": "Use <Heading variant=\"h2\"> instead of <h2> on marketing pages."
+          },
+          {
+            "selector": "JSXOpeningElement[name.name='h3']",
+            "message": "Use <Heading variant=\"h3\"> instead of <h3> on marketing pages."
+          },
+          {
+            "selector": "JSXOpeningElement[name.name='p']",
+            "message": "Use <Text> instead of <p> on marketing pages."
+          }
+        ]
+      }
+    }
+  ]
 }

@@ -1,0 +1,6 @@
+# Code owners for reviews and approvals
+*       @christianmaass
+
+# Example: restrict specific paths to future teams
+# /docs/   @christianmaass
+# /pages/  @christianmaass

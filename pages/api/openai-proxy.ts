@@ -1,7 +1,8 @@
 // Next.js API Route für OpenAI Chat API Proxy
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { withOpenAIRateLimit } from '../../lib/rateLimiter';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Only POST requests allowed' });
     return;
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify(req.body),
     });
@@ -29,3 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ error: 'Proxy-Fehler', details: err.message });
   }
 }
+
+// Export handler with OpenAI rate limiting (10 requests per minute)
+export default withOpenAIRateLimit(handler);

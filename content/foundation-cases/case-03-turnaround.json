@@ -1,0 +1,237 @@
+{
+  "id": "case-03",
+  "title": "Turnaround-Analyse: MittelBau AG Sanierung",
+  "category": "foundation",
+  "cluster": "Leistung & Wirtschaftlichkeit",
+  "tool": "Turnaround-Framework",
+  "difficulty": 3,
+  "estimated_duration": 20,
+  "learning_objectives": [
+    "Turnaround-Situationen systematisch analysieren und bewerten",
+    "Stabilisierungs- vs. Restrukturierungsmaßnahmen unterscheiden",
+    "Liquiditäts- und Rentabilitätshebel identifizieren",
+    "Stakeholder-Management in Krisensituationen verstehen"
+  ],
+  "scenario": {
+    "company": "MittelBau AG",
+    "industry": "Baugewerbe/Infrastruktur",
+    "situation": "MittelBau AG, ein mittelständisches Bauunternehmen mit 280 Mitarbeitern, befindet sich in einer schweren Krise. Das Unternehmen hat in den letzten 18 Monaten 12 Mio. € Verlust gemacht, die Liquidität reicht nur noch für 3 Monate. Mehrere Großprojekte sind unprofitabel, und die Bank droht mit Kreditkündigung.",
+    "challenge": "Entwickeln Sie eine systematische Turnaround-Strategie zur Stabilisierung und nachhaltigen Sanierung des Unternehmens.",
+    "context": "Das Unternehmen war 40 Jahre lang profitabel, hat aber durch aggressive Expansion und schlechtes Projektmanagement die aktuelle Krise verursacht. Der Eigentümer ist bereit, externe Hilfe anzunehmen."
+  },
+  "tool_explanation": {
+    "name": "Turnaround-Framework",
+    "description": "Ein systematischer Ansatz zur Sanierung von Unternehmen in Krisensituationen mit klarer Phasenstruktur.",
+    "key_principles": [
+      "Stabilisierung: Sofortige Liquiditätssicherung und Schadensbegrenzung",
+      "Restrukturierung: Operative und strategische Neuausrichtung",
+      "Wachstum: Nachhaltige Profitabilität und Marktposition",
+      "Stakeholder-Management: Koordination aller Beteiligten"
+    ],
+    "phases": [
+      "Phase 1: Krisendiagnose und Sofortmaßnahmen (0-3 Monate)",
+      "Phase 2: Stabilisierung und operative Restrukturierung (3-12 Monate)",
+      "Phase 3: Strategische Neuausrichtung (12-24 Monate)",
+      "Phase 4: Nachhaltiges Wachstum (24+ Monate)"
+    ],
+    "application": "Das Framework hilft dabei, Turnaround-Situationen strukturiert anzugehen und die richtigen Maßnahmen in der richtigen Reihenfolge zu implementieren."
+  },
+  "multiple_choice": {
+    "instructions": "Beantworten Sie die folgenden Fragen zum Turnaround-Management. Diese helfen Ihnen, die Grundlagen der Unternehmenssanierung zu verstehen.",
+    "questions": [
+      {
+        "id": "mc1",
+        "question": "Was ist die oberste Priorität in der ersten Phase eines Turnarounds?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Liquidität sichern und Insolvenz vermeiden",
+            "correct": true,
+            "explanation": "Richtig! Ohne ausreichende Liquidität kann das Unternehmen nicht überleben. Liquiditätssicherung ist die absolute Priorität in der Stabilisierungsphase."
+          },
+          {
+            "id": "b",
+            "text": "Neue Märkte erschließen und Umsatz steigern",
+            "correct": false,
+            "explanation": "Falsch. Wachstumsmaßnahmen kommen erst in späteren Phasen. In der Krise muss zuerst das Überleben gesichert werden."
+          },
+          {
+            "id": "c",
+            "text": "Mitarbeiter motivieren und Unternehmenskultur verbessern",
+            "correct": false,
+            "explanation": "Wichtig, aber nicht die oberste Priorität. Ohne Liquidität gibt es kein Unternehmen mehr zu motivieren."
+          },
+          {
+            "id": "d",
+            "text": "Langfristige Strategieplanung entwickeln",
+            "correct": false,
+            "explanation": "Strategieplanung ist wichtig, kommt aber erst nach der Stabilisierung. Zuerst muss das kurzfristige Überleben gesichert werden."
+          }
+        ]
+      },
+      {
+        "id": "mc2",
+        "question": "Welche Maßnahme gehört NICHT zu den typischen Sofortmaßnahmen in einem Turnaround?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Zahlungsstopps für nicht-kritische Lieferanten",
+            "correct": false,
+            "explanation": "Das ist eine typische Sofortmaßnahme zur Liquiditätsschonung, auch wenn sie sorgfältig abgewogen werden muss."
+          },
+          {
+            "id": "b",
+            "text": "Einstellungsstopp und Personalabbau in nicht-kritischen Bereichen",
+            "correct": false,
+            "explanation": "Personalmaßnahmen sind oft notwendige Sofortmaßnahmen zur Kostensenkung in der Stabilisierungsphase."
+          },
+          {
+            "id": "c",
+            "text": "Große Investitionen in neue Produktionsanlagen",
+            "correct": true,
+            "explanation": "Richtig! Große Investitionen gehören nicht zu Sofortmaßnahmen. In der Krise muss Cash geschont werden, nicht ausgegeben."
+          },
+          {
+            "id": "d",
+            "text": "Verkauf von nicht-strategischen Vermögenswerten",
+            "correct": false,
+            "explanation": "Asset-Verkäufe sind typische Sofortmaßnahmen zur schnellen Liquiditätsbeschaffung."
+          }
+        ]
+      },
+      {
+        "id": "mc3",
+        "question": "Bei MittelBau AG reicht die Liquidität nur noch 3 Monate. Welche Stakeholder müssen ZUERST eingebunden werden?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Kunden und Auftraggeber für neue Projekte",
+            "correct": false,
+            "explanation": "Kunden sind wichtig, aber bei nur 3 Monaten Liquidität müssen zuerst die Finanzgeber stabilisiert werden."
+          },
+          {
+            "id": "b",
+            "text": "Hausbank und weitere Finanzgeber",
+            "correct": true,
+            "explanation": "Richtig! Bei kritischer Liquiditätslage müssen zuerst die Finanzgeber eingebunden werden, um Kreditkündigungen zu vermeiden und weitere Finanzierung zu sichern."
+          },
+          {
+            "id": "c",
+            "text": "Mitarbeiter und Betriebsrat",
+            "correct": false,
+            "explanation": "Mitarbeiter sind wichtig, aber ohne Finanzierung gibt es keine Arbeitsplätze zu retten."
+          },
+          {
+            "id": "d",
+            "text": "Lieferanten und Subunternehmer",
+            "correct": false,
+            "explanation": "Lieferanten sind wichtig für den Betrieb, aber die Finanzierung hat bei 3 Monaten Liquidität absolute Priorität."
+          }
+        ]
+      },
+      {
+        "id": "mc4",
+        "question": "Was unterscheidet einen Turnaround von einer normalen Restrukturierung?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Turnarounds sind immer größer und komplexer",
+            "correct": false,
+            "explanation": "Größe ist nicht der entscheidende Unterschied. Auch kleine Unternehmen können Turnarounds benötigen."
+          },
+          {
+            "id": "b",
+            "text": "Turnarounds finden nur in bestimmten Branchen statt",
+            "correct": false,
+            "explanation": "Turnarounds können in jeder Branche notwendig werden, wenn Unternehmen in existenzbedrohende Krisen geraten."
+          },
+          {
+            "id": "c",
+            "text": "Turnarounds haben eine existenzbedrohende Ausgangslage und extremen Zeitdruck",
+            "correct": true,
+            "explanation": "Exzellent! Turnarounds unterscheiden sich durch die existenzbedrohende Krise und den extremen Zeitdruck. Normale Restrukturierungen haben mehr Zeit und weniger kritische Ausgangslage."
+          },
+          {
+            "id": "d",
+            "text": "Turnarounds sind immer erfolgreicher als normale Restrukturierungen",
+            "correct": false,
+            "explanation": "Das ist nicht richtig. Turnarounds haben oft geringere Erfolgsquoten aufgrund der kritischen Ausgangslage und des Zeitdrucks."
+          }
+        ]
+      }
+    ]
+  },
+  "hypothesis_steps": [
+    {
+      "id": "step1",
+      "title": "Krisendiagnose und Sofortmaßnahmen",
+      "prompt": "Analysieren Sie die Krisensituation der MittelBau AG systematisch und entwickeln Sie konkrete Sofortmaßnahmen für die nächsten 3 Monate. Fokussieren Sie sich auf Liquiditätssicherung und Schadensbegrenzung.",
+      "guidance": "Denken Sie an die kritische Liquiditätslage (nur 3 Monate) und die drohende Kreditkündigung. Welche Maßnahmen können sofort umgesetzt werden?",
+      "ideal_response": "KRISENDIAGNOSE:\n\nFinanzielle Situation:\n- Liquidität: nur 3 Monate Reichweite\n- Verluste: 12 Mio. € in 18 Monaten\n- Bankbeziehung: Kreditkündigung droht\n- Unprofitable Großprojekte belasten\n\nOperative Probleme:\n- Schlechtes Projektmanagement\n- Aggressive Expansion ohne Kontrolle\n- Wahrscheinlich schwache Kostenstruktur\n- Möglicherweise überdimensionierte Organisation\n\nSOFORTMASSNAHMEN (0-3 Monate):\n\n1. LIQUIDITÄTSSICHERUNG\n- Sofortige Bankgespräche zur Kreditstabilisierung\n- Forderungsmanagement intensivieren (schnellere Zahlungseingänge)\n- Zahlungsziele bei Lieferanten verlängern\n- Verkauf nicht-betriebsnotwendiger Assets\n\n2. KOSTENSENKUNG\n- Einstellungsstopp sofort\n- Personalabbau in Verwaltung (20-30%)\n- Alle nicht-kritischen Ausgaben stoppen\n- Externe Berater/Dienstleister reduzieren\n\n3. PROJEKTMANAGEMENT\n- Sofortige Analyse aller laufenden Projekte\n- Unprofitable Projekte stoppen oder nachverhandeln\n- Nur profitable Projekte weiterführen\n- Keine neuen Projekte ohne Profitabilitätsprüfung\n\n4. STAKEHOLDER-KOMMUNIKATION\n- Transparente Kommunikation mit Bank\n- Information der wichtigsten Kunden\n- Mitarbeiterinformation über Situation",
+      "evaluation_criteria": [
+        "Realistische Einschätzung der Krisenschwere",
+        "Fokus auf Liquiditätssicherung als oberste Priorität",
+        "Konkrete, sofort umsetzbare Maßnahmen",
+        "Berücksichtigung aller wichtigen Stakeholder"
+      ]
+    },
+    {
+      "id": "step2",
+      "title": "Operative Restrukturierung",
+      "prompt": "Entwickeln Sie einen Plan für die operative Restrukturierung der MittelBau AG (Monate 3-12). Fokussieren Sie sich auf nachhaltige Profitabilität und organisatorische Effizienz.",
+      "guidance": "Nach der Stabilisierung muss das Unternehmen operativ neu aufgestellt werden. Welche strukturellen Änderungen sind notwendig?",
+      "ideal_response": "OPERATIVE RESTRUKTURIERUNG (3-12 Monate):\n\n1. ORGANISATIONSSTRUKTUR\n- Verschlankung der Verwaltung (von 280 auf ca. 200 MA)\n- Projektmanagement-Office einrichten\n- Controlling-Funktion stärken\n- Klare Verantwortlichkeiten definieren\n\n2. PROZESSOPTIMIERUNG\n- Standardisierte Projektkalkulationen einführen\n- Monatliches Projekt-Controlling etablieren\n- Qualitätsmanagement verbessern\n- Einkaufsprozesse zentralisieren\n\n3. PORTFOLIO-BEREINIGUNG\n- Fokus auf profitable Geschäftsbereiche\n- Unprofitable Sparten verkaufen/schließen\n- Geografische Konzentration auf Kernregionen\n- Kundensegmentierung (profitable vs. unprofitable)\n\n4. FINANZMANAGEMENT\n- Cash-Management-System implementieren\n- Wöchentliche Liquiditätsplanung\n- Projektfinanzierung optimieren\n- Bankbeziehungen diversifizieren\n\n5. PERSONAL & KULTUR\n- Leistungsorientierte Vergütung einführen\n- Projektleiter-Schulungen durchführen\n- Kommunikation und Transparenz verbessern\n- Kostenbewusstsein schaffen\n\n6. OPERATIVE EXZELLENZ\n- Digitalisierung der Baustellen-Dokumentation\n- Materialwirtschaft optimieren\n- Nachunternehmer-Management verbessern\n- Qualitätssicherung standardisieren",
+      "evaluation_criteria": [
+        "Strukturelle Probleme werden systematisch angegangen",
+        "Balance zwischen Kostensenkung und Investition in die Zukunft",
+        "Realistische Zeitplanung für Umsetzung",
+        "Berücksichtigung der Baubranche-Spezifika"
+      ]
+    },
+    {
+      "id": "step3",
+      "title": "Strategische Neuausrichtung und Wachstum",
+      "prompt": "Entwickeln Sie eine langfristige Strategie für MittelBau AG (12+ Monate), um nachhaltiges Wachstum und Marktposition zu sichern. Berücksichtigen Sie dabei die Lehren aus der Krise.",
+      "guidance": "Nach Stabilisierung und operativer Restrukturierung muss das Unternehmen strategisch neu positioniert werden. Wie kann nachhaltiges Wachstum erreicht werden?",
+      "ideal_response": "STRATEGISCHE NEUAUSRICHTUNG (12+ Monate):\n\n1. MARKTPOSITIONIERUNG\n- Fokus auf Nischenmärkte mit höheren Margen\n- Spezialisierung auf komplexe Infrastrukturprojekte\n- Aufbau von Alleinstellungsmerkmalen\n- Premium-Positionierung statt Preiskampf\n\n2. GESCHÄFTSMODELL-INNOVATION\n- Entwicklung von Wartungs- und Service-Geschäft\n- Digitale Services (BIM, Projektmanagement-Software)\n- Partnerschaften mit Planungsbüros\n- Lifecycle-Ansätze (Bau + Betrieb)\n\n3. WACHSTUMSSTRATEGIE\n- Organisches Wachstum in profitablen Segmenten\n- Selektive Akquisitionen von Spezialisten\n- Internationale Expansion nur nach Konsolidierung\n- Diversifikation in angrenzende Bereiche\n\n4. OPERATIVE EXZELLENZ\n- Kontinuierliche Prozessverbesserung\n- Digitalisierung der gesamten Wertschöpfungskette\n- Nachhaltigkeits-Zertifizierungen\n- Innovation in Baumethoden und -materialien\n\n5. FINANZSTRATEGIE\n- Eigenkapital stärken (Gewinnthesaurierung)\n- Diversifizierte Finanzierungsquellen\n- Risikomanagement-System etablieren\n- Performance-basierte Vergütungssysteme\n\n6. RISIKOMANAGEMENT\n- Projektgrößen-Limits einführen\n- Geografische Diversifikation\n- Kundendiversifikation\n- Regelmäßige Stresstests\n\nERFOLGSKRITERIEN:\n- EBITDA-Marge > 8% nachhaltig\n- Eigenkapitalquote > 25%\n- Liquiditätsreserve für 6 Monate\n- Marktführerschaft in Nischensegmenten",
+      "evaluation_criteria": [
+        "Langfristige Perspektive mit nachhaltigen Wettbewerbsvorteilen",
+        "Berücksichtigung der Krisenursachen zur Vermeidung",
+        "Realistische Wachstumsstrategie für die Baubranche",
+        "Integration von Risikomanagement und Kontrolle"
+      ]
+    }
+  ],
+  "concept_checkpoints": [
+    "Turnaround-Phasen verstanden und korrekt angewendet",
+    "Liquiditätssicherung als oberste Priorität erkannt",
+    "Unterschied zwischen Sofortmaßnahmen und langfristiger Strategie",
+    "Stakeholder-Management in Krisensituationen berücksichtigt"
+  ],
+  "tool_mastery_indicators": [
+    "Kann Krisensituationen systematisch analysieren",
+    "Entwickelt phasengerechte Turnaround-Maßnahmen",
+    "Balanciert kurzfristige Stabilisierung mit langfristiger Strategie",
+    "Berücksichtigt alle relevanten Stakeholder im Turnaround-Prozess"
+  ],
+  "common_mistakes": [
+    "Fokus auf Wachstum statt Stabilisierung in der Anfangsphase",
+    "Unterschätzung der Liquiditätsproblematik",
+    "Zu optimistische Zeitpläne für die Umsetzung",
+    "Vernachlässigung des Stakeholder-Managements"
+  ],
+  "success_criteria": {
+    "minimum": "Grundlegendes Verständnis der Turnaround-Phasen und Liquiditätspriorität",
+    "target": "Systematische Turnaround-Planung mit konkreten Maßnahmen pro Phase",
+    "excellent": "Vollständige Turnaround-Strategie mit Risikomanagement und nachhaltiger Ausrichtung"
+  },
+  "reference_answer": {
+    "summary": "Systematischer 3-Phasen-Turnaround für MittelBau AG: Sofortstabilisierung → Operative Restrukturierung → Strategische Neuausrichtung mit Fokus auf nachhaltige Profitabilität und Risikomanagement.",
+    "key_insights": [
+      "Liquiditätssicherung hat absolute Priorität vor allen anderen Maßnahmen",
+      "Turnarounds erfordern radikale Maßnahmen und können nicht mit normalen Restrukturierungen verglichen werden",
+      "Stakeholder-Management ist kritisch für den Erfolg, besonders Banken und Mitarbeiter",
+      "Nachhaltige Neuausrichtung muss die Krisenursachen systematisch adressieren"
+    ]
+  }
+}

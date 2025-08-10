@@ -2,11 +2,96 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Globale Styles für Next.js-Projekt */
+/* navaa Design System - Globale Styles */
 
+/* Base Styles */
 body {
   margin: 0;
   padding: 0;
-  font-family: system-ui, sans-serif;
-  background: #fcfdfe;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f6f4f0; /* navaa warm beige */
+  color: #374151; /* navaa-gray-700 */
+}
+
+/* navaa Component Layer */
+@layer components {
+  /* navaa Background Utilities */
+  .navaa-bg-primary {
+    @apply bg-navaa-warm-beige;
+  }
+
+  .navaa-bg-secondary {
+    @apply bg-white;
+  }
+
+  .navaa-bg-accent {
+    @apply bg-navaa-bg-accent;
+  }
+
+  /* navaa Layout Utilities */
+  .navaa-page {
+    @apply min-h-screen bg-navaa-warm-beige;
+  }
+
+  .navaa-container {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+  .navaa-card {
+    @apply bg-white rounded-xl shadow-sm border border-navaa-gray-200 p-6;
+  }
+
+  /* navaa Status Indicators */
+  .navaa-status-success {
+    @apply bg-navaa-success text-white;
+  }
+
+  .navaa-status-warning {
+    @apply bg-navaa-warning text-white;
+  }
+
+  .navaa-status-info {
+    @apply bg-navaa-info text-white;
+  }
+
+  .navaa-status-error {
+    @apply bg-navaa-error text-white;
+  }
+
+  /* navaa Typography */
+  .navaa-heading-1 {
+    @apply text-3xl font-bold text-navaa-gray-900 mb-2;
+  }
+
+  .navaa-heading-2 {
+    @apply text-2xl font-semibold text-navaa-gray-900 mb-4;
+  }
+
+  .navaa-text-body {
+    @apply text-navaa-gray-600 leading-relaxed;
+  }
+
+  .navaa-text-small {
+    @apply text-sm text-navaa-gray-500;
+  }
+}
+
+/* navaa Utilities Layer */
+@layer utilities {
+  /* navaa Spacing Shortcuts */
+  .navaa-spacing-xs {
+    @apply p-navaa-xs;
+  }
+  .navaa-spacing-sm {
+    @apply p-navaa-sm;
+  }
+  .navaa-spacing-md {
+    @apply p-navaa-md;
+  }
+  .navaa-spacing-lg {
+    @apply p-navaa-lg;
+  }
+  .navaa-spacing-xl {
+    @apply p-navaa-xl;
+  }
 }

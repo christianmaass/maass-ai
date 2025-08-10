@@ -1,0 +1,1780 @@
+import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import ModuleConfigurationPanel from '../../components/ModuleConfigurationPanel';
+
+// Extracted Components
+import CaseSelector from '../../components/foundation-manager/CaseSelector';
+import CaseEditor from '../../components/foundation-manager/CaseEditor';
+import StepRenderer from '../../components/foundation-manager/StepRenderer';
+
+// Extracted Hooks
+import { useFoundationCases } from '../../components/foundation-manager/hooks/useFoundationCases';
+import { useCaseGeneration } from '../../components/foundation-manager/hooks/useCaseGeneration';
+import { useModuleState } from '../../components/foundation-manager/hooks/useModuleState';
+
+interface StepConfig {
+  title: string;
+  learning_forms: string[];
+  input_type: 'text' | 'speech' | 'both';
+  ai_enabled: boolean;
+  skip: boolean;
+}
+
+interface MCQuestion {
+  id?: string;
+  question: string;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  correct_answer: 'A' | 'B' | 'C' | 'D';
+  explanation: string;
+  question_number: number;
+}
+
+interface GPTFeedback {
+  score: number;
+  feedback: string;
+  strengths: string[];
+  improvements: string[];
+  ideal_answer: string;
+}
+
+interface FreeTextResponse {
+  id?: string;
+  user_response: string;
+  gpt_feedback?: GPTFeedback;
+  created_at?: string;
+}
+
+interface ContentModule {
+  id?: string;
+  title: string;
+  content: string;
+  image_url?: string;
+  generation_prompt?: string;
+  generated_by_gpt?: boolean;
+}
+
+interface TextInput {
+  id?: string;
+  user_input: string;
+  explanation?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+interface DecisionOption {
+  id: string;
+  name: string;
+  marge: string;
+  umsetzbarkeit: string;
+  zeit: string;
+  risiken: string;
+}
+
+interface Decision {
+  id?: string;
+  selected_option: string;
+  reasoning: string;
+  decision_matrix?: {
+    options: DecisionOption[];
+  };
+  created_at?: string;
+  updated_at?: string;
+}
+
+interface VoiceInput {
+  id?: string;
+  voice_transcript: string;
+  text_fallback?: string;
+  audio_duration?: number;
+  input_method: 'voice' | 'text';
+  created_at?: string;
+  updated_at?: string;
+}
+
+// Helper function to get difficulty level description
+function getDifficultyInfo(difficulty: number) {
+  if (difficulty <= 3) {
+    return {
+      level: 'Beginner',
+      description: 'Grundlagen und klare Strukturen',
+      color: 'bg-green-100 text-green-800',
+      emoji: '🟢'
+    };
+  }
+  if (difficulty <= 6) {
+    return {
+      level: 'Intermediate', 
+      description: 'Mittlere Komplexität, strukturiertes Denken',
+      color: 'bg-yellow-100 text-yellow-800',
+      emoji: '🟡'
+    };
+  }
+  if (difficulty <= 9) {
+    return {
+      level: 'Advanced',
+      description: 'Hohe Komplexität mit Ambiguität',
+      color: 'bg-orange-100 text-orange-800', 
+      emoji: '🟠'
+    };
+  }
+  return {
+    level: 'Expert',
+    description: 'Expertenebene mit komplexen Trade-offs',
+    color: 'bg-red-100 text-red-800',
+    emoji: '🔴'
+  };
+}
+
+const DEFAULT_5_STEPS: StepConfig[] = [
+  {
+    title: 'Problemverständnis & Zielklärung',
+    learning_forms: ['multiple_choice', 'free_text'],
+    input_type: 'both',
+    ai_enabled: false,
+    skip: false
+  },
+  {
+    title: 'Hypothesenbildung',
+    learning_forms: ['framework', 'tips_hints'],
+    input_type: 'both',
+    ai_enabled: false,
+    skip: false
+  },
+  {
+    title: 'Analyse und Zahlenarbeit',
+    learning_forms: ['free_text', 'framework'],
+    input_type: 'both',
+    ai_enabled: false,
+    skip: false
+  },
+  {
+    title: 'Synthetisieren & Optionen bewerten',
+    learning_forms: ['tips_hints', 'gpt_response'],
+    input_type: 'both',
+    ai_enabled: true,
+    skip: false
+  },
+  {
+    title: 'Empfehlung & Executive Summary',
+    learning_forms: ['free_text', 'gpt_response'],
+    input_type: 'both',
+    ai_enabled: true,
+    skip: false
+  }
+];
+
+const LEARNING_FORMS = [
+  { id: 'multiple_choice', name: 'Multiple Choice', icon: '☑️' },
+  { id: 'free_text', name: 'Freie Eingabe', icon: '✍️' },
+  { id: 'framework', name: 'Framework-Vorlage', icon: '📋' },
+  { id: 'tips_hints', name: 'Tipps & Hinweise', icon: '💭' },
+  { id: 'gpt_response', name: 'KI-Feedback', icon: '🤖' },
+  { id: 'no_task', name: 'Kein Task', icon: '⏭️' }
+];
+
+export default function FoundationManager() {
+  const { user } = useAuth();
+  const [foundationCases, setFoundationCases] = useState<FoundationCase[]>([]);
+  const [selectedCase, setSelectedCase] = useState<FoundationCase | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [caseDescription, setCaseDescription] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  
+  // States for manual editing
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [isEditingQuestion, setIsEditingQuestion] = useState(false);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [editableDescription, setEditableDescription] = useState('');
+  const [editableQuestion, setEditableQuestion] = useState('');
+  const [editableTitle, setEditableTitle] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  
+  // Multiple Choice states
+  const [mcQuestions, setMcQuestions] = useState<{[stepNumber: number]: MCQuestion[]}>({});
+  const [isGeneratingMC, setIsGeneratingMC] = useState(false);
+  
+  // Free Text states
+  const [freeTextResponses, setFreeTextResponses] = useState<{[stepNumber: number]: FreeTextResponse}>({});
+  const [isEvaluatingFreeText, setIsEvaluatingFreeText] = useState(false);
+  
+  // Content Module states
+  const [contentModules, setContentModules] = useState<{[stepNumber: number]: ContentModule}>({});
+  const [isGeneratingContent, setIsGeneratingContent] = useState(false);
+  
+  // Text Input states
+  const [textInputs, setTextInputs] = useState<{[stepNumber: number]: TextInput}>({});
+  const [isSavingTextInput, setIsSavingTextInput] = useState(false);
+  
+  // Decision states
+  const [decisions, setDecisions] = useState<{[stepNumber: number]: Decision}>({});
+  const [isSavingDecision, setIsSavingDecision] = useState(false);
+  
+  // Voice Input states
+  const [voiceInputs, setVoiceInputs] = useState<{[stepNumber: number]: VoiceInput}>({});
+  const [isSavingVoiceInput, setIsSavingVoiceInput] = useState(false);
+  
+  // Module Configuration states
+  const [moduleConfiguration, setModuleConfiguration] = useState<CaseModuleConfiguration>(createDefaultConfiguration());
+  const [isSavingModuleConfig, setIsSavingModuleConfig] = useState(false);
+  const [showModuleConfig, setShowModuleConfig] = useState(false);
+
+  useEffect(() => {
+    loadFoundationCases();
+  }, []);
+
+  const loadFoundationCases = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      console.log('🔄 Loading Foundation Cases...');
+      const supabase = getSupabaseClient();
+      
+      if (!supabase) {
+        throw new Error('Supabase client not available');
+      }
+      
+      const { data, error } = await supabase
+        .from('foundation_cases')
+        .select('*')
+        .order('difficulty');
+
+      if (error) {
+        console.error('❌ Supabase error:', error);
+        throw error;
+      }
+      
+      console.log('✅ Loaded cases:', data?.length || 0);
+      setFoundationCases(data || []);
+      
+      if (!data || data.length === 0) {
+        setError('Keine Foundation Cases in der Datenbank gefunden');
+      }
+      
+    } catch (err: any) {
+      console.error('💥 Error loading cases:', err);
+      setError(`Fehler beim Laden der Foundation Cases: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGenerateCaseDescription = async () => {
+    if (!selectedCase || !caseDescription.trim()) {
+      setError('Bitte wählen Sie einen Case aus und geben Sie eine Beschreibung ein.');
+      return;
+    }
+
+    try {
+      setIsGenerating(true);
+      setError('');
+      setSuccess('');
+
+      console.log('🤖 Generating case for:', selectedCase.id);
+      console.log('🔍 Debug - Selected Case:', {
+        id: selectedCase.id,
+        title: selectedCase.title,
+        cluster: selectedCase.cluster,
+        tool: selectedCase.tool,
+        difficulty: selectedCase.difficulty
+      });
+      
+      // Get the current session token
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session?.access_token) {
+        throw new Error('Keine gültige Sitzung gefunden. Bitte melden Sie sich erneut an.');
+      }
+      
+      const response = await fetch('/api/admin/generate-case', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId: selectedCase.id,
+          userDescription: caseDescription.trim()
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || `HTTP ${response.status}`);
+      }
+
+      // Update the selected case with generated content
+      const updatedCase = {
+        ...selectedCase,
+        case_description: result.data.description,
+        case_question: result.data.question,
+        updated_at: new Date().toISOString()
+      };
+      
+      setSelectedCase(updatedCase);
+      
+      // Update the case in the list as well
+      setFoundationCases(prev => 
+        prev.map(c => c.id === selectedCase.id ? updatedCase : c)
+      );
+      
+      setSuccess('✅ Case-Beschreibung und Frage erfolgreich generiert!');
+      setCaseDescription(''); // Clear input field
+      
+    } catch (err: any) {
+      console.error('💥 Error generating case:', err);
+      setError(`Fehler bei der Case-Generierung: ${err.message}`);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Function to save manually edited content
+  const handleSaveEditedContent = async () => {
+    if (!selectedCase || (!isEditingDescription && !isEditingQuestion && !isEditingTitle)) return;
+    
+    setIsSaving(true);
+    setMessage(null);
+    
+    try {
+      const supabase = getSupabaseClient();
+      const session = await supabase.auth.getSession();
+      if (!session.data.session) {
+        throw new Error('Nicht authentifiziert');
+      }
+
+      const response = await fetch('/api/admin/update-case-content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.data.session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId: selectedCase.id,
+          title: isEditingTitle ? editableTitle : selectedCase.title,
+          description: isEditingDescription ? editableDescription : selectedCase.case_description,
+          question: isEditingQuestion ? editableQuestion : selectedCase.case_question
+        })
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || `HTTP ${response.status}`);
+      }
+
+      // Update the selected case with edited content
+      const updatedCase = {
+        ...selectedCase,
+        title: isEditingTitle ? editableTitle : selectedCase.title,
+        case_description: isEditingDescription ? editableDescription : selectedCase.case_description,
+        case_question: isEditingQuestion ? editableQuestion : selectedCase.case_question,
+        updated_at: new Date().toISOString()
+      };
+      
+      setSelectedCase(updatedCase);
+      
+      // Update the case in the list as well
+      setFoundationCases(prev => 
+        prev.map(c => c.id === selectedCase.id ? updatedCase : c)
+      );
+      
+      // Exit edit mode
+      setIsEditingDescription(false);
+      setIsEditingQuestion(false);
+      setIsEditingTitle(false);
+      setMessage({ type: 'success', text: '✅ Änderungen erfolgreich gespeichert!' });
+      
+    } catch (err: any) {
+      console.error('💥 Error saving edited content:', err);
+      setMessage({ type: 'error', text: `Fehler beim Speichern: ${err.message}` });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Function to start editing
+  const startEditingDescription = () => {
+    setEditableDescription(selectedCase?.case_description || '');
+    setIsEditingDescription(true);
+  };
+
+  const startEditingQuestion = () => {
+    setEditableQuestion(selectedCase?.case_question || '');
+    setIsEditingQuestion(true);
+  };
+
+  const startEditingTitle = () => {
+    setEditableTitle(selectedCase?.title || '');
+    setIsEditingTitle(true);
+  };
+
+  // Function to cancel editing
+  const cancelEditing = () => {
+    setIsEditingDescription(false);
+    setIsEditingQuestion(false);
+    setIsEditingTitle(false);
+    setEditableDescription('');
+    setEditableQuestion('');
+    setEditableTitle('');
+  };
+
+  // Multiple Choice Functions
+  const loadMCQuestions = async (caseId: string, stepNumber: number) => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data, error } = await supabase
+        .from('case_multiple_choice')
+        .select('*')
+        .eq('foundation_case_id', caseId)
+        .eq('step_number', stepNumber)
+        .order('question_number');
+
+      if (error) {
+        console.error('Error loading MC questions:', error);
+        return [];
+      }
+
+      return data || [];
+    } catch (error) {
+      console.error('Error loading MC questions:', error);
+      return [];
+    }
+  };
+
+  const handleGenerateMC = async (caseId: string, stepNumber: number) => {
+    try {
+      setIsGeneratingMC(true);
+      setMessage(null);
+      
+      console.log(`🤖 Generating MC questions for case ${caseId}, step ${stepNumber}`);
+      
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      const response = await fetch('/api/admin/generate-multiple-choice', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId,
+          stepNumber
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to generate MC questions');
+      }
+
+      console.log('✅ MC questions generated successfully');
+      
+      // Load the new questions
+      const questions = await loadMCQuestions(caseId, stepNumber);
+      setMcQuestions(prev => ({
+        ...prev,
+        [stepNumber]: questions
+      }));
+      
+      setMessage({ type: 'success', text: `✅ 3 Multiple Choice Aufgaben für Schritt ${stepNumber} erfolgreich generiert!` });
+      
+    } catch (error: any) {
+      console.error('💥 Error generating MC questions:', error);
+      setMessage({ type: 'error', text: `Fehler beim Generieren: ${error.message}` });
+    } finally {
+      setIsGeneratingMC(false);
+    }
+  };
+
+  const handleMCQuestionUpdate = (stepNumber: number, questions: MCQuestion[]) => {
+    setMcQuestions(prev => ({
+      ...prev,
+      [stepNumber]: questions
+    }));
+    // TODO: Save to database
+    setMessage({ type: 'success', text: 'MC-Aufgaben aktualisiert (Speichern noch nicht implementiert)' });
+  };
+
+  // Free Text Functions
+  const loadFreeTextResponse = async (caseId: string, stepNumber: number) => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data, error } = await supabase
+        .from('case_free_text_responses')
+        .select('*')
+        .eq('foundation_case_id', caseId)
+        .eq('step_number', stepNumber)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Error loading free text response:', error);
+        return null;
+      }
+
+      return data || null;
+    } catch (error) {
+      console.error('Error loading free text response:', error);
+      return null;
+    }
+  };
+
+  const handleFreeTextSubmit = async (caseId: string, stepNumber: number, userResponse: string, promptText: string) => {
+    try {
+      setIsEvaluatingFreeText(true);
+      setMessage(null);
+      
+      console.log(`📝 Evaluating free text for case ${caseId}, step ${stepNumber}`);
+      
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      const response = await fetch('/api/admin/evaluate-free-text', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId,
+          stepNumber,
+          userResponse,
+          promptText
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to evaluate free text');
+      }
+
+      console.log('✅ Free text evaluated successfully');
+      
+      // Load the new response with feedback
+      const newResponse = await loadFreeTextResponse(caseId, stepNumber);
+      if (newResponse) {
+        setFreeTextResponses(prev => ({
+          ...prev,
+          [stepNumber]: newResponse
+        }));
+      }
+      
+      setMessage({ type: 'success', text: `✅ Antwort für Schritt ${stepNumber} erfolgreich bewertet!` });
+      
+    } catch (error: any) {
+      console.error('💥 Error evaluating free text:', error);
+      setMessage({ type: 'error', text: `Fehler beim Bewerten: ${error.message}` });
+    } finally {
+      setIsEvaluatingFreeText(false);
+    }
+  };
+
+  // Content Module Functions - REUSING same patterns as other functions
+  const loadContentModule = async (caseId: string, stepNumber: number) => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data, error } = await supabase
+        .from('case_content_modules')
+        .select('*')
+        .eq('foundation_case_id', caseId)
+        .eq('step_number', stepNumber)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Error loading content module:', error);
+        return null;
+      }
+
+      return data || null;
+    } catch (error) {
+      console.error('Error loading content module:', error);
+      return null;
+    }
+  };
+
+  const handleContentGenerate = async (caseId: string, stepNumber: number, prompt: string) => {
+    try {
+      setIsGeneratingContent(true);
+      setMessage(null);
+      
+      console.log(`📚 Generating content module for case ${caseId}, step ${stepNumber}`);
+      
+      // REUSING: Same auth pattern as other functions
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      // REUSING: Same API call pattern
+      const response = await fetch('/api/admin/generate-content-module', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId,
+          stepNumber,
+          generationPrompt: prompt
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to generate content module');
+      }
+
+      console.log('✅ Content module generated successfully');
+      
+      // Load the new content module
+      const newContent = await loadContentModule(caseId, stepNumber);
+      if (newContent) {
+        setContentModules(prev => ({
+          ...prev,
+          [stepNumber]: newContent
+        }));
+      }
+      
+      setMessage({ type: 'success', text: `✅ Framework-Einleitung für Schritt ${stepNumber} erfolgreich generiert!` });
+      
+    } catch (error: any) {
+      console.error('💥 Error generating content module:', error);
+      setMessage({ type: 'error', text: `Fehler beim Generieren: ${error.message}` });
+    } finally {
+      setIsGeneratingContent(false);
+    }
+  };
+
+  const handleContentSave = async (stepNumber: number, content: ContentModule) => {
+    // TODO: Implement save functionality
+    setContentModules(prev => ({
+      ...prev,
+      [stepNumber]: content
+    }));
+    setMessage({ type: 'success', text: 'Content-Modul aktualisiert (Speichern noch nicht implementiert)' });
+  };
+
+  // Text Input Functions - REUSING same patterns as other functions
+  const loadTextInput = async (caseId: string, stepNumber: number) => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data, error } = await supabase
+        .from('case_text_inputs')
+        .select('*')
+        .eq('foundation_case_id', caseId)
+        .eq('step_number', stepNumber)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Error loading text input:', error);
+        return null;
+      }
+
+      return data || null;
+    } catch (error) {
+      console.error('Error loading text input:', error);
+      return null;
+    }
+  };
+
+  // Decision Functions - TEMPORARY: Use simple fallback until API is ready
+  const loadDecision = async (caseId: string, stepNumber: number) => {
+    try {
+      console.log(`🔍 Loading decision for case ${caseId}, step ${stepNumber}`);
+      
+      // TEMPORARY: Return null (no existing decision) to allow new decisions to be saved
+      // This prevents the 404 error and allows the Decision Matrix to function
+      // The save functionality already works via the save-decision API
+      return null;
+    } catch (error) {
+      console.error('Error loading decision:', error);
+      return null;
+    }
+  };
+
+  const handleDecisionSave = async (caseId: string, stepNumber: number, selectedOption: string, reasoning: string, decisionMatrix: any) => {
+    try {
+      setIsSavingDecision(true);
+      setMessage(null);
+      
+      console.log(`🎯 Saving decision for case ${caseId}, step ${stepNumber}, option ${selectedOption}`);
+      
+      // REUSING: Same auth pattern as other functions
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      // REUSING: Same API call pattern as other functions
+      const response = await fetch('/api/admin/save-decision', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId,
+          stepNumber,
+          selectedOption,
+          reasoning,
+          decisionMatrix
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save decision');
+      }
+
+      console.log('✅ Decision saved successfully');
+      
+      // Update local state with the saved data
+      setDecisions(prev => ({
+        ...prev,
+        [stepNumber]: result.data
+      }));
+      
+      setMessage({ type: 'success', text: `✅ Entscheidung für Schritt ${stepNumber} erfolgreich gespeichert!` });
+      
+    } catch (error: any) {
+      console.error('💥 Error saving decision:', error);
+      setMessage({ type: 'error', text: `Fehler beim Speichern: ${error.message}` });
+    } finally {
+      setIsSavingDecision(false);
+    }
+  };
+
+  // Default decision options for the decision matrix
+  const defaultDecisionOptions: DecisionOption[] = [
+    {
+      id: 'A',
+      name: 'Preiserhöhung',
+      marge: 'Hoch',
+      umsetzbarkeit: 'Mittel',
+      zeit: 'Kurzfristig',
+      risiken: 'Kundenabwanderung möglich'
+    },
+    {
+      id: 'B',
+      name: 'R&D-Kürzung',
+      marge: 'Mittel',
+      umsetzbarkeit: 'Hoch',
+      zeit: 'Sofort',
+      risiken: 'Innovation bremst'
+    },
+    {
+      id: 'C',
+      name: 'Neue Linie',
+      marge: 'Hoch',
+      umsetzbarkeit: 'Gering',
+      zeit: 'Langfristig',
+      risiken: 'Hoher CAPEX, unsicher'
+    }
+  ];
+
+  // Voice Input Functions - REUSING same patterns as other functions
+  const loadVoiceInput = async (caseId: string, stepNumber: number) => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data, error } = await supabase
+        .from('case_voice_inputs')
+        .select('*')
+        .eq('foundation_case_id', caseId)
+        .eq('step_number', stepNumber)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Error loading voice input:', error);
+        return null;
+      }
+
+      return data || null;
+    } catch (error) {
+      console.error('Error loading voice input:', error);
+      return null;
+    }
+  };
+
+  // Module Configuration Functions - SOLID: Single Responsibility
+  const loadModuleConfiguration = async (caseId: string) => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data, error } = await supabase
+        .from('foundation_cases')
+        .select('step_modules')
+        .eq('id', caseId)
+        .single();
+
+      if (error) {
+        console.error('Error loading module configuration:', error);
+        return createDefaultConfiguration();
+      }
+
+      return data?.step_modules || createDefaultConfiguration();
+    } catch (error) {
+      console.error('Error loading module configuration:', error);
+      return createDefaultConfiguration();
+    }
+  };
+
+  const handleModuleConfigSave = async (config: CaseModuleConfiguration) => {
+    if (!selectedCase) return;
+    
+    try {
+      setIsSavingModuleConfig(true);
+      setMessage(null);
+      
+      console.log(`🎛️ Saving module configuration for case ${selectedCase.id}`);
+      
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      const response = await fetch('/api/admin/save-module-config', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId: selectedCase.id,
+          configuration: config
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save module configuration');
+      }
+
+      console.log('✅ Module configuration saved successfully');
+      
+      setModuleConfiguration(config);
+      setMessage({ type: 'success', text: `✅ Modul-Konfiguration erfolgreich gespeichert! (${result.data.totalEnabledModules} Module aktiv)` });
+      
+    } catch (error: any) {
+      console.error('💥 Error saving module configuration:', error);
+      setMessage({ type: 'error', text: `Fehler beim Speichern: ${error.message}` });
+    } finally {
+      setIsSavingModuleConfig(false);
+    }
+  };
+
+  const handleVoiceInputSave = async (caseId: string, stepNumber: number, voiceTranscript: string, textFallback?: string, inputMethod?: 'voice' | 'text', audioDuration?: number) => {
+    try {
+      setIsSavingVoiceInput(true);
+      setMessage(null);
+      
+      console.log(`🎤 Saving voice input for case ${caseId}, step ${stepNumber}, method ${inputMethod}`);
+      
+      // REUSING: Same auth pattern as other functions
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      // REUSING: Same API call pattern as other functions
+      const response = await fetch('/api/admin/save-voice-input', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId,
+          stepNumber,
+          voiceTranscript,
+          textFallback,
+          inputMethod: inputMethod || 'text',
+          audioDuration
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save voice input');
+      }
+
+      console.log('✅ Voice input saved successfully');
+      
+      // Update local state with the saved data
+      setVoiceInputs(prev => ({
+        ...prev,
+        [stepNumber]: result.data
+      }));
+      
+      setMessage({ type: 'success', text: `✅ Spracheingabe für Schritt ${stepNumber} erfolgreich gespeichert!` });
+      
+    } catch (error: any) {
+      console.error('💥 Error saving voice input:', error);
+      setMessage({ type: 'error', text: `Fehler beim Speichern: ${error.message}` });
+    } finally {
+      setIsSavingVoiceInput(false);
+    }
+  };
+
+  const handleTextInputSave = async (caseId: string, stepNumber: number, userInput: string, explanation?: string) => {
+    try {
+      setIsSavingTextInput(true);
+      setMessage(null);
+      
+      console.log(`📝 Saving text input for case ${caseId}, step ${stepNumber}`);
+      
+      // REUSING: Same auth pattern as other functions
+      const supabase = getSupabaseClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
+      // REUSING: Same API call pattern as other functions (to bypass RLS)
+      const response = await fetch('/api/admin/save-text-input', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          caseId,
+          stepNumber,
+          userInput,
+          explanation
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save text input');
+      }
+
+      console.log('✅ Text input saved successfully');
+      
+      // Update local state with the saved data
+      setTextInputs(prev => ({
+        ...prev,
+        [stepNumber]: result.data
+      }));
+      
+      setMessage({ type: 'success', text: `✅ Texteingabe für Schritt ${stepNumber} erfolgreich gespeichert!` });
+      
+    } catch (error: any) {
+      console.error('💥 Error saving text input:', error);
+      setMessage({ type: 'error', text: `Fehler beim Speichern: ${error.message}` });
+    } finally {
+      setIsSavingTextInput(false);
+    }
+  };
+
+  // Load MC questions, Free Text responses, and Content Modules when case is selected
+  useEffect(() => {
+    if (selectedCase) {
+      // CRITICAL: Reset all states when switching cases to prevent data sharing
+      console.log(`🔄 Resetting all states for new case: ${selectedCase.id}`);
+      setMcQuestions({});
+      setFreeTextResponses({});
+      setContentModules({});
+      setTextInputs({});
+      setDecisions({});
+      setVoiceInputs({});
+      
+      // Load MC questions for all steps
+      [1, 2, 3, 4, 5].forEach(async (stepNumber) => {
+        const questions = await loadMCQuestions(selectedCase.id, stepNumber);
+        if (questions.length > 0) {
+          setMcQuestions(prev => ({
+            ...prev,
+            [stepNumber]: questions
+          }));
+        }
+      });
+      
+      // Load Free Text responses for step 2
+      loadFreeTextResponse(selectedCase.id, 2).then(response => {
+        if (response) {
+          setFreeTextResponses(prev => ({
+            ...prev,
+            [2]: response
+          }));
+        }
+      });
+      
+      // Load Content Modules for step 2
+      loadContentModule(selectedCase.id, 2).then(content => {
+        if (content) {
+          setContentModules(prev => ({
+            ...prev,
+            [2]: content
+          }));
+        }
+      });
+      
+      // Load Text Inputs for step 3 and 4
+      [3, 4].forEach(async (stepNumber) => {
+        const textInput = await loadTextInput(selectedCase.id, stepNumber);
+        if (textInput) {
+          setTextInputs(prev => ({
+            ...prev,
+            [stepNumber]: textInput
+          }));
+        }
+      });
+      
+      // Load Decisions for step 4
+      loadDecision(selectedCase.id, 4).then(decision => {
+        if (decision) {
+          setDecisions(prev => ({
+            ...prev,
+            [4]: decision
+          }));
+        }
+      });
+      
+      // Load Voice Inputs for step 5
+      loadVoiceInput(selectedCase.id, 5).then(voiceInput => {
+        if (voiceInput) {
+          setVoiceInputs(prev => ({
+            ...prev,
+            [5]: voiceInput
+          }));
+        }
+      });
+      
+      // Load Module Configuration
+      loadModuleConfiguration(selectedCase.id).then(config => {
+        setModuleConfiguration(config);
+      });
+    }
+  }, [selectedCase]);
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Zugriff verweigert</h2>
+          <p className="text-gray-600">Sie müssen angemeldet sein, um auf diese Seite zuzugreifen.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">Foundation Case Manager</h1>
+            <p className="mt-2 text-gray-600">
+              Verwalten und konfigurieren Sie Foundation Cases für das Training.
+            </p>
+          </div>
+
+          {/* Status Messages */}
+          {error && (
+            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              {error}
+            </div>
+          )}
+          {success && (
+            <div className="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+              {success}
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Case List */}
+            <div className="lg:col-span-1">
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Foundation Cases</h3>
+                  <button
+                    onClick={loadFoundationCases}
+                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                    disabled={loading}
+                  >
+                    🔄 Aktualisieren
+                  </button>
+                </div>
+                
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                    <p className="text-gray-500 mt-2">Lade Cases...</p>
+                  </div>
+                ) : error ? (
+                  <div className="text-center py-8">
+                    <div className="text-red-500 mb-4">❌</div>
+                    <p className="text-red-600 text-sm mb-4">{error}</p>
+                    <button
+                      onClick={loadFoundationCases}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
+                    >
+                      Erneut versuchen
+                    </button>
+                  </div>
+                ) : foundationCases.length === 0 ? (
+                  <div className="text-center py-8">
+                    <div className="text-gray-400 mb-2">📋</div>
+                    <p className="text-gray-500 text-sm">Keine Foundation Cases gefunden</p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {foundationCases.map((foundationCase) => (
+                      <div
+                        key={foundationCase.id}
+                        className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                          selectedCase?.id === foundationCase.id
+                            ? 'border-blue-500 bg-blue-50'
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                        onClick={() => setSelectedCase(foundationCase)}
+                      >
+                        <div className="font-medium text-gray-900">{foundationCase.title}</div>
+                        <div className="text-sm text-gray-500 flex items-center gap-2">
+                          <span>{foundationCase.cluster}</span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            {getDifficultyInfo(foundationCase.difficulty).emoji}
+                            <span>Level {foundationCase.difficulty}</span>
+                            <span className="text-xs">({getDifficultyInfo(foundationCase.difficulty).level})</span>
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Case Editor */}
+            <div className="lg:col-span-2">
+              {selectedCase ? (
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                  {/* Case Title - Large Format */}
+                  <div className="mb-8">
+                    <div className="flex items-start justify-between mb-2">
+                      {isEditingTitle ? (
+                        <div className="flex-1 space-y-3">
+                          <input
+                            type="text"
+                            value={editableTitle}
+                            onChange={(e) => setEditableTitle(e.target.value)}
+                            className="w-full text-3xl font-bold text-gray-900 border-0 border-b-2 border-gray-300 focus:border-blue-500 focus:ring-0 bg-transparent px-0 py-1"
+                            placeholder="Case-Titel bearbeiten..."
+                          />
+                          <div className="flex justify-end space-x-2">
+                            <button
+                              onClick={cancelEditing}
+                              className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
+                            >
+                              Abbrechen
+                            </button>
+                            <button
+                              onClick={handleSaveEditedContent}
+                              disabled={isSaving}
+                              className="px-4 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+                            >
+                              {isSaving ? 'Speichern...' : 'Speichern'}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <h1 className="text-3xl font-bold text-gray-900">
+                            {selectedCase.title}
+                          </h1>
+                          <button
+                            onClick={startEditingTitle}
+                            className="ml-4 text-sm text-blue-600 hover:text-blue-800 font-medium flex-shrink-0"
+                          >
+                            ✏️ Titel bearbeiten
+                          </button>
+                        </>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getDifficultyInfo(selectedCase.difficulty).color}`}>
+                        {getDifficultyInfo(selectedCase.difficulty).emoji} Level {selectedCase.difficulty} - {getDifficultyInfo(selectedCase.difficulty).level}
+                      </span>
+                      <span>⏱️ {selectedCase.estimated_duration} Min</span>
+                      <span>🎯 {selectedCase.tool}</span>
+                    </div>
+                    <div className="mt-2 text-sm text-gray-500 italic">
+                      {getDifficultyInfo(selectedCase.difficulty).description}
+                    </div>
+                  </div>
+
+                  {/* Case Information Grid */}
+                  <div className="mb-8">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Case Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Cluster
+                        </label>
+                        <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded-lg">{selectedCase.cluster}</p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Case Type
+                        </label>
+                        <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded-lg">{selectedCase.case_type || 'Nicht definiert'}</p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Interaction Type
+                        </label>
+                        <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded-lg">{selectedCase.interaction_type}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Learning Objectives */}
+                    <div className="mt-6">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Learning Objectives
+                      </label>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        {selectedCase.learning_objectives && selectedCase.learning_objectives.length > 0 ? (
+                          <ul className="list-disc list-inside space-y-1">
+                            {selectedCase.learning_objectives.map((objective, index) => (
+                              <li key={index} className="text-sm text-gray-900">{objective}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-sm text-gray-500 italic">Keine Learning Objectives definiert</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Case Description Input */}
+                  <div className="mb-8">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Case Beschreibung</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Erste Beschreibung / Notizen
+                        </label>
+                        <textarea
+                          value={caseDescription}
+                          onChange={(e) => setCaseDescription(e.target.value)}
+                          placeholder="Geben Sie hier erste Beschreibungen, Kontext oder spezielle Anforderungen für diesen Case ein..."
+                          className="w-full h-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        />
+                      </div>
+                      
+                      {/* Generate Button and Module Configuration */}
+                      <div className="flex justify-end space-x-3">
+                        <button
+                          onClick={() => setShowModuleConfig(!showModuleConfig)}
+                          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                            showModuleConfig
+                              ? 'bg-purple-600 text-white'
+                              : 'bg-gray-600 text-white hover:bg-gray-700'
+                          }`}
+                        >
+                          {showModuleConfig ? '🎛️ Konfiguration ausblenden' : '🎛️ Module konfigurieren'}
+                        </button>
+                        
+                        <button
+                          onClick={() => handleGenerateCaseDescription()}
+                          disabled={isGenerating || !caseDescription.trim()}
+                          className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                            isGenerating || !caseDescription.trim()
+                              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                              : 'bg-blue-600 text-white hover:bg-blue-700'
+                          }`}
+                        >
+                          {isGenerating ? (
+                            <>
+                              <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2">
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                              </div>
+                              Generiere Case...
+                            </>
+                          ) : (
+                            <>
+                              🤖 Case erstellen
+                            </>
+                          )}
+                        </button>
+                      </div>
+                      
+                      {/* Module Configuration Panel */}
+                      {showModuleConfig && (
+                        <div className="mt-6">
+                          <ModuleConfigurationPanel
+                            caseId={selectedCase.id}
+                            initialConfiguration={moduleConfiguration}
+                            onSave={handleModuleConfigSave}
+                          />
+                        </div>
+                      )}
+                      
+                      {/* Generated Content */}
+                      {(selectedCase.case_description || selectedCase.case_question) && (
+                        <div className="mt-8 space-y-6">
+                          <h4 className="text-lg font-semibold text-gray-900">Generierte Inhalte</h4>
+                          
+                          {/* Case Description */}
+                          {selectedCase.case_description && (
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <label className="block text-sm font-medium text-gray-700">
+                                  📋 Case Beschreibung
+                                </label>
+                                {!isEditingDescription && (
+                                  <button
+                                    onClick={startEditingDescription}
+                                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                  >
+                                    ✏️ Bearbeiten
+                                  </button>
+                                )}
+                              </div>
+                              
+                              {isEditingDescription ? (
+                                <div className="space-y-3">
+                                  <textarea
+                                    value={editableDescription}
+                                    onChange={(e) => setEditableDescription(e.target.value)}
+                                    className="w-full h-40 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm"
+                                    placeholder="Case-Beschreibung bearbeiten..."
+                                  />
+                                  <div className="flex justify-end space-x-2">
+                                    <button
+                                      onClick={cancelEditing}
+                                      className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
+                                    >
+                                      Abbrechen
+                                    </button>
+                                    <button
+                                      onClick={handleSaveEditedContent}
+                                      disabled={isSaving}
+                                      className="px-4 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+                                    >
+                                      {isSaving ? 'Speichern...' : 'Speichern'}
+                                    </button>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+                                  <p className="text-sm text-gray-900 whitespace-pre-wrap leading-relaxed">
+                                    {selectedCase.case_description}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          
+                          {/* Case Question */}
+                          {selectedCase.case_question && (
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <label className="block text-sm font-medium text-gray-700">
+                                  ❓ Case Frage
+                                </label>
+                                {!isEditingQuestion && (
+                                  <button
+                                    onClick={startEditingQuestion}
+                                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                  >
+                                    ✏️ Bearbeiten
+                                  </button>
+                                )}
+                              </div>
+                              
+                              {isEditingQuestion ? (
+                                <div className="space-y-3">
+                                  <textarea
+                                    value={editableQuestion}
+                                    onChange={(e) => setEditableQuestion(e.target.value)}
+                                    className="w-full h-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm"
+                                    placeholder="Case-Frage bearbeiten..."
+                                  />
+                                  <div className="flex justify-end space-x-2">
+                                    <button
+                                      onClick={cancelEditing}
+                                      className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
+                                    >
+                                      Abbrechen
+                                    </button>
+                                    <button
+                                      onClick={handleSaveEditedContent}
+                                      disabled={isSaving}
+                                      className="px-4 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+                                    >
+                                      {isSaving ? 'Speichern...' : 'Speichern'}
+                                    </button>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                                  <p className="text-sm text-gray-900 font-medium leading-relaxed">
+                                    {selectedCase.case_question}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          
+                          {/* Regenerate Button */}
+                          <div className="flex justify-end">
+                            <button
+                              onClick={() => {
+                                setCaseDescription(selectedCase.case_description || '');
+                                // Scroll to description input
+                                document.querySelector('textarea')?.focus();
+                              }}
+                              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                              🔄 Neu generieren
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Modular Foundation Learning Steps */}
+                  <div className="mb-8">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-6">🎯 Foundation Learning Steps</h3>
+                    
+                    {/* Step 1: Problemverständnis & Zielklärung */}
+                    <div className="mb-8">
+                      <h4 className="text-md font-semibold text-gray-800 mb-4 flex items-center">
+                        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-3">Schritt 1</span>
+                        Problemverständnis & Zielklärung
+                      </h4>
+                      <ConditionalModuleRenderer
+                        stepNumber={1}
+                        stepConfig={moduleConfiguration.step1}
+                        caseId={selectedCase.id}
+                        stepName="Problemverständnis & Zielklärung"
+                        multipleChoiceProps={{
+                          questions: mcQuestions[1] || [],
+                          onGenerate: handleGenerateMC,
+                          onQuestionUpdate: (questions) => handleMCQuestionUpdate(1, questions),
+                          isGenerating: isGeneratingMC
+                        }}
+                        contentModuleProps={{
+                          existingContent: contentModules[1],
+                          onGenerate: handleContentGenerate,
+                          onSave: (content) => handleContentSave(1, content),
+                          isGenerating: isGeneratingContent
+                        }}
+                        freeTextProps={{
+                          existingResponse: freeTextResponses[1],
+                          onSave: (caseId, stepNumber, userResponse) => handleFreeTextSubmit(caseId, stepNumber, userResponse, `Ihre Antwort für Schritt ${stepNumber}...`),
+                          onRequestFeedback: (caseId, stepNumber) => handleFreeTextSubmit(caseId, stepNumber, freeTextResponses[stepNumber]?.user_response || '', `Ihre Antwort für Schritt ${stepNumber}...`),
+                          isSaving: isEvaluatingFreeText,
+                          isRequestingFeedback: isEvaluatingFreeText
+                        }}
+                        textInputProps={{
+                          existingInput: textInputs[1],
+                          onSave: handleTextInputSave,
+                          isSaving: isSavingTextInput
+                        }}
+                        decisionMatrixProps={{
+                          existingDecision: decisions[1],
+                          onSave: handleDecisionSave,
+                          isSaving: isSavingDecision
+                        }}
+                        voiceInputProps={{
+                          existingInput: voiceInputs[1],
+                          onSave: handleVoiceInputSave,
+                          isSaving: isSavingVoiceInput
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Step 2: Strukturierung & Hypothesenbildung */}
+                    <div className="mb-8">
+                      <h4 className="text-md font-semibold text-gray-800 mb-4 flex items-center">
+                        <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-3">Schritt 2</span>
+                        Strukturierung & Hypothesenbildung
+                      </h4>
+                      <ConditionalModuleRenderer
+                        stepNumber={2}
+                        stepConfig={moduleConfiguration.step2}
+                        caseId={selectedCase.id}
+                        stepName="Strukturierung & Hypothesenbildung"
+                        multipleChoiceProps={{
+                          questions: mcQuestions[2] || [],
+                          onGenerate: handleGenerateMC,
+                          onQuestionUpdate: (questions) => handleMCQuestionUpdate(2, questions),
+                          isGenerating: isGeneratingMC
+                        }}
+                        contentModuleProps={{
+                          existingContent: contentModules[2],
+                          onGenerate: handleContentGenerate,
+                          onSave: (content) => handleContentSave(2, content),
+                          isGenerating: isGeneratingContent
+                        }}
+                        freeTextProps={{
+                          existingResponse: freeTextResponses[2],
+                          onSave: (caseId, stepNumber, userResponse) => handleFreeTextSubmit(caseId, stepNumber, userResponse, "Formulieren Sie 2-3 strukturierte Hypothesen für die Ursachen des Problems. Nutzen Sie dabei das MECE-Prinzip (Mutually Exclusive, Collectively Exhaustive) und beziehen Sie sich auf das gewählte Framework."),
+                          onRequestFeedback: (caseId, stepNumber) => handleFreeTextSubmit(caseId, stepNumber, freeTextResponses[stepNumber]?.user_response || '', "Formulieren Sie 2-3 strukturierte Hypothesen..."),
+                          isSaving: isEvaluatingFreeText,
+                          isRequestingFeedback: isEvaluatingFreeText
+                        }}
+                        textInputProps={{
+                          existingInput: textInputs[2],
+                          onSave: handleTextInputSave,
+                          isSaving: isSavingTextInput
+                        }}
+                        decisionMatrixProps={{
+                          existingDecision: decisions[2],
+                          onSave: handleDecisionSave,
+                          isSaving: isSavingDecision
+                        }}
+                        voiceInputProps={{
+                          existingInput: voiceInputs[2],
+                          onSave: handleVoiceInputSave,
+                          isSaving: isSavingVoiceInput
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Step 3: Analyse & Zahlenarbeit */}
+                    <div className="mb-8">
+                      <h4 className="text-md font-semibold text-gray-800 mb-4 flex items-center">
+                        <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-3">Schritt 3</span>
+                        Analyse & Zahlenarbeit
+                      </h4>
+                      <ConditionalModuleRenderer
+                        stepNumber={3}
+                        stepConfig={moduleConfiguration.step3}
+                        caseId={selectedCase.id}
+                        stepName="Analyse & Zahlenarbeit"
+                        multipleChoiceProps={{
+                          questions: mcQuestions[3] || [],
+                          onGenerate: handleGenerateMC,
+                          onQuestionUpdate: (questions) => handleMCQuestionUpdate(3, questions),
+                          isGenerating: isGeneratingMC
+                        }}
+                        contentModuleProps={{
+                          existingContent: contentModules[3],
+                          onGenerate: handleContentGenerate,
+                          onSave: (content) => handleContentSave(3, content),
+                          isGenerating: isGeneratingContent
+                        }}
+                        freeTextProps={{
+                          existingResponse: freeTextResponses[3],
+                          onSave: (caseId, stepNumber, userResponse) => handleFreeTextSubmit(caseId, stepNumber, userResponse, "Führen Sie Ihre quantitative Analyse durch..."),
+                          onRequestFeedback: (caseId, stepNumber) => handleFreeTextSubmit(caseId, stepNumber, freeTextResponses[stepNumber]?.user_response || '', "Führen Sie Ihre quantitative Analyse durch..."),
+                          isSaving: isEvaluatingFreeText,
+                          isRequestingFeedback: isEvaluatingFreeText
+                        }}
+                        textInputProps={{
+                          existingInput: textInputs[3],
+                          onSave: handleTextInputSave,
+                          isSaving: isSavingTextInput
+                        }}
+                        decisionMatrixProps={{
+                          existingDecision: decisions[3],
+                          onSave: handleDecisionSave,
+                          isSaving: isSavingDecision
+                        }}
+                        voiceInputProps={{
+                          existingInput: voiceInputs[3],
+                          onSave: handleVoiceInputSave,
+                          isSaving: isSavingVoiceInput
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Step 4: Synthetisieren & Optionen bewerten */}
+                    <div className="mb-8">
+                      <h4 className="text-md font-semibold text-gray-800 mb-4 flex items-center">
+                        <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-3">Schritt 4</span>
+                        Synthetisieren & Optionen bewerten
+                      </h4>
+                      <ConditionalModuleRenderer
+                        stepNumber={4}
+                        stepConfig={moduleConfiguration.step4}
+                        caseId={selectedCase.id}
+                        stepName="Synthetisieren & Optionen bewerten"
+                        multipleChoiceProps={{
+                          questions: mcQuestions[4] || [],
+                          onGenerate: handleGenerateMC,
+                          onQuestionUpdate: (questions) => handleMCQuestionUpdate(4, questions),
+                          isGenerating: isGeneratingMC
+                        }}
+                        contentModuleProps={{
+                          existingContent: contentModules[4],
+                          onGenerate: handleContentGenerate,
+                          onSave: (content) => handleContentSave(4, content),
+                          isGenerating: isGeneratingContent
+                        }}
+                        freeTextProps={{
+                          existingResponse: freeTextResponses[4],
+                          onSave: (caseId, stepNumber, userResponse) => handleFreeTextSubmit(caseId, stepNumber, userResponse, "Synthetisieren Sie Ihre Erkenntnisse und bewerten Sie verschiedene Handlungsoptionen..."),
+                          onRequestFeedback: (caseId, stepNumber) => handleFreeTextSubmit(caseId, stepNumber, freeTextResponses[stepNumber]?.user_response || '', "Synthetisieren Sie Ihre Erkenntnisse..."),
+                          isSaving: isEvaluatingFreeText,
+                          isRequestingFeedback: isEvaluatingFreeText
+                        }}
+                        textInputProps={{
+                          existingInput: textInputs[4],
+                          onSave: handleTextInputSave,
+                          isSaving: isSavingTextInput
+                        }}
+                        decisionMatrixProps={{
+                          existingDecision: decisions[4],
+                          onSave: handleDecisionSave,
+                          isSaving: isSavingDecision
+                        }}
+                        voiceInputProps={{
+                          existingInput: voiceInputs[4],
+                          onSave: handleVoiceInputSave,
+                          isSaving: isSavingVoiceInput
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Step 5: Empfehlung & Executive Summary */}
+                    <div className="mb-8">
+                      <h4 className="text-md font-semibold text-gray-800 mb-4 flex items-center">
+                        <span className="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-3">Schritt 5</span>
+                        Empfehlung & Executive Summary
+                      </h4>
+                      <ConditionalModuleRenderer
+                        stepNumber={5}
+                        stepConfig={moduleConfiguration.step5}
+                        caseId={selectedCase.id}
+                        stepName="Empfehlung & Executive Summary"
+                        multipleChoiceProps={{
+                          questions: mcQuestions[5] || [],
+                          onGenerate: handleGenerateMC,
+                          onQuestionUpdate: (questions) => handleMCQuestionUpdate(5, questions),
+                          isGenerating: isGeneratingMC
+                        }}
+                        contentModuleProps={{
+                          existingContent: contentModules[5],
+                          onGenerate: handleContentGenerate,
+                          onSave: (content) => handleContentSave(5, content),
+                          isGenerating: isGeneratingContent
+                        }}
+                        freeTextProps={{
+                          existingResponse: freeTextResponses[5],
+                          onSave: (caseId, stepNumber, userResponse) => handleFreeTextSubmit(caseId, stepNumber, userResponse, "Formulieren Sie Ihre finale Empfehlung und Executive Summary..."),
+                          onRequestFeedback: (caseId, stepNumber) => handleFreeTextSubmit(caseId, stepNumber, freeTextResponses[stepNumber]?.user_response || '', "Formulieren Sie Ihre finale Empfehlung..."),
+                          isSaving: isEvaluatingFreeText,
+                          isRequestingFeedback: isEvaluatingFreeText
+                        }}
+                        textInputProps={{
+                          existingInput: textInputs[5],
+                          onSave: handleTextInputSave,
+                          isSaving: isSavingTextInput
+                        }}
+                        decisionMatrixProps={{
+                          existingDecision: decisions[5],
+                          onSave: handleDecisionSave,
+                          isSaving: isSavingDecision
+                        }}
+                        voiceInputProps={{
+                          existingInput: voiceInputs[5],
+                          onSave: handleVoiceInputSave,
+                          isSaving: isSavingVoiceInput
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Additional Information */}
+                  <div className="mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Zusätzliche Informationen</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Framework Hints
+                        </label>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <p className="text-sm text-gray-900">
+                            {selectedCase.framework_hints || 'Keine Framework Hints definiert'}
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Erstellt am
+                        </label>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <p className="text-sm text-gray-900">
+                            {selectedCase.created_at ? new Date(selectedCase.created_at).toLocaleDateString('de-DE') : 'Unbekannt'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  {/* Case Content Preview */}
+                  <div>
+                    <h3 className="text-md font-medium text-gray-900 mb-3">Content Preview</h3>
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <div className="text-sm text-gray-600">
+                        <p><strong>Introduction:</strong> {selectedCase.content?.introduction || 'Nicht verfügbar'}</p>
+                        <p className="mt-2"><strong>Situation:</strong> {selectedCase.content?.situation || 'Nicht verfügbar'}</p>
+                        <p className="mt-2"><strong>Question:</strong> {selectedCase.content?.question || 'Nicht verfügbar'}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                  <div className="text-center py-12">
+                    <div className="text-gray-400 mb-4">📋</div>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">Kein Case ausgewählt</h3>
+                    <p className="text-gray-500">
+                      Wählen Sie einen Foundation Case aus der Liste links aus, um ihn zu bearbeiten.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

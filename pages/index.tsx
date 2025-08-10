@@ -1,21 +1,51 @@
+/**
+ * 🚀 NAVAA.AI DEVELOPMENT STANDARDS
+ *
+ * This file follows navaa.ai development guidelines:
+ * 📋 CONTRIBUTING.md - Contribution standards and workflow
+ * 📚 docs/navaa-development-guidelines.md - Complete development standards
+ *
+ * KEY STANDARDS FOR THIS FILE:
+ * ✅ Stability First - Never change working features without clear reason
+ * ✅ Security First - JWT authentication, RLS compliance
+ * ✅ Smart Routing - Central routing logic, no distributed decisions
+ * ✅ React Standards - No router in useEffect dependencies
+ * ✅ Loading States - Always with timeout and fallback
+ * ✅ Error Handling - Structured logging with context
+ *
+ * @see CONTRIBUTING.md
+ * @see docs/navaa-development-guidelines.md
+ */
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import MainApp from '../components/MainApp';
-import Dashboard from '../components/Dashboard';
-import UnifiedHeader from '../components/UnifiedHeader';
-import Footer from '../components/Footer';
+import MainApp from '../components/layout/MainApp';
+import CourseGrid from '../components/courses/CourseGrid';
+import DashboardCourseSection from '../components/dashboard/DashboardCourseSection';
+import UnifiedHeader from '../components/layout/UnifiedHeader';
+import Footer from '../components/layout/Footer';
+import WelcomeHeroBanner from '../components/sections/WelcomeHeroBanner';
+import { useRouter } from 'next/router';
+
+interface UserStatus {
+  isNewUser: boolean;
+  hasCompletedOnboarding: boolean;
+  hasActiveEnrollments: boolean;
+  shouldRedirectToOnboarding: boolean;
+}
 
 export default function Home() {
-  const { user, authLoading } = useAuth();
-  const [isNewUser, setIsNewUser] = useState(false);
+  const router = useRouter();
+  const { user, profile, loading: authLoading } = useAuth();
+  const [checkingUserStatus, setCheckingUserStatus] = useState(true);
   const [checkingNewUser, setCheckingNewUser] = useState(true);
+  const [isNewUser, setIsNewUser] = useState(false);
 
   useEffect(() => {
     if (user && !authLoading) {
       // Check if user is new (registered in last 5 minutes)
       const userCreated = new Date(user.created_at || user.user_metadata?.created_at || Date.now());
       const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-      
+
       setIsNewUser(userCreated > fiveMinutesAgo);
       setCheckingNewUser(false);
     } else if (!authLoading) {
@@ -37,10 +67,19 @@ export default function Home() {
 
   // Smart routing: Dashboard for users, Marketing for guests
   if (user) {
+    const firstName =
+      profile?.firstName ||
+      user.user_metadata?.firstName ||
+      user.user_metadata?.first_name ||
+      'User';
+
     return (
-      <div>
+      <div className="min-h-screen bg-navaa-bg-primary">
         <UnifiedHeader variant="app" />
-        <Dashboard isNewUser={isNewUser} />
+        <WelcomeHeroBanner variant="dashboard" firstName={firstName} />
+        <div className="container mx-auto px-4 py-8">
+          <DashboardCourseSection />
+        </div>
         <Footer />
       </div>
     );
@@ -49,4 +88,3 @@ export default function Home() {
   // Marketing page for guests
   return <MainApp />;
 }
-

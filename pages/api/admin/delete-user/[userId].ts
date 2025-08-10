@@ -1,40 +1,35 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+/**
+ * ADMIN DELETE-USER API
+ * Migrated to navaa Auth Guidelines (WP-C1)
+ *
+ * COMPLIANCE:
+ * - Uses requireRole('admin') middleware (MANDATORY)
+ * - JWT token validation via auth middleware
+ * - Role-based access control for admin user deletion
+ * - No manual JWT extraction or admin validation
+ *
+ * @version 2.0.0 (WP-C1 Backend Migration)
+ */
+
+import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { requireRole, AuthenticatedRequest, getUserId } from '../../../../lib/middleware/auth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// Main API handler with Auth Middleware (WP-C1 Migration)
+async function adminDeleteUserHandler(req: AuthenticatedRequest, res: NextApiResponse) {
   if (req.method !== 'DELETE') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Get user from Auth Middleware (WP-C1 Migration)
+  const adminUserId = getUserId(req); // Admin user already validated by requireRole('admin') middleware
+
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      return res.status(401).json({ error: 'No authorization header' });
-    }
-
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
-
-    if (authError || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
-    }
-
-    // Check if user is admin
-    const { data: profile, error: profileError } = await supabase
-      .from('user_profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (profileError || profile?.role !== 'admin') {
-      return res.status(403).json({ error: 'Admin access required' });
-    }
-
     const { userId } = req.query;
 
     if (!userId || typeof userId !== 'string') {
@@ -57,10 +52,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Delete from user_profiles (this will cascade to related tables)
-    const { error: deleteError } = await supabase
-      .from('user_profiles')
-      .delete()
-      .eq('id', userId);
+    const { error: deleteError } = await supabase.from('user_profiles').delete().eq('id', userId);
 
     if (deleteError) {
       console.error('Error deleting user:', deleteError);
@@ -77,13 +69,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    res.status(200).json({ 
+    res.status(200).json({
       success: true,
-      message: 'User deleted successfully'
+      message: 'User deleted successfully',
     });
-
   } catch (error) {
     console.error('Error in delete-user API:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+// Export handler with requireRole middleware (WP-C1 Migration)
+export default requireRole('admin')(adminDeleteUserHandler);

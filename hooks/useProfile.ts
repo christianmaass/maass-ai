@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { getSupabaseClient } from '../supabaseClient';
 
@@ -29,7 +29,7 @@ export const useProfile = (): UseProfileReturn => {
   const [profileError, setProfileError] = useState<string | null>(null);
   const supabase = getSupabaseClient();
 
-  const loadProfile = async () => {
+  const loadProfile = useCallback(async () => {
     if (!user) {
       setProfile(null);
       setProfileError(null);
@@ -48,15 +48,15 @@ export const useProfile = (): UseProfileReturn => {
 
       if (error) {
         console.warn('Profile loading failed:', error);
-        
+
         // Fallback: Create minimal profile from auth data
         const fallbackProfile: Profile = {
           id: user.id,
           email: user.email,
           name: user.user_metadata?.name || user.email?.split('@')[0] || 'User',
-          role: 'user'
+          role: 'user',
         };
-        
+
         setProfile(fallbackProfile);
         setProfileError('Profile nicht gefunden, verwende Fallback-Daten');
       } else {
@@ -65,25 +65,25 @@ export const useProfile = (): UseProfileReturn => {
       }
     } catch (error) {
       console.error('Profile loading error:', error);
-      
+
       // Fallback: Create minimal profile from auth data
       const fallbackProfile: Profile = {
         id: user.id,
         email: user.email,
         name: user.user_metadata?.name || user.email?.split('@')[0] || 'User',
-        role: 'user'
+        role: 'user',
       };
-      
+
       setProfile(fallbackProfile);
       setProfileError('Fehler beim Laden des Profils, verwende Fallback-Daten');
     } finally {
       setProfileLoading(false);
     }
-  };
+  }, [user, supabase]);
 
   useEffect(() => {
     loadProfile();
-  }, [user]);
+  }, [user, loadProfile]);
 
   const refreshProfile = async () => {
     await loadProfile();
@@ -96,6 +96,6 @@ export const useProfile = (): UseProfileReturn => {
     profileLoading,
     profileError,
     isAdmin,
-    refreshProfile
+    refreshProfile,
   };
 };
