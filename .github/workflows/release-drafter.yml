@@ -12,6 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: release-drafter/release-drafter@v6
+      # On pull requests, perform a no-op so the required check passes.
+      - name: Skip on pull_request (no-op)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "Release Drafter runs only on main. Skipping for PR."
+
+      # Only run Release Drafter on pushes to the default branch.
+      - name: Update release draft on main
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: release-drafter/release-drafter@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
