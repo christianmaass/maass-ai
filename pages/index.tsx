@@ -23,7 +23,7 @@ import CourseGrid from '../components/courses/CourseGrid';
 import DashboardCourseSection from '../components/dashboard/DashboardCourseSection';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
-import WelcomeHeroBanner from '../components/sections/WelcomeHeroBanner';
+import WelcomeHeroBanner from '@/marketing/sections/WelcomeHeroBanner';
 import { useRouter } from 'next/router';
 
 interface UserStatus {

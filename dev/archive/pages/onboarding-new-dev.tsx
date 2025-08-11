@@ -38,7 +38,7 @@ import Image from 'next/image';
 import CourseGrid from '../../../components/courses/CourseGrid';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
-import WelcomeHeroBanner from '../../../components/sections/WelcomeHeroBanner';
+import WelcomeHeroBanner from '@/marketing/sections/WelcomeHeroBanner';
 import { useAuth } from '../../../contexts/AuthContext';
 
 // =============================================================================
