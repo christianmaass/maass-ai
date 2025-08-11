@@ -42,5 +42,5 @@
       "path": "./tsconfig.node.json"
     }
   ],
-  "exclude": ["node_modules", "archive", "dev/archive", "vite.config.ts"]
+  "exclude": ["node_modules", "archive", "dev/archive", "dev/_trash", "vite.config.ts"]
 }

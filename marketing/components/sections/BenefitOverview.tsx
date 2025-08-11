@@ -18,6 +18,7 @@
  */
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import LernansatzImg from '../../assets/navaa-lernansatz.png';
 import ResultCard from '@components/ui/ResultCard';
 import { Heading, Text } from '@components/ui/Typography';
@@ -90,12 +91,12 @@ export default function BenefitOverview() {
 
             {/* CTA-Button */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
+              <Link
                 href="/register"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#009e82] text-white font-bold rounded-xl shadow-lg hover:bg-[#007a66] transition-colors text-lg"
               >
                 Jetzt loslegen
-              </a>
+              </Link>
             </div>
           </div>
 
