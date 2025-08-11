@@ -36,9 +36,11 @@ function handleApiError(error: any, res: NextApiResponse, operation: string) {
 
   const apiError: FoundationApiError = {
     success: false,
-    error: error.message || 'Internal server error',
-    code: error.code || 'INTERNAL_ERROR',
-    details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+    error: {
+      message: error?.message || 'Internal server error',
+      code: error?.code || 'INTERNAL_ERROR',
+      details: process.env.NODE_ENV === 'development' ? error?.stack : undefined,
+    },
   };
 
   res.status(500).json(apiError);

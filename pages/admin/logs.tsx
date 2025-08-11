@@ -7,7 +7,7 @@ export default function AdminLogsPage() {
     <AdminLayout currentPage="logs">
       <div className="space-y-6">
         {/* Page Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="navaa-card">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">📊 System Logs</h1>
           <p className="text-gray-600">
             System-Monitoring, Log-Analytics und Performance-Überwachung
@@ -15,7 +15,9 @@ export default function AdminLogsPage() {
         </div>
 
         {/* Log Dashboard */}
-        <LogDashboard />
+        <div className="navaa-card">
+          <LogDashboard />
+        </div>
       </div>
     </AdminLayout>
   );

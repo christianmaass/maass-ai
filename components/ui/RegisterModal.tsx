@@ -75,7 +75,15 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, onSucces
 
     try {
       // Verwende AuthContext register Funktion
-      await register(formData.name.trim(), formData.email.trim().toLowerCase(), formData.password);
+      const trimmedName = formData.name.trim();
+      const [firstName, ...rest] = trimmedName.split(/\s+/);
+      const lastName = rest.join(' ');
+      await register(
+        firstName || '',
+        lastName || '',
+        formData.email.trim().toLowerCase(),
+        formData.password,
+      );
 
       // Success - AuthContext leitet automatisch weiter
       if (onSuccess) {

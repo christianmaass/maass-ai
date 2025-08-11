@@ -319,15 +319,14 @@ const FoundationManager: React.FC = () => {
             <div className="p-6">
               <ModuleConfigurationPanel
                 caseId={selectedCase.id}
-                currentConfiguration={moduleConfiguration}
+                initialConfiguration={moduleConfiguration}
                 onSave={async (config) => {
                   const success = await updateModuleConfiguration(config);
                   if (success) {
                     toggleConfigPanel();
                   }
-                  return success;
+                  return;
                 }}
-                onCancel={toggleConfigPanel}
               />
             </div>
           </div>

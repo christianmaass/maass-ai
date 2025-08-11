@@ -92,7 +92,7 @@ export default function WelcomeSection() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Willkommen bei navaa!</h2>
           <p className="text-gray-600 mb-6">Bereit für deine Lernreise?</p>
           <Link
-            href="/dashboard"
+            href="/"
             className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#009e82] to-[#00bfae] text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300"
           >
             Dashboard erkunden

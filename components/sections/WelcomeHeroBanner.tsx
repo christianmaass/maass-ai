@@ -20,6 +20,7 @@ import React from 'react';
 import Image from 'next/image';
 import { getTimeOfDayGreeting, formatGreeting } from '../../utils/greeting';
 import { Heading, Text } from '../ui/Typography';
+import { MODULES } from '../../lib/assetPaths';
 
 interface WelcomeHeroBannerProps {
   variant: 'dashboard' | 'onboarding';
@@ -69,8 +70,8 @@ export default function WelcomeHeroBanner({ variant, firstName = 'User' }: Welco
             <div className="w-full max-w-lg">
               <div className="relative w-full h-48">
                 <Image
-                  src="/assets/onboarding.png"
-                  alt="navaa Onboarding - Deine Lernreise beginnt"
+                  src={MODULES.onboarding}
+                  alt="Onboarding - Deine Lernreise beginnt"
                   fill
                   className="object-contain"
                   sizes="(max-width: 768px) 100vw, 50vw"

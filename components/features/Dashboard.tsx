@@ -352,7 +352,7 @@ export default function Dashboard({ isNewUser = false }: DashboardProps) {
                   Noch keine Aktivität. Starte deinen ersten Case!
                 </p>
                 <Link
-                  href="/onboarding"
+                  href="/app/onboarding"
                   className="inline-flex items-center gap-2 text-[#00bfae] hover:text-[#009688] transition-colors text-sm font-medium"
                 >
                   📚 Onboarding wiederholen

@@ -7,9 +7,9 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import UnifiedHeader from '../components/layout/UnifiedHeader';
-import Footer from '../components/layout/Footer';
+import { useAuth } from '../../contexts/AuthContext';
+import Header from '@layout/basic/Header';
+import Footer from '@layout/basic/Footer';
 
 export default function DebugCoursesAPI() {
   const { user, getAccessToken } = useAuth();
@@ -66,7 +66,7 @@ export default function DebugCoursesAPI() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <UnifiedHeader variant="app" />
+      <Header variant="app" />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow p-6">

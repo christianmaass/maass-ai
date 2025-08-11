@@ -20,6 +20,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Heading, Text } from '../ui/Typography';
 import Image from 'next/image';
+import LearnLoopImg from '../../marketing/assets/navaa-learn-loop.png';
 
 // HeroBanner.tsx
 // Main landing page hero section
@@ -68,7 +69,7 @@ export default function HeroBanner() {
         <div className="flex-1 flex items-center justify-center mt-8 md:mt-0">
           <div className="w-full max-w-2xl">
             <Image
-              src="/assets/navaa-learn-loop.png"
+              src={LearnLoopImg}
               alt="Der navaa Lern-Loop - Analyse, Strukturierung, Reflexion und Personalisierte Weiterentwicklung"
               width={1024}
               height={576}

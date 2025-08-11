@@ -89,7 +89,8 @@ export const useProfile = (): UseProfileReturn => {
     await loadProfile();
   };
 
-  const isAdmin = profile?.role === 'admin';
+  const roleNorm = (profile?.role || '').toLowerCase();
+  const isAdmin = roleNorm === 'admin' || roleNorm === 'super_admin';
 
   return {
     profile,

@@ -1,14 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
-import UnifiedHeader from '../components/layout/UnifiedHeader';
-import Footer from '../components/layout/Footer';
+import Header from '@layout/basic/Header';
+import Footer from '@layout/basic/Footer';
+import ErrorBoundary from '@layout/basic/ErrorBoundary';
 
 export default function Custom404() {
   return (
     <>
-      <UnifiedHeader variant="marketing" />
-      <div className="navaa-page navaa-bg-primary min-h-screen flex flex-col">
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-16">
+      <Header variant="marketing" />
+      <ErrorBoundary level="page">
+        <div className="navaa-page navaa-bg-primary min-h-screen flex flex-col">
+          <div className="flex-1 flex flex-col items-center justify-center px-4 py-16">
           <div className="text-center max-w-md">
             {/* 404 Icon */}
             <div className="mb-8">
@@ -32,7 +34,7 @@ export default function Custom404() {
                 Zur Startseite
               </Link>
               <Link
-                href="/dashboard"
+                href="/"
                 className="inline-block w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
               >
                 Zum Dashboard
@@ -46,9 +48,10 @@ export default function Custom404() {
                 Support-Team
               </Link>
             </p>
+            </div>
           </div>
         </div>
-      </div>
+      </ErrorBoundary>
       <Footer />
     </>
   );

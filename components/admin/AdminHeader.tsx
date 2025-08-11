@@ -15,7 +15,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ currentPage }) => {
         <div className="flex items-center gap-2">
           <Link href="/admin" className="flex items-center gap-2">
             <Image
-              src="/logo-navaa.png"
+              src="/shared/brand/logo-navaa.png"
               alt="navaa.ai Admin"
               width={64}
               height={64}
@@ -82,7 +82,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ currentPage }) => {
           </li>
           <li>
             <Link
-              href="/dashboard"
+              href="/"
               className="px-4 py-2 bg-[#00bfae] text-white rounded-lg font-medium hover:bg-[#009688] transition-colors"
             >
               Back to navaa

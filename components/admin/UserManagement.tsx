@@ -142,7 +142,8 @@ const UserManagement: React.FC = () => {
       alert(`Test-User erfolgreich erstellt!\nE-Mail: ${data.email}\nPasswort: ${data.password}`);
     } catch (error) {
       console.error('Error creating test user:', error);
-      alert(`Fehler beim Erstellen des Test-Users: ${error.message}`);
+      const e = error as Error;
+      alert(`Fehler beim Erstellen des Test-Users: ${e?.message ?? String(error)}`);
     } finally {
       setIsCreating(false);
     }
@@ -184,7 +185,8 @@ const UserManagement: React.FC = () => {
       await loadUsers();
     } catch (error) {
       console.error('Error deleting user:', error);
-      alert(`Fehler beim Löschen des Users: ${error.message}`);
+      const e = error as Error;
+      alert(`Fehler beim Löschen des Users: ${e?.message ?? String(error)}`);
     }
   };
 

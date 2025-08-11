@@ -10,10 +10,71 @@ import {
   ModuleAdapterRegistry,
 } from '../types/unified-module.types';
 
-// Import existing component types
-import { ContentModuleComponentProps } from '../components/ContentModuleComponent';
-import { FreeTextWithFeedbackProps } from '../components/FreeTextWithFeedbackComponent';
-import { DecisionMatrixComponentProps } from '../components/DecisionMatrixComponent';
+// Local minimal prop interfaces matching the components' required props
+interface ContentModuleComponentProps {
+  caseId: string;
+  stepNumber: number;
+  stepName: string;
+  existingContent?: {
+    id?: string;
+    title: string;
+    content: string;
+    image_url?: string;
+    generation_prompt?: string;
+    generated_by_gpt?: boolean;
+  };
+  onGenerate: (caseId: string, stepNumber: number, prompt: string) => Promise<void>;
+  onSave: (content: any) => Promise<void>;
+  isGenerating?: boolean;
+}
+
+interface FreeTextWithFeedbackProps {
+  caseId: string;
+  stepNumber: number;
+  stepName: string;
+  prompt: string;
+  existingResponse?: {
+    id?: string;
+    user_response: string;
+    gpt_feedback?: unknown;
+  };
+  onSubmit: (
+    caseId: string,
+    stepNumber: number,
+    userResponse: string,
+    promptText: string,
+  ) => Promise<void>;
+  isEvaluating?: boolean;
+}
+
+interface DecisionMatrixComponentProps {
+  caseId: string;
+  stepNumber: number;
+  stepName: string;
+  title?: string;
+  options: Array<{
+    id: string;
+    name: string;
+    marge: string;
+    umsetzbarkeit: string;
+    zeit: string;
+    risiken: string;
+  }>;
+  existingDecision?: {
+    id?: string;
+    selected_option: string;
+    reasoning: string;
+    decision_matrix?: unknown;
+  };
+  onSave: (
+    caseId: string,
+    stepNumber: number,
+    selectedOption: string,
+    reasoning: string,
+    decisionMatrix: any,
+  ) => Promise<void>;
+  isSaving?: boolean;
+}
 
 /**
  * Content Module Adapter

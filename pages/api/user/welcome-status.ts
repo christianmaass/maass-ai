@@ -67,7 +67,7 @@ async function welcomeStatusHandler(
       nextAction = {
         type: 'onboarding',
         label: 'Jetzt loslegen',
-        href: '/onboarding',
+        href: '/app/onboarding',
       };
     } else {
       // Returning user - check for current/next case
@@ -116,7 +116,7 @@ async function welcomeStatusHandler(
         nextAction = {
           type: 'new_case',
           label: 'Weiterlernen',
-          href: '/dashboard',
+          href: '/app',
         };
       }
     }

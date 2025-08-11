@@ -43,6 +43,9 @@ export default function ResponseHandler({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // FoundationCase.content is not part of strict type; guard for runtime
+  const content: any = (foundationCase as any)?.content || {};
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (disabled || isSubmitting || submitting) return;
@@ -115,7 +118,7 @@ export default function ResponseHandler({
   };
 
   const renderMultipleChoiceInput = () => {
-    const mcQuestions = foundationCase.content.multiple_choice_questions || [];
+    const mcQuestions = content.multiple_choice_questions || [];
 
     if (mcQuestions.length === 0) {
       return <div className="text-gray-500">Keine Multiple Choice Fragen verfügbar.</div>;
@@ -177,10 +180,10 @@ export default function ResponseHandler({
         </h3>
 
         {/* Render all MC questions */}
-        {mcQuestions.map((mcQuestion, questionIndex) => {
+        {mcQuestions.map((mcQuestion: any, questionIndex: number) => {
           const hasAnswered = response.response_data[`mc_${mcQuestion.id}`] !== undefined;
           const selectedOption = mcQuestion.options.find(
-            (opt) => opt.id === response.response_data[`mc_${mcQuestion.id}`],
+            (opt: any) => opt.id === response.response_data[`mc_${mcQuestion.id}`],
           );
 
           return (
@@ -189,7 +192,7 @@ export default function ResponseHandler({
                 {questionIndex + 1}. {mcQuestion.question}
               </h4>
               <div className="space-y-3">
-                {mcQuestion.options.map((option) => (
+                {mcQuestion.options.map((option: any) => (
                   <button
                     key={option.id}
                     onClick={() => updateResponseData(`mc_${mcQuestion.id}`, option.id)}
@@ -350,7 +353,7 @@ export default function ResponseHandler({
     switch (foundationCase.interaction_type) {
       case 'multiple_choice_with_hypotheses':
         return renderMultipleChoiceInput();
-      case 'structured_mbb_framework':
+      case 'structured_mbb':
         return renderStructuredInput();
       case 'free_form_with_hints':
         return renderFreeFormInput();
@@ -366,12 +369,12 @@ export default function ResponseHandler({
 
     switch (foundationCase.interaction_type) {
       case 'multiple_choice_with_hypotheses':
-        const mcQuestions = foundationCase.content.multiple_choice_questions || [];
+        const mcQuestions = content.multiple_choice_questions || [];
         const allMcQuestionsAnswered = mcQuestions.every(
-          (mcQuestion) => data[`mc_${mcQuestion.id}`] !== undefined,
+          (mcQuestion: any) => data[`mc_${mcQuestion.id}`] !== undefined,
         );
         return allMcQuestionsAnswered && data.hypothesis?.trim();
-      case 'structured_mbb_framework':
+      case 'structured_mbb':
         return (
           data.problem_definition?.trim() &&
           data.framework_application?.trim() &&

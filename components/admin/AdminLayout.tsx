@@ -84,9 +84,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, currentPage }) => {
   }
 
   return (
-    <div className="min-h-screen bg-navaa-bg-primary">
+    <div className="navaa-page">
       <AdminHeader currentPage={currentPage} />
-      <main className="max-w-7xl mx-auto py-6 px-6">{children}</main>
+      <main className="navaa-container py-6">{children}</main>
     </div>
   );
 };

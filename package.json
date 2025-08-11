@@ -13,7 +13,10 @@
     "test:foundation-apis": "node scripts/test-apis-simple.js",
     "test:foundation-apis-full": "node scripts/test-foundation-apis.js",
     "scan:secrets": "gitleaks detect --redact --config=.gitleaks.toml",
-    "scan:staged": "gitleaks protect --staged --redact --config=.gitleaks.toml"
+    "scan:staged": "gitleaks protect --staged --redact --config=.gitleaks.toml",
+    "repo:tree": "mkdir -p docs && tree -I 'node_modules|.next|.git|dist|build|coverage' -a -L 4 > docs/repo-structure.md",
+    "repo:deps": "madge --ts-config ./tsconfig.json --extensions ts,tsx --image docs/deps-graph.svg components pages src",
+    "repo:cruise": "depcruise --config .dependency-cruiser.js components pages src --output-type dot | dot -T svg > docs/depcruise.svg"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -50,6 +53,8 @@
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5",
-    "vite": "^5.2.8"
+    "vite": "^5.2.8",
+    "dependency-cruiser": "^16.0.0",
+    "madge": "^6.0.0"
   }
 }

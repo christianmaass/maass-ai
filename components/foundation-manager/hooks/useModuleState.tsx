@@ -7,6 +7,7 @@ import {
 
 interface ModuleStateData {
   [stepNumber: number]: {
+    [moduleType: string]: any;
     multipleChoice?: any[];
     freeText?: any;
     contentModule?: any;

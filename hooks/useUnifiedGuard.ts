@@ -88,6 +88,13 @@ interface RoutingDecision {
 }
 
 // =============================================================================
+// DEBUG TOGGLE (ENV-BASED)
+// =============================================================================
+// Opt-in guard debug logging via env var. Default is OFF.
+// To enable at runtime, set NEXT_PUBLIC_DEBUG_GUARD=true and restart dev server.
+const GUARD_DEBUG = process.env.NEXT_PUBLIC_DEBUG_GUARD === 'true';
+
+// =============================================================================
 // SUBSCRIPTION TIER LOGIC
 // =============================================================================
 
@@ -174,7 +181,8 @@ function calculateRoutingDecision(
     currentRoute !== config.returningUserRedirect
   ) {
     // Only redirect if user is on onboarding page but should be on dashboard
-    if (currentRoute === '/onboarding-new' || currentRoute === '/onboarding') {
+    const routePathOnly = currentRoute.split('?')[0] || currentRoute;
+    if (routePathOnly === '/app/onboarding') {
       return {
         action: 'redirect',
         target: config.returningUserRedirect,
@@ -368,10 +376,10 @@ export const UNIFIED_GUARDS = {
   DASHBOARD: {
     requireAuth: true,
     requiredTier: 'free' as const,
-    newUserRedirect: '/onboarding-new',
+    newUserRedirect: '/app/onboarding',
     returningUserRedirect: '/',
     allowOnError: true,
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: GUARD_DEBUG,
   },
 
   ONBOARDING: {
@@ -379,33 +387,33 @@ export const UNIFIED_GUARDS = {
     requiredTier: 'free' as const,
     returningUserRedirect: '/',
     allowOnError: true,
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: GUARD_DEBUG,
   },
 
   COURSE: {
     requireAuth: true,
     requiredTier: 'free' as const,
-    newUserRedirect: '/onboarding-new',
+    newUserRedirect: '/app/onboarding',
     allowOnError: true,
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: GUARD_DEBUG,
   },
 
   PREMIUM_COURSE: {
     requireAuth: true,
     requiredTier: 'paid' as const,
-    newUserRedirect: '/onboarding-new',
+    newUserRedirect: '/app/onboarding',
     upgradeRedirect: '/upgrade/paid',
     allowOnError: false,
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: GUARD_DEBUG,
   },
 
   BUSINESS_FEATURES: {
     requireAuth: true,
     requiredTier: 'business' as const,
-    newUserRedirect: '/onboarding-new',
+    newUserRedirect: '/app/onboarding',
     upgradeRedirect: '/upgrade/business',
     allowOnError: false,
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: GUARD_DEBUG,
   },
 };
 

@@ -109,7 +109,7 @@ async function adminCreateTestUserDirectHandler(req: AuthenticatedRequest, res: 
     console.error('❌ Unexpected error:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      details: error.message,
+      details: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 }

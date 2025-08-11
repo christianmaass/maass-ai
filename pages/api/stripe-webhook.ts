@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { stripe } from '../../lib/stripe';
+import { stripe } from '@payments/services/stripe.service';
 import Stripe from 'stripe';
+import { handleStripeWebhook } from '@payments/webhooks/stripe.webhook';
 
 // Webhook für Stripe Events (Subscription Updates, Payments, etc.)
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -31,41 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // Event Types behandeln
-    switch (event.type) {
-      case 'checkout.session.completed':
-        const session = event.data.object as Stripe.Checkout.Session;
-        console.log('Payment successful:', session.id);
-        
-        // TODO: User Plan in Datenbank aktualisieren
-        // await updateUserSubscription(session.customer_email, session.subscription);
-        break;
-
-      case 'customer.subscription.updated':
-        const subscription = event.data.object as Stripe.Subscription;
-        console.log('Subscription updated:', subscription.id);
-        
-        // TODO: Subscription Status aktualisieren
-        break;
-
-      case 'customer.subscription.deleted':
-        const deletedSubscription = event.data.object as Stripe.Subscription;
-        console.log('Subscription cancelled:', deletedSubscription.id);
-        
-        // TODO: User auf Free Plan zurücksetzen
-        break;
-
-      case 'invoice.payment_failed':
-        const failedInvoice = event.data.object as Stripe.Invoice;
-        console.log('Payment failed:', failedInvoice.id);
-        
-        // TODO: User benachrichtigen über fehlgeschlagene Zahlung
-        break;
-
-      default:
-        console.log(`Unhandled event type: ${event.type}`);
-    }
-
+    await handleStripeWebhook(event);
     res.status(200).json({ received: true });
   } catch (error) {
     console.error('Error processing webhook:', error);

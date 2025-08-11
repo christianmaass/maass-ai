@@ -246,7 +246,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     } catch (progressError) {
       logger.warn('User Progress Update Failed', {
         userId,
-        error: progressError.message,
+        error: progressError instanceof Error ? progressError.message : 'Unknown error',
         operation: 'progress-update',
       });
     }
@@ -276,15 +276,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const totalDuration = performanceTimer.end({
       userId,
       success: false,
-      error: error.message,
+      error: error instanceof Error ? error.message : 'Unknown error',
     });
 
     logger.error('Assessment Failed', {
       userId,
       caseId: req.body.case_id,
       userResponseId: req.body.user_response_id,
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
       totalDuration,
       operation: 'assessment',
     });

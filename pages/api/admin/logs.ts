@@ -204,9 +204,10 @@ async function adminLogsHandler(req: AuthenticatedRequest, res: NextApiResponse)
 
     res.status(200).json(filteredLogs);
   } catch (error) {
+    const err = error as unknown;
     logger.error('Admin Logs Retrieval Failed', {
-      error: error.message,
-      stack: error.stack,
+      error: err instanceof Error ? err.message : 'Unknown error',
+      stack: err instanceof Error ? err.stack : undefined,
     });
 
     res.status(500).json({ error: 'Internal server error' });

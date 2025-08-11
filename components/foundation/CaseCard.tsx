@@ -27,13 +27,13 @@ export default function CaseCard({
   };
 
   const getInteractionTypeText = (type: string) => {
-    const types = {
+    const types: Record<string, string> = {
       multiple_choice_with_hypotheses: 'Multiple Choice',
       structured_mbb_framework: 'Framework',
       free_form_with_hints: 'Freie Form',
       minimal_support: 'Minimal Support',
     };
-    return types[type] || type;
+    return types[type] ?? type;
   };
 
   return (
@@ -81,8 +81,10 @@ export default function CaseCard({
         </div>
       </div>
 
-      {/* Description */}
-      <p className="text-xs text-gray-700 mb-3 leading-relaxed">{foundationCase.description}</p>
+      {/* Description (fallback to first learning objective or tool) */}
+      <p className="text-xs text-gray-700 mb-3 leading-relaxed">
+        {foundationCase.learning_objectives?.[0] || foundationCase.tool}
+      </p>
 
       {/* Footer with badges */}
       <div className="space-y-2">
@@ -97,9 +99,10 @@ export default function CaseCard({
             {getDifficultyText(foundationCase.difficulty)}
           </span>
 
-          {/* Estimated Time */}
+          {/* Estimated Time */
+          }
           <div className="text-xs text-gray-500 font-medium">
-            ~{foundationCase.estimated_time_minutes} Min
+            ~{foundationCase.estimated_duration} Min
           </div>
         </div>
 

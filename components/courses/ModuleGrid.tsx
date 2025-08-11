@@ -67,9 +67,9 @@ export default function ModuleGrid({
   const getModulePath = (module: ModuleData): string | null => {
     switch (module.type) {
       case 'onboarding':
-        return `/tracks/${courseSlug}/onboarding`;
+        return `/app/onboarding`;
       case 'foundation':
-        return `/foundation/cases`;
+        return `/app/foundation`;
       case 'expert':
         return `/tracks/${courseSlug}/expert`;
       default:

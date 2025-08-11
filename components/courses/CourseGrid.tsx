@@ -189,7 +189,7 @@ export default function CourseGrid({
 
   // Handle course selection
   const handleCourseClick = (course: CourseWithEnrollment) => {
-    router.push(`/course/${course.slug}`);
+    router.push(`/app/course/${course.slug}`);
   };
 
   // Loading state
@@ -278,7 +278,7 @@ export default function CourseGrid({
             Du kannst jederzeit weitere Kurse hinzufügen
           </p>
           <button
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push('/app')}
             className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
           >
             Alle Kurse ansehen →

@@ -91,14 +91,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const totalDuration = performanceTimer.end({
       userId,
       success: false,
-      error: error.message,
+      error: (error as any)?.message || (error instanceof Error ? error.message : String(error)),
     });
 
     logger.error('Response Submission Failed', {
       userId,
       caseId: req.body.case_id,
-      error: error.message,
-      stack: error.stack,
+      error: (error as any)?.message || (error instanceof Error ? error.message : String(error)),
+      stack: (error as any)?.stack || (error instanceof Error ? error.stack : undefined),
       totalDuration,
       operation: 'response-submission',
     });

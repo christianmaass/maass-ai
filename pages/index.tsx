@@ -18,11 +18,11 @@
  */
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import MainApp from '../components/layout/MainApp';
+import MainApp from '@layout/basic/MainApp';
 import CourseGrid from '../components/courses/CourseGrid';
 import DashboardCourseSection from '../components/dashboard/DashboardCourseSection';
-import UnifiedHeader from '../components/layout/UnifiedHeader';
-import Footer from '../components/layout/Footer';
+import Header from '@layout/basic/Header';
+import Footer from '@layout/basic/Footer';
 import WelcomeHeroBanner from '../components/sections/WelcomeHeroBanner';
 import { useRouter } from 'next/router';
 
@@ -75,7 +75,7 @@ export default function Home() {
 
     return (
       <div className="min-h-screen bg-navaa-bg-primary">
-        <UnifiedHeader variant="app" />
+        <Header variant="app" />
         <WelcomeHeroBanner variant="dashboard" firstName={firstName} />
         <div className="container mx-auto px-4 py-8">
           <DashboardCourseSection />

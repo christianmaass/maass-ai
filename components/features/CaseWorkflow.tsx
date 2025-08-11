@@ -205,18 +205,19 @@ const CaseWorkflow: React.FC<CaseWorkflowProps> = ({
 
       // Clear any previous errors
       setError(null);
-    } catch (error) {
-      console.error('Generate case error:', error);
+    } catch (err) {
+      console.error('Generate case error:', err);
 
-      // Retry logic for network errors
-      if (retryCount < 2 && (error instanceof TypeError || error.name === 'AbortError')) {
+      // Retry logic for network errors (narrow err safely)
+      const isAbort = typeof (err as any)?.name === 'string' && (err as any).name === 'AbortError';
+      if (retryCount < 2 && (err instanceof TypeError || isAbort)) {
         console.log(`Retrying case generation (attempt ${retryCount + 1})`);
         setTimeout(() => generateCase(retryCount + 1), 1000 * (retryCount + 1));
         return;
       }
 
       const errorMessage =
-        error instanceof Error ? error.message : 'Unbekannter Fehler beim Generieren des Cases';
+        err instanceof Error ? err.message : 'Unbekannter Fehler beim Generieren des Cases';
       setError(errorMessage);
     } finally {
       setLoading(false);

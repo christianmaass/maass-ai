@@ -18,11 +18,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // Track migration steps across try/catch for reporting
+  const steps: Array<{
+    step: number;
+    action: string;
+    status: 'success' | 'error';
+    sql?: string;
+    error?: string;
+    sampleData?: unknown;
+  }> = [];
+  let currentStep = 0;
+
   try {
     console.log('🚀 Starting SAFE User-Tracking Migration...');
-
-    const steps = [];
-    let currentStep = 0;
 
     // SCHRITT 1: Spalten hinzufügen (einzeln für bessere Fehlerbehandlung)
     const columns = [

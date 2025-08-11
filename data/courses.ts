@@ -62,6 +62,8 @@ export interface CourseMetadata {
   onboardingRoute?: string;
 }
 
+import { CATALOG } from '../lib/assetPaths';
+
 // =============================================================================
 // COURSE DATA DEFINITIONS
 // =============================================================================
@@ -72,7 +74,7 @@ export const COURSES: CourseMetadata[] = [
     slug: 'strategy-track',
     title: 'The Strategy Track',
     shortTitle: 'Strategy Track',
-    image: '/assets/strategy-track.png',
+    image: CATALOG.strategy,
     description: 'Strategisches Denken & Executive Decision Making',
     longDescription:
       'Trainiere strategisches Denken an realen Business-Szenarien. Lerne, komplexe Entscheidungen klar zu treffen, Prioritäten zu setzen und strategische Initiativen wirksam umzusetzen – selbst unter Zeitdruck und mit unvollständigen Informationen.',
@@ -101,7 +103,7 @@ export const COURSES: CourseMetadata[] = [
       'Interesse an strategischen Fragestellungen',
       'Bereitschaft für interaktive Lernformate',
     ],
-    templateRoute: '/course/strategy-track',
+    templateRoute: '/app/course/strategy-track',
     onboardingRoute: '/tracks/strategy/onboarding',
   },
   {
@@ -109,7 +111,7 @@ export const COURSES: CourseMetadata[] = [
     slug: 'product-manager-track',
     title: 'The Product Manager Track',
     shortTitle: 'Product Manager Track',
-    image: '/assets/po-track.png',
+    image: CATALOG.po,
     description: 'Produktstrategie & Stakeholder Management',
     longDescription:
       'Meistere die Kunst des Product Managements. Von der Produktvision bis zur erfolgreichen Markteinführung - entwickle die Fähigkeiten eines erfolgreichen Product Managers.',
@@ -138,14 +140,14 @@ export const COURSES: CourseMetadata[] = [
       'Erfahrung mit agilen Methoden',
       'Analytisches Denkvermögen',
     ],
-    templateRoute: '/course/product-manager-track',
+    templateRoute: '/app/course/product-manager-track',
   },
   {
     id: 3,
     slug: 'cfo-track',
     title: 'The CFO Track',
     shortTitle: 'CFO Track',
-    image: '/assets/cfo-track.png',
+    image: CATALOG.cfo,
     description: 'Financial Leadership & Strategische Finanzplanung',
     longDescription:
       'Entwickle die Fähigkeiten eines modernen CFOs. Von strategischer Finanzplanung bis zu Investor Relations - meistere die Herausforderungen der Finanzführung.',
@@ -174,14 +176,14 @@ export const COURSES: CourseMetadata[] = [
       'Führungserfahrung im Finance-Bereich',
       'Verständnis für Unternehmensstrategie',
     ],
-    templateRoute: '/course/cfo-track',
+    templateRoute: '/app/course/cfo-track',
   },
   {
     id: 4,
     slug: 'communication-track',
     title: 'Communication Track',
     shortTitle: 'Communication Track',
-    image: '/assets/communication.png',
+    image: CATALOG.communication,
     description: 'Effektive Kommunikation & Präsentationstechniken',
     longDescription:
       'Meistere die Kunst der effektiven Kommunikation. Von überzeugenden Präsentationen bis zu schwierigen Gesprächen - entwickle deine Kommunikationsfähigkeiten.',
@@ -217,7 +219,7 @@ export const COURSES: CourseMetadata[] = [
     slug: 'hard-decisions-track',
     title: 'Hard Decisions Track',
     shortTitle: 'Hard Decisions Track',
-    image: '/assets/hard-decisions.png',
+    image: CATALOG.hardDecisions,
     description: 'Schwierige Entscheidungen & Krisenmanagement',
     longDescription:
       'Lerne, auch in schwierigen Situationen die richtigen Entscheidungen zu treffen. Von Krisenmanagement bis zu ethischen Dilemmata - entwickle deine Entscheidungskompetenz.',
@@ -253,7 +255,7 @@ export const COURSES: CourseMetadata[] = [
     slug: 'ki-manager-track',
     title: 'KI Manager Track',
     shortTitle: 'KI Manager Track',
-    image: '/assets/ki-manager.png',
+    image: CATALOG.kiManager,
     description: 'KI-Leadership & Digitale Transformation',
     longDescription:
       'Führe dein Unternehmen erfolgreich in das KI-Zeitalter. Von KI-Strategien bis zu ethischen Überlegungen - entwickle die Kompetenzen eines modernen Tech-Leaders.',
@@ -289,7 +291,7 @@ export const COURSES: CourseMetadata[] = [
     slug: 'negotiation-track',
     title: 'Negotiation Track',
     shortTitle: 'Negotiation Track',
-    image: '/assets/negotiation.png',
+    image: CATALOG.negotiation,
     description: 'Verhandlungsführung & Konfliktlösung',
     longDescription:
       'Meistere die Kunst der erfolgreichen Verhandlung. Von Win-Win-Lösungen bis zu schwierigen Verhandlungspartnern - entwickle deine Verhandlungskompetenz.',

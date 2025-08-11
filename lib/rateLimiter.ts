@@ -124,7 +124,7 @@ async function checkRateLimit(
 // Main rate limiting middleware
 export function withRateLimit(
   config: RateLimitConfig,
-  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
+  handler: (req: NextApiRequest, res: NextApiResponse) => void | Promise<void>,
 ) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     try {
@@ -183,7 +183,7 @@ export function withRateLimit(
 
 // Convenience function for OpenAI endpoints
 export const withOpenAIRateLimit = (
-  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
+  handler: (req: NextApiRequest, res: NextApiResponse) => void | Promise<void>,
 ) => {
   return withRateLimit(
     {
@@ -205,7 +205,7 @@ export const withOpenAIRateLimit = (
 
 // Convenience function for admin endpoints
 export const withAdminRateLimit = (
-  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
+  handler: (req: NextApiRequest, res: NextApiResponse) => void | Promise<void>,
 ) => {
   return withRateLimit(
     {

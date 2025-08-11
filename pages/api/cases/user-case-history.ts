@@ -64,7 +64,10 @@ async function userCaseHistoryHandler(req: AuthenticatedRequest, res: NextApiRes
       console.error('Error fetching user case history:', error);
       return res.status(500).json({
         error: 'Fehler beim Laden der Case History',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+        details:
+          process.env.NODE_ENV === 'development'
+            ? (error as any)?.message || (error instanceof Error ? error.message : undefined)
+            : undefined,
       });
     }
 
@@ -101,7 +104,10 @@ async function userCaseHistoryHandler(req: AuthenticatedRequest, res: NextApiRes
     console.error('Error in user-case-history API:', error);
     res.status(500).json({
       error: 'Interner Server-Fehler',
-      details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      details:
+        process.env.NODE_ENV === 'development'
+          ? (error as any)?.message || (error instanceof Error ? error.message : undefined)
+          : undefined,
     });
   }
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { NextPageContext } from 'next';
 import Link from 'next/link';
-import UnifiedHeader from '../components/layout/UnifiedHeader';
-import Footer from '../components/layout/Footer';
+import Header from '@layout/basic/Header';
+import Footer from '@layout/basic/Footer';
+import ErrorBoundary from '@layout/basic/ErrorBoundary';
 
 interface ErrorProps {
   statusCode?: number;
@@ -11,9 +12,10 @@ interface ErrorProps {
 function Error({ statusCode }: ErrorProps) {
   return (
     <>
-      <UnifiedHeader variant="marketing" />
-      <div className="navaa-page navaa-bg-primary min-h-screen flex flex-col">
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-16">
+      <Header variant="marketing" />
+      <ErrorBoundary level="page">
+        <div className="navaa-page navaa-bg-primary min-h-screen flex flex-col">
+          <div className="flex-1 flex flex-col items-center justify-center px-4 py-16">
           <div className="text-center max-w-md">
             {/* Error Icon */}
             <div className="mb-8">
@@ -40,7 +42,7 @@ function Error({ statusCode }: ErrorProps) {
                 Zur Startseite
               </Link>
               <Link
-                href="/dashboard"
+                href="/"
                 className="inline-block w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
               >
                 Zum Dashboard
@@ -54,9 +56,10 @@ function Error({ statusCode }: ErrorProps) {
                 Support-Team
               </Link>
             </p>
+            </div>
           </div>
         </div>
-      </div>
+      </ErrorBoundary>
       <Footer />
     </>
   );

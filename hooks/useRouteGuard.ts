@@ -156,12 +156,12 @@ export const ROUTE_GUARDS = {
 
   DASHBOARD: {
     requireAuth: true,
-    newUserRedirect: '/onboarding',
+    newUserRedirect: '/app/onboarding',
   },
 
   ONBOARDING: {
     requireAuth: true,
-    returningUserRedirect: '/dashboard',
+    returningUserRedirect: '/app',
   },
 
   COURSE: {

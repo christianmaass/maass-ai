@@ -166,7 +166,7 @@ const StepRenderer: React.FC<StepRendererProps> = ({
                 {
                   stepModuleConfig,
                   currentStep,
-                  caseId: selectedCase.id,
+                  caseId: selectedCase?.id ?? '',
                 },
                 null,
                 2,
@@ -179,7 +179,7 @@ const StepRenderer: React.FC<StepRendererProps> = ({
         <div className="space-y-6">
           <ConditionalModuleRenderer
             stepConfig={stepModuleConfig}
-            caseId={selectedCase.id}
+            caseId={selectedCase?.id ?? ''}
             stepNumber={currentStep}
             stepName={stepConfig.title}
             // Multiple Choice Props

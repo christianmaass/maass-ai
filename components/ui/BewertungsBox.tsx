@@ -1,5 +1,5 @@
 import React from 'react';
-import TextRatingForm from '../TextRatingForm';
+import TextRatingForm from '../features/TextRatingForm';
 
 interface BewertungsBoxProps {
   userId: string;

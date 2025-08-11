@@ -286,37 +286,51 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // =============================================================================
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (session?.user) {
-        const userData = convertSupabaseUser(session.user);
-        setUser(userData);
-        loadUserProfile(session.user.id);
-      } else {
-        setUser(null);
-        setProfile(null);
+    let isMounted = true;
+
+    // Get initial session and await profile
+    (async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!isMounted) return;
+        setSession(session);
+        if (session?.user) {
+          const userData = convertSupabaseUser(session.user);
+          setUser(userData);
+          await loadUserProfile(session.user.id);
+        } else {
+          setUser(null);
+          setProfile(null);
+        }
+      } finally {
+        if (isMounted) setLoading(false);
       }
-      setLoading(false);
+    })();
+
+    // Listen for auth changes and await profile
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      (async () => {
+        setLoading(true);
+        try {
+          setSession(session);
+          if (session?.user) {
+            const userData = convertSupabaseUser(session.user);
+            setUser(userData);
+            await loadUserProfile(session.user.id);
+          } else {
+            setUser(null);
+            setProfile(null);
+          }
+        } finally {
+          if (isMounted) setLoading(false);
+        }
+      })();
     });
 
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      if (session?.user) {
-        const userData = convertSupabaseUser(session.user);
-        setUser(userData);
-        loadUserProfile(session.user.id);
-      } else {
-        setUser(null);
-        setProfile(null);
-      }
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, [convertSupabaseUser, loadUserProfile, supabase]);
 
   const login = async (email: string, password: string) => {

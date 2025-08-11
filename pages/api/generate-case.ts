@@ -183,10 +183,10 @@ Halte es konkret, realistisch und praxisnah.`;
     try {
       await supabase.rpc('update_user_usage', { p_user_id: user_id });
       logger.info('User Usage Updated', { userId, operation: 'usage-tracking' });
-    } catch (usageError) {
+    } catch (usageError: any) {
       logger.warn('Usage Tracking Failed', {
         userId,
-        error: usageError.message,
+        error: usageError.message || String(usageError),
         operation: 'usage-tracking',
       });
       // Nicht kritisch - Case wurde erstellt, nur Usage-Tracking fehlgeschlagen
@@ -215,14 +215,14 @@ Halte es konkret, realistisch und praxisnah.`;
     const totalDuration = performanceTimer.end({
       userId,
       success: false,
-      error: error.message,
+      error: (error as any)?.message || (error instanceof Error ? error.message : String(error)),
     });
 
     logger.error('Case Generation Failed', {
       userId,
       caseTypeId: req.body.case_type_id,
-      error: error.message,
-      stack: error.stack,
+      error: (error as any)?.message || (error instanceof Error ? error.message : String(error)),
+      stack: (error as any)?.stack || (error instanceof Error ? error.stack : undefined),
       totalDuration,
       operation: 'case-generation',
     });

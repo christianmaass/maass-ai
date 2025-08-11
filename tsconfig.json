@@ -19,10 +19,60 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@data/*": [
+        "data/*"
+      ],
+      "@payments/*": [
+        "payments/*"
+      ],
+      "@layout/*": [
+        "src/layout/*"
+      ],
+      "@docs/*": [
+        "docs/*"
+      ],
+      "@/marketing/*": [
+        "src/(marketing)/*"
+      ],
+      "@/admin/*": [
+        "src/(admin)/*"
+      ],
+      "@/app/*": [
+        "src/(app)/*"
+      ],
+      "@/tracks/strategy/*": [
+        "src/(app)/tracks/strategy/*"
+      ],
+      "@/shared/*": [
+        "src/shared/*"
+      ],
+      "@/layout/*": [
+        "src/layout/*"
+      ],
+      "@/payments/*": [
+        "src/payments/*"
+      ],
+      "@/db/*": [
+        "db/*"
+      ]
+    }
   },
   "include": [
-    "src"
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.ts"
   ],
   "references": [
     {
@@ -30,6 +80,9 @@
     }
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "archive",
+    "dev/archive",
+    "vite.config.ts"
   ]
 }

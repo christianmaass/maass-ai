@@ -46,8 +46,8 @@ import { getCourseBySlug, CourseMetadata } from '../../data/courses';
 import { getModulesByCourse, getMockUserProgress } from '../../data/modules';
 import { useAuth } from '../../contexts/AuthContext';
 import { getSupabaseClient } from '../../supabaseClient';
-import UnifiedHeader from '../layout/UnifiedHeader';
-import Footer from '../layout/Footer';
+import Header from '@layout/basic/Header';
+import Footer from '@layout/basic/Footer';
 import OnboardingHeader from '../tracks/strategy/onboarding/OnboardingHeader';
 import OnboardingLayout from '../tracks/strategy/onboarding/OnboardingLayout';
 import ContextPanel from '../tracks/strategy/onboarding/ContextPanel';
@@ -474,7 +474,7 @@ export default function CourseTemplate({ courseSlug }: CourseTemplateProps) {
 
   return (
     <div className="min-h-screen bg-navaa-warm-beige">
-      <UnifiedHeader variant="app" />
+      <Header variant="app" />
 
       {/* Hide hero when onboarding is active */}
       {!showOnboarding && (

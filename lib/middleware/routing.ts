@@ -192,28 +192,28 @@ export const ROUTE_CONFIGS = {
   // Dashboard - returning users only
   DASHBOARD: {
     requireAuth: true,
-    redirectNewUsers: '/onboarding',
-    fallbackRoute: '/dashboard',
+    redirectNewUsers: '/app/onboarding',
+    fallbackRoute: '/app',
   },
 
   // Onboarding - new users only
   ONBOARDING: {
     requireAuth: true,
-    redirectReturningUsers: '/dashboard',
-    fallbackRoute: '/onboarding',
+    redirectReturningUsers: '/app',
+    fallbackRoute: '/app/onboarding',
   },
 
   // Course pages - authenticated users
   COURSE: {
     requireAuth: true,
-    fallbackRoute: '/dashboard',
+    fallbackRoute: '/app',
   },
 
   // Admin pages - admin role required
   ADMIN: {
     requireAuth: true,
     allowedRoles: ['admin', 'super_admin'],
-    fallbackRoute: '/dashboard',
+    fallbackRoute: '/app',
   },
 } as const;
 
@@ -231,11 +231,11 @@ export function getUserLandingPage(userStatus: UserStatus | null): string {
 
   // New users go to onboarding
   if (userStatus.isFirstTime || !userStatus.onboardingCompleted) {
-    return '/onboarding';
+    return '/app/onboarding';
   }
 
-  // Returning users go to dashboard
-  return '/dashboard';
+  // Returning users go to app home
+  return '/app';
 }
 
 /**
@@ -250,7 +250,7 @@ export function getNextUserAction(userStatus: UserStatus | null): {
     return {
       type: 'onboarding',
       label: 'Jetzt starten',
-      href: '/onboarding',
+      href: '/app/onboarding',
     };
   }
 
@@ -258,7 +258,7 @@ export function getNextUserAction(userStatus: UserStatus | null): {
     return {
       type: 'onboarding',
       label: 'Onboarding abschließen',
-      href: '/onboarding',
+      href: '/app/onboarding',
     };
   }
 
@@ -273,7 +273,7 @@ export function getNextUserAction(userStatus: UserStatus | null): {
   return {
     type: 'browse_courses',
     label: 'Kurse entdecken',
-    href: '/dashboard',
+    href: '/app',
   };
 }
 

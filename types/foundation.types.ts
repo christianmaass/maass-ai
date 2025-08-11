@@ -117,6 +117,7 @@ export interface FoundationSubmitResponse {
 export interface FoundationApiError {
   success: false;
   error: {
+    code?: string;
     message: string;
     details?: any;
   };

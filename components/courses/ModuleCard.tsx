@@ -36,6 +36,7 @@
 import React from 'react';
 import { Heading, Text } from '../ui/Typography';
 import Image from 'next/image';
+import { MODULES } from '../../lib/assetPaths';
 
 // =============================================================================
 // TYPES & INTERFACES
@@ -133,10 +134,10 @@ export default function ModuleCard({ module, onClick, disabled = false }: Module
   // Resolve header image per module type
   const imageSrc =
     module.type === 'foundation'
-      ? '/assets/foundationcase.png'
+      ? MODULES.foundation
       : module.type === 'expert'
-        ? '/assets/expertcase.png'
-        : '/assets/onboarding.png';
+        ? MODULES.expert
+        : MODULES.onboarding;
   const imageAlt =
     module.type === 'foundation'
       ? 'Foundation Cases'

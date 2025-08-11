@@ -83,7 +83,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `,
     });
 
-    const schemaFields = schemaError ? [] : (schemaData || []).map((row) => row.column_name);
+    const schemaFields = schemaError
+      ? []
+      : ((schemaData || []) as Array<{ column_name: string }>).map((row) => row.column_name);
     const schemaComplete = requiredFields.every((field) => schemaFields.includes(field));
 
     return res.status(200).json({

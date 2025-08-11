@@ -95,8 +95,8 @@ async function handler(
       .order('sequence_order', { ascending: true });
 
     if (casesError) {
-      console.error('Error fetching foundation cases for course:', casesError);
-      return res.status(500).json({ error: 'Failed to fetch foundation cases' });
+      // Degrade gracefully: continue with empty foundation cases rather than 500
+      console.warn('Foundation cases query failed, continuing with empty list:', casesError);
     }
 
     const foundation_cases: FoundationCase[] = (courseCases || []).map((fc: any) => {

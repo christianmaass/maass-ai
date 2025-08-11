@@ -7,6 +7,14 @@ const PASS = process.env.BASIC_AUTH_PASS;
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // In local development, bypass Basic Auth entirely to avoid interfering
+  // with Next.js dev data routes and local navigation.
+  const host = req.headers.get('host') || '';
+  const isLocalDev = process.env.NODE_ENV === 'development' || host.startsWith('localhost:');
+  if (isLocalDev) {
+    return NextResponse.next();
+  }
+
   // Allow internal Next.js assets and public static files to bypass auth
   // This prevents blocking of /_next/image optimizer and static resources
   const isInternalOrStatic =

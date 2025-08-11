@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // SCHRITT 2: Fehlende/null Felder identifizieren und reparieren
-    const updates = {};
+    const updates: Record<string, any> = {};
 
     // login_count: Falls null/undefined, setze auf 1
     if (currentUser.login_count === null || currentUser.login_count === undefined) {

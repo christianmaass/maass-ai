@@ -202,8 +202,8 @@ export default async function handler(req: ApiRequest, res: NextApiResponse<ApiR
       return res.status(404).json({
         success: false,
         error: `Foundation case not found. Searched for ID: ${caseId}. Total cases in DB: ${allCases?.length || 0}. Available IDs: ${
-          allCases
-            ?.map((c) => c.id)
+          (allCases as Array<{ id: string }> | undefined)
+            ?.map((c: { id: string }) => c.id)
             .slice(0, 5)
             .join(', ') || 'none'
         }. DB Error: ${allCasesError?.message || caseError?.message || 'none'}`,

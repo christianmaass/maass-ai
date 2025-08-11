@@ -61,10 +61,18 @@ async function generateAssessment(
       .filter(([key]) => key.startsWith('mc_'))
       .map(([key, value]) => {
         const questionId = key.replace('mc_', '');
-        const question = foundationCase.content.multiple_choice_questions?.find(
-          (q) => q.id === questionId,
+        const question = (
+          foundationCase.content.multiple_choice_questions as
+            | Array<{
+                id: string;
+                question: string;
+                options?: Array<{ id: string; text: string; correct?: boolean }>;
+              }>
+            | undefined
+        )?.find((q: { id: string }) => q.id === questionId);
+        const selectedOption = question?.options?.find(
+          (opt: { id: string; text: string; correct?: boolean }) => opt.id === (value as string),
         );
-        const selectedOption = question?.options?.find((opt) => opt.id === value);
         return {
           question: question?.question || 'Unknown question',
           selected: selectedOption?.text || 'Unknown option',

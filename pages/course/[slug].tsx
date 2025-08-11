@@ -400,7 +400,7 @@ function CoursePageContent() {
             <h1 className="text-2xl font-bold text-navaa-text-primary mb-2">Kurs nicht gefunden</h1>
             <p className="text-navaa-text-secondary mb-6">{error}</p>
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push('/app')}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
             >
               Zurück zum Dashboard
@@ -603,4 +603,15 @@ function CoursePageContent() {
 
 export default function CoursePage() {
   return <CoursePageContent />;
+}
+
+// Legacy route: permanently redirect to new app route with correct three-card layout
+export async function getServerSideProps(context: { params?: { slug?: string } }) {
+  const slug = context.params?.slug || '';
+  return {
+    redirect: {
+      destination: `/app/course/${slug}`,
+      permanent: true,
+    },
+  };
 }
