@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '@layout/basic/Header';
 import HeroBanner from '@/marketing/sections/HeroBanner';
 import CredentialsSection from '../sections/CredentialsSection';
-import FAQSection from '../sections/FAQSection';
+import FAQSection from '@/marketing/sections/FAQSection';
 import TargetAudienceSection from '../sections/TargetAudienceSection';
 import TestimonialSection from '../sections/TestimonialSection';
 import BenefitOverview from '../sections/BenefitOverview';
