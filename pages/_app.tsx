@@ -21,7 +21,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { AuthProvider } from '../contexts/AuthContext';
-import UnifiedGuard from '../lib/guards/UnifiedGuard';
+import UnifiedGuard from '@lib/guards/UnifiedGuard';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
