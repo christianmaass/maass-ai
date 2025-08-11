@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * USER PROFILE MODAL COMPONENT
  * Migrated to navaa Auth Guidelines (WP-B1) - FINAL COMPONENT
