@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '@layout/basic/Header';
-import HeroBanner from '../sections/HeroBanner';
+import HeroBanner from '@/marketing/sections/HeroBanner';
 import CredentialsSection from '../sections/CredentialsSection';
 import FAQSection from '../sections/FAQSection';
 import TargetAudienceSection from '../sections/TargetAudienceSection';
