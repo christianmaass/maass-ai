@@ -31,7 +31,7 @@
  * @author navaa Development Team
  */
 
-import { ModuleData } from '../components/courses/ModuleCard';
+import { ModuleData } from '@components/courses/ModuleCard';
 
 // =============================================================================
 // STRATEGY TRACK MODULES

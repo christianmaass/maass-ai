@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,67 +18,28 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@data/*": [
-        "data/*"
-      ],
-      "@payments/*": [
-        "payments/*"
-      ],
-      "@layout/*": [
-        "src/layout/*"
-      ],
-      "@docs/*": [
-        "docs/*"
-      ],
-      "@/marketing/*": [
-        "src/(marketing)/*"
-      ],
-      "@/admin/*": [
-        "src/(admin)/*"
-      ],
-      "@/app/*": [
-        "src/(app)/*"
-      ],
-      "@/tracks/strategy/*": [
-        "src/(app)/tracks/strategy/*"
-      ],
-      "@/shared/*": [
-        "src/shared/*"
-      ],
-      "@/layout/*": [
-        "src/layout/*"
-      ],
-      "@/payments/*": [
-        "src/payments/*"
-      ],
-      "@/db/*": [
-        "db/*"
-      ]
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"],
+      "@contexts/*": ["contexts/*"],
+      "@data/*": ["data/*"],
+      "@payments/*": ["payments/*"],
+      "@layout/*": ["src/layout/*"],
+      "@docs/*": ["docs/*"],
+      "@/marketing/*": ["src/(marketing)/*"],
+      "@/admin/*": ["src/(admin)/*"],
+      "@/app/*": ["src/(app)/*"],
+      "@/tracks/strategy/*": ["src/(app)/tracks/strategy/*"],
+      "@/shared/*": ["src/shared/*"],
+      "@/layout/*": ["src/layout/*"],
+      "@/payments/*": ["src/payments/*"],
+      "@/db/*": ["db/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", ".next/types/**/*.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"
     }
   ],
-  "exclude": [
-    "node_modules",
-    "archive",
-    "dev/archive",
-    "vite.config.ts"
-  ]
+  "exclude": ["node_modules", "archive", "dev/archive", "vite.config.ts"]
 }

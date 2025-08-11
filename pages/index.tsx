@@ -17,10 +17,10 @@
  * @see docs/navaa-development-guidelines.md
  */
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import MainApp from '@layout/basic/MainApp';
-import CourseGrid from '../components/courses/CourseGrid';
-import DashboardCourseSection from '../components/dashboard/DashboardCourseSection';
+import CourseGrid from '@components/courses/CourseGrid';
+import DashboardCourseSection from '@components/dashboard/DashboardCourseSection';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
 import WelcomeHeroBanner from '@/marketing/sections/WelcomeHeroBanner';

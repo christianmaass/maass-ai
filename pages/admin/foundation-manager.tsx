@@ -17,18 +17,18 @@
  * @see docs/navaa-development-guidelines.md
  */
 import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import ModuleConfigurationPanel from '../../components/ModuleConfigurationPanel';
+import { useAuth } from '@contexts/AuthContext';
+import ModuleConfigurationPanel from '@components/ModuleConfigurationPanel';
 
 // Extracted Components
-import CaseSelector from '../../components/foundation-manager/CaseSelector';
-import CaseEditor from '../../components/foundation-manager/CaseEditor';
-import StepRenderer from '../../components/foundation-manager/StepRenderer';
+import CaseSelector from '@components/foundation-manager/CaseSelector';
+import CaseEditor from '@components/foundation-manager/CaseEditor';
+import StepRenderer from '@components/foundation-manager/StepRenderer';
 
 // Extracted Hooks
-import { useFoundationCases } from '../../components/foundation-manager/hooks/useFoundationCases';
-import { useCaseGeneration } from '../../components/foundation-manager/hooks/useCaseGeneration';
-import { useModuleState } from '../../components/foundation-manager/hooks/useModuleState';
+import { useFoundationCases } from '@components/foundation-manager/hooks/useFoundationCases';
+import { useCaseGeneration } from '@components/foundation-manager/hooks/useCaseGeneration';
+import { useModuleState } from '@components/foundation-manager/hooks/useModuleState';
 
 const FoundationManager: React.FC = () => {
   const { user } = useAuth();

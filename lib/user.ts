@@ -4,7 +4,7 @@
  * Normalizes handling of temporary/test account expiration.
  * Safe to use across UI and APIs.
  */
-import type { UserProfile } from '../contexts/AuthContext';
+import type { UserProfile } from '@contexts/AuthContext';
 
 /**
  * Returns true if the profile has an expiresAt set and it is in the past.

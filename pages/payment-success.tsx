@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '@layout/basic/Header';
-import { Text } from '../components/ui/Typography';
+import { Text } from '@components/ui/Typography';
 import Footer from '@layout/basic/Footer';
 import PaymentSuccessView from '@payments/components/PaymentSuccessView';
 
