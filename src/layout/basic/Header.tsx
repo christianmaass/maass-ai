@@ -21,7 +21,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useProfile } from '../../../hooks/useProfile';
-import AuthModal from '../../../components/ui/AuthModal';
+import AuthModal from '@components/ui/AuthModal';
 import { BRAND_LOGO } from '@lib/assetPaths';
 
 interface UnifiedHeaderProps {

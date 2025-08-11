@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import ImpressumOverlay from '../../../components/ui/ImpressumOverlay';
+import ImpressumOverlay from '@components/ui/ImpressumOverlay';
 
 // Footer.tsx
 // Displays the site-wide footer with copyright and additional links.
