@@ -62,7 +62,7 @@ export interface CourseMetadata {
   onboardingRoute?: string;
 }
 
-import { CATALOG } from '../lib/assetPaths';
+import { CATALOG } from '@lib/assetPaths';
 
 // =============================================================================
 // COURSE DATA DEFINITIONS
