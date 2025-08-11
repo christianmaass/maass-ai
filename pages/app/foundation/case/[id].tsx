@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import FoundationLayout from '../../../../components/foundation/FoundationLayout';
-import CaseContent from '../../../../components/foundation/CaseContent';
-import ResponseHandler from '../../../../components/foundation/ResponseHandler';
-import { FoundationCase, FoundationResponse, FoundationAssessment } from '../../../../types/foundation.types';
+import FoundationLayout from '@components/foundation/FoundationLayout';
+import CaseContent from '@components/foundation/CaseContent';
+import ResponseHandler from '@components/foundation/ResponseHandler';
+import type {
+  FoundationCase,
+  FoundationResponse,
+  FoundationAssessment,
+} from '@project-types/foundation.types';
 
 export default function AppFoundationCaseDetailPage() {
   const router = useRouter();
@@ -106,13 +110,26 @@ export default function AppFoundationCaseDetailPage() {
       <FoundationLayout title="Fehler" showBackButton onBack={handleBack}>
         <div className="text-center py-12">
           <div className="text-red-600 mb-4">
-            <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              className="mx-auto h-12 w-12"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">Case nicht gefunden</h3>
           <p className="text-gray-600 mb-4">{error || 'Der angeforderte Case existiert nicht.'}</p>
-          <button onClick={handleBack} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <button
+            onClick={handleBack}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          >
             Zurück zur Übersicht
           </button>
         </div>
@@ -130,13 +147,21 @@ export default function AppFoundationCaseDetailPage() {
       <div className="space-y-8">
         <CaseContent case={foundationCase} />
         {!assessment ? (
-          <ResponseHandler case={foundationCase} onSubmit={handleResponseSubmit} isSubmitting={isSubmitting} />
+          <ResponseHandler
+            case={foundationCase}
+            onSubmit={handleResponseSubmit}
+            isSubmitting={isSubmitting}
+          />
         ) : (
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">🎉 Assessment abgeschlossen!</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              🎉 Assessment abgeschlossen!
+            </h2>
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                <div className="text-2xl font-bold text-green-600">{assessment.overall_score}/100</div>
+                <div className="text-2xl font-bold text-green-600">
+                  {assessment.overall_score}/100
+                </div>
                 <div className="text-gray-600">Gesamtbewertung</div>
               </div>
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -144,10 +169,16 @@ export default function AppFoundationCaseDetailPage() {
                 <p className="text-green-800 text-sm">{assessment.feedback}</p>
               </div>
               <div className="flex space-x-4">
-                <button onClick={handleBack} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                <button
+                  onClick={handleBack}
+                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                >
                   Zurück zur Übersicht
                 </button>
-                <button onClick={() => alert('Nächster Case - wird in AP3.4 implementiert')} className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700">
+                <button
+                  onClick={() => alert('Nächster Case - wird in AP3.4 implementiert')}
+                  className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700"
+                >
                   Nächster Case
                 </button>
               </div>

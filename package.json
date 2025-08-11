@@ -17,7 +17,7 @@
     "repo:tree": "mkdir -p docs && tree -I 'node_modules|.next|.git|dist|build|coverage' -a -L 4 > docs/repo-structure.md",
     "repo:deps": "madge --ts-config ./tsconfig.json --extensions ts,tsx --image docs/deps-graph.svg components pages src",
     "repo:cruise": "depcruise --config .dependency-cruiser.js components pages src --output-type dot | dot -T svg > docs/depcruise.svg",
-    "deps:orphans": "npx madge --ts-config ./tsconfig.json --extensions ts,tsx --orphans components lib src pages --exclude '(^pages/|^pages/api/|^src/\\(marketing\\)/pages/|^src/layout/|/index\\.ts$)' || true",
+    "deps:orphans": "npx madge --ts-config ./tsconfig.json --extensions ts,tsx --orphans components lib src pages --exclude '(^pages/api/|^src/\\(marketing\\)/pages/|^src/layout/|/index\\.ts$)' || true",
     "types:prune": "npx ts-prune --ignoreTests || true"
   },
   "dependencies": {

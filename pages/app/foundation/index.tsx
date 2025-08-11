@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import FoundationLayout from '../../../components/foundation/FoundationLayout';
-import CaseCard from '../../../components/foundation/CaseCard';
-import { FoundationCase } from '../../../types/foundation.types';
+import FoundationLayout from '@components/foundation/FoundationLayout';
+import CaseCard from '@components/foundation/CaseCard';
+import type { FoundationCase } from '@project-types/foundation.types';
 
 export default function AppFoundationPage() {
   const router = useRouter();
@@ -77,7 +77,10 @@ export default function AppFoundationPage() {
   };
 
   return (
-    <FoundationLayout title="Foundation Track" subtitle="12 geführte Praxis-Cases für Consulting-Grundlagen">
+    <FoundationLayout
+      title="Foundation Track"
+      subtitle="12 geführte Praxis-Cases für Consulting-Grundlagen"
+    >
       {loading ? (
         <div className="flex items-center justify-center py-12">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -130,13 +133,20 @@ export default function AppFoundationPage() {
             {clusters
               .filter((cluster) => !selectedCluster || cluster === selectedCluster)
               .map((cluster) => (
-                <div key={cluster} className={`rounded-lg border-2 p-6 ${getClusterColor(cluster)}`}>
+                <div
+                  key={cluster}
+                  className={`rounded-lg border-2 p-6 ${getClusterColor(cluster)}`}
+                >
                   <div className="mb-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">{cluster}</h3>
                     <p className="text-sm text-gray-600">{getClusterDescription(cluster)}</p>
                     <div className="mt-2 text-xs text-gray-500">
                       {casesByCluster[cluster].length} Cases •
-                      {casesByCluster[cluster].reduce((sum, c) => sum + (c.estimated_duration as number), 0)} Min gesamt
+                      {casesByCluster[cluster].reduce(
+                        (sum, c) => sum + (c.estimated_duration as number),
+                        0,
+                      )}{' '}
+                      Min gesamt
                     </div>
                   </div>
 

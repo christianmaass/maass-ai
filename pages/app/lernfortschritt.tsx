@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card';
 
 export default function LernfortschrittPage() {
   const { user, loading } = useAuth();

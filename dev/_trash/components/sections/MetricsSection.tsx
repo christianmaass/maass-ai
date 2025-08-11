@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text } from '../ui/Typography';
+import { Heading, Text } from '@components/ui/Typography';
 
 // MetricsSection.tsx
 // Displays key success metrics and statistics to build credibility and demonstrate value

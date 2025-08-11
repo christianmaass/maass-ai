@@ -21,6 +21,7 @@
       "@components/*": ["components/*"],
       "@lib/*": ["lib/*"],
       "@contexts/*": ["contexts/*"],
+      "@project-types/*": ["types/*"],
       "@data/*": ["data/*"],
       "@payments/*": ["payments/*"],
       "@layout/*": ["src/layout/*"],
