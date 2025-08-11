@@ -16,7 +16,9 @@
     "scan:staged": "gitleaks protect --staged --redact --config=.gitleaks.toml",
     "repo:tree": "mkdir -p docs && tree -I 'node_modules|.next|.git|dist|build|coverage' -a -L 4 > docs/repo-structure.md",
     "repo:deps": "madge --ts-config ./tsconfig.json --extensions ts,tsx --image docs/deps-graph.svg components pages src",
-    "repo:cruise": "depcruise --config .dependency-cruiser.js components pages src --output-type dot | dot -T svg > docs/depcruise.svg"
+    "repo:cruise": "depcruise --config .dependency-cruiser.js components pages src --output-type dot | dot -T svg > docs/depcruise.svg",
+    "deps:orphans": "npx madge --extensions ts,tsx --orphans src pages components lib || true",
+    "types:prune": "npx ts-prune --ignoreTests || true"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
