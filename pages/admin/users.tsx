@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminLayout from '../../components/admin/AdminLayout';
-import UserManagement from '../../components/admin/UserManagement';
+import AdminLayout from '@components/admin/AdminLayout';
+import UserManagement from '@components/admin/UserManagement';
 
 const AdminUsers: React.FC = () => {
   return (

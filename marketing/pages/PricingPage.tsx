@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import MarketingLayout from '@layout/basic/MarketingLayout';
-import { Heading, Text } from '../../components/ui/Typography';
+import { Heading, Text } from '@components/ui/Typography';
 
 const PricingPage: React.FC = () => {
   // Feature Flag: Payment temporär deaktiviert während Registrierung stabilisiert wird
@@ -218,7 +218,9 @@ const PricingPage: React.FC = () => {
               </li>
             </ul>
             <button
-              onClick={() => handlePlanSelect('Bildungsträger', 'Bildungsträger', 'Preis auf Anfrage')}
+              onClick={() =>
+                handlePlanSelect('Bildungsträger', 'Bildungsträger', 'Preis auf Anfrage')
+              }
               className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
                 PAYMENT_ENABLED
                   ? 'bg-purple-600 text-white hover:bg-purple-700 cursor-pointer'
@@ -233,7 +235,11 @@ const PricingPage: React.FC = () => {
 
         {/* Feature Vergleichstabelle Platzhalter */}
         <div className="bg-white border-2 border-gray-300 rounded-lg p-8">
-          <Heading variant="h1" as="h2" className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          <Heading
+            variant="h1"
+            as="h2"
+            className="text-2xl font-bold text-gray-900 mb-6 text-center"
+          >
             Feature-Vergleich
           </Heading>
           <div className="text-center text-gray-500">

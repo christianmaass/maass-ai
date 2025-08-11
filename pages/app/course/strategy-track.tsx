@@ -1,6 +1,6 @@
 import React from 'react';
-import { UnifiedGuard, UNIFIED_GUARDS } from '../../../components/ui/UnifiedGuard';
-import CourseTemplate from '../../../components/courses/CourseTemplate';
+import { UnifiedGuard, UNIFIED_GUARDS } from '@components/ui/UnifiedGuard';
+import CourseTemplate from '@components/courses/CourseTemplate';
 
 export default function AppStrategyTrackPage() {
   return (

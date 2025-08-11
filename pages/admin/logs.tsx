@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminLayout from '../../components/admin/AdminLayout';
-import LogDashboard from '../../components/admin/LogDashboard';
+import AdminLayout from '@components/admin/AdminLayout';
+import LogDashboard from '@components/admin/LogDashboard';
 
 export default function AdminLogsPage() {
   return (
