@@ -70,20 +70,18 @@
 - │   ├── tariff-seed-data.sql
 - │   └── verify-admin-status.sql
 - ├── dev
+- │   ├── \_trash
 - │   └── archive
 - ├── dist
 - │   ├── assets
 - │   └── index.html
 - ├── docs
-- │   ├── ARCHITECTURE.md
-- │   ├── ROUTING.md
+- │   ├── README.md
 - │   ├── adr
-- │   ├── archive
 - │   ├── depcruise.svg
 - │   ├── deps-graph.svg
 - │   ├── guides
 - │   ├── repo-structure.md
-- │   ├── reports
 - │   ├── runbooks
 - │   └── specs
 - ├── folder-structure-with-files.md
@@ -701,8 +699,8 @@
 - ├── package.json
 - ├── pages
 - │   ├── 404.tsx
-- │   ├── _app.tsx
-- │   ├── _error.tsx
+- │   ├── \_app.tsx
+- │   ├── \_error.tsx
 - │   ├── admin
 - │   ├── api
 - │   ├── app
@@ -765,7 +763,11 @@
 - │   └── CaseGenerationService.ts
 - ├── sql
 - ├── src
-- │   └── layout
+- │   ├── (admin)
+- │   ├── (app)
+- │   ├── (marketing)
+- │   ├── layout
+- │   └── shared
 - ├── styles
 - │   └── globals.css
 - ├── supabase
