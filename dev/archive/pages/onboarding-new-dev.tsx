@@ -38,8 +38,8 @@ import Image from 'next/image';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
 import WelcomeHeroBanner from '@/marketing/sections/WelcomeHeroBanner';
-import CourseGrid from '@/components/courses/CourseGrid';
-import { useAuth } from '@/contexts/AuthContext';
+import CourseGrid from '@components/courses/CourseGrid';
+import { useAuth } from '@contexts/AuthContext';
 
 // =============================================================================
 // ONBOARDING CONTENT COMPONENT (Same as onboarding-new.tsx)

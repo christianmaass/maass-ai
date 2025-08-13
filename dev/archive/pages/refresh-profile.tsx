@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 
 export default function RefreshProfile() {
   const { refreshProfile, profile, loading } = useAuth();
