@@ -7,7 +7,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
 
