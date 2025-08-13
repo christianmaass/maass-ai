@@ -32,9 +32,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { useUnifiedGuard, UNIFIED_GUARDS } from '../hooks/useUnifiedGuard';
+import { useUnifiedGuard, UNIFIED_GUARDS } from '@hooks/useUnifiedGuard';
 
 // =============================================================================
 // TEST CONFIGURATIONS
