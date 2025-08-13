@@ -18,7 +18,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
 import { UnifiedGuard, UNIFIED_GUARDS } from '@ui/UnifiedGuard';

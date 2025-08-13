@@ -11,7 +11,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import { UnifiedGuard, UNIFIED_GUARDS } from '@ui/UnifiedGuard';
 
 // =============================================================================
