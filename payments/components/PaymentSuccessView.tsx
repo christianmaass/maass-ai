@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text } from '../../components/ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 
 interface PaymentSuccessViewProps {
   sessionId?: string | string[];

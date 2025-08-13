@@ -30,7 +30,7 @@
  * @see docs/navaa-development-guidelines.md
  */
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 
 // =============================================================================
 // TYPES AND INTERFACES

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 
 // API to fix database schema issues
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const supabase = getSupabaseClient();
 
     // 1. Check current cases table structure
-    const { data: tableInfo, error: tableError } = await supabase
+    const { data: _tableInfo, error: tableError } = await supabase
       .rpc('get_table_columns', { table_name: 'cases' })
       .single();
 
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // 2. Try to add the missing column using raw SQL
-    const { data: alterResult, error: alterError } = await supabase
+    const { data: _alterResult, error: alterError } = await supabase
       .rpc('exec_sql', { 
         sql: `
           DO $$ 

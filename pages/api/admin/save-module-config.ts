@@ -8,7 +8,7 @@ import { createClient } from '@supabase/supabase-js';
 import {
   CaseModuleConfiguration,
   validateConfiguration,
-} from '../../../types/module-configuration.types';
+} from '@project-types/module-configuration.types';
 
 // Initialize Supabase client with service role key for admin operations
 const supabase = createClient(

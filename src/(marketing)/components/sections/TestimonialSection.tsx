@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Heading, Text } from '@components/ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 
 // TestimonialSection.tsx
 // Displays customer testimonials and success stories to build trust and social proof

@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 import OpenAI from 'openai';
-import { withOpenAIRateLimit } from '../../lib/rateLimiter';
-import { logger, createPerformanceTimer, extractUserIdFromRequest } from '../../lib/logger';
+import { withOpenAIRateLimit } from '@lib/rateLimiter';
+import { logger, createPerformanceTimer, extractUserIdFromRequest } from '@lib/logger';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,

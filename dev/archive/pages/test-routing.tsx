@@ -12,7 +12,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { UnifiedGuard, UNIFIED_GUARDS } from '../components/ui/UnifiedGuard';
+import { UnifiedGuard, UNIFIED_GUARDS } from '@ui/UnifiedGuard';
 
 // =============================================================================
 // MOCK USER STATUS FOR TESTING

@@ -1,8 +1,8 @@
 import React from 'react';
 import { FoundationCase } from './hooks/useFoundationCases';
-import { CaseModuleConfiguration } from '../../types/module-configuration.types';
-import ConditionalModuleRenderer from '../ConditionalModuleRenderer';
-import { useAuth } from '../../contexts/AuthContext';
+import { CaseModuleConfiguration } from '@project-types/module-configuration.types';
+import ConditionalModuleRenderer from '@components/ConditionalModuleRenderer';
+import { useAuth } from '@contexts/AuthContext';
 
 interface StepConfig {
   title: string;

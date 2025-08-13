@@ -32,7 +32,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import UnifiedGuard, { UNIFIED_GUARDS } from '../components/ui/UnifiedGuard';
+import UnifiedGuard, { UNIFIED_GUARDS } from '@ui/UnifiedGuard';
 import { useUnifiedGuard } from '../hooks/useUnifiedGuard';
 
 // =============================================================================

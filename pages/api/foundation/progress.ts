@@ -13,8 +13,8 @@
 
 import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { FoundationApiError } from '../../../types/foundation.types';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { FoundationApiError } from '@project-types/foundation.types';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -23,7 +23,7 @@ const supabase = createClient(
 );
 
 // Performance timer utility
-function createPerformanceTimer(operation: string) {
+function createPerformanceTimer(_operation: string) {
   const start = Date.now();
   return {
     start,

@@ -12,8 +12,8 @@
  */
 
 import { NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../supabaseClient';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../lib/middleware/auth';
+import { getSupabaseClient } from '@supabaseClient';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 import { getUserTariff } from '@payments/services/userTariff';
 
 // Main API handler with Auth Middleware (WP-C3 Migration)

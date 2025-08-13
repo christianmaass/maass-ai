@@ -1,1 +1,1 @@
-export { default } from '../../../components/sections/FAQSection';
+export { default } from '@marketing/components/sections/FAQSection';

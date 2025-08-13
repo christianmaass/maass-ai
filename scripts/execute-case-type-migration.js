@@ -39,7 +39,7 @@ async function executeCaseTypeMigration() {
       }
     }
 
-    const { error: alterError2 } = await supabase.rpc('exec_sql', {
+    const { error: _alterError2 } = await supabase.rpc('exec_sql', {
       sql: 'ALTER TABLE foundation_cases ADD COLUMN IF NOT EXISTS framework_hints TEXT;',
     });
 

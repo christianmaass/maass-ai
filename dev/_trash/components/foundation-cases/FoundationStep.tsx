@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import ConditionalModuleRenderer from '../ConditionalModuleRenderer';
+import { useAuth } from '@contexts/AuthContext';
+import ConditionalModuleRenderer from '@components/ConditionalModuleRenderer';
 
 // Types
 interface FoundationCase {

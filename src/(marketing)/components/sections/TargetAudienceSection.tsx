@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Heading, Text } from '@components/ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 import Image from 'next/image';
-import { useAuth } from 'contexts/AuthContext';
-import { useRouter } from 'next/router';
+import { useAuth } from '@contexts/AuthContext';
 import { CATALOG } from '@lib/assetPaths';
 
 // TargetAudienceSection.tsx
@@ -10,7 +9,6 @@ import { CATALOG } from '@lib/assetPaths';
 export default function TargetAudienceSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { user, loading } = useAuth();
-  const router = useRouter();
 
   // Debug logging
   console.log('TargetAudienceSection - Auth State:', {
@@ -110,7 +108,7 @@ export default function TargetAudienceSection() {
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
-  const targetGroups = [
+  const _targetGroups = [
     {
       icon: '💼',
       title: 'Berater & Strategieteams',

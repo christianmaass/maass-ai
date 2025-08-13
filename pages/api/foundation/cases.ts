@@ -17,8 +17,8 @@ import {
   FoundationCasesListResponse,
   FoundationCaseWithUserStatus,
   FoundationApiError,
-} from '../../../types/foundation.types';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+} from '@project-types/foundation.types';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -27,7 +27,7 @@ const supabase = createClient(
 );
 
 // Performance timer utility
-function createPerformanceTimer(operation: string) {
+function createPerformanceTimer(_operation: string) {
   const start = Date.now();
   return {
     start,
@@ -75,11 +75,11 @@ async function foundationCasesHandler(
 
   const performanceTimer = createPerformanceTimer('foundation-cases-list');
   // Get user from Auth Middleware (WP-C1 Migration)
-  const userId = getUserId(req); // User already validated by withAuth() middleware
+  const _userId = getUserId(req); // User already validated by withAuth() middleware
 
   try {
     // Parse query parameters
-    const { include_progress = 'true', cluster, difficulty_min, difficulty_max } = req.query;
+    const { include_progress: _include_progress = 'true', cluster, difficulty_min, difficulty_max } = req.query;
 
     // Build base query
     let query = supabase

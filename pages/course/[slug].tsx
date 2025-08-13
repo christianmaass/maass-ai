@@ -33,14 +33,8 @@
  */
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../contexts/AuthContext';
-import {
-  ArrowLeftIcon,
-  PlayIcon,
-  BookOpenIcon,
-  ClockIcon,
-  StarIcon,
-} from '@heroicons/react/24/outline';
+import { useAuth } from '@contexts/AuthContext';
+import { ArrowLeftIcon, PlayIcon, BookOpenIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 // =============================================================================
@@ -83,7 +77,7 @@ function getDifficultyColor(difficulty: number): string {
   return 'text-red-600 bg-red-50 border-red-200';
 }
 
-function getDifficultyLabel(difficulty: number): string {
+function _getDifficultyLabel(difficulty: number): string {
   if (difficulty <= 3) return 'Einsteiger';
   if (difficulty <= 7) return 'Fortgeschritten';
   return 'Experte';
@@ -102,7 +96,7 @@ function FoundationCaseCard({
   isCompleted: boolean;
   isCurrent: boolean;
 }) {
-  const difficultyColor = getDifficultyColor(foundationCase.difficulty);
+  const _difficultyColor = getDifficultyColor(foundationCase.difficulty);
 
   return (
     <div
@@ -158,10 +152,10 @@ function FoundationCaseCard({
 function CoursePageContent() {
   const router = useRouter();
   const { slug } = router.query;
-  const { user, getAccessToken } = useAuth();
+  const { user: _user, getAccessToken } = useAuth();
 
   const [courseData, setCourseData] = useState<CourseData | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [enrolling, setEnrolling] = useState(false);
 

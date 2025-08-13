@@ -34,9 +34,9 @@
  */
 
 import React from 'react';
-import { Heading, Text } from '../ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 import Image from 'next/image';
-import { MODULES } from '../../lib/assetPaths';
+import { MODULES } from '@lib/assetPaths';
 
 // =============================================================================
 // TYPES & INTERFACES

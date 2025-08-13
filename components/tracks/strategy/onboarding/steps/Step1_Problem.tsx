@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, Text } from '../../../../ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 import StepWrapper from '../shared/StepWrapper';
 import MultipleChoice from '../shared/MultipleChoice';
 import FeedbackBox from '../shared/FeedbackBox';

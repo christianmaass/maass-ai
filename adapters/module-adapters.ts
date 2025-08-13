@@ -8,7 +8,7 @@ import {
   UnifiedModuleProps,
   UnifiedModuleData,
   ModuleAdapterRegistry,
-} from '../types/unified-module.types';
+} from '@project-types/unified-module.types';
 
 // Local minimal prop interfaces matching the components' required props
 interface ContentModuleComponentProps {

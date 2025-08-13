@@ -12,8 +12,8 @@
  */
 
 import React, { useState } from 'react';
-import { FoundationCase, FoundationResponse } from '../../types/foundation.types';
-import { useAuth } from '../../contexts/AuthContext';
+import { FoundationCase, FoundationResponse } from '@project-types/foundation.types';
+import { useAuth } from '@contexts/AuthContext';
 
 interface ResponseHandlerProps {
   case: FoundationCase;
@@ -24,7 +24,7 @@ interface ResponseHandlerProps {
 
 export default function ResponseHandler({
   case: foundationCase,
-  onSubmit,
+  onSubmit: _onSubmit,
   isSubmitting = false,
   disabled = false,
 }: ResponseHandlerProps) {
@@ -41,7 +41,7 @@ export default function ResponseHandler({
   });
 
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   // FoundationCase.content is not part of strict type; guard for runtime
   const content: any = (foundationCase as any)?.content || {};
@@ -368,12 +368,13 @@ export default function ResponseHandler({
     const data = response.response_data;
 
     switch (foundationCase.interaction_type) {
-      case 'multiple_choice_with_hypotheses':
+      case 'multiple_choice_with_hypotheses': {
         const mcQuestions = content.multiple_choice_questions || [];
         const allMcQuestionsAnswered = mcQuestions.every(
           (mcQuestion: any) => data[`mc_${mcQuestion.id}`] !== undefined,
         );
         return allMcQuestionsAnswered && data.hypothesis?.trim();
+      }
       case 'structured_mbb':
         return (
           data.problem_definition?.trim() &&

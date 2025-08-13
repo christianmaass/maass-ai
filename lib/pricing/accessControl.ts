@@ -7,7 +7,7 @@ export interface AccessDecision {
   reason?: string;
 }
 
-export async function canAccessTrack(userId: string | null, trackId: string): Promise<AccessDecision> {
+export async function canAccessTrack(userId: string | null, _trackId: string): Promise<AccessDecision> {
   // Placeholder: allow access for authenticated users for now.
   // Later integrate with entitlements/purchases without changing call sites.
   if (!userId) return { allowed: false, reason: 'NOT_AUTHENTICATED' };

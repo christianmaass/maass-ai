@@ -13,7 +13,7 @@
  */
 
 import { useRouter } from 'next/router';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import { useEffect, useState } from 'react';
 
 // =============================================================================

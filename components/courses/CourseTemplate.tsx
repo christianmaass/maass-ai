@@ -39,20 +39,20 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Heading, Text } from '../ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { getCourseBySlug, CourseMetadata } from '../../data/courses';
-import { getModulesByCourse, getMockUserProgress } from '../../data/modules';
-import { useAuth } from '../../contexts/AuthContext';
-import { getSupabaseClient } from '../../supabaseClient';
+import { getCourseBySlug, CourseMetadata } from '@data/courses';
+import { getModulesByCourse, getMockUserProgress } from '@data/modules';
+import { useAuth } from '@contexts/AuthContext';
+import { getSupabaseClient } from '@supabaseClient';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
-import OnboardingHeader from '../tracks/strategy/onboarding/OnboardingHeader';
-import OnboardingLayout from '../tracks/strategy/onboarding/OnboardingLayout';
-import ContextPanel from '../tracks/strategy/onboarding/ContextPanel';
+import OnboardingHeader from '@components/tracks/strategy/onboarding/OnboardingHeader';
+import OnboardingLayout from '@components/tracks/strategy/onboarding/OnboardingLayout';
+import ContextPanel from '@components/tracks/strategy/onboarding/ContextPanel';
 import ModuleGrid from './ModuleGrid';
-import OnboardingContainer from '../tracks/strategy/onboarding/OnboardingContainer';
+import OnboardingContainer from '@components/tracks/strategy/onboarding/OnboardingContainer';
 
 // =============================================================================
 // TYPES & INTERFACES
@@ -224,7 +224,7 @@ interface FeaturesSectionProps {
   course: CourseMetadata;
 }
 
-function FeaturesSection({ course }: FeaturesSectionProps) {
+function _FeaturesSection({ course }: FeaturesSectionProps) {
   return (
     <div className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4">
@@ -327,7 +327,7 @@ function FeaturesSection({ course }: FeaturesSectionProps) {
 
 export default function CourseTemplate({ courseSlug }: CourseTemplateProps) {
   const router = useRouter();
-  const { user, profile } = useAuth();
+  const { user, profile: _profile } = useAuth();
   const [course, setCourse] = useState<CourseMetadata | null>(null);
   const [enrollmentStatus, setEnrollmentStatus] = useState<EnrollmentStatus>({
     isEnrolled: false,

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 // Einfacher Test-Endpunkt für Backend-Status
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -16,7 +16,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     let openaiAvailable = false;
     let openaiError: string | null = null;
     try {
-      require('openai');
+      await import('openai');
       openaiAvailable = true;
     } catch (e) {
       openaiError = e instanceof Error ? e.message : 'Unknown error';
@@ -26,7 +26,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     let supabaseClientOk = false;
     let supabaseError: string | null = null;
     try {
-      const { getSupabaseClient } = require('../../supabaseClient');
+      const { getSupabaseClient } = await import('@supabaseClient');
       const supabase = getSupabaseClient();
       supabaseClientOk = !!supabase;
     } catch (e) {

@@ -12,7 +12,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 
 interface ProfileFormData {
   first_name: string;
@@ -153,7 +153,7 @@ const ProfileSection: React.FC = () => {
     setSuccessMessage('');
   };
 
-  const displayName =
+  const _displayName =
     profile?.firstName && profile?.lastName
       ? `${profile.firstName} ${profile.lastName}`
       : 'Nicht gesetzt';

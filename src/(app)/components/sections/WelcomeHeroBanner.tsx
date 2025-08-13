@@ -18,9 +18,9 @@
  */
 import React from 'react';
 import Image from 'next/image';
-import { getTimeOfDayGreeting, formatGreeting } from '../../utils/greeting';
-import { Heading, Text } from '../ui/Typography';
-import { MODULES } from '../../lib/assetPaths';
+import { getTimeOfDayGreeting, formatGreeting } from '@lib/greeting';
+import { Heading, Text } from '@ui/Typography';
+import { MODULES } from '@lib/assetPaths';
 
 interface WelcomeHeroBannerProps {
   variant: 'dashboard' | 'onboarding';

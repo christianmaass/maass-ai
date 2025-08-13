@@ -4,7 +4,7 @@
  * Security: withAuth (JWT), Supabase RLS respected (service role for reads as in courses index)
  */
 import { NextApiResponse } from 'next';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../../../lib/middleware/auth';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(

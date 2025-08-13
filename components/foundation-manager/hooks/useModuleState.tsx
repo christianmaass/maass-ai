@@ -1,9 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../../../contexts/AuthContext';
-import {
-  CaseModuleConfiguration,
-  createDefaultConfiguration,
-} from '../../../types/module-configuration.types';
+import { useAuth } from '@contexts/AuthContext';
+import { CaseModuleConfiguration, createDefaultConfiguration } from '@project-types/module-configuration.types';
 
 interface ModuleStateData {
   [stepNumber: number]: {
@@ -94,7 +91,7 @@ export const useModuleState = (caseId: string | null): UseModuleStateReturn => {
   );
 
   // Load MC questions for all steps of a case
-  const loadAllMCQuestions = async (selectedCaseId: string) => {
+  const _loadAllMCQuestions = async (selectedCaseId: string) => {
     const promises: Promise<void>[] = [];
     for (let step = 1; step <= 5; step++) {
       promises.push(loadMCQuestions(selectedCaseId, step));

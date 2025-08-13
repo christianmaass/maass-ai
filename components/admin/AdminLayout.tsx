@@ -19,8 +19,8 @@
 import React from 'react';
 import Link from 'next/link';
 import AdminHeader from './AdminHeader';
-import { useProfile } from '../../hooks/useProfile';
-import { useAuth } from '../../contexts/AuthContext';
+import { useProfile } from '@hooks/useProfile';
+import { useAuth } from '@contexts/AuthContext';
 
 interface AdminLayoutProps {
   children: React.ReactNode;

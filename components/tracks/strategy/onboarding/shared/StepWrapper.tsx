@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heading, Text } from '../../../../ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 
 interface StepWrapperProps {
   stepNumber: number;

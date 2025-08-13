@@ -192,7 +192,7 @@ export default function MultipleChoiceComponent({
                   <p className="text-gray-900 font-medium">{question.question}</p>
 
                   <div className="grid grid-cols-1 gap-2">
-                    {['A', 'B', 'C', 'D'].map((letter, index) => {
+                    {['A', 'B', 'C', 'D'].map((letter, _index) => {
                       const optionKey = `option_${letter.toLowerCase()}` as keyof MCQuestion;
                       const optionText = question[optionKey] as string;
                       const isCorrect = question.correct_answer === letter;

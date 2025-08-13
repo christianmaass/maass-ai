@@ -1,5 +1,5 @@
 import React from 'react';
-import { FoundationCase } from '../../types/foundation.types';
+import { FoundationCase } from '@project-types/foundation.types';
 
 interface CaseContentProps {
   case: FoundationCase;

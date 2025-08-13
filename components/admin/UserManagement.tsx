@@ -12,7 +12,7 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 
 interface User {
   id: string;
@@ -36,7 +36,7 @@ const UserManagement: React.FC = () => {
   // NAVAA AUTH INTEGRATION (WP-B1 Migration)
   // =============================================================================
 
-  const { user, getAccessToken, hasRole, isAdmin, isAuthenticated } = useAuth();
+  const { getAccessToken, isAdmin, isAuthenticated } = useAuth();
 
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);

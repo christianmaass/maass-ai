@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, Text } from '@components/ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 
 // Displays frequently asked questions to address common concerns and objections
 export default function FAQSection() {

@@ -1,7 +1,7 @@
 import {
   AssessmentCriterion,
   DifficultyProgression,
-} from '../../../../shared/case-engine/types/case-engine.types';
+} from '@/shared/case-engine/types/case-engine.types';
 
 // Strategy-specific assessment criteria
 export const strategyAssessmentCriteria: AssessmentCriterion[] = [

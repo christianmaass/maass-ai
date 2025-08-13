@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../../../ui/Typography';
+import { Text } from '@ui/Typography';
 
 interface ProgressIndicatorProps {
   currentStep: number;

@@ -1,4 +1,4 @@
-import { FlatAccessConfig, Money, PlanDetails, PricingContext, PricingStrategy } from '../types';
+import { FlatAccessConfig, Money, PlanDetails, PricingContext, PricingStrategy } from '@lib/pricing/types';
 
 export class FlatAccessStrategy implements PricingStrategy {
   readonly type = 'flat_access' as const;

@@ -7,12 +7,11 @@ import React, { useState, useEffect } from 'react';
 import StepConfigurationSection from './StepConfigurationSection';
 import {
   CaseModuleConfiguration,
-  StepModuleConfig,
   StepConfigKey,
   ModuleConfigKey,
   validateConfiguration,
   createDefaultConfiguration,
-} from '../types/module-configuration.types';
+} from '@project-types/module-configuration.types';
 
 interface ModuleConfigurationPanelProps {
   caseId: string;
@@ -26,7 +25,7 @@ interface ModuleConfigurationPanelProps {
  * SOLID: Dependency Inversion - Depends on abstractions (props), not concretions
  */
 export default function ModuleConfigurationPanel({
-  caseId,
+  caseId: _caseId,
   initialConfiguration,
   onSave,
 }: ModuleConfigurationPanelProps) {

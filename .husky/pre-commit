@@ -2,6 +2,19 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npx lint-staged
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+  echo "\n❌ lint-staged failed. Commit aborted."
+  exit 1
+fi
+
+echo "\n🧪 Running TypeScript typecheck..."
+npm run -s typecheck
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+  echo "\n❌ Typecheck failed. Commit aborted."
+  exit 1
+fi
 
 # Secret scan with Gitleaks (optional locally, mandatory in CI)
 if command -v gitleaks >/dev/null 2>&1; then

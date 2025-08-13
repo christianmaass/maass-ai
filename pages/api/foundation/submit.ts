@@ -17,12 +17,11 @@ import {
   FoundationApiError,
   FoundationResponse,
   FoundationAssessment,
-} from '../../../types/foundation.types';
+} from '@project-types/foundation.types';
 import {
   validateFoundationSubmit,
-  FoundationSubmitV1,
-} from '../../../lib/schemas/foundation.schemas';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+} from '@lib/schemas/foundation.schemas';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 // Initialize Supabase client
 const supabase = createClient(

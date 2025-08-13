@@ -31,9 +31,9 @@
  * @see CONTRIBUTING.md
  * @see docs/navaa-development-guidelines.md
  */
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { getSupabaseClient } from '../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 import type { User as SupabaseUser, Session } from '@supabase/supabase-js';
 
 // =============================================================================
@@ -378,7 +378,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Simple in-memory token cache to avoid repeated async getSession() calls
   // Not persisted; resets on reload, which is fine. Skew to refresh a bit before expiry.
-  const tokenCacheRef = React.useRef<{ token: string | null; expiresAtSec: number | null }>({
+  const tokenCacheRef = useRef<{ token: string | null; expiresAtSec: number | null }>({
     token: null,
     expiresAtSec: null,
   });
@@ -505,7 +505,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       try {
-        const { data, error } = await supabase
+        const { data: _data, error } = await supabase
           .from('user_profiles')
           .update({
             first_name: updates.firstName,

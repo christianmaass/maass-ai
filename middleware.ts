@@ -62,7 +62,7 @@ export function middleware(req: NextRequest) {
     if (u === USER && p === PASS) {
       return NextResponse.next();
     }
-  } catch (e) {
+  } catch {
     // fallthrough to 401 below
   }
 

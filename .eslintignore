@@ -1,0 +1,7 @@
+# Exclude legacy and migration-in-progress paths
+archive/
+dev/
+components/tracks/strategy/onboarding/
+# Build outputs
+.next/
+dist/

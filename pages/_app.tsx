@@ -17,19 +17,19 @@ import React from 'react';
  * @see CONTRIBUTING.md
  * @see docs/navaa-development-guidelines.md
  */
-import '../styles/globals.css';
+import '@styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { AuthProvider } from '@contexts/AuthContext';
-import UnifiedGuard from '@lib/guards/UnifiedGuard';
+import { UnifiedGuard as RouteGuard } from '@lib/guards/UnifiedGuard';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   return (
     <AuthProvider>
-      <UnifiedGuard routePathname={router.pathname}>
+      <RouteGuard routePathname={router.pathname}>
         <Component {...pageProps} />
-      </UnifiedGuard>
+      </RouteGuard>
     </AuthProvider>
   );
 }

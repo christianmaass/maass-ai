@@ -1,4 +1,4 @@
-import { ReactComponentElement } from 'react';
+import type React from 'react';
 
 // Core step definition interface
 export interface StepDefinition {

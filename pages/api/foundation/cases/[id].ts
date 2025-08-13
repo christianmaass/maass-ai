@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { FoundationApiError } from '../../../../types/foundation.types';
+import { FoundationApiError } from '@project-types/foundation.types';
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -65,7 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Get user (for potential user-specific data later) - consistent with cases list API
-    const userId = extractUserIdFromRequest(req);
+    const _userId = extractUserIdFromRequest(req);
     // Note: We don't block on missing userId to maintain consistency with /api/foundation/cases
 
     // Query single foundation case

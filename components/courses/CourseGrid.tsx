@@ -31,11 +31,11 @@
  * @see docs/navaa-development-guidelines.md
  */
 import React, { useEffect, useState } from 'react';
-import { Heading, Text } from '../ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 import { useRouter } from 'next/router';
 import CourseCard from './CourseCard';
-import { Course, CourseWithEnrollment } from '../../types/courses';
-import { useAuth } from '../../contexts/AuthContext';
+import { CourseWithEnrollment } from '@project-types/courses';
+import { useAuth } from '@contexts/AuthContext';
 
 // =============================================================================
 // TYPES
@@ -82,7 +82,7 @@ export default function CourseGrid({
   const { session } = useAuth();
   const [courses, setCourses] = useState<CourseWithEnrollment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   // Fetch courses with fallback to mock data (StrictMode-safe)
   useEffect(() => {

@@ -37,8 +37,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { COURSES, CourseMetadata } from '../../data/courses';
-import { useAuth } from '../../contexts/AuthContext';
+import { COURSES, CourseMetadata } from '@data/courses';
 
 // =============================================================================
 // TYPES & INTERFACES

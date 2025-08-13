@@ -189,7 +189,7 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
     let assessment;
     try {
       assessment = JSON.parse(gptContent);
-    } catch (parseError) {
+    } catch {
       console.error('Failed to parse GPT response:', gptContent);
       throw new Error('Invalid GPT response format');
     }

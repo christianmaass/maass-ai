@@ -4,7 +4,7 @@
 // Purpose: Save manually edited case description and question
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 
 interface ApiRequest extends NextApiRequest {
   body: {
@@ -56,7 +56,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse<ApiR
     }
 
     // Create Supabase client with SERVICE ROLE key for API operations
-    const { createClient } = require('@supabase/supabase-js');
+    const { createClient } = await import('@supabase/supabase-js');
     const supabase = createClient(supabaseUrl, supabaseServiceKey, {
       auth: {
         autoRefreshToken: false,

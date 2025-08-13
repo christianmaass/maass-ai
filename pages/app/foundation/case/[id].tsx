@@ -61,7 +61,7 @@ export default function AppFoundationCaseDetailPage() {
     router.push('/app/foundation');
   };
 
-  const handleResponseSubmit = async (response: FoundationResponse) => {
+  const handleResponseSubmit = async (_response: FoundationResponse) => {
     if (!foundationCase) return;
 
     setIsSubmitting(true);
@@ -87,7 +87,7 @@ export default function AppFoundationCaseDetailPage() {
       };
 
       setAssessment(mockAssessment);
-    } catch (err) {
+    } catch {
       setError('Fehler beim Einreichen der Antwort');
     } finally {
       setIsSubmitting(false);

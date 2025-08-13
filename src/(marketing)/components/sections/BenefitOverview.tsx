@@ -19,9 +19,9 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import LernansatzImg from '../../assets/navaa-lernansatz.png';
-import ResultCard from '@components/ui/ResultCard';
-import { Heading, Text } from '@components/ui/Typography';
+import LernansatzImg from '@marketing/assets/navaa-lernansatz.png';
+import ResultCard from '@ui/ResultCard';
+import { Heading, Text } from '@ui/Typography';
 
 // BenefitOverview.tsx - Hero/USP Section
 // Displays navaa value proposition with brand messaging and visual

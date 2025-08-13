@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { Heading, Text } from '@components/ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 import Image from 'next/image';
-import LearnLoopImg from '../../assets/navaa-learn-loop.png';
+import LearnLoopImg from '@marketing/assets/navaa-learn-loop.png';
 
 // HeroBanner.tsx
 // Main landing page hero section

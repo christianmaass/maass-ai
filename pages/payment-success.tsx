@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '@layout/basic/Header';
-import { Text } from '@components/ui/Typography';
+import { Text } from '@ui/Typography';
 import Footer from '@layout/basic/Footer';
 import PaymentSuccessView from '@payments/components/PaymentSuccessView';
 
@@ -9,7 +9,7 @@ const PaymentSuccess: React.FC = () => {
   const router = useRouter();
   const { session_id } = router.query;
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (session_id) {

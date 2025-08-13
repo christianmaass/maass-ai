@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@contexts/AuthContext';
-import { getSupabaseClient } from '../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 
 interface Profile {
   id: string;

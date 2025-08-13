@@ -1,47 +1,9 @@
 /**
- * 🚀 NAVAA.AI DEVELOPMENT STANDARDS
- *
- * This file follows navaa.ai development guidelines:
- * 📋 CONTRIBUTING.md - Contribution standards and workflow
- * 📚 docs/navaa-development-guidelines.md - Complete development standards
- *
- * KEY STANDARDS FOR THIS FILE:
- * ✅ Stability First - Never change working features without clear reason
- * ✅ Security First - JWT authentication, RLS compliance
- * ✅ Unified Guard Pattern - Single guard for routing logic
- * ✅ Smart Routing - Central routing decisions, no conflicts
- * ✅ Subscription Awareness - Support for free/paid/business tiers
- * ✅ Loading States - Robust loading and error handling
- *
- * @see CONTRIBUTING.md
- * @see docs/navaa-development-guidelines.md
+ * UnifiedGuard (UI wrapper)
+ * Migrated from components/ui/UnifiedGuard.tsx
  */
-
-/**
- * UNIFIED GUARD COMPONENT
- * Subscription-aware wrapper component for automatic route protection
- *
- * FEATURES:
- * - Smart routing based on user status and enrollments
- * - Subscription tier enforcement (free/paid/business)
- * - Consistent logic across all protected routes
- * - Customizable loading and error states
- *
- * USAGE:
- * <UnifiedGuard config={UNIFIED_GUARDS.DASHBOARD}>
- *   <DashboardContent />
- * </UnifiedGuard>
- *
- * @version 2.0.0 (Unified Guard Migration)
- * @author navaa Development Team
- */
-
 import React from 'react';
-import { useUnifiedGuard, UNIFIED_GUARDS } from '../../hooks/useUnifiedGuard';
-
-// =============================================================================
-// TYPES & INTERFACES
-// =============================================================================
+import { useUnifiedGuard, UNIFIED_GUARDS } from '@hooks/useUnifiedGuard';
 
 interface UnifiedGuardConfig {
   requireAuth: boolean;
@@ -60,10 +22,6 @@ interface UnifiedGuardProps {
   errorComponent?: React.ComponentType<{ reason: string }>;
   upgradeComponent?: React.ComponentType<{ requiredTier: string; currentTier?: string }>;
 }
-
-// =============================================================================
-// DEFAULT COMPONENTS
-// =============================================================================
 
 function DefaultLoadingComponent() {
   return (
@@ -130,11 +88,7 @@ function DefaultUpgradeComponent({
   );
 }
 
-// =============================================================================
-// MAIN COMPONENT
-// =============================================================================
-
-export default function UnifiedGuard({
+function UnifiedGuard({
   config,
   children,
   loadingComponent: LoadingComponent = DefaultLoadingComponent,
@@ -144,43 +98,23 @@ export default function UnifiedGuard({
   const { isChecking, routingDecision, shouldRedirect, accessGranted, isBlocked } =
     useUnifiedGuard(config);
 
-  // Show loading while checking route access
-  if (isChecking) {
-    return <LoadingComponent />;
-  }
+  if (isChecking) return <LoadingComponent />;
 
-  // Show error if access is blocked
   if (isBlocked && routingDecision) {
     return <ErrorComponent reason={routingDecision.reason} />;
   }
 
-  // Show upgrade prompt for insufficient subscription
   if (routingDecision?.reason === 'insufficient_subscription_tier') {
     return <UpgradeComponent requiredTier={config.requiredTier} />;
   }
 
-  // Redirect is handled by the hook, show loading during redirect
-  if (shouldRedirect) {
-    return <LoadingComponent />;
-  }
+  if (shouldRedirect) return <LoadingComponent />;
 
-  // Access granted - render children
-  if (accessGranted) {
-    return <>{children}</>;
-  }
+  if (accessGranted) return <>{children}</>;
 
-  // Fallback - should not happen, but show loading for safety
   return <LoadingComponent />;
 }
 
-// =============================================================================
-// UNIFIED GUARD - THE ONLY GUARD COMPONENT
-// =============================================================================
-
-// NOTE: No convenience wrappers! Use UnifiedGuard directly with config:
-// <UnifiedGuard config={UNIFIED_GUARDS.ONBOARDING}>...</UnifiedGuard>
-// <UnifiedGuard config={UNIFIED_GUARDS.DASHBOARD}>...</UnifiedGuard>
-// <UnifiedGuard config={UNIFIED_GUARDS.COURSE}>...</UnifiedGuard>
-
-// Export for backward compatibility and easy migration
-export { UnifiedGuard, UNIFIED_GUARDS };
+// Re-export named for convenience alongside default
+export default UnifiedGuard;
+export { UNIFIED_GUARDS, UnifiedGuard };

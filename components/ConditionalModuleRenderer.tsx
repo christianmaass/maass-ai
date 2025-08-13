@@ -5,7 +5,7 @@
 // =====================================================
 
 import React from 'react';
-import { StepModuleConfig } from '../types/module-configuration.types';
+import { StepModuleConfig } from '@project-types/module-configuration.types';
 
 // Import all existing module components
 import MultipleChoiceComponent from './MultipleChoiceComponent';

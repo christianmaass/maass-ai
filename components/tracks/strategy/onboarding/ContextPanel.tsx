@@ -1,6 +1,6 @@
 import React from 'react';
-import Panel from '../../../ui/Panel';
-import { Heading, Text } from '../../../ui/Typography';
+import Panel from '@ui/Panel';
+import { Heading, Text } from '@ui/Typography';
 
 interface ContextPanelProps {
   title?: string;

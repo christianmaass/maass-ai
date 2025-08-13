@@ -13,8 +13,8 @@
 
 import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { validateAdmin } from '../../../lib/schemas/admin.schemas';
-import { requireRole, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { validateAdmin } from '@lib/schemas/admin.schemas';
+import { requireRole, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -28,7 +28,7 @@ async function adminUsersHandler(req: AuthenticatedRequest, res: NextApiResponse
   }
 
   // Get user from Auth Middleware (WP-C1 Migration)
-  const userId = getUserId(req); // User already validated by requireRole('admin') middleware
+  const _userId = getUserId(req); // User already validated by requireRole('admin') middleware
 
   try {
     // Get all users

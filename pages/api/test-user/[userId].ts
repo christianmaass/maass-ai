@@ -13,7 +13,7 @@
 
 import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -27,7 +27,7 @@ async function testUserHandler(req: AuthenticatedRequest, res: NextApiResponse) 
   }
 
   // Get authenticated user from Auth Middleware (WP-C3 Migration)
-  const authenticatedUserId = getUserId(req); // User already authenticated by withAuth middleware
+  const _authenticatedUserId = getUserId(req); // User already authenticated by withAuth middleware
 
   try {
     // =============================================================================

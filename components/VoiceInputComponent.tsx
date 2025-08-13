@@ -14,16 +14,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@contexts/AuthContext';
 
-interface VoiceInput {
-  id?: string;
-  voice_transcript: string;
-  text_fallback?: string;
-  audio_duration?: number;
-  input_method: 'voice' | 'text';
-  created_at?: string;
-  updated_at?: string;
-}
-
 interface VoiceInputComponentProps {
   caseId: string;
   stepNumber: number;
@@ -75,7 +65,7 @@ export default function VoiceInputComponent({
   const [hasChanges, setHasChanges] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isRequestingAssessment, setIsRequestingAssessment] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
+  // const [showFeedback, setShowFeedback] = useState(false); // unused
   const [isSupported, setIsSupported] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
 
@@ -96,14 +86,14 @@ export default function VoiceInputComponent({
 
       recognitionRef.current.onresult = (event: any) => {
         let finalTranscript = '';
-        let interimTranscript = '';
+        let _interimTranscript = '';
 
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const transcript = event.results[i][0].transcript;
           if (event.results[i].isFinal) {
             finalTranscript += transcript;
           } else {
-            interimTranscript += transcript;
+            _interimTranscript += transcript;
           }
         }
 
@@ -270,7 +260,7 @@ export default function VoiceInputComponent({
       });
 
       // Show feedback section
-      setShowFeedback(true);
+      // Feedback UI currently disabled
 
       // Trigger reload of data in parent component
       window.location.reload();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, Text } from '../../../../ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 
 export interface MultipleChoiceOption {
   id: string;

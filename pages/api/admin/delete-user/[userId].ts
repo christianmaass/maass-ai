@@ -13,7 +13,7 @@
 
 import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { requireRole, AuthenticatedRequest, getUserId } from '../../../../lib/middleware/auth';
+import { requireRole, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -27,7 +27,7 @@ async function adminDeleteUserHandler(req: AuthenticatedRequest, res: NextApiRes
   }
 
   // Get user from Auth Middleware (WP-C1 Migration)
-  const adminUserId = getUserId(req); // Admin user already validated by requireRole('admin') middleware
+  const _adminUserId = getUserId(req); // Admin user already validated by requireRole('admin') middleware
 
   try {
     const { userId } = req.query;

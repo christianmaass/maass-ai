@@ -6,7 +6,7 @@ import FAQSection from '@/marketing/sections/FAQSection';
 import TargetAudienceSection from '@/marketing/sections/TargetAudienceSection';
 import TestimonialSection from '@/marketing/sections/TestimonialSection';
 import BenefitOverview from '@/marketing/sections/BenefitOverview';
-import StickyCTA from '@components/ui/StickyCTA';
+import StickyCTA from '@ui/StickyCTA';
 import Footer from '@layout/basic/Footer';
 import ErrorBoundary from '@layout/basic/ErrorBoundary';
 

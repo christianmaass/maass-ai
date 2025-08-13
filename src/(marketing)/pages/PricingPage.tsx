@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import MarketingLayout from '@layout/basic/MarketingLayout';
-import { Heading, Text } from '@components/ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 
 const PricingPage: React.FC = () => {
   // Feature Flag: Payment temporär deaktiviert während Registrierung stabilisiert wird
@@ -12,7 +12,7 @@ const PricingPage: React.FC = () => {
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY !== '';
 
   // PaymentModal nur dann laden, wenn Payment wirklich aktiv und Key vorhanden ist
-  const PaymentModal = React.useMemo(
+  const PaymentModal = useMemo(
     () =>
       PAYMENT_ENABLED && hasStripeKey
         ? dynamic(() => import('@payments/components/PaymentModal'), { ssr: false })

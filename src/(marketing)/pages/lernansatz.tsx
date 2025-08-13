@@ -1,1 +1,1 @@
-export { default } from '../../../marketing/pages/LernansatzPage';
+export { default } from '@marketing/pages/LernansatzPage';

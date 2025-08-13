@@ -1,4 +1,4 @@
-import { CasePromptConfiguration } from '../../../../shared/case-engine/types/case-engine.types';
+import { CasePromptConfiguration } from '@/shared/case-engine/types/case-engine.types';
 
 // Strategy-specific prompts for case generation and assessment
 export const strategyPrompts: CasePromptConfiguration = {

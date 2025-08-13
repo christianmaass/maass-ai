@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -10,7 +9,6 @@ interface AuthModalProps {
 
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'login' }) => {
   const { login, register } = useAuth();
-  const router = useRouter();
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
   const [formData, setFormData] = useState({
     firstName: '',

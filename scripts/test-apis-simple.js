@@ -34,7 +34,7 @@ function makeRequest(method, path, data = null) {
             data: parsed,
             raw: body,
           });
-        } catch (error) {
+        } catch {
           resolve({
             status: res.statusCode,
             data: body,

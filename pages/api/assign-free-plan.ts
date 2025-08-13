@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 import { assignFreePlan } from '@payments/services/freePlan';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

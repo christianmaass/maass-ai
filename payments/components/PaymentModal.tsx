@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { stripePromise } from '@payments/services/stripe.service';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 
 interface PaymentModalProps {
   isOpen: boolean;

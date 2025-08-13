@@ -1,4 +1,4 @@
-import { Money, PerTrackConfig, PlanDetails, PricingContext, PricingStrategy } from '../types';
+import { Money, PerTrackConfig, PlanDetails, PricingContext, PricingStrategy } from '@lib/pricing/types';
 
 export class PerTrackStrategy implements PricingStrategy {
   readonly type = 'per_track' as const;

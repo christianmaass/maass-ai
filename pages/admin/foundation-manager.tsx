@@ -51,7 +51,7 @@ const FoundationManager: React.FC = () => {
   const {
     moduleConfiguration,
     configPanelOpen,
-    loading: moduleLoading,
+    loading: _moduleLoading,
     error: moduleError,
     updateModuleConfiguration,
     toggleConfigPanel,

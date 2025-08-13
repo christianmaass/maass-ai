@@ -1,6 +1,6 @@
 // Next.js API Route für OpenAI Chat API Proxy
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { withOpenAIRateLimit } from '../../lib/rateLimiter';
+import { withOpenAIRateLimit } from '@lib/rateLimiter';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {

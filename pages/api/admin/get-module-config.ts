@@ -5,10 +5,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import {
-  CaseModuleConfiguration,
-  createDefaultConfiguration,
-} from '../../../types/module-configuration.types';
+import { CaseModuleConfiguration, createDefaultConfiguration } from '@project-types/module-configuration.types';
 
 // Initialize Supabase client with service role key for admin operations
 const supabase = createClient(

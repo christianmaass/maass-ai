@@ -5,9 +5,10 @@
 // Architecture: Clean API design, proper error handling, admin-only access
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../../supabaseClient';
-import { createCaseGenerationService } from '../../../services/CaseGenerationService';
-import { CaseGenerationRequest } from '../../../config/case-generation-prompts';
+import { getSupabaseClient } from '@supabaseClient';
+import { createCaseGenerationService } from '@services/CaseGenerationService';
+import { CaseGenerationRequest } from '@config/case-generation-prompts';
+import { createClient } from '@supabase/supabase-js';
 
 interface ApiRequest extends NextApiRequest {
   body: {
@@ -67,7 +68,6 @@ export default async function handler(req: ApiRequest, res: NextApiResponse<ApiR
     }
 
     // Create Supabase client with SERVICE ROLE key for API operations
-    const { createClient } = require('@supabase/supabase-js');
     const supabase = createClient(supabaseUrl, supabaseServiceKey, {
       auth: {
         autoRefreshToken: false,
@@ -156,7 +156,7 @@ export default async function handler(req: ApiRequest, res: NextApiResponse<ApiR
 
     // First, test basic database connection
     try {
-      const { data: testQuery, error: testError } = await supabase
+      const { data: _testQuery, error: testError } = await supabase
         .from('foundation_cases')
         .select('count')
         .limit(1);

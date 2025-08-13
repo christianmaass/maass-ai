@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { withAdminRateLimit } from '../../../lib/rateLimiter';
-import { validateAdmin, ADMIN_SECURITY } from '../../../lib/schemas/admin.schemas';
+import { validateAdmin, ADMIN_SECURITY } from '@lib/schemas/admin.schemas';
+import { withAdminRateLimit } from '@lib/rateLimiter';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

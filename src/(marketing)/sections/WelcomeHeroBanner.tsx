@@ -1,1 +1,1 @@
-export { default } from '../../../components/sections/WelcomeHeroBanner';
+export { default } from '@marketing/components/sections/WelcomeHeroBanner';

@@ -37,7 +37,7 @@ const RegisterPage: React.FC = () => {
     try {
       await register(firstName.trim(), lastName.trim(), email.trim(), password);
       // AuthContext.register navigiert bereits auf '/'; optional: router.push('/onboarding');
-    } catch (e) {
+    } catch {
       // Fehler wird in Context gesetzt; lokale Meldung nur als Fallback
       setFormError('Registrierung fehlgeschlagen.');
     } finally {

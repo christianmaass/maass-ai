@@ -92,7 +92,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log(`Applying updates:`, updates);
 
-    const { data: updatedUser, error: updateError } = await supabase
+    const { data: _updatedUser, error: updateError } = await supabase
       .from('user_profiles')
       .update(updates)
       .eq('id', userId)

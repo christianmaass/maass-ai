@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../supabaseClient';
+import { getSupabaseClient } from '@supabaseClient';
 
 // API to check available case types
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

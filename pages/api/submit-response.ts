@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../supabaseClient';
-import { withRateLimit, RATE_LIMITS, userKeyGenerator } from '../../lib/rateLimiter';
-import { logger, createPerformanceTimer, extractUserIdFromRequest } from '../../lib/logger';
+import { getSupabaseClient } from '@supabaseClient';
+import { withRateLimit, RATE_LIMITS, userKeyGenerator } from '@lib/rateLimiter';
+import { logger, createPerformanceTimer, extractUserIdFromRequest } from '@lib/logger';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Initialize performance tracking and logging context

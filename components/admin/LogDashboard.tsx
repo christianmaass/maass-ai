@@ -12,12 +12,12 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
-import { ScrollArea } from '../ui/scroll-area';
-import { useAuth } from '../../contexts/AuthContext';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ui/card';
+import { Badge } from '@ui/badge';
+import { Button } from '@ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ui/tabs';
+import { ScrollArea } from '@ui/scroll-area';
+import { useAuth } from '@contexts/AuthContext';
 
 interface LogEntry {
   timestamp: string;
@@ -41,7 +41,7 @@ export default function LogDashboard() {
   // NAVAA AUTH INTEGRATION (WP-B1 Migration)
   // =============================================================================
 
-  const { user, getAccessToken, isAdmin, isAuthenticated } = useAuth();
+  const { user: _user, getAccessToken, isAdmin, isAuthenticated } = useAuth();
 
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [stats, setStats] = useState<LogStats>({

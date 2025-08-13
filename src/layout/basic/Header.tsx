@@ -19,18 +19,18 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAuth } from '../../../contexts/AuthContext';
-import { useProfile } from '../../../hooks/useProfile';
-import AuthModal from '@components/ui/AuthModal';
+import { useAuth } from '@contexts/AuthContext';
+import { useProfile } from '@hooks/useProfile';
+import AuthModal from '@ui/AuthModal';
 import { BRAND_LOGO } from '@lib/assetPaths';
 
 interface UnifiedHeaderProps {
   variant?: 'marketing' | 'app';
 }
 
-export default function UnifiedHeader({ variant = 'marketing' }: UnifiedHeaderProps) {
-  const { user, logout, loading } = useAuth();
-  const { profile, isAdmin } = useProfile();
+export default function UnifiedHeader({ variant: _variant = 'marketing' }: UnifiedHeaderProps) {
+  const { user, logout, loading: _loading } = useAuth();
+  const { profile: _profile, isAdmin } = useProfile();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function UnifiedHeader({ variant = 'marketing' }: UnifiedHeaderPr
     }
   };
 
-  const handleLogout = async () => {
+  const _handleLogout = async () => {
     try {
       await logout();
     } catch (error) {

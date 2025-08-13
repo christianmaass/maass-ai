@@ -19,39 +19,20 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@contexts/AuthContext';
 import MainApp from '@layout/basic/MainApp';
-import CourseGrid from '@components/courses/CourseGrid';
 import DashboardCourseSection from '@components/dashboard/DashboardCourseSection';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
 import WelcomeHeroBanner from '@/marketing/sections/WelcomeHeroBanner';
-import { useRouter } from 'next/router';
-
-interface UserStatus {
-  isNewUser: boolean;
-  hasCompletedOnboarding: boolean;
-  hasActiveEnrollments: boolean;
-  shouldRedirectToOnboarding: boolean;
-}
+// Note: routing handled by components; no direct router usage here
 
 export default function Home() {
-  const router = useRouter();
   const { user, profile, loading: authLoading } = useAuth();
-  const [checkingUserStatus, setCheckingUserStatus] = useState(true);
   const [checkingNewUser, setCheckingNewUser] = useState(true);
-  const [isNewUser, setIsNewUser] = useState(false);
 
   useEffect(() => {
-    if (user && !authLoading) {
-      // Check if user is new (registered in last 5 minutes)
-      const userCreated = new Date(user.created_at || user.user_metadata?.created_at || Date.now());
-      const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-
-      setIsNewUser(userCreated > fiveMinutesAgo);
-      setCheckingNewUser(false);
-    } else if (!authLoading) {
-      setCheckingNewUser(false);
-    }
-  }, [user, authLoading]);
+    // When auth state resolved, we're done checking the new-user flag
+    if (!authLoading) setCheckingNewUser(false);
+  }, [authLoading]);
 
   // Loading state
   if (authLoading || checkingNewUser) {

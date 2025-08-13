@@ -9,7 +9,7 @@ import {
   CaseGenerationResult,
   generateCasePrompt,
   validateCaseGenerationResult,
-} from '../config/case-generation-prompts';
+} from '@config/case-generation-prompts';
 
 export interface GPTProvider {
   generateCompletion(prompt: string): Promise<string>;

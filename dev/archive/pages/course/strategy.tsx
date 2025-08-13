@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../../../contexts/AuthContext';
 import Header from '@layout/basic/Header';
 import Footer from '@layout/basic/Footer';
-import { UnifiedGuard, UNIFIED_GUARDS } from '../../../../components/ui/UnifiedGuard';
+import { UnifiedGuard, UNIFIED_GUARDS } from '@ui/UnifiedGuard';
 
 interface CourseData {
   id: string;

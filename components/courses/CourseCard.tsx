@@ -17,7 +17,7 @@
  * @see docs/navaa-development-guidelines.md
  */
 import React from 'react';
-import { Heading, Text } from '../ui/Typography';
+import { Heading, Text } from '@ui/Typography';
 import { ChevronRightIcon, BookOpenIcon, ClockIcon, TrophyIcon } from '@heroicons/react/24/outline';
 
 interface FoundationCase {

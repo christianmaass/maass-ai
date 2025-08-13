@@ -1,7 +1,7 @@
 // pages/api/rate-text.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { withOpenAIRateLimit } from '../../lib/rateLimiter';
+import { withOpenAIRateLimit } from '@lib/rateLimiter';
 
 const openaiApiKey = process.env.OPENAI_API_KEY;
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -11,7 +11,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const PROMPT = (
   userText: string,
-) => `Du bist ein Experte für Problemstrukturierung. Bewerte den folgenden Text eines Nutzers entlang dieser Dimension auf einer Skala von 0 bis 10 (0 = sehr schlecht, 10 = exzellent). Gib zuerst nur die Zahl, dann ein kurzes Feedback (max. 2 Sätze), z. B.:
+) => `Du bist ein Experte für Problemstrukturierung. Bewerte den folgenden Text eines Nutzers entlang dieser Dimension auf einer Skala von 0 bis 10 (0 = sehr schlecht, 10 = exzellent). Gib zuerst nur die Zahl, dann ein kurzes Feedback (max. 2 Sätze), z. B.:
 
 Score: 7
 Feedback: Der Text zeigt eine gute Strukturierung, könnte aber noch klarer gegliedert sein.

@@ -13,9 +13,9 @@
 
 import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { withAdminRateLimit } from '../../../lib/rateLimiter';
-import { validateAdmin, ADMIN_SECURITY } from '../../../lib/schemas/admin.schemas';
-import { requireRole, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { withAdminRateLimit } from '@lib/rateLimiter';
+import { ADMIN_SECURITY } from '@lib/schemas/admin.schemas';
+import { requireRole, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -60,7 +60,7 @@ async function adminCreateTestUserDirectHandler(req: AuthenticatedRequest, res: 
     expiresAt.setHours(expiresAt.getHours() + duration);
 
     // Direct user_profiles creation (no auth dependency)
-    const { data: profileData, error: profileError } = await supabase
+    const { data: _profileData, error: profileError } = await supabase
       .from('user_profiles')
       .insert({
         id: testUserId,

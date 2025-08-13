@@ -14,7 +14,7 @@
 import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 // Initialize Supabase client with service role for API access
 const supabase = createClient(
@@ -72,7 +72,7 @@ async function foundationGenerateContentHandler(req: AuthenticatedRequest, res: 
   }
 
   // Get user from Auth Middleware (WP-C1 Migration)
-  const userId = getUserId(req); // User already validated by withAuth() middleware
+  const _userId = getUserId(req); // User already validated by withAuth() middleware
 
   try {
     const {
@@ -89,7 +89,7 @@ async function foundationGenerateContentHandler(req: AuthenticatedRequest, res: 
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    let generatedContent: any = {};
+    const generatedContent: any = {};
 
     // Generate Multiple Choice Questions
     if (learning_forms.includes('multiple_choice')) {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { logger, extractUserIdFromRequest, createPerformanceTimer } from './logger';
+import { logger, extractUserIdFromRequest } from './logger';
 
 // Rate limit configuration interface
 interface RateLimitConfig {

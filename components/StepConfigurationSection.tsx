@@ -4,7 +4,7 @@
 // =====================================================
 
 import React from 'react';
-import { StepConfigurationProps, ModuleConfigKey } from '../types/module-configuration.types';
+import { StepConfigurationProps, ModuleConfigKey } from '@project-types/module-configuration.types';
 
 // Module display names and descriptions for better UX
 const MODULE_INFO: Record<ModuleConfigKey, { name: string; description: string; icon: string }> = {

@@ -13,7 +13,7 @@
 
 import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { requireRole, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { requireRole, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 // Initialize Supabase client with service role key for admin operations
 const supabase = createClient(

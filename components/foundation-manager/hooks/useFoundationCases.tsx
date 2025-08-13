@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../../contexts/AuthContext';
-import { getSupabaseClient } from '../../../supabaseClient';
+import { useAuth } from '@contexts/AuthContext';
+import { getSupabaseClient } from 'supabaseClient';
 
 interface FoundationCase {
   id: string;

@@ -29,9 +29,9 @@
  * @see CONTRIBUTING.md
  * @see docs/navaa-development-guidelines.md
  */
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { withAuth, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { withAuth, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

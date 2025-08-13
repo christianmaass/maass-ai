@@ -1,7 +1,7 @@
 import {
   StepDefinition,
   TrackConfiguration,
-} from '../../../../shared/step-engine/types/step-engine.types';
+} from '@/shared/step-engine/types/step-engine.types';
 import Step1_Problem from '../steps/Step1_Problem';
 import Step2_Structure from '../steps/Step2_Structure';
 import Step3_Analysis from '../steps/Step3_Analysis';

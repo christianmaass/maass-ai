@@ -12,10 +12,8 @@
  */
 
 import { NextApiResponse } from 'next';
-import { getSupabaseClient } from '../../../supabaseClient';
-import { withRateLimit, RATE_LIMITS, userKeyGenerator } from '../../../lib/rateLimiter';
-import { logger } from '../../../lib/logger';
-import { requireRole, AuthenticatedRequest, getUserId } from '../../../lib/middleware/auth';
+import { logger } from '@lib/logger';
+import { requireRole, AuthenticatedRequest, getUserId } from '@lib/middleware/auth';
 
 // In-memory log storage for demo purposes
 // In production, you'd use a proper logging service like Winston with file/database storage
