@@ -11,7 +11,7 @@ jobs:
   update_release_draft:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       # On pull requests, perform a no-op so the required check passes.
       - name: Skip on pull_request (no-op)
         if: ${{ github.event_name == 'pull_request' }}
