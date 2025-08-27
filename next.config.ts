@@ -1,7 +1,20 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Sentry integration
+  sentry: {
+    hideSourceMaps: true,
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/tracks/strategy',
+        destination: '/strategy-track',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

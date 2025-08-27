@@ -1,4 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Navaa - AI Accelerated Learning Platform
+
+This is a [Next.js](https://nextjs.org) project for the Navaa music learning platform, built with TypeScript, Tailwind CSS, and Supabase authentication.
+
+## Project Structure
+
+### App Router Organization
+
+```
+src/app/
+├── (marketing)/          # Public marketing pages
+│   ├── page.tsx          # Landing page
+│   └── layout.tsx        # Marketing layout with header/footer
+├── (app)/                # Authenticated user pages
+│   ├── catalog/          # Course catalog
+│   ├── strategy-track/   # Strategy learning track
+│   │   └── strategy-onboarding/  # Strategy onboarding module
+│   └── tracks/[slug]/    # Dynamic track pages
+└── (admin)/              # Admin dashboard
+```
+
+### Shared Components
+
+```
+src/shared/ui/
+├── Button.tsx, Card.tsx, Link.tsx     # Base UI components
+├── components/
+│   ├── hero-banner.tsx               # HeroBanner & HeroBannerWithImage
+│   ├── course-card.tsx               # Course display cards
+│   ├── step-overview.tsx             # Multi-step process display
+│   └── ...                           # Other shared components
+└── index.ts                          # Barrel exports
+```
 
 ## Getting Started
 
@@ -6,19 +38,11 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) with Poppins font family for consistent typography.
 
 ## Learn More
 
