@@ -1,11 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Sentry integration
-  sentry: {
-    hideSourceMaps: true,
-  },
-
   async redirects() {
     return [
       {

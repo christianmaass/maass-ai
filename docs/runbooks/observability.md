@@ -1,6 +1,6 @@
 # Observability Setup
 
-## Sentry Integration
+## Sentry Integration (v8)
 
 ### Umgebungsvariablen
 
@@ -9,10 +9,10 @@ Füge folgende Variablen zu deiner `.env.local` hinzu:
 ```bash
 # Sentry
 SENTRY_DSN=your-sentry-dsn
-SENTRY_ENV=production
-NEXT_PUBLIC_SENTRY_DSN=your-sentry-dsn
-NEXT_PUBLIC_SENTRY_ENV=production
+SENTRY_ENV=development
 ```
+
+**Hinweis**: v8-API aktiv; `browserTracingIntegration()` statt `BrowserTracing`; kein `next.config.sentry` mehr erforderlich.
 
 ### Vercel Setup
 
@@ -21,8 +21,6 @@ NEXT_PUBLIC_SENTRY_ENV=production
 3. Füge die Sentry-Variablen hinzu:
    - `SENTRY_DSN`: Dein Sentry DSN
    - `SENTRY_ENV`: `production`, `staging`, etc.
-   - `NEXT_PUBLIC_SENTRY_DSN`: Gleicher DSN (für Client)
-   - `NEXT_PUBLIC_SENTRY_ENV`: Gleiche Environment
 
 ### Test der Integration
 
