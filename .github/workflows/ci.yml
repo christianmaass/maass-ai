@@ -39,7 +39,7 @@ jobs:
 
       - name: Upload Next.js cache (diagnostics)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: next-cache-${{ github.run_id }}
           path: .next/cache
