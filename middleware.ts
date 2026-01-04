@@ -13,7 +13,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // Check if route requires authentication
-  const isProtectedRoute = pathname.startsWith('/app') || pathname.startsWith('/admin') || pathname.startsWith('/courses');
+  const isProtectedRoute =
+    pathname.startsWith('/app') || pathname.startsWith('/admin') || pathname.startsWith('/courses');
 
   // Skip authentication for public routes
   if (!isProtectedRoute) {
@@ -33,7 +34,9 @@ export async function middleware(request: NextRequest) {
           getAll() {
             return request.cookies.getAll();
           },
-          setAll(cookiesToSet) {
+          setAll(
+            _cookiesToSet: Array<{ name: string; value: string; options?: Record<string, unknown> }>
+          ) {
             // Middleware can't set cookies, but Supabase SDK expects this
             // The actual cookie setting happens in the route handlers
           },
