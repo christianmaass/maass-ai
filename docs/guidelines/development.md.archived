@@ -1,0 +1,89 @@
+# Navaa Development Guidelines
+
+Ziel: Konsistentes, wartbares Next.js/Supabase-Projekt ohne Tech-Schulden.
+
+## 1) Architektur & Ordner
+
+- App Router: `src/app/(marketing)`, `src/app/(app)`, `src/app/(admin)`
+- Infra/Lib: `src/lib/{db,guards,schemas,rate-limit,cache,config}`
+- Shared: `src/shared/{ui,hooks,types,config}`
+- Components: `src/components/` (Domain-Komponenten wie `DecisionAssessment`)
+- Verboten: `pages/`-Ordner
+
+## 2) Supabase
+
+- Server-Client: `src/lib/db/createServerClient.ts` (SSR, Cookies)
+- Browser-Client: `src/lib/db/supabaseClient.ts` (nur NEXT_PUBLIC Keys)
+- Types regenerieren nach Schema-Änderungen
+
+## 3) Guards
+
+- (marketing): öffentliches Layout
+- (app): requires auth → Guard im `(app)/layout.tsx`
+- (admin): requires role=admin → Guard im `(admin)/layout.tsx`
+- Keine Page-level Guards
+
+**API Routes:**
+- Server Components/Pages: `requireAuth()`, `requireAdmin()` (redirect bei fehlender Auth)
+- API Routes: `getAuthUser()`, `getAdminUser()` (JSON-Response bei fehlender Auth)
+- Beispiel:
+  ```typescript
+  // API Route
+  import { getAuthUser } from '@/lib/auth/guards';
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  ```
+
+## 4) Styling
+
+- Tailwind + `app/globals.css` (CSS-Variablen)
+- UI-Primitives in `src/shared/ui`
+- Design Tokens: `navaa-*` CSS-Variablen für konsistente Farben/Spacing
+
+## 5) Validierung
+
+- **Zod-Schemas für alle Inputs** (Server Actions/APIs)
+- **Alle Auth-APIs müssen Zod-Schemas nutzen** (`LoginSchema`, `RegisterSchema`)
+- Typen via `z.infer`
+- Fehlerbehandlung: `ZodError` mit aussagekräftigen Fehlermeldungen
+- Beispiel:
+  ```typescript
+  import { LoginSchema } from '@/lib/schemas';
+  const { email, password } = LoginSchema.parse(body);
+  ```
+
+## 6) Daten & State
+
+- Bevorzugt Server Components + Server Actions
+- Client State sparsam
+
+## 7) Sicherheit
+
+- **ENV-Guards:** Nur `env.client.ts` und `env.server.ts` nutzen, nie direkt `process.env`
+- **Service Role Key** niemals im Client
+- **RLS** für private Tabellen
+- **Output filtern** (keine sensiblen Felder)
+- **Rate-Limiting:** Auth-APIs (`/api/auth/login`, `/api/auth/signup`) müssen Rate-Limiting haben
+  ```typescript
+  import { rateLimit } from '@/lib/rate-limit';
+  const result = await rateLimit(request, 5, 900); // 5 Requests/15min
+  ```
+- **API-Auth:** Alle geschützten API-Routen müssen `getAuthUser()` oder `getAdminUser()` nutzen
+
+## 8) Tests
+
+- E2E: Login → /app, Admin-Redirects, Auth-Guards
+- Unit: Helpers/Guards, Rate-Limiting, Validierung
+- Playwright für E2E-Tests (`tests/auth-guards.spec.ts`)
+
+## 9) CI-Gates
+
+- Typecheck, Lint, Build müssen grün sein
+- Verbot: `pages/` im Repo
+- Leak-Check: Service Role Key nicht im `.next`-Bundle
+
+## 10) ADRs
+
+- Größere Entscheidungen in `docs/adr/` dokumentieren

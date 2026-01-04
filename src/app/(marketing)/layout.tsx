@@ -12,9 +12,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Navaa',
-  description: 'Your music learning platform',
+  title: 'Navaa - Decision OS',
+  description: 'Make better decisions. Every time.',
 };
+
+// ISR: Marketing-Seiten werden alle 1 Stunde neu generiert
+export const revalidate = 3600;
 
 export default function MarketingLayout({ children }: { children: ReactNode }) {
   return (

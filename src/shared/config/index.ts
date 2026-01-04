@@ -1,7 +1,10 @@
+import { clientEnv } from '@/lib/config/env.client';
+import { serverEnv } from '@/lib/config/env.server';
+
 export const siteConfig = {
   name: 'Navaa',
-  description: 'Your music learning platform',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  description: 'Decision OS - Make better decisions. Every time.',
+  url: clientEnv.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   ogImage: '/og.jpg',
   links: {
     twitter: 'https://twitter.com/navaa',
@@ -10,7 +13,7 @@ export const siteConfig = {
 };
 
 export const supabaseConfig = {
-  url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  url: clientEnv.NEXT_PUBLIC_SUPABASE_URL,
+  anonKey: clientEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  serviceRoleKey: serverEnv.SUPABASE_SERVICE_ROLE_KEY,
 };

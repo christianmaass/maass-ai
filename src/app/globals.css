@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-navaa-warm-beige: #f6f4f0;
@@ -7,6 +7,10 @@
   --color-navaa-gray-600: #4b5563;
   --color-navaa-accent: #009e82;
   --font-family-sans: var(--font-poppins), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {

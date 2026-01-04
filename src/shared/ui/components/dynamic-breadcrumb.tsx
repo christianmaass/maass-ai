@@ -7,7 +7,7 @@ import { Icon } from './Icon';
 /**
  * Props for the DynamicBreadcrumb component
  * @typedef {Object} DynamicBreadcrumbProps
- * @property {string} basePath - The base path for the breadcrumb navigation (e.g., "/strategy-track")
+ * @property {string} basePath - The base path for the breadcrumb navigation (e.g., "/decisions")
  * @property {string} activeColor - CSS class for styling the active breadcrumb item (e.g., "text-navaa-accent")
  */
 interface DynamicBreadcrumbProps {
@@ -21,7 +21,7 @@ interface DynamicBreadcrumbProps {
  *
  * Features:
  * - Automatically segments the current path relative to the base path
- * - Converts kebab-case segments to readable names (e.g., "strategy-track" → "Strategy Track")
+ * - Converts kebab-case segments to readable names (e.g., "decisions" → "Decisions")
  * - Highlights the active/current page with custom styling
  * - Uses semantic HTML with proper ARIA labels for accessibility
  * - Includes chevron separators between breadcrumb items
@@ -34,7 +34,7 @@ interface DynamicBreadcrumbProps {
  * @example
  * ```tsx
  * <DynamicBreadcrumb
- *   basePath="/strategy-track"
+ *   basePath="/decisions"
  *   activeColor="text-navaa-accent"
  * />
  * ```

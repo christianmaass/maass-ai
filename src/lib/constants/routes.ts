@@ -1,5 +1,5 @@
 // Route constants for centralized route management
-export const PROTECTED_ROUTES = ['/catalog', '/admin', '/dashboard'] as const;
+export const PROTECTED_ROUTES = ['/admin', '/dashboard'] as const;
 export const AUTH_ROUTES = ['/login', '/register'] as const;
 
 // Type definitions for route safety

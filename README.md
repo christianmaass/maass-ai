@@ -1,60 +1,105 @@
-# Navaa - AI Accelerated Learning Platform
+# NAVAA
 
-This is a [Next.js](https://nextjs.org) project for the Navaa music learning platform, built with TypeScript, Tailwind CSS, and Supabase authentication.
+NAVAA ist **kein klassisches KI-Tool**.
 
-## Project Structure
+NAVAA ist ein **Denk- und Trainingssystem** für strategisches, unternehmerisches Denken, Beraten und Entscheiden unter Unsicherheit –  
+orientiert an der **Arbeitslogik führender Strategieberatungen** (z. B. :contentReference[oaicite:0]{index=0}).
 
-### App Router Organization
+NAVAA liefert keine schnellen Antworten.  
+NAVAA trainiert **Urteilsfähigkeit**.
 
-```
-src/app/
-├── (marketing)/          # Public marketing pages
-│   ├── page.tsx          # Landing page
-│   └── layout.tsx        # Marketing layout with header/footer
-├── (app)/                # Authenticated user pages
-│   ├── catalog/          # Course catalog
-│   ├── strategy-track/   # Strategy learning track
-│   │   └── strategy-onboarding/  # Strategy onboarding module
-│   └── tracks/[slug]/    # Dynamic track pages
-└── (admin)/              # Admin dashboard
-```
+---
 
-### Shared Components
+## Zweck von NAVAA
 
-```
-src/shared/ui/
-├── Button.tsx, Card.tsx, Link.tsx     # Base UI components
-├── components/
-│   ├── hero-banner.tsx               # HeroBanner & HeroBannerWithImage
-│   ├── course-card.tsx               # Course display cards
-│   ├── step-overview.tsx             # Multi-step process display
-│   └── ...                           # Other shared components
-└── index.ts                          # Barrel exports
-```
+NAVAA hilft Menschen, **besser zu denken**, nicht schneller zu antworten.
 
-## Getting Started
+Im Fokus stehen:
+- sauberes Problem Framing
+- klare Strukturierung (MECE-Denken)
+- hypothesengetriebenes Arbeiten
+- explizite Annahmen unter Unsicherheit
+- bewusste Trade-offs statt Scheinoptimierung
 
-First, run the development server:
+Entscheidungen sind **Ergebnis** dieses Denkprozesses – nicht dessen Startpunkt.
 
-```bash
-npm run dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Wie NAVAA funktioniert
 
-The project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) with Poppins font family for consistent typography.
+NAVAA bildet nicht den Consulting-Prozess als UI ab.  
+Stattdessen trainiert NAVAA Consulting-Denken über **konkrete Denk-Artefakte**.
 
-## Learn More
+Der Nutzer arbeitet aktiv mit diesen Artefakten.  
+Die KI reagiert darauf mit Feedback, Coaching und Challenge.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Denk-Artefakte (Arbeitsmodell)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Alle Arbeit in NAVAA basiert auf expliziten Denk-Artefakten:
 
-## Deploy on Vercel
+- **Objective** – klares, lösungsfreies Ziel
+- **Problem Statement** – zugrunde liegende Spannung, nicht das Symptom
+- **Options** – echte strategische Alternativen
+- **Assumptions** – explizite Annahmen, die wahr sein müssen
+- **Hypotheses** – Ursache–Wirkungs-Logik
+- **Trade-offs / Implications** – bewusste Entscheidungen über Vor- und Nachteile
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Diese Artefakte sind das **zentrale Domain-Modell** von NAVAA.  
+Alles weitere (Feedback, Dialog, Signale) bezieht sich ausschließlich darauf.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Rolle der KI
+
+Die KI in NAVAA agiert **nicht als Berater**  
+und **nicht als Entscheider**.
+
+Sie agiert als:
+- Sparringspartner
+- Coach
+- Senior-Partner-Perspektive
+
+Die KI:
+- gibt **konkretes, normatives Feedback** zur Denkqualität
+- benennt Schwächen, Lücken und Inkonsistenzen
+- erklärt, **warum** etwas strategisch unsauber oder riskant ist
+- stellt präzise, fordernde Rückfragen
+
+Die KI:
+- liefert **keine fertigen Lösungen**
+- erfindet **keine Optionen oder Hypothesen**
+- ersetzt **keine Denkleistung des Nutzers**
+
+> **Ohne vorherigen Nutzer-Input hat die KI nichts zu sagen.**
+
+---
+
+## Trainingsformate
+
+NAVAA arbeitet mit mehreren Trainingsmodi:
+
+### 1. Guided Training Cases
+Vordefinierte Trainingsfälle mit:
+- klarem Kontext
+- didaktischem Lernziel
+- typischen Denkfehlern
+- Referenz-Artefakten zur Kalibrierung
+
+### 2. Freies Sparring
+Eigene Fragestellungen mit dialogischem Feedback im Stil eines Senior Partners.
+
+### 3. Advanced (Ausbaustufe)
+KI-generierte Trainingscases, gezielt entlang erkannter Denk-Schwächen  
+– **der Fall wird generiert, nicht die Lösung**.
+
+---
+
+## Leitmaxime
+
+> **NAVAA nutzt KI nicht, um für Menschen zu denken,  
+> sondern um ihr Denken herauszufordern, zu schärfen und zu kalibrieren.**
+
+Wenn ein Feature Denken bequemer macht, aber nicht besser,  
+ist es für NAVAA falsch.

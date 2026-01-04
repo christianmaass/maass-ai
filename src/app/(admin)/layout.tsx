@@ -4,6 +4,10 @@ import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// No-Store: Admin-Seiten sind dynamisch und werden nicht gecacht
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'default-no-store';
+
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className={inter.className}>

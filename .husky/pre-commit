@@ -1,1 +1,18 @@
-npx lint-staged
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Format code
+echo "📝 Formatting code..."
+npm run format
+
+# Lint code
+echo "🧹 Linting code..."
+npm run lint
+
+# Type check
+echo "🔍 Type checking..."
+npm run typecheck
+
+echo "✅ Pre-commit checks passed!"

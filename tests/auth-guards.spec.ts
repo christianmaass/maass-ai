@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Authentication Guards - Unauthenticated Users', () => {
-  test('should redirect unauthenticated user from /catalog to /login', async ({ page }) => {
-    await page.goto('/catalog');
+  test('should redirect unauthenticated user from /app to /login', async ({ page }) => {
+    await page.goto('/app');
     await expect(page).toHaveURL('/login');
   });
 
@@ -14,13 +14,13 @@ test.describe('Authentication Guards - Unauthenticated Users', () => {
   test('should allow access to marketing pages without auth', async ({ page }) => {
     await page.goto('/');
     await expect(page).toHaveURL('/');
-    await expect(page.locator('h1')).toContainText('Welcome to Navaa');
+    await expect(page.locator('h1')).toContainText('Make better decisions');
   });
 
   test('should allow access to login and register pages', async ({ page }) => {
     await page.goto('/login');
     await expect(page).toHaveURL('/login');
-    await expect(page.locator('h2')).toContainText('Sign in to your account');
+    await expect(page.locator('h2')).toContainText('Anmelden');
 
     await page.goto('/register');
     await expect(page).toHaveURL('/register');
@@ -38,18 +38,18 @@ test.describe.skip('Authentication Guards - Authenticated Users', () => {
     await expect(page).toHaveURL('/dashboard');
   });
 
-  test('should allow access to /catalog for authenticated user', async ({ page }) => {
-    await page.goto('/catalog');
-    await expect(page).toHaveURL('/catalog');
+  test('should allow access to /app for authenticated user', async ({ page }) => {
+    await page.goto('/app');
+    await expect(page).toHaveURL('/app');
   });
 
-  test('should redirect authenticated user from /login to /catalog', async ({ page }) => {
+  test('should redirect authenticated user from /login to /app', async ({ page }) => {
     await page.goto('/login');
-    await expect(page).toHaveURL('/catalog');
+    await expect(page).toHaveURL('/app');
   });
 
-  test('should redirect authenticated user from /register to /catalog', async ({ page }) => {
+  test('should redirect authenticated user from /register to /app', async ({ page }) => {
     await page.goto('/register');
-    await expect(page).toHaveURL('/catalog');
+    await expect(page).toHaveURL('/app');
   });
 });

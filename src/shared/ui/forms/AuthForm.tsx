@@ -42,12 +42,12 @@ export function AuthForm({ type }: AuthFormProps) {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || 'An error occurred');
+        setError(result.error || 'Ein Fehler ist aufgetreten');
         return;
       }
 
       if (type === 'login') {
-        router.push('/catalog');
+        router.push('/app');
         router.refresh();
       } else {
         setMessage(result.message);
@@ -56,7 +56,7 @@ export function AuthForm({ type }: AuthFormProps) {
       if (err instanceof z.ZodError) {
         setError(err.issues[0].message);
       } else {
-        setError('An unexpected error occurred');
+        setError('Ein unerwarteter Fehler ist aufgetreten');
       }
     } finally {
       setLoading(false);
@@ -65,7 +65,7 @@ export function AuthForm({ type }: AuthFormProps) {
 
   const handlePasswordReset = async () => {
     if (!formData.email) {
-      setError('Please enter your email address first');
+      setError('Bitte geben Sie zuerst Ihre E-Mail-Adresse ein');
       return;
     }
 
@@ -85,13 +85,13 @@ export function AuthForm({ type }: AuthFormProps) {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || 'An error occurred');
+        setError(result.error || 'Ein Fehler ist aufgetreten');
         return;
       }
 
       setMessage(result.message);
     } catch {
-      setError('An unexpected error occurred');
+      setError('Ein unerwarteter Fehler ist aufgetreten');
     } finally {
       setLoading(false);
     }
@@ -114,7 +114,7 @@ export function AuthForm({ type }: AuthFormProps) {
         {type === 'signup' && (
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Full Name
+              Vollständiger Name
             </label>
             <input
               id="name"
@@ -130,7 +130,7 @@ export function AuthForm({ type }: AuthFormProps) {
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            Email Address
+            E-Mail-Adresse
           </label>
           <input
             id="email"
@@ -145,7 +145,7 @@ export function AuthForm({ type }: AuthFormProps) {
 
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password
+            Passwort
           </label>
           <input
             id="password"
@@ -163,9 +163,9 @@ export function AuthForm({ type }: AuthFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-navaa-accent hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navaa-accent disabled:opacity-50"
         >
-          {loading ? 'Loading...' : type === 'login' ? 'Sign In' : 'Sign Up'}
+          {loading ? 'Lädt...' : type === 'login' ? 'Anmelden' : 'Registrieren'}
         </button>
       </div>
 
@@ -174,9 +174,9 @@ export function AuthForm({ type }: AuthFormProps) {
           <button
             type="button"
             onClick={handlePasswordReset}
-            className="text-sm text-indigo-600 hover:text-indigo-500"
+            className="text-sm text-navaa-accent hover:text-green-600"
           >
-            Forgot your password?
+            Passwort vergessen?
           </button>
         </div>
       )}

@@ -1,7 +1,14 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
+import { ImpressumOverlay } from './impressum-overlay';
+import { PrivacyPolicyOverlay } from './privacy-policy-overlay';
 
 export function MarketingFooter() {
   const currentYear = new Date().getFullYear();
+  const [isImpressumOpen, setIsImpressumOpen] = useState(false);
+  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
 
   return (
     <footer className="bg-navaa-warm-beige text-navaa-gray-900">
@@ -11,45 +18,44 @@ export function MarketingFooter() {
           <div className="lg:col-span-2">
             <h3 className="text-xl font-bold mb-4">navaa</h3>
             <p className="text-navaa-gray-600">
-              Lern nicht härter - lern smarter. navaa nutzt KI, um dich schneller als andere
-              Lernmethoden zu enablen.
+              Train judgment, not prompts.
             </p>
           </div>
 
-          {/* navaa für Column */}
+          {/* Solutions Column */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">navaa für</h4>
+            <h4 className="text-lg font-semibold mb-4">Solutions</h4>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/einzelpersonen"
+                  href="/learning-path"
                   className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
                 >
-                  Einzelpersonen
+                  Learning Path
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/unternehmen"
+                  href="/thinking-gym"
                   className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
                 >
-                  Unternehmen
+                  Thinking Gym
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/hochschulen"
+                  href="/daily-drills"
                   className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
                 >
-                  Hochschulen
+                  Daily Drills
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Unternehmen Column */}
+          {/* Company Column */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Unternehmen</h4>
+            <h4 className="text-lg font-semibold mb-4">About</h4>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -61,49 +67,41 @@ export function MarketingFooter() {
               </li>
               <li>
                 <Link
-                  href="/lernansatz"
-                  className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
-                >
-                  Unser Lernansatz
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/kontakt"
                   className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
                 >
-                  Kontakt
+                  Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Rechtliches Column */}
+          {/* Legal Column */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Rechtliches</h4>
+            <h4 className="text-lg font-semibold mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <Link
-                  href="/impressum"
+                <button
+                  onClick={() => setIsImpressumOpen(true)}
                   className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
                 >
-                  Impressum
-                </Link>
+                  Legal Notice
+                </button>
               </li>
               <li>
-                <Link
-                  href="/datenschutz"
+                <button
+                  onClick={() => setIsPrivacyPolicyOpen(true)}
                   className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
                 >
-                  Datenschutz
-                </Link>
+                  Privacy Policy
+                </button>
               </li>
               <li>
                 <Link
                   href="/agb"
                   className="text-navaa-gray-600 hover:text-navaa-accent transition-colors duration-200"
                 >
-                  AGB
+                  Terms & Conditions
                 </Link>
               </li>
             </ul>
@@ -113,10 +111,18 @@ export function MarketingFooter() {
         {/* Copyright */}
         <div className="mt-8 pt-8">
           <p className="text-center text-navaa-gray-600">
-            © {currentYear} Navaa. Alle Rechte vorbehalten.
+            © {currentYear} navaa. All rights reserved.
           </p>
         </div>
       </div>
+      <ImpressumOverlay
+        isOpen={isImpressumOpen}
+        onClose={() => setIsImpressumOpen(false)}
+      />
+      <PrivacyPolicyOverlay
+        isOpen={isPrivacyPolicyOpen}
+        onClose={() => setIsPrivacyPolicyOpen(false)}
+      />
     </footer>
   );
 }

@@ -1,80 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Debug Cards</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'navaa-warm-beige': '#f6f4f0',
-                        'navaa-gray-900': '#1f2937',
-                        'navaa-gray-600': '#4b5563',
-                        'navaa-accent': '#009e82'
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'navaa-warm-beige': '#f6f4f0',
+              'navaa-gray-900': '#1f2937',
+              'navaa-gray-600': '#4b5563',
+              'navaa-accent': '#009e82',
+            },
+          },
+        },
+      };
     </script>
-</head>
-<body class="bg-gray-100 p-8">
+  </head>
+  <body class="bg-gray-100 p-8">
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-2xl font-bold mb-8">Card Debug Test</h1>
-        
-        <!-- Test 1: Basic rounded card -->
-        <div class="mb-8">
-            <h2 class="text-lg font-semibold mb-4">Test 1: Basic Card with overflow-hidden</h2>
-            <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col w-80">
-                <div class="relative h-48 w-full bg-red-200">
-                    <div class="w-full h-full bg-blue-500 flex items-center justify-center text-white">
-                        Image Placeholder
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="font-semibold">Test Card</h3>
-                    <p class="text-gray-600">Should have rounded top corners</p>
-                </div>
-            </div>
-        </div>
+      <h1 class="text-2xl font-bold mb-8">Card Debug Test</h1>
 
-        <!-- Test 2: With actual image -->
-        <div class="mb-8">
-            <h2 class="text-lg font-semibold mb-4">Test 2: With Image</h2>
-            <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col w-80">
-                <div class="relative h-48 w-full">
-                    <img 
-                        src="/images/einführung-strategy-5-steps.png" 
-                        alt="Test" 
-                        class="w-full h-full object-cover"
-                    />
-                </div>
-                <div class="p-6">
-                    <h3 class="font-semibold">Image Card</h3>
-                    <p class="text-gray-600">Should have rounded top corners</p>
-                </div>
+      <!-- Test 1: Basic rounded card -->
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">Test 1: Basic Card with overflow-hidden</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col w-80">
+          <div class="relative h-48 w-full bg-red-200">
+            <div class="w-full h-full bg-blue-500 flex items-center justify-center text-white">
+              Image Placeholder
             </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-semibold">Test Card</h3>
+            <p class="text-gray-600">Should have rounded top corners</p>
+          </div>
         </div>
+      </div>
 
-        <!-- Test 3: Force rounded with important -->
-        <div class="mb-8">
-            <h2 class="text-lg font-semibold mb-4">Test 3: Force Rounded</h2>
-            <div class="bg-white shadow-md flex flex-col w-80" style="border-radius: 0.75rem !important; overflow: hidden !important;">
-                <div class="relative h-48 w-full">
-                    <img 
-                        src="/images/einführung-strategy-5-steps.png" 
-                        alt="Test" 
-                        class="w-full h-full object-cover"
-                    />
-                </div>
-                <div class="p-6">
-                    <h3 class="font-semibold">Forced Rounded</h3>
-                    <p class="text-gray-600">Should definitely have rounded corners</p>
-                </div>
-            </div>
+      <!-- Test 2: With actual image -->
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">Test 2: With Image</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col w-80">
+          <div class="relative h-48 w-full">
+            <img
+              src="/images/einführung-strategy-5-steps.png"
+              alt="Test"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="font-semibold">Image Card</h3>
+            <p class="text-gray-600">Should have rounded top corners</p>
+          </div>
         </div>
+      </div>
+
+      <!-- Test 3: Force rounded with important -->
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">Test 3: Force Rounded</h2>
+        <div
+          class="bg-white shadow-md flex flex-col w-80"
+          style="border-radius: 0.75rem !important; overflow: hidden !important"
+        >
+          <div class="relative h-48 w-full">
+            <img
+              src="/images/einführung-strategy-5-steps.png"
+              alt="Test"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="font-semibold">Forced Rounded</h3>
+            <p class="text-gray-600">Should definitely have rounded corners</p>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

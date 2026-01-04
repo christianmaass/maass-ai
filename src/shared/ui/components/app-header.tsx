@@ -1,7 +1,27 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export function AppHeader() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        router.push('/');
+        router.refresh();
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <header className="bg-navaa-warm-beige">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,29 +44,17 @@ export function AppHeader() {
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
-              href="/catalog"
-              className="text-navaa-gray-700 hover:text-navaa-accent transition-colors duration-200"
-            >
-              Kurskatalog
-            </Link>
-            <Link
-              href="/progress"
-              className="text-navaa-gray-700 hover:text-navaa-accent transition-colors duration-200"
-            >
-              Dein Lernfortschritt
-            </Link>
-            <Link
-              href="/toolkit"
-              className="text-navaa-gray-700 hover:text-navaa-accent transition-colors duration-200"
-            >
-              Methodenbaukasten
-            </Link>
-            <Link
               href="/account"
               className="text-navaa-gray-700 hover:text-navaa-accent transition-colors duration-200"
             >
               Dein Konto
             </Link>
+            <button
+              onClick={handleLogout}
+              className="text-navaa-gray-700 hover:text-navaa-accent transition-colors duration-200"
+            >
+              Abmelden
+            </button>
           </div>
 
           {/* Mobile menu button */}
