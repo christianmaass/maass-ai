@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   }
   // Rate-Limiting: 3 Requests pro Stunde (striktes Limit für Email-APIs)
   const rateLimitResult = await rateLimit(request, 3, 3600);
-  
+
   if (!rateLimitResult.success) {
     return NextResponse.json(
       {
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     // Zod-Validierungsfehler
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors[0].message },
+        { error: error.issues?.[0]?.message ?? 'Validation error' },
         { status: 400 }
       );
     }
@@ -67,11 +67,11 @@ export async function POST(request: NextRequest) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Unexpected error during password reset:', error);
     } else {
-      console.error('Unexpected password reset error:', error instanceof Error ? error.name : 'UnknownError');
+      console.error(
+        'Unexpected password reset error:',
+        error instanceof Error ? error.name : 'UnknownError'
+      );
     }
-    return NextResponse.json(
-      { error: 'Invalid email address' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
   }
 }

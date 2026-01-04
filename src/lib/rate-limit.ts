@@ -25,17 +25,12 @@ function getClientIP(request: NextRequest): string {
     return cfConnectingIP.split(',')[0].trim();
   }
 
-  // Direkte Verbindung (kein Proxy) - request.ip ist vertrauenswürdig
-  if (request.ip) {
-    return request.ip;
-  }
-
   // SECURITY: x-forwarded-for und x-real-ip können von Clients manipuliert werden
   // Nur in Development verwenden, wenn kein Proxy vorhanden ist
   if (process.env.NODE_ENV === 'development') {
     const forwardedFor = request.headers.get('x-forwarded-for');
     const realIP = request.headers.get('x-real-ip');
-    
+
     if (forwardedFor) {
       // In Development: Nehme erste IP, aber logge Warnung
       console.warn('Using x-forwarded-for in development - not secure for production');
@@ -49,12 +44,12 @@ function getClientIP(request: NextRequest): string {
 
   // Fallback: Warnung loggen wenn IP nicht bestimmt werden kann
   console.warn('Could not determine client IP - using fallback');
-  return 'unknown';
+  return '0.0.0.0';
 }
 
 /**
  * Rate-Limiting mit Redis (Upstash) oder in-memory Fallback
- * 
+ *
  * @param request - Next.js Request
  * @param limit - Maximale Anzahl Requests
  * @param windowSeconds - Zeitfenster in Sekunden
@@ -68,10 +63,8 @@ export async function rateLimit(
   identifier?: string
 ): Promise<RateLimitResult> {
   const ip = getClientIP(request);
-  const key = identifier 
-    ? `rate-limit:${identifier}:${ip}`
-    : `rate-limit:${ip}`;
-  
+  const key = identifier ? `rate-limit:${identifier}:${ip}` : `rate-limit:${ip}`;
+
   const now = Date.now();
   const windowMs = windowSeconds * 1000;
   const resetAt = now + windowMs;
@@ -79,7 +72,7 @@ export async function rateLimit(
   try {
     // Versuche Redis zu nutzen
     const cached = await getCache<{ count: number; resetAt: number }>(key);
-    
+
     if (cached) {
       // Prüfe ob Window abgelaufen ist
       if (now > cached.resetAt) {
@@ -127,9 +120,9 @@ export async function rateLimit(
   } catch (error) {
     // Redis nicht verfügbar, nutze in-memory Fallback
     console.warn('Redis rate-limit failed, using memory fallback:', error);
-    
+
     const cached = memoryStore.get(key);
-    
+
     if (cached) {
       if (now > cached.resetAt) {
         // Window abgelaufen
@@ -162,7 +155,7 @@ export async function rateLimit(
 
     // Erster Request
     memoryStore.set(key, { count: 1, resetAt });
-    
+
     // Cleanup alte Einträge (alle 100 Requests)
     if (memoryStore.size > 1000) {
       for (const [k, v] of memoryStore.entries()) {
@@ -180,4 +173,3 @@ export async function rateLimit(
     };
   }
 }
-

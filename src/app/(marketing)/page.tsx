@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/shared/ui/Button';
 import { CredentialCard } from '@/shared/ui/components/credential-card';
@@ -98,12 +97,10 @@ export default function Home() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-navaa-gray-900 mb-3">
-                  Problem
-                </h3>
+                <h3 className="text-xl font-semibold text-navaa-gray-900 mb-3">Problem</h3>
                 <p className="text-navaa-gray-700 leading-relaxed">
-                  AI makes answers cheap – but often weakens one's own thinking.
-                  Judgment is silently outsourced.
+                  AI makes answers cheap – but often weakens one&apos;s own thinking. Judgment is
+                  silently outsourced.
                 </p>
               </div>
             </div>
@@ -120,11 +117,10 @@ export default function Home() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-navaa-gray-900 mb-3">
-                  Solution
-                </h3>
+                <h3 className="text-xl font-semibold text-navaa-gray-900 mb-3">Solution</h3>
                 <p className="text-navaa-gray-700 leading-relaxed">
-                  navaa exists as a counterpoint, leveraging AI to sharpen real-world thinking and judgment.
+                  navaa exists as a counterpoint, leveraging AI to sharpen real-world thinking and
+                  judgment.
                 </p>
               </div>
             </div>
@@ -141,13 +137,11 @@ export default function Home() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-navaa-gray-900 mb-3">
-                  Application
-                </h3>
+                <h3 className="text-xl font-semibold text-navaa-gray-900 mb-3">Application</h3>
                 <p className="text-navaa-gray-700 leading-relaxed">
-                  You work on problems like a consultant:
-                  clarify the question, create structure, test assumptions, weigh options –
-                  AI serves as a sparring partner, not as a replacement.
+                  You work on problems like a consultant: clarify the question, create structure,
+                  test assumptions, weigh options – AI serves as a sparring partner, not as a
+                  replacement.
                 </p>
               </div>
             </div>
@@ -157,7 +151,6 @@ export default function Home() {
 
       {/* Who This Is For Section */}
       <WhoThisIsForSection />
-
     </div>
   );
 }
