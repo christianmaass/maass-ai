@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   }
   // Rate-Limiting: 5 Requests pro 15 Minuten
   const rateLimitResult = await rateLimit(request, 5, 900);
-  
+
   if (!rateLimitResult.success) {
     return NextResponse.json(
       {
@@ -75,25 +75,21 @@ export async function POST(request: NextRequest) {
 
     if (data.user) {
       // Erfolgreiche Anmeldung
-      return NextResponse.json({ 
-        success: true, 
-        user: { 
-          id: data.user.id, 
-          email: data.user.email 
-        } 
+      return NextResponse.json({
+        success: true,
+        user: {
+          id: data.user.id,
+          email: data.user.email,
+        },
       });
     }
 
-    return NextResponse.json(
-      { error: 'Unerwarteter Fehler bei der Anmeldung' },
-      { status: 500 }
-    );
-
+    return NextResponse.json({ error: 'Unerwarteter Fehler bei der Anmeldung' }, { status: 500 });
   } catch (error) {
     // Zod-Validierungsfehler
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors[0].message },
+        { error: error.issues?.[0]?.message ?? 'Validation error' },
         { status: 400 }
       );
     }
@@ -103,11 +99,11 @@ export async function POST(request: NextRequest) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Unexpected error during login:', error);
     } else {
-      console.error('Unexpected login error:', error instanceof Error ? error.name : 'UnknownError');
+      console.error(
+        'Unexpected login error:',
+        error instanceof Error ? error.name : 'UnknownError'
+      );
     }
-    return NextResponse.json(
-      { error: 'Ein unerwarteter Fehler ist aufgetreten' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Ein unerwarteter Fehler ist aufgetreten' }, { status: 500 });
   }
 }

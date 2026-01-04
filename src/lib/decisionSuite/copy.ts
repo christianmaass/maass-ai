@@ -1,12 +1,8 @@
-import type {
-  DecisionSuiteV1AggregatedResult,
-  HintBand,
-  Pattern,
-} from '@/lib/decisionSuite/types';
+import type { DecisionSuiteV1AggregatedResult, HintBand, Pattern } from '@/lib/decisionSuite/types';
 
 /**
  * UI Copy Type
- * 
+ *
  * Repräsentiert die deterministische UI-Copy für Decision Suite v1.
  */
 export interface DecisionSuiteCopy {
@@ -30,16 +26,25 @@ export interface DecisionSuiteCopy {
 /**
  * Copy-Dictionary für Deutsch
  */
+// Reusable NO_HINT copy constant
+const NO_HINT_COPY_DE: Omit<DecisionSuiteCopy, 'focus_question'> & { focus_question: string } = {
+  hint_label: 'Kein Strukturhinweis',
+  result_line: 'Die Entscheidungsstruktur wirkt konsistent.',
+  focus_question: '', // Wird nicht verwendet, aber für Type-Sicherheit
+};
+
 const copyDE: Record<
   HintBand,
-  Record<Pattern | 'default', Omit<DecisionSuiteCopy, 'focus_question'> & { focus_question: string }>
+  Record<
+    Pattern | 'default',
+    Omit<DecisionSuiteCopy, 'focus_question'> & { focus_question: string }
+  >
 > = {
   NO_HINT: {
-    default: {
-      hint_label: 'Kein Strukturhinweis',
-      result_line: 'Die Entscheidungsstruktur wirkt konsistent.',
-      focus_question: '', // Wird nicht verwendet, aber für Type-Sicherheit
-    },
+    default: NO_HINT_COPY_DE,
+    OUTCOME_AS_VALIDATION: NO_HINT_COPY_DE,
+    MEANS_BEFORE_ENDS: NO_HINT_COPY_DE,
+    OBJECTIVE_VAGUENESS: NO_HINT_COPY_DE,
   },
   CLARIFICATION_NEEDED: {
     OBJECTIVE_VAGUENESS: {
@@ -90,16 +95,25 @@ const copyDE: Record<
 /**
  * Copy-Dictionary für Englisch
  */
+// Reusable NO_HINT copy constant
+const NO_HINT_COPY_EN: Omit<DecisionSuiteCopy, 'focus_question'> & { focus_question: string } = {
+  hint_label: 'No Structural Hint',
+  result_line: 'The decision structure appears consistent.',
+  focus_question: '', // Wird nicht verwendet, aber für Type-Sicherheit
+};
+
 const copyEN: Record<
   HintBand,
-  Record<Pattern | 'default', Omit<DecisionSuiteCopy, 'focus_question'> & { focus_question: string }>
+  Record<
+    Pattern | 'default',
+    Omit<DecisionSuiteCopy, 'focus_question'> & { focus_question: string }
+  >
 > = {
   NO_HINT: {
-    default: {
-      hint_label: 'No Structural Hint',
-      result_line: 'The decision structure appears consistent.',
-      focus_question: '', // Wird nicht verwendet, aber für Type-Sicherheit
-    },
+    default: NO_HINT_COPY_EN,
+    OUTCOME_AS_VALIDATION: NO_HINT_COPY_EN,
+    MEANS_BEFORE_ENDS: NO_HINT_COPY_EN,
+    OBJECTIVE_VAGUENESS: NO_HINT_COPY_EN,
   },
   CLARIFICATION_NEEDED: {
     OBJECTIVE_VAGUENESS: {
@@ -149,25 +163,25 @@ const copyEN: Record<
 
 /**
  * Leitet deterministisch UI-Copy aus dem aggregierten Result ab.
- * 
+ *
  * Diese Funktion ist eine reine Mapping-Funktion.
  * - Keine LLM
  * - Keine Inferenz
  * - Keine neue Analyse
  * - Nur hint_band + primary_pattern + language → Copy
- * 
+ *
  * Mapping-Regeln:
  * 1) Wenn hint_band === "NO_HINT":
  *    - Immer hint_label und result_line zurückgeben
  *    - KEIN focus_question zurückgeben
  *    - primary_pattern wird ignoriert
- * 
+ *
  * 2) Wenn hint_band !== "NO_HINT":
  *    - primary_pattern verwenden, um Copy auszuwählen
  *    - Wenn primary_pattern === null:
  *      - Band-spezifische Default-Copy verwenden
  *    - Immer focus_question zurückgeben
- * 
+ *
  * @param aggregated - Aggregiertes Decision Suite v1 Result
  * @param language - Sprache ("DE" | "EN")
  * @returns UI-Copy-Objekt
@@ -193,7 +207,7 @@ export function deriveDecisionSuiteCopy(
 
   // Regel 2: Andere Bands
   const bandCopy = copyDict[hint_band];
-  
+
   // Wähle Pattern-spezifische Copy oder Default
   const patternKey: Pattern | 'default' = primary_pattern ?? 'default';
   const copy = bandCopy[patternKey];
@@ -204,4 +218,3 @@ export function deriveDecisionSuiteCopy(
     focus_question: copy.focus_question,
   };
 }
-
