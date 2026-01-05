@@ -1,20 +1,20 @@
 /**
  * Decision Suite v1 Types
- * 
+ *
  * Client-seitige Type-Definitionen für Decision Suite v1.
  * Diese Types können sowohl client- als auch server-seitig verwendet werden.
  */
 
 /**
  * Pattern Type
- * 
+ *
  * Bekannte strukturelle Pattern-Identifikatoren.
  */
 export type Pattern = 'OUTCOME_AS_VALIDATION' | 'MEANS_BEFORE_ENDS' | 'OBJECTIVE_VAGUENESS';
 
 /**
  * Hint Band Type
- * 
+ *
  * Diskretes Band für Hinweis-Intensität.
  * Diese Werte sind Heuristiken, keine Urteile.
  */
@@ -22,7 +22,7 @@ export type HintBand = 'NO_HINT' | 'CLARIFICATION_NEEDED' | 'STRUCTURALLY_UNCLEA
 
 /**
  * Signals Type
- * 
+ *
  * Strukturelle Signale, die aus ClassifierFlags beobachtet werden.
  */
 export interface Signals {
@@ -38,12 +38,12 @@ export interface Signals {
 
 /**
  * Decision Suite v1 Aggregated Result
- * 
+ *
  * Single Source of Truth für die vollständige Decision Suite v1 Response.
- * 
+ *
  * Diese Type-Definition repräsentiert den finalen aggregierten Output-Contract
  * und wird sowohl in der API-Route als auch in downstream usage verwendet.
- * 
+ *
  * Die Struktur entspricht exakt dem DecisionSuiteV1ResponseSchema (Zod).
  */
 export interface DecisionSuiteV1AggregatedResult {
@@ -76,4 +76,3 @@ export interface DecisionSuiteV1AggregatedResult {
    */
   primary_pattern: Pattern | null;
 }
-

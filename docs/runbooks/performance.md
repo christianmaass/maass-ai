@@ -3,6 +3,7 @@
 ### Entfernte ungenutzte Exports
 
 #### UI-Komponenten
+
 - ❌ `HeroBanner` (nicht verwendet)
 - ❌ `Breadcrumb` (nicht verwendet)
 - ✅ `HeroBannerWithImage` (behalten - verwendet)
@@ -11,13 +12,16 @@
 - ✅ `ProgressBar` (behalten - verwendet)
 
 #### Cache-Funktionen
+
 - ❌ `invalidateCachePattern` (nicht unterstützt von Upstash REST)
 - ❌ `isCacheEnabled` (nicht verwendet)
 
 #### Konfiguration
+
 - ❌ `src/lib/config/env.ts` (ersetzt durch env.client.ts/env.server.ts)
 
 #### Hooks & Types
+
 - ❌ `useLocalStorage` (nicht verwendet)
 - ❌ `useDebounce` (nicht verwendet)
 - ❌ `User`, `Track`, `ApiResponse` Types (nicht verwendet)
@@ -34,6 +38,7 @@
 ### Implementierte Cache-Verbesserungen
 
 #### 1. Robuste Fehlerbehandlung
+
 ```typescript
 // Vorher: Cache-Fehler führen zu API-Fehlern
 await setCache(cacheKey, courses, 3600);
@@ -47,6 +52,7 @@ try {
 ```
 
 #### 2. Verbessertes Logging & Monitoring
+
 ```typescript
 // Neue Cache-Status-API
 GET /api/cache/status
@@ -65,12 +71,14 @@ GET /api/cache/status
 ```
 
 #### 3. Performance-Verbesserungen
+
 - **Default TTL**: Konfigurierbare Standard-TTL (3600s)
 - **Error Recovery**: Graceful Degradation bei Cache-Fehlern
 - **Statistiken**: Monitoring und Debugging-Informationen
 - **Verbesserte Fehlerbehandlung**: Detaillierte Logs für Troubleshooting
 
 #### 4. Cache-Strategie optimiert
+
 ```typescript
 // Vorher: Doppelte Cache-Invalidierung
 revalidateTag('courses');

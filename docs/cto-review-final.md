@@ -11,6 +11,7 @@
 ### ✅ Clean Base: JA
 
 Die Codebase ist:
+
 - **Lightweight:** ~320KB, 65 TypeScript-Dateien
 - **Sauber:** Keine technischen Schulden, keine TODOs
 - **Modern:** Next.js 15, React 19, TypeScript strict
@@ -19,17 +20,17 @@ Die Codebase ist:
 
 ## 📊 Codebase-Metriken
 
-| Metrik | Wert | Status |
-|--------|------|--------|
-| TypeScript-Dateien | 65 | ✅ |
-| Codebase-Größe | ~320KB | ✅ Lightweight |
-| Exports | 82 | ✅ Alle verwendet |
-| Linter-Fehler | 0 | ✅ |
-| TypeScript-Fehler | 0 | ✅ |
-| TODO/FIXME | 0 | ✅ |
-| Ungenutzte Dependencies | 0 | ✅ |
-| Leere Verzeichnisse | 0 | ✅ |
-| Ungenutzte Exports | 0 | ✅ |
+| Metrik                  | Wert   | Status            |
+| ----------------------- | ------ | ----------------- |
+| TypeScript-Dateien      | 65     | ✅                |
+| Codebase-Größe          | ~320KB | ✅ Lightweight    |
+| Exports                 | 82     | ✅ Alle verwendet |
+| Linter-Fehler           | 0      | ✅                |
+| TypeScript-Fehler       | 0      | ✅                |
+| TODO/FIXME              | 0      | ✅                |
+| Ungenutzte Dependencies | 0      | ✅                |
+| Leere Verzeichnisse     | 0      | ✅                |
+| Ungenutzte Exports      | 0      | ✅                |
 
 ## ✅ Behobene Probleme
 
@@ -44,11 +45,13 @@ Die Codebase ist:
 ## ⚠️ Bewusste Entscheidungen
 
 ### DecisionAssessment-Fragen
+
 - **Status:** Fragen enthalten noch "Strategie"
 - **Grund:** Vom Nutzer so formuliert und gewünscht
 - **Bewertung:** OK - Fragen sind decision-relevant, auch wenn sie "Strategie" erwähnen
 
 ### Unbenutzte Komponenten-Dateien
+
 - **Status:** `CriteriaScorecard`, `HeroBannerWithImage`, etc. existieren noch
 - **Grund:** Können für zukünftige Features nützlich sein
 - **Bewertung:** OK - Dateien sind klein, nicht im Bundle wenn nicht importiert
@@ -113,6 +116,7 @@ Die Codebase ist:
 **Rating: 9/10**
 
 **Begründung:**
+
 - ✅ Saubere Basis ohne technische Schulden
 - ✅ Moderne Tech-Stack
 - ✅ Gute Architektur
@@ -120,4 +124,3 @@ Die Codebase ist:
 - ⚠️ DecisionAssessment-Fragen könnten noch decision-fokussierter sein (aber bewusst so gewünscht)
 
 **Empfehlung: APPROVED für Decision OS Entwicklung**
-

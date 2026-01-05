@@ -13,12 +13,15 @@ interface ArtifactFormProps {
 export function ArtifactForm({ onSubmit, isLoading = false }: ArtifactFormProps) {
   const [objective, setObjective] = useState('');
   const [problemStatement, setProblemStatement] = useState('');
-  const [options, setOptions] = useState<Array<{ id?: string; text: string; trade_offs?: string }>>([
-    { text: '' },
-    { text: '' },
-  ]);
-  const [assumptions, setAssumptions] = useState<Array<{ id?: string; text: string; evidence?: string }>>([]);
-  const [hypotheses, setHypotheses] = useState<Array<{ id?: string; text: string; test?: string }>>([]);
+  const [options, setOptions] = useState<Array<{ id?: string; text: string; trade_offs?: string }>>(
+    [{ text: '' }, { text: '' }]
+  );
+  const [assumptions, setAssumptions] = useState<
+    Array<{ id?: string; text: string; evidence?: string }>
+  >([]);
+  const [hypotheses, setHypotheses] = useState<Array<{ id?: string; text: string; test?: string }>>(
+    []
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,16 +31,16 @@ export function ArtifactForm({ onSubmit, isLoading = false }: ArtifactFormProps)
       return;
     }
 
-    if (options.filter(opt => opt.text.trim()).length < 2) {
+    if (options.filter((opt) => opt.text.trim()).length < 2) {
       return;
     }
 
     onSubmit({
       objective: objective.trim(),
       problem_statement: problemStatement.trim(),
-      options: options.filter(opt => opt.text.trim()),
-      assumptions: assumptions.filter(ass => ass.text.trim()),
-      hypotheses: hypotheses.filter(hyp => hyp.text.trim()),
+      options: options.filter((opt) => opt.text.trim()),
+      assumptions: assumptions.filter((ass) => ass.text.trim()),
+      hypotheses: hypotheses.filter((hyp) => hyp.text.trim()),
     });
   };
 
@@ -94,7 +97,10 @@ export function ArtifactForm({ onSubmit, isLoading = false }: ArtifactFormProps)
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <label htmlFor="objective" className="block text-sm font-medium text-navaa-gray-900 mb-2">
+            <label
+              htmlFor="objective"
+              className="block text-sm font-medium text-navaa-gray-900 mb-2"
+            >
               What do you want to achieve?
             </label>
             <textarea
@@ -145,7 +151,10 @@ export function ArtifactForm({ onSubmit, isLoading = false }: ArtifactFormProps)
           {options.map((option, index) => (
             <div key={index} className="space-y-2 border-b pb-4 last:border-0">
               <div className="flex items-center justify-between">
-                <label htmlFor={`option-${index}`} className="block text-sm font-medium text-navaa-gray-900">
+                <label
+                  htmlFor={`option-${index}`}
+                  className="block text-sm font-medium text-navaa-gray-900"
+                >
                   Option {index + 1}
                 </label>
                 {options.length > 2 && (
@@ -197,7 +206,10 @@ export function ArtifactForm({ onSubmit, isLoading = false }: ArtifactFormProps)
             assumptions.map((assumption, index) => (
               <div key={index} className="space-y-2 border-b pb-4 last:border-0">
                 <div className="flex items-center justify-between">
-                  <label htmlFor={`assumption-${index}`} className="block text-sm font-medium text-navaa-gray-900">
+                  <label
+                    htmlFor={`assumption-${index}`}
+                    className="block text-sm font-medium text-navaa-gray-900"
+                  >
                     Assumption {index + 1}
                   </label>
                   <Button
@@ -247,7 +259,10 @@ export function ArtifactForm({ onSubmit, isLoading = false }: ArtifactFormProps)
             hypotheses.map((hypothesis, index) => (
               <div key={index} className="space-y-2 border-b pb-4 last:border-0">
                 <div className="flex items-center justify-between">
-                  <label htmlFor={`hypothesis-${index}`} className="block text-sm font-medium text-navaa-gray-900">
+                  <label
+                    htmlFor={`hypothesis-${index}`}
+                    className="block text-sm font-medium text-navaa-gray-900"
+                  >
                     Hypothesis {index + 1}
                   </label>
                   <Button
@@ -294,4 +309,3 @@ export function ArtifactForm({ onSubmit, isLoading = false }: ArtifactFormProps)
     </form>
   );
 }
-

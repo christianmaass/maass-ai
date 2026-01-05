@@ -11,6 +11,7 @@ Wir haben ein **MVP (Minimum Viable Product)** für ein Decision Quality System 
 ### Kernfunktionalität
 
 **Decision Review API** (`POST /api/decision-review`)
+
 - Analysiert Entscheidungen automatisch
 - Identifiziert Qualitätsprobleme (z.B. "Means-before-Ends Fixation")
 - Gibt strukturiertes Feedback zurück:
@@ -21,6 +22,7 @@ Wir haben ein **MVP (Minimum Viable Product)** für ein Decision Quality System 
 ### Input-Flexibilität
 
 Das System akzeptiert Entscheidungen in zwei Formaten:
+
 1. **Freeform Text**: Natürliche Sprache, wie sie im Alltag formuliert wird
 2. **Strukturiert**: Bereits formalisierte Entscheidungen mit Optionen, Zielen, etc.
 
@@ -40,11 +42,13 @@ Wir haben von Anfang an auf **Stabilität, Sicherheit und Wartbarkeit** gesetzt,
 #### 1. LLM-Integration (Kern-Engine)
 
 **Was**: Server-seitiger LLM-Client mit strukturierter Ausgabe
+
 - Provider-agnostisch (aktuell OpenAI, erweiterbar)
 - Vollständig typisiert mit TypeScript
 - Automatische Validierung aller LLM-Antworten
 
 **Warum dieser Ansatz**:
+
 - **Zuverlässigkeit**: Automatische Retries bei Fehlern
 - **Determinismus**: Reproduzierbare Ergebnisse durch feste Temperature (Standard: 0)
 - **Sicherheit**: Keine sensiblen Daten in Logs, Timeouts verhindern hängende Requests
@@ -53,11 +57,13 @@ Wir haben von Anfang an auf **Stabilität, Sicherheit und Wartbarkeit** gesetzt,
 #### 2. Prompt Management (Kontrollierte Ausgaben)
 
 **Was**: Versionierte System-Prompts mit strikten Regeln
+
 - Parser-Prompt: Transformiert freien Text in strukturierte Entscheidungen
 - Classifier-Prompt: Klassifiziert Entscheidungen in Qualitätskategorien
 - Versionierung: `v1.0` - ermöglicht kontrollierte Updates
 
 **Warum dieser Ansatz**:
+
 - **Kontrolle**: System kann nur das tun, was die Prompts erlauben
 - **Konsistenz**: Gleiche Eingabe → gleiche Ausgabe
 - **Sicherheit**: Explizite Verbote (keine Ratschläge, keine Lösungen)
@@ -66,11 +72,13 @@ Wir haben von Anfang an auf **Stabilität, Sicherheit und Wartbarkeit** gesetzt,
 #### 3. Schema-Validierung (Datenintegrität)
 
 **Was**: Strikte Zod-Schemas für alle Datenstrukturen
+
 - Entscheidungen müssen vollständig sein (keine optionalen Felder)
 - Unbekannte Felder werden abgelehnt
 - TypeScript-Typisierung für Entwickler
 
 **Warum dieser Ansatz**:
+
 - **Datenqualität**: Nur valide Daten werden verarbeitet
 - **Fehlerfrüherkennung**: Probleme werden sofort erkannt, nicht erst später
 - **Entwicklerfreundlichkeit**: Autocomplete und Typprüfung in der IDE
@@ -78,12 +86,14 @@ Wir haben von Anfang an auf **Stabilität, Sicherheit und Wartbarkeit** gesetzt,
 #### 4. Error Handling (Robustheit)
 
 **Was**: Strukturierte Fehlerbehandlung mit klaren Codes
+
 - `VALIDATION_ERROR` (400): Ungültige Eingabe
 - `LLM_VALIDATION_FAILED` (502): LLM-Antwort entspricht nicht dem Schema
 - `LLM_TIMEOUT` (502): Request zu lange gedauert
 - `LLM_RATE_LIMIT` (502): Zu viele Requests
 
 **Warum dieser Ansatz**:
+
 - **Debugging**: Klare Fehlercodes erleichtern Fehlersuche
 - **Monitoring**: Fehler können kategorisiert und gemessen werden
 - **User Experience**: Klare Fehlermeldungen statt generischer "500 Errors"
@@ -91,11 +101,13 @@ Wir haben von Anfang an auf **Stabilität, Sicherheit und Wartbarkeit** gesetzt,
 #### 5. Testing & Qualitätssicherung
 
 **Was**: Smoke Test Suite mit 12 Test-Cases
+
 - 6 Fälle die TR-01 triggern sollten
 - 6 Fälle die TR-01 nicht triggern sollten
 - Automatisierte Ausführung möglich
 
 **Warum dieser Ansatz**:
+
 - **Regression Prevention**: Änderungen können sofort getestet werden
 - **Dokumentation**: Test-Cases zeigen erwartetes Verhalten
 - **CI/CD Ready**: Kann in Pipeline integriert werden
@@ -202,6 +214,5 @@ Wir haben von Anfang an auf **Stabilität, Sicherheit und Wartbarkeit** gesetzt,
 
 ---
 
-*Erstellt: $(date)*
-*Version: 1.0*
-
+_Erstellt: $(date)_
+_Version: 1.0_

@@ -9,6 +9,7 @@
 Dieses Dokument definiert, **WIE NAVAA technisch gebaut wird** – Framework, Architektur, Security, Tests.
 
 Es regelt:
+
 - Next.js App Router Struktur
 - Ordnerkonventionen
 - Supabase Server/Browser Clients
@@ -157,8 +158,8 @@ const { email, password } = LoginSchema.parse(body);
 ### ENV-Guards
 
 - **Pflicht**: Nur `env.client.ts` und `env.server.ts` nutzen, nie direkt `process.env`
-- **Dateien**: 
-  - `src/lib/config/env.client.ts` (NEXT_PUBLIC_*)
+- **Dateien**:
+  - `src/lib/config/env.client.ts` (NEXT*PUBLIC*\*)
   - `src/lib/config/env.server.ts` (Server-only, mit `server-only` Guard)
   - `src/lib/config/env.test.ts` (Test-Umgebungen)
 
@@ -350,4 +351,3 @@ Wenn du unsicher bist:
 - **ADR**: `docs/adr/001-architecture-overview.md`
 - **Runbooks**: `docs/runbooks/`
 - **Code**: `src/lib/`, `src/shared/`, `src/app/`
-

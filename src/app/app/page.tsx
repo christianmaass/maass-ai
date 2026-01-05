@@ -64,7 +64,8 @@ export default function AppPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-navaa-gray-900 mb-2">Decision Training</h1>
           <p className="text-navaa-gray-600">
-            Strukturierte Artefakt-Eingabe für strategisches Denken und Entscheiden unter Unsicherheit.
+            Strukturierte Artefakt-Eingabe für strategisches Denken und Entscheiden unter
+            Unsicherheit.
           </p>
         </div>
 
@@ -96,7 +97,11 @@ export default function AppPage() {
               <CardContent>
                 <DecisionSuiteV1Result
                   aggregatedResult={result}
-                  inputText={artifactData ? `${artifactData.problem_statement} ${artifactData.objective}` : ''}
+                  inputText={
+                    artifactData
+                      ? `${artifactData.problem_statement} ${artifactData.objective}`
+                      : ''
+                  }
                 />
               </CardContent>
             </Card>

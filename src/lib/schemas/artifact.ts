@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 /**
  * Schema für strukturierte Artefakte
- * 
+ *
  * Dies ist das neue Domain Model: Artefakte als Single Source of Truth.
  * Keine LLM-Interpretation, nur strukturierte Eingabe.
  */
@@ -47,7 +47,7 @@ export type Artifact = z.infer<typeof ArtifactSchema>;
 
 /**
  * Deterministische Ableitung von ClassifierFlags aus Artefakten
- * 
+ *
  * Da wir kein LLM mehr haben, müssen wir die Flags deterministisch
  * aus der strukturierten Eingabe ableiten.
  */
@@ -63,58 +63,129 @@ export function deriveClassifierFlagsFromArtifact(artifact: Artifact): {
 } {
   // Objective ist immer present (da required im Schema)
   const objective_present = artifact.objective.length > 0;
-  
+
   // Prüfe ob Objective ein Effect ist (enthält Wirkungs-Wörter)
-  const effectKeywords = ['reduce', 'increase', 'improve', 'decrease', 'minimize', 'maximize', 
-                          'reduzieren', 'erhöhen', 'verbessern', 'verringern', 'minimieren', 'maximieren'];
-  const objective_is_effect = effectKeywords.some(keyword => 
+  const effectKeywords = [
+    'reduce',
+    'increase',
+    'improve',
+    'decrease',
+    'minimize',
+    'maximize',
+    'reduzieren',
+    'erhöhen',
+    'verbessern',
+    'verringern',
+    'minimieren',
+    'maximieren',
+  ];
+  const objective_is_effect = effectKeywords.some((keyword) =>
     artifact.objective.toLowerCase().includes(keyword)
   );
-  
+
   // Prüfe ob Objective Constraints hat (Kosten, Zeit, Risiko, Qualität)
-  const constraintKeywords = ['cost', 'time', 'risk', 'quality', 'budget', 'deadline', 'resources',
-                              'kosten', 'zeit', 'risiko', 'qualität', 'budget', 'frist', 'ressourcen'];
-  const objective_has_constraints = constraintKeywords.some(keyword =>
+  const constraintKeywords = [
+    'cost',
+    'time',
+    'risk',
+    'quality',
+    'budget',
+    'deadline',
+    'resources',
+    'kosten',
+    'zeit',
+    'risiko',
+    'qualität',
+    'budget',
+    'frist',
+    'ressourcen',
+  ];
+  const objective_has_constraints = constraintKeywords.some((keyword) =>
     artifact.objective.toLowerCase().includes(keyword)
   );
-  
+
   // Prüfe ob Optionen Implementierungen sind (enthält Tool/Technologie-Namen)
-  const implementationKeywords = ['tool', 'software', 'platform', 'system', 'service', 'vendor',
-                                  'tool', 'software', 'plattform', 'system', 'dienst', 'anbieter'];
-  const options_are_implementations = artifact.options.some(option =>
-    implementationKeywords.some(keyword => option.text.toLowerCase().includes(keyword))
+  const implementationKeywords = [
+    'tool',
+    'software',
+    'platform',
+    'system',
+    'service',
+    'vendor',
+    'tool',
+    'software',
+    'plattform',
+    'system',
+    'dienst',
+    'anbieter',
+  ];
+  const options_are_implementations = artifact.options.some((option) =>
+    implementationKeywords.some((keyword) => option.text.toLowerCase().includes(keyword))
   );
-  
+
   // Status quo ist excluded wenn nicht explizit als Option vorhanden
-  const statusQuoKeywords = ['status quo', 'current', 'existing', 'keep', 'stay',
-                            'bestehend', 'aktuell', 'behalten', 'bleiben'];
-  const status_quo_excluded = !artifact.options.some(option =>
-    statusQuoKeywords.some(keyword => option.text.toLowerCase().includes(keyword))
+  const statusQuoKeywords = [
+    'status quo',
+    'current',
+    'existing',
+    'keep',
+    'stay',
+    'bestehend',
+    'aktuell',
+    'behalten',
+    'bleiben',
+  ];
+  const status_quo_excluded = !artifact.options.some((option) =>
+    statusQuoKeywords.some((keyword) => option.text.toLowerCase().includes(keyword))
   );
-  
+
   // Causal link ist explicit wenn Problem Statement und Objective klar verknüpft sind
-  const causal_link_explicit = artifact.problem_statement.length > 0 && 
-                                artifact.objective.length > 0 &&
-                                (artifact.problem_statement.toLowerCase().includes('because') ||
-                                 artifact.problem_statement.toLowerCase().includes('weil') ||
-                                 artifact.problem_statement.toLowerCase().includes('due to') ||
-                                 artifact.problem_statement.toLowerCase().includes('aufgrund'));
-  
+  const causal_link_explicit =
+    artifact.problem_statement.length > 0 &&
+    artifact.objective.length > 0 &&
+    (artifact.problem_statement.toLowerCase().includes('because') ||
+      artifact.problem_statement.toLowerCase().includes('weil') ||
+      artifact.problem_statement.toLowerCase().includes('due to') ||
+      artifact.problem_statement.toLowerCase().includes('aufgrund'));
+
   // Prüfe ob Assumptions Outcomes sind (enthält Ergebnis-Wörter)
-  const outcomeKeywords = ['result', 'outcome', 'success', 'failure', 'win', 'lose',
-                          'ergebnis', 'erfolg', 'misserfolg', 'gewinn', 'verlust'];
-  const assumptions_are_outcomes = artifact.assumptions.some(assumption =>
-    outcomeKeywords.some(keyword => assumption.text.toLowerCase().includes(keyword))
+  const outcomeKeywords = [
+    'result',
+    'outcome',
+    'success',
+    'failure',
+    'win',
+    'lose',
+    'ergebnis',
+    'erfolg',
+    'misserfolg',
+    'gewinn',
+    'verlust',
+  ];
+  const assumptions_are_outcomes = artifact.assumptions.some((assumption) =>
+    outcomeKeywords.some((keyword) => assumption.text.toLowerCase().includes(keyword))
   );
-  
+
   // Prüfe ob Assumptions als sicher formuliert sind (keine Unsicherheits-Marker)
-  const uncertaintyKeywords = ['maybe', 'perhaps', 'possibly', 'might', 'could', 'uncertain',
-                                'vielleicht', 'möglicherweise', 'könnte', 'unsicher'];
-  const assumptions_are_guaranteed = artifact.assumptions.length > 0 &&
-    artifact.assumptions.every(assumption =>
-      !uncertaintyKeywords.some(keyword => assumption.text.toLowerCase().includes(keyword))
+  const uncertaintyKeywords = [
+    'maybe',
+    'perhaps',
+    'possibly',
+    'might',
+    'could',
+    'uncertain',
+    'vielleicht',
+    'möglicherweise',
+    'könnte',
+    'unsicher',
+  ];
+  const assumptions_are_guaranteed =
+    artifact.assumptions.length > 0 &&
+    artifact.assumptions.every(
+      (assumption) =>
+        !uncertaintyKeywords.some((keyword) => assumption.text.toLowerCase().includes(keyword))
     );
-  
+
   return {
     options_are_implementations,
     status_quo_excluded,
@@ -141,8 +212,7 @@ export function artifactToDecision(artifact: Artifact): {
     decision: artifact.problem_statement.substring(0, 100) || 'Decision',
     context: artifact.problem_statement,
     objective: artifact.objective,
-    options: artifact.options.map(opt => opt.text),
-    assumptions: artifact.assumptions.map(ass => ass.text),
+    options: artifact.options.map((opt) => opt.text),
+    assumptions: artifact.assumptions.map((ass) => ass.text),
   };
 }
-

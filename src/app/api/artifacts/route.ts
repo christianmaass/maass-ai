@@ -1,7 +1,11 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { ArtifactSchema, deriveClassifierFlagsFromArtifact, artifactToDecision } from '@/lib/schemas/artifact';
+import {
+  ArtifactSchema,
+  deriveClassifierFlagsFromArtifact,
+  artifactToDecision,
+} from '@/lib/schemas/artifact';
 import {
   observeAllSignals,
   detectStructuralPatterns,
@@ -13,20 +17,25 @@ import { deriveDecisionSuiteCopy } from '@/lib/decisionSuite/copy';
 import { detectLanguage } from '@/lib/decisionReview/language';
 import { createServerClient } from '@/lib/db';
 import { getAuthUser } from '@/lib/auth/guards';
-import { validateOrigin } from '@/lib/security/csrf';
+import { assertAllowedOrigin } from '@/lib/security/guard';
 import type { DecisionSuiteV1AggregatedResult } from '@/lib/decisionSuite/types';
 
 /**
  * POST /api/artifacts
- * 
+ *
  * Speichert strukturierte Artefakte und generiert deterministisches Feedback.
  * Keine LLM-Verwendung, alles deterministisch.
  */
 export async function POST(request: NextRequest) {
-  // CSRF-Schutz: Origin-Header-Validierung
-  const csrfError = validateOrigin(request);
-  if (csrfError) {
-    return csrfError;
+  // Origin validation
+  try {
+    assertAllowedOrigin(request);
+  } catch (error) {
+    // assertAllowedOrigin throws a Response on validation failure
+    if (error instanceof Response) {
+      return error;
+    }
+    throw error;
   }
   try {
     const body = await request.json();
@@ -72,7 +81,7 @@ export async function POST(request: NextRequest) {
       const user = await getAuthUser();
       if (user) {
         const supabase = await createServerClient();
-        
+
         // Persist asynchronously - don't block the response
         void (async () => {
           try {
@@ -102,23 +111,24 @@ export async function POST(request: NextRequest) {
 
             // Speichere Ergebnis
             if (artifactData) {
-              const { error: resultError } = await supabase
-                .from('artifact_results')
-                .insert({
-                  artifact_id: artifactData.id,
-                  signals: signals,
-                  hint_intensity: hintIntensity,
-                  hint_band: hintBand,
-                  patterns_detected: patterns,
-                  feedback: copy,
-                });
+              const { error: resultError } = await supabase.from('artifact_results').insert({
+                artifact_id: artifactData.id,
+                signals: signals,
+                hint_intensity: hintIntensity,
+                hint_band: hintBand,
+                patterns_detected: patterns,
+                feedback: copy,
+              });
 
               if (resultError) {
                 // SECURITY: Don't log sensitive error details in production
                 if (process.env.NODE_ENV !== 'production') {
                   console.error('Failed to persist artifact result:', resultError);
                 } else {
-                  console.error('Failed to persist artifact result:', resultError.code || 'DatabaseError');
+                  console.error(
+                    'Failed to persist artifact result:',
+                    resultError.code || 'DatabaseError'
+                  );
                 }
               }
             }
@@ -127,7 +137,10 @@ export async function POST(request: NextRequest) {
             if (process.env.NODE_ENV !== 'production') {
               console.error('Error persisting artifact:', err);
             } else {
-              console.error('Error persisting artifact:', err instanceof Error ? err.name : 'UnknownError');
+              console.error(
+                'Error persisting artifact:',
+                err instanceof Error ? err.name : 'UnknownError'
+              );
             }
           }
         })();
@@ -138,7 +151,10 @@ export async function POST(request: NextRequest) {
       if (process.env.NODE_ENV !== 'production') {
         console.error('Error getting auth user for persistence:', authError);
       } else {
-        console.error('Error getting auth user:', authError instanceof Error ? authError.name : 'AuthError');
+        console.error(
+          'Error getting auth user:',
+          authError instanceof Error ? authError.name : 'AuthError'
+        );
       }
     }
 
@@ -162,7 +178,10 @@ export async function POST(request: NextRequest) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Unexpected error in artifacts API:', error);
     } else {
-      console.error('Unexpected error in artifacts API:', error instanceof Error ? error.name : 'UnknownError');
+      console.error(
+        'Unexpected error in artifacts API:',
+        error instanceof Error ? error.name : 'UnknownError'
+      );
     }
     return NextResponse.json(
       {
@@ -176,14 +195,17 @@ export async function POST(request: NextRequest) {
 
 /**
  * GET /api/artifacts
- * 
+ *
  * Lädt gespeicherte Artefakte für den aktuellen Nutzer.
  */
 export async function GET(request: NextRequest) {
   try {
     const user = await getAuthUser();
     if (!user) {
-      return NextResponse.json({ error_code: 'UNAUTHORIZED', message: 'Not authenticated' }, { status: 401 });
+      return NextResponse.json(
+        { error_code: 'UNAUTHORIZED', message: 'Not authenticated' },
+        { status: 401 }
+      );
     }
 
     const supabase = await createServerClient();
@@ -213,7 +235,10 @@ export async function GET(request: NextRequest) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Unexpected error in artifacts GET:', error);
     } else {
-      console.error('Unexpected error in artifacts GET:', error instanceof Error ? error.name : 'UnknownError');
+      console.error(
+        'Unexpected error in artifacts GET:',
+        error instanceof Error ? error.name : 'UnknownError'
+      );
     }
     return NextResponse.json(
       {
@@ -224,4 +249,3 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-

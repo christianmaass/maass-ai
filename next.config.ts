@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   // SECURITY: CORS-Konfiguration für API-Routes
   async headers() {
     const allowedOrigin = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    
+
     return [
       {
         source: '/api/:path*',

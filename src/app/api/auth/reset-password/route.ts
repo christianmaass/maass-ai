@@ -1,6 +1,6 @@
 import { createServerClient } from '@/lib/db';
 import { rateLimit } from '@/lib/rate-limit';
-import { validateOrigin } from '@/lib/security/csrf';
+import { assertAllowedOrigin } from '@/lib/security/guard';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { clientEnv } from '@/lib/config/env.client';
@@ -10,10 +10,15 @@ const ResetPasswordSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  // CSRF-Schutz: Origin-Header-Validierung
-  const csrfError = validateOrigin(request);
-  if (csrfError) {
-    return csrfError;
+  // Origin validation
+  try {
+    assertAllowedOrigin(request);
+  } catch (error) {
+    // assertAllowedOrigin throws a Response on validation failure
+    if (error instanceof Response) {
+      return error;
+    }
+    throw error;
   }
   // Rate-Limiting: 3 Requests pro Stunde (striktes Limit für Email-APIs)
   const rateLimitResult = await rateLimit(request, 3, 3600);

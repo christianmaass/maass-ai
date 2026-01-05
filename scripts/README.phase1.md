@@ -50,4 +50,3 @@ Alle 20 Testfälle sollten erfolgreich durchlaufen (✅). Bei Fehlern werden Det
 ## Legacy Tests
 
 Die alten synthetischen Tests wurden nach `scripts/legacy/` verschoben und werden nicht mehr ausgeführt. Siehe `scripts/legacy/README.md` für Details.
-

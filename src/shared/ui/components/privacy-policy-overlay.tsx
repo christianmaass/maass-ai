@@ -50,6 +50,15 @@ export function PrivacyPolicyOverlay({ isOpen, onClose }: PrivacyPolicyOverlayPr
         <div className="pr-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Datenschutzerklärung</h2>
 
+          <div className="mb-6 p-4 bg-navaa-warm-beige/30 rounded-lg border border-navaa-gray-200">
+            <p className="text-sm text-navaa-gray-700">
+              <strong>Privacy Policy (Datenschutzerklärung)</strong> — This privacy policy is
+              provided in German as required by German and European data protection law (DSGVO -
+              Datenschutzgrundverordnung). It contains information about how we collect, process,
+              and protect your personal data.
+            </p>
+          </div>
+
           <div className="space-y-6 text-navaa-gray-700 text-sm leading-relaxed">
             <section>
               <h3 className="font-semibold text-base mb-2">1. Datenschutz auf einen Blick</h3>

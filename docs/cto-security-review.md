@@ -23,6 +23,7 @@ Die Codebase zeigt eine solide Grundlage mit guten Sicherheitspraktiken (Zod-Val
 **Datei:** `middleware.ts:22-30`
 
 **Problem:**
+
 ```22:30:middleware.ts
   // Check for Supabase access token cookie
   const accessToken = request.cookies.get('sb-access-token');
@@ -39,16 +40,21 @@ Die Codebase zeigt eine solide Grundlage mit guten Sicherheitspraktiken (Zod-Val
 ```
 
 Die Middleware prüft nur, ob ein Cookie existiert, **nicht ob der Token gültig ist**. Ein Angreifer könnte:
+
 - Einen manipulierten/abgelaufenen Token im Cookie setzen
 - Zugriff auf geschützte Routen erhalten, ohne gültige Session
 
 **Impact:** 🔴 **KRITISCH** - Unbefugter Zugriff auf geschützte Bereiche möglich
 
 **Empfehlung:**
+
 ```typescript
 // Token-Validierung über Supabase API
 const supabase = createServerClient();
-const { data: { user }, error } = await supabase.auth.getUser();
+const {
+  data: { user },
+  error,
+} = await supabase.auth.getUser();
 
 if (error || !user) {
   const url = request.nextUrl.clone();
@@ -66,6 +72,7 @@ if (error || !user) {
 **Datei:** `auth.json` (Root-Verzeichnis)
 
 **Problem:**
+
 - Datei enthält Mock-Auth-Tokens und Test-Credentials
 - Ist **nicht** in `.gitignore` enthalten
 - Könnte versehentlich committed werden
@@ -73,6 +80,7 @@ if (error || !user) {
 **Impact:** 🔴 **KRITISCH** - Potenzielle Credential-Leaks
 
 **Empfehlung:**
+
 1. `auth.json` zu `.gitignore` hinzufügen
 2. Datei aus Repository entfernen (falls bereits committed)
 3. Beispiel-Datei als `auth.json.example` erstellen
@@ -93,6 +101,7 @@ auth.json
 
 **Problem:**
 Die Cookie-Konfiguration wird von Supabase SDK verwaltet, aber es gibt keine explizite Konfiguration für:
+
 - `HttpOnly` (Schutz vor XSS)
 - `Secure` (nur HTTPS in Production)
 - `SameSite` (CSRF-Schutz)
@@ -100,27 +109,26 @@ Die Cookie-Konfiguration wird von Supabase SDK verwaltet, aber es gibt keine exp
 **Impact:** 🟠 **HOCH** - XSS und Session-Hijacking möglich
 
 **Empfehlung:**
+
 ```typescript
-return createSupabaseServerClient(
-  supabaseUrl,
-  supabaseKey,
-  {
-    cookies: {
-      getAll() { return cookieStore.getAll(); },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) => {
-          cookieStore.set(name, value, {
-            ...options,
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            path: '/',
-          });
-        });
-      },
+return createSupabaseServerClient(supabaseUrl, supabaseKey, {
+  cookies: {
+    getAll() {
+      return cookieStore.getAll();
     },
-  }
-);
+    setAll(cookiesToSet) {
+      cookiesToSet.forEach(({ name, value, options }) => {
+        cookieStore.set(name, value, {
+          ...options,
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
+        });
+      });
+    },
+  },
+});
 ```
 
 **Hinweis:** Prüfen, ob Supabase SDK diese Optionen bereits setzt. Falls ja, dokumentieren.
@@ -130,16 +138,19 @@ return createSupabaseServerClient(
 ### 4. Fehlerbehandlung: Potenzielle Information Disclosure
 
 **Dateien:**
+
 - `src/app/api/auth/login/route.ts:57`
 - `src/app/api/auth/login/route.ts:90`
 - `src/app/api/artifacts/route.ts:135`
 
 **Problem:**
+
 ```57:57:src/app/api/auth/login/route.ts
       console.error('Login error:', error);
 ```
 
 Fehler werden vollständig geloggt, könnten sensible Informationen enthalten:
+
 - Stack Traces mit Dateipfaden
 - Datenbank-Fehlermeldungen
 - Interne System-Struktur
@@ -147,6 +158,7 @@ Fehler werden vollständig geloggt, könnten sensible Informationen enthalten:
 **Impact:** 🟠 **HOCH** - Information Disclosure, vereinfacht Angriffe
 
 **Empfehlung:**
+
 ```typescript
 // Generische Fehlermeldungen für User
 if (error) {
@@ -157,7 +169,7 @@ if (error) {
     // Production: Nur Error-Type loggen
     console.error('Login failed:', error.name);
   }
-  
+
   return NextResponse.json(
     { error: 'Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.' },
     { status: 401 }
@@ -172,19 +184,23 @@ if (error) {
 ### 5. Fehlender CSRF-Schutz für State-Changing Operations
 
 **Dateien:**
+
 - `src/app/api/auth/login/route.ts`
 - `src/app/api/auth/signup/route.ts`
 - `src/app/api/artifacts/route.ts`
 
 **Problem:**
 POST/PUT/DELETE Requests haben keinen expliziten CSRF-Schutz. Next.js bietet standardmäßig CSRF-Schutz, aber:
+
 - Keine explizite Validierung von Origin/Referer Headers
 - Keine CSRF-Token für API-Routes
 
 **Impact:** 🟠 **HOCH** - Cross-Site Request Forgery möglich
 
 **Empfehlung:**
+
 1. Origin-Header-Validierung für API-Routes:
+
 ```typescript
 const origin = request.headers.get('origin');
 const allowedOrigins = [process.env.NEXT_PUBLIC_APP_URL];
@@ -212,6 +228,7 @@ Keine explizite CORS-Konfiguration für API-Routes. Next.js erlaubt standardmä�
 **Impact:** 🟡 **MITTEL** - Unerwünschte Cross-Origin-Requests möglich
 
 **Empfehlung:**
+
 ```typescript
 // next.config.ts
 const nextConfig: NextConfig = {
@@ -246,6 +263,7 @@ const nextConfig: NextConfig = {
 **Datei:** `src/lib/rate-limit.ts:20-38`
 
 **Problem:**
+
 ```20:38:src/lib/rate-limit.ts
 function getClientIP(request: NextRequest): string {
   // Prüfe verschiedene Header für IP (Proxy/Load Balancer)
@@ -269,12 +287,14 @@ function getClientIP(request: NextRequest): string {
 ```
 
 **Problem:**
+
 - Header können von Clients manipuliert werden (`x-forwarded-for`, `x-real-ip`)
 - Nur `cf-connecting-ip` ist vertrauenswürdig (wenn Cloudflare verwendet wird)
 
 **Impact:** 🟡 **MITTEL** - Rate-Limiting kann umgangen werden
 
 **Empfehlung:**
+
 1. **Wenn Cloudflare verwendet wird:** Nur `cf-connecting-ip` nutzen
 2. **Wenn kein Proxy:** `request.ip` direkt nutzen
 3. **Wenn eigener Proxy:** IP-Whitelist für vertrauenswürdige Proxies
@@ -286,12 +306,12 @@ function getClientIP(request: NextRequest): string {
   if (cfIP) {
     return cfIP.split(',')[0].trim();
   }
-  
+
   // Direkte Verbindung (kein Proxy)
   if (request.ip) {
     return request.ip;
   }
-  
+
   // Fallback: Warnung loggen
   console.warn('Could not determine client IP');
   return 'unknown';
@@ -336,6 +356,7 @@ function getClientIP(request: NextRequest): string {
 ## 📋 ACTION ITEMS (Priorisiert)
 
 ### ✅ BEHOBEN (2025-01-27):
+
 - [x] **P0-1:** Middleware Token-Validierung implementieren ✅
 - [x] **P0-2:** `auth.json` zu `.gitignore` hinzufügen ✅
 - [x] **P1-3:** Cookie-Sicherheitsattribute explizit setzen ✅
@@ -372,6 +393,7 @@ function getClientIP(request: NextRequest): string {
    - Manipulierbare Header nur in Development
 
 ### Optional (Nice-to-have):
+
 - [ ] Security Headers (CSP, X-Frame-Options, etc.) in `next.config.ts`
 - [ ] Content Security Policy (CSP) für XSS-Schutz
 - [ ] Security-Audit-Logging (wer hat was wann gemacht)
@@ -382,6 +404,7 @@ function getClientIP(request: NextRequest): string {
 ## 🔍 ZUSÄTZLICHE EMPFEHLUNGEN
 
 ### 1. Dependency Security Scanning
+
 ```bash
 npm audit
 # oder
@@ -391,21 +414,25 @@ npm audit fix
 Regelmäßig ausführen, um bekannte Vulnerabilities in Dependencies zu finden.
 
 ### 2. Secrets Management
+
 - **Niemals** Secrets in Code committen
 - Environment-Variablen über Vercel/Deployment-Platform verwalten
 - Secrets Rotation regelmäßig durchführen
 
 ### 3. Monitoring & Alerting
+
 - Sentry bereits integriert ✅
 - Zusätzlich: Security-Events loggen (failed logins, rate-limit hits, etc.)
 - Alerting bei ungewöhnlichen Mustern
 
 ### 4. Database Security
+
 - **RLS (Row Level Security)** für alle Tabellen aktivieren
 - Regelmäßige Backups
 - Connection-Pooling (Supabase verwaltet dies automatisch)
 
 ### 5. API Security
+
 - API-Versioning für Breaking Changes
 - Request-ID für Tracing
 - Response-Time-Monitoring
@@ -414,15 +441,15 @@ Regelmäßig ausführen, um bekannte Vulnerabilities in Dependencies zu finden.
 
 ## 📊 RISIKO-MATRIX
 
-| Problem | Severity | Likelihood | Impact | Priority |
-|---------|----------|------------|--------|----------|
-| Middleware Token-Validierung | 🔴 Kritisch | Hoch | Hoch | P0 |
-| auth.json im Repo | 🔴 Kritisch | Mittel | Hoch | P0 |
-| Cookie-Sicherheitsattribute | 🟠 Hoch | Hoch | Mittel | P1 |
-| Information Disclosure | 🟠 Hoch | Mittel | Mittel | P1 |
-| CSRF-Schutz | 🟠 Hoch | Mittel | Hoch | P1 |
-| CORS-Konfiguration | 🟡 Mittel | Niedrig | Niedrig | P2 |
-| Rate-Limiting IP-Spoofing | 🟡 Mittel | Niedrig | Mittel | P2 |
+| Problem                      | Severity    | Likelihood | Impact  | Priority |
+| ---------------------------- | ----------- | ---------- | ------- | -------- |
+| Middleware Token-Validierung | 🔴 Kritisch | Hoch       | Hoch    | P0       |
+| auth.json im Repo            | 🔴 Kritisch | Mittel     | Hoch    | P0       |
+| Cookie-Sicherheitsattribute  | 🟠 Hoch     | Hoch       | Mittel  | P1       |
+| Information Disclosure       | 🟠 Hoch     | Mittel     | Mittel  | P1       |
+| CSRF-Schutz                  | 🟠 Hoch     | Mittel     | Hoch    | P1       |
+| CORS-Konfiguration           | 🟡 Mittel   | Niedrig    | Niedrig | P2       |
+| Rate-Limiting IP-Spoofing    | 🟡 Mittel   | Niedrig    | Mittel  | P2       |
 
 ---
 
@@ -444,4 +471,3 @@ Regelmäßig ausführen, um bekannte Vulnerabilities in Dependencies zu finden.
 
 **Review abgeschlossen:** 2025-01-27  
 **Nächste Review:** Nach Behebung der P0/P1-Probleme
-

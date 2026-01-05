@@ -17,9 +17,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error('ENV-Guards failed:', error);
-    return Response.json(
-      { error: 'Environment configuration error' },
-      { status: 500 }
-    );
+    return Response.json({ error: 'Environment configuration error' }, { status: 500 });
   }
 }

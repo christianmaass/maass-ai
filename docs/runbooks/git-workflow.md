@@ -7,10 +7,12 @@ Dieses Runbook dokumentiert den Git-Workflow und die Best Practices für das Nav
 ## Branch-Strategie
 
 ### Main Branch
+
 - **`main`**: Production-ready Code, immer deploybar
 - **`develop`**: Integration Branch für Features (optional)
 
 ### Feature Branches
+
 ```bash
 # Feature-Branch erstellen
 git checkout -b feature/AP-XXX-kurze-beschreibung
@@ -21,6 +23,7 @@ git checkout -b feature/AP-002-env-guards-implementieren
 ```
 
 ### Naming Convention
+
 - **Features**: `feature/AP-XXX-kurze-beschreibung`
 - **Bugs**: `bug/AP-XXX-kurze-beschreibung`
 - **Hotfixes**: `hotfix/AP-XXX-kurze-beschreibung`
@@ -29,6 +32,7 @@ git checkout -b feature/AP-002-env-guards-implementieren
 ## Commit-Message Format
 
 ### Conventional Commits
+
 ```bash
 # Format
 <type>(<scope>): <description>
@@ -42,6 +46,7 @@ perf(images): add WebP/AVIF support and responsive sizing
 ```
 
 ### Commit Types
+
 - **`feat`**: Neue Features
 - **`fix`**: Bug-Fixes
 - **`docs`**: Dokumentation
@@ -54,6 +59,7 @@ perf(images): add WebP/AVIF support and responsive sizing
 ## Pre-commit Workflow
 
 ### Husky Hooks
+
 Das Projekt verwendet Husky für automatische Pre-commit-Checks:
 
 ```bash
@@ -62,6 +68,7 @@ npm run format && npm run lint && npm run typecheck
 ```
 
 ### Manuelle Checks
+
 ```bash
 # Code formatieren
 npm run format
@@ -79,6 +86,7 @@ npm run build
 ## Pull Request Workflow
 
 ### 1. Feature Branch erstellen
+
 ```bash
 git checkout main
 git pull origin main
@@ -86,6 +94,7 @@ git checkout -b feature/AP-XXX-beschreibung
 ```
 
 ### 2. Änderungen committen
+
 ```bash
 git add .
 git commit -m "feat(scope): implement feature description"
@@ -99,26 +108,32 @@ git commit -m "feat(cache): implement Redis cache with Upstash"
 ```
 
 ### 3. Push und PR erstellen
+
 ```bash
 git push origin feature/AP-XXX-beschreibung
 # GitHub PR erstellen
 ```
 
 ### 4. PR-Template verwenden
+
 ```markdown
 ## Beschreibung
+
 Kurze Beschreibung der Änderungen
 
 ## Arbeitspaket
+
 AP-XXX: Kurze Beschreibung
 
 ## Änderungen
+
 - [ ] Feature implementiert
 - [ ] Tests hinzugefügt
 - [ ] Dokumentation aktualisiert
 - [ ] Build läuft grün
 
 ## Checkliste
+
 - [ ] Code formatiert (`npm run format`)
 - [ ] Lint-Checks bestanden (`npm run lint`)
 - [ ] Type-Check bestanden (`npm run typecheck`)
@@ -131,6 +146,7 @@ AP-XXX: Kurze Beschreibung
 ## Code Review
 
 ### Review-Kriterien
+
 1. **Funktionalität**: Feature funktioniert wie erwartet
 2. **Code-Qualität**: Sauberer, lesbarer Code
 3. **Tests**: Ausreichende Test-Abdeckung
@@ -138,6 +154,7 @@ AP-XXX: Kurze Beschreibung
 5. **Performance**: Keine Performance-Regressionen
 
 ### Review-Prozess
+
 1. **Automatische Checks**: CI/CD Pipeline läuft grün
 2. **Code Review**: Mindestens ein Review erforderlich
 3. **Approval**: Alle Review-Kommentare adressiert
@@ -146,6 +163,7 @@ AP-XXX: Kurze Beschreibung
 ## Release Workflow
 
 ### Versionierung
+
 ```bash
 # Package.json aktualisieren
 npm version patch  # 0.1.0 → 0.1.1
@@ -154,20 +172,24 @@ npm version major  # 0.1.0 → 1.0.0
 ```
 
 ### Release Notes
+
 ```markdown
 ## Version 0.1.0
 
 ### Features
+
 - ENV-Guards mit Zod-Validierung implementiert
 - Redis-Cache mit Upstash Integration
 - Module-Boundaries für Courses-Domain
 
 ### Improvements
+
 - 31% Reduktion ungenutzter Exports
 - WebP/AVIF Support für Images
 - Performance-Optimierungen
 
 ### Bug Fixes
+
 - Cache-Fehlerbehandlung verbessert
 - Build-Performance optimiert
 ```
@@ -175,6 +197,7 @@ npm version major  # 0.1.0 → 1.0.0
 ## Best Practices
 
 ### 1. Atomic Commits
+
 ```bash
 # ✅ Gut: Ein Commit pro logischer Änderung
 git commit -m "feat(auth): add ENV-Guards for Supabase config"
@@ -184,6 +207,7 @@ git commit -m "fix: various improvements and bug fixes"
 ```
 
 ### 2. Meaningful Messages
+
 ```bash
 # ✅ Gut: Klare, beschreibende Messages
 git commit -m "feat(cache): implement Redis cache with error handling"
@@ -193,6 +217,7 @@ git commit -m "fix"
 ```
 
 ### 3. Branch Management
+
 ```bash
 # Feature-Branches nach Merge löschen
 git branch -d feature/AP-XXX-beschreibung
@@ -203,6 +228,7 @@ git branch --merged | grep -v main | xargs git branch -d
 ```
 
 ### 4. Conflict Resolution
+
 ```bash
 # Bei Merge-Conflicts
 git status  # Konflikt-Dateien anzeigen
@@ -216,6 +242,7 @@ git commit -m "merge: resolve conflicts in feature branch"
 ### Häufige Probleme
 
 #### Pre-commit Hook schlägt fehl
+
 ```bash
 # Manuell Checks ausführen
 npm run format
@@ -227,6 +254,7 @@ npm run lint -- --fix
 ```
 
 #### Build schlägt fehl
+
 ```bash
 # Dependencies aktualisieren
 npm install
@@ -237,6 +265,7 @@ npm run build
 ```
 
 #### Type-Check Fehler
+
 ```bash
 # TypeScript-Cache löschen
 rm -rf tsconfig.tsbuildinfo

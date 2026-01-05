@@ -7,10 +7,12 @@
 ## ✅ Behobene Probleme
 
 ### 1. ✅ Next.js Config - Veraltete Redirects
+
 - **Status:** BEHOBEN
 - **Änderung:** Redirect-Regel für `/tracks/strategy` entfernt
 
 ### 2. ✅ DecisionAssessment - Strategy-Sprache
+
 - **Status:** TEILWEISE BEHOBEN
 - **Änderungen:**
   - Results refactored (keine "Strategie", "Storyline" mehr)
@@ -18,6 +20,7 @@
 - **Offen:** Fragen enthalten noch "Strategie" (vom Nutzer so formuliert - bewusst beibehalten)
 
 ### 3. ✅ Unbenutzte UI-Komponenten
+
 - **Status:** BEHOBEN
 - **Änderung:** Unbenutzte Exports entfernt:
   - `CriteriaScorecard` - aus Export entfernt
@@ -27,10 +30,12 @@
   - `Breadcrumb` - aus Export entfernt (aber Datei bleibt für zukünftige Nutzung)
 
 ### 4. ✅ Veraltete ADRs
+
 - **Status:** BEHOBEN
 - **Änderung:** `002-module-boundaries-courses.md` als DEPRECATED markiert
 
 ### 5. ✅ Tracking-Namen
+
 - **Status:** BEHOBEN
 - **Änderung:** Alle Tracking-Events: `strategycheck_` → `decisioncheck_`
 
@@ -57,6 +62,7 @@
 ### ✅ **Clean Base: JA**
 
 **Stärken:**
+
 1. **Saubere Architektur:** Klare Trennung (marketing/app/admin)
 2. **Moderne Tech-Stack:** Next.js 15, React 19, TypeScript strict
 3. **Gute Infrastruktur:** Auth, DB, Caching, Monitoring
@@ -65,10 +71,10 @@
 6. **Type-Safe:** Vollständig typisiert
 
 **Kleinere Verbesserungen (optional):**
+
 1. DecisionAssessment-Fragen könnten noch decision-fokussierter sein (aber vom Nutzer so gewünscht)
 2. Unbenutzte Komponenten-Dateien könnten gelöscht werden (aber bleiben für zukünftige Nutzung)
 
 ### 🚀 **Bereit für Decision OS Entwicklung**
 
 Die Codebase ist eine **solide, saubere Basis** ohne technische Schulden.
-

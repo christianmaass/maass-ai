@@ -1,10 +1,15 @@
 import 'server-only';
 import type { Decision, ClassifierFlags } from '@/lib/schemas/decision';
-import type { Pattern, HintBand, Signals, DecisionSuiteV1AggregatedResult } from '@/lib/decisionSuite/types';
+import type {
+  Pattern,
+  HintBand,
+  Signals,
+  DecisionSuiteV1AggregatedResult,
+} from '@/lib/decisionSuite/types';
 
 /**
  * Decision Suite v1 - Signal-Beobachtung
- * 
+ *
  * Dieses System beobachtet nur strukturelle Signale, urteilt nicht.
  * - Konservativ: Bei Zweifeln immer false
  * - Keine Urteile, keine Interventionen
@@ -13,12 +18,10 @@ import type { Pattern, HintBand, Signals, DecisionSuiteV1AggregatedResult } from
 
 /**
  * Beobachtet strukturelle Signale für Objective
- * 
+ *
  * Konservativ: Nur wenn explizit vorhanden, dann true
  */
-export function observeObjectiveSignals(
-  flags: ClassifierFlags
-): {
+export function observeObjectiveSignals(flags: ClassifierFlags): {
   objective_present: boolean;
   objective_is_effect: boolean;
   objective_has_constraints: boolean;
@@ -33,12 +36,10 @@ export function observeObjectiveSignals(
 
 /**
  * Beobachtet strukturelle Signale für Optionen
- * 
+ *
  * Konservativ: Nur wenn explizit vorhanden, dann true
  */
-export function observeOptionsSignals(
-  flags: ClassifierFlags
-): {
+export function observeOptionsSignals(flags: ClassifierFlags): {
   options_are_implementations: boolean;
   status_quo_excluded: boolean;
 } {
@@ -51,12 +52,10 @@ export function observeOptionsSignals(
 
 /**
  * Beobachtet strukturelle Signale für Annahmen
- * 
+ *
  * Konservativ: Nur wenn explizit vorhanden, dann true
  */
-export function observeAssumptionsSignals(
-  flags: ClassifierFlags
-): {
+export function observeAssumptionsSignals(flags: ClassifierFlags): {
   assumptions_are_outcomes: boolean;
   assumptions_are_guaranteed: boolean;
 } {
@@ -69,12 +68,10 @@ export function observeAssumptionsSignals(
 
 /**
  * Beobachtet strukturelle Signale für Evidenz
- * 
+ *
  * Konservativ: Nur wenn explizit vorhanden, dann true
  */
-export function observeEvidenceSignals(
-  flags: ClassifierFlags
-): {
+export function observeEvidenceSignals(flags: ClassifierFlags): {
   causal_link_explicit: boolean;
 } {
   // Konservativ: Nur wenn explizit vorhanden
@@ -85,7 +82,7 @@ export function observeEvidenceSignals(
 
 /**
  * Beobachtet alle strukturellen Signale
- * 
+ *
  * Konservativ: Nur explizit vorhandene Merkmale werden als true markiert
  */
 export function observeAllSignals(flags: ClassifierFlags): Signals {
@@ -99,13 +96,10 @@ export function observeAllSignals(flags: ClassifierFlags): Signals {
 
 /**
  * Erkennt strukturelle Muster (nur Beobachtung, keine Urteile)
- * 
+ *
  * Konservativ: Nur wenn alle Bedingungen explizit erfüllt sind
  */
-export function detectStructuralPatterns(
-  decision: Decision,
-  flags: ClassifierFlags
-): string[] {
+export function detectStructuralPatterns(decision: Decision, flags: ClassifierFlags): string[] {
   const patterns: string[] = [];
 
   // Pattern 1: Means-before-Ends Signal
@@ -143,15 +137,12 @@ export function detectStructuralPatterns(
 
 /**
  * Berechnet Hinweis-Intensität (0.0 - 1.0)
- * 
+ *
  * Repräsentiert die Stärke struktureller Signale, die auf Klärungsbedarf hinweisen.
- * 
+ *
  * Konservativ: Nur explizite Signale erhöhen die Intensität
  */
-export function calculateHintIntensity(
-  patterns: string[],
-  signals: Signals
-): number {
+export function calculateHintIntensity(patterns: string[], signals: Signals): number {
   // Basis: Keine Signale = 0.0
   if (patterns.length === 0) {
     return 0.0;
@@ -193,17 +184,17 @@ export function calculateHintIntensity(
 
 /**
  * Leitet deterministisch einen Hint Band aus hint_intensity ab.
- * 
+ *
  * Diese Funktion ist eine reine Aggregation.
  * - Keine Urteile
  * - Keine Interpretation
  * - Nur number → enum Mapping
- * 
+ *
  * Thresholds (v1):
  * - hint_intensity < 0.15 → "NO_HINT"
  * - 0.15 <= hint_intensity <= 0.45 → "CLARIFICATION_NEEDED"
  * - hint_intensity > 0.45 → "STRUCTURALLY_UNCLEAR"
- * 
+ *
  * @param hintIntensity - Zahl zwischen 0.0 und 1.0
  * @returns Diskretes Hint Band
  */
@@ -226,31 +217,31 @@ export function deriveHintBand(hintIntensity: number): HintBand {
 
 /**
  * Prioritätsreihenfolge für Pattern-Auswahl (v1)
- * 
+ *
  * Höchste Priorität zuerst.
  * Diese Liste ist zentralisiert für einfache Änderungen.
  */
 const PATTERN_PRIORITY: Pattern[] = [
-  'OUTCOME_AS_VALIDATION',  // Höchste Priorität
-  'MEANS_BEFORE_ENDS',      // Mittlere Priorität
-  'OBJECTIVE_VAGUENESS',    // Niedrigste Priorität
+  'OUTCOME_AS_VALIDATION', // Höchste Priorität
+  'MEANS_BEFORE_ENDS', // Mittlere Priorität
+  'OBJECTIVE_VAGUENESS', // Niedrigste Priorität
 ];
 
 /**
  * Leitet deterministisch eine primäre Pattern aus patterns_detected ab.
- * 
+ *
  * Diese Funktion ist eine reine Aggregation.
  * - Keine Urteile
  * - Keine Interpretation
  * - Nur Array → Pattern | null Mapping
- * 
+ *
  * Prioritätsregeln (v1):
  * 1. "OUTCOME_AS_VALIDATION" (höchste Priorität)
  * 2. "MEANS_BEFORE_ENDS"
  * 3. "OBJECTIVE_VAGUENESS" (niedrigste Priorität)
- * 
+ *
  * Wenn kein Pattern gefunden wird, wird null zurückgegeben.
- * 
+ *
  * @param patternsDetected - Array von Pattern-Identifikatoren
  * @returns Primäre Pattern-ID oder null
  */
@@ -270,4 +261,3 @@ export function derivePrimaryPattern(patternsDetected: string[]): Pattern | null
   // Kein bekanntes Pattern gefunden → null
   return null;
 }
-

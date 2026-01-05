@@ -139,4 +139,3 @@ npx playwright install
 # Tests im UI-Modus
 npx playwright test --ui
 ```
-

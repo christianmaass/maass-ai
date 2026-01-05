@@ -13,10 +13,7 @@ export async function GET() {
     // Prüfe, ob User Admin ist
     const admin = await getAdminUser();
     if (!admin) {
-      return NextResponse.json(
-        { error: 'Unauthorized. Admin access required.' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Unauthorized. Admin access required.' }, { status: 403 });
     }
 
     const stats = getCacheStats();
@@ -32,9 +29,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Error getting cache status:', error);
-    return NextResponse.json(
-      { error: 'Failed to get cache status' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get cache status' }, { status: 500 });
   }
 }

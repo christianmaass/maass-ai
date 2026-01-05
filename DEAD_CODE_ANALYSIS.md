@@ -1,4 +1,5 @@
 # Dead/Unused Code Analysis
+
 **Datum:** 2025-01-27  
 **Methode:** Manuelle Code-Analyse (depcheck/ts-prune konnten nicht ausgeführt werden)
 
@@ -55,7 +56,8 @@ export function safeParse<T extends z.ZodType>(...)
 
 **Verwendung:** Keine Imports gefunden im gesamten Codebase.
 
-**Empfehlung:** 
+**Empfehlung:**
+
 - Option A: Entfernen (wenn nicht geplant)
 - Option B: Beibehalten (wenn für zukünftige Features geplant)
 
@@ -67,16 +69,16 @@ export function safeParse<T extends z.ZodType>(...)
 
 ### Alle Dependencies werden verwendet ✅
 
-| Dependency | Verwendung | Status |
-|------------|------------|--------|
-| `class-variance-authority` | `Button.tsx`, `Card.tsx` | ✅ |
-| `clsx` | `utils.ts` | ✅ |
-| `tailwind-merge` | `utils.ts` | ✅ |
-| `@sentry/nextjs` | `SentryInit.tsx`, `sentry.*.config.ts` | ✅ |
-| `@supabase/ssr` | `createServerClient.ts` | ✅ |
-| `@supabase/supabase-js` | `supabaseClient.ts` | ✅ |
-| `zod` | `schemas/index.ts`, `validate.ts`, `env.*.ts` | ✅ |
-| `server-only` | `env.server.ts`, `cache.ts` | ✅ |
+| Dependency                 | Verwendung                                    | Status |
+| -------------------------- | --------------------------------------------- | ------ |
+| `class-variance-authority` | `Button.tsx`, `Card.tsx`                      | ✅     |
+| `clsx`                     | `utils.ts`                                    | ✅     |
+| `tailwind-merge`           | `utils.ts`                                    | ✅     |
+| `@sentry/nextjs`           | `SentryInit.tsx`, `sentry.*.config.ts`        | ✅     |
+| `@supabase/ssr`            | `createServerClient.ts`                       | ✅     |
+| `@supabase/supabase-js`    | `supabaseClient.ts`                           | ✅     |
+| `zod`                      | `schemas/index.ts`, `validate.ts`, `env.*.ts` | ✅     |
+| `server-only`              | `env.server.ts`, `cache.ts`                   | ✅     |
 
 **Ergebnis:** Keine ungenutzten Dependencies gefunden.
 
@@ -101,10 +103,12 @@ export function safeParse<T extends z.ZodType>(...)
 ### Sofort (Optional)
 
 1. **`safeParse` aus `validate.ts` prüfen:**
+
    ```bash
    # Prüfen ob geplant
    grep -r "safeParse" docs/ ADRs/
    ```
+
    - Wenn nicht geplant: Entfernen
    - Wenn geplant: Beibehalten
 
@@ -123,28 +127,28 @@ export function safeParse<T extends z.ZodType>(...)
 
 ## Vergleich mit vorherigen Reviews
 
-| Metrik | Vorher (AP-004) | Aktuell | Status |
-|--------|----------------|---------|--------|
-| Ungenutzte Exports | 147+ | ~1 (`safeParse`) | ✅ 99% Reduktion |
-| Ungenutzte Dependencies | 0 | 0 | ✅ |
-| Code-Qualität | Gut | Sehr gut | ✅ |
+| Metrik                  | Vorher (AP-004) | Aktuell          | Status           |
+| ----------------------- | --------------- | ---------------- | ---------------- |
+| Ungenutzte Exports      | 147+            | ~1 (`safeParse`) | ✅ 99% Reduktion |
+| Ungenutzte Dependencies | 0               | 0                | ✅               |
+| Code-Qualität           | Gut             | Sehr gut         | ✅               |
 
 ---
 
 ## Fazit
 
-**Die Codebase ist bereits sehr gut bereinigt.** 
+**Die Codebase ist bereits sehr gut bereinigt.**
 
 - ✅ Keine ungenutzten Dependencies
 - ✅ Nur 1 potentiell ungenutzter Export (`safeParse`)
 - ✅ Alle neuen Exports werden verwendet
 - ✅ Komponenten-Dateien sind bewusst beibehalten für zukünftige Features
 
-**Empfehlung:** 
+**Empfehlung:**
+
 - `safeParse` prüfen und ggf. entfernen
 - Tool-Integration für zukünftige Automatisierung
 
 ---
 
-*Analyse durchgeführt am 2025-01-27*
-
+_Analyse durchgeführt am 2025-01-27_

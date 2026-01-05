@@ -2,10 +2,10 @@ import 'server-only';
 
 /**
  * Erkennt die dominante Sprache im Text
- * 
+ *
  * Ignoriert Zahlen, Namen und Akronyme bei der Erkennung.
  * Gibt "de" für Deutsch oder "en" für Englisch zurück.
- * 
+ *
  * @param text - Der zu analysierende Text
  * @returns "de" | "en" - Die erkannte Sprache
  */
@@ -84,4 +84,3 @@ export function detectLanguage(text: string): 'de' | 'en' {
   // Bei Gleichstand: Fallback auf Englisch
   return 'en';
 }
-
