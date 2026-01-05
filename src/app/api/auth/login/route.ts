@@ -6,6 +6,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 export async function POST(request: NextRequest) {
+  // Temporäres Debug-Logging
+  console.log('[DEBUG] VERCEL_ENV:', process.env.VERCEL_ENV);
+  console.log('[DEBUG] Origin:', request.headers.get('origin'));
+  console.log('[DEBUG] Host:', request.headers.get('host'));
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    console.log('[DEBUG] Supabase Hostname:', new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host);
+  }
+
   // CSRF-Schutz: Origin-Header-Validierung
   const csrfError = validateOrigin(request);
   if (csrfError) {
