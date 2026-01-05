@@ -32,24 +32,24 @@
 
 ## Komponenten-Tabelle
 
-| Komponente | Zweck heute | Kategorie | Begründung | Risiko bei Weiterverwendung |
-|------------|-------------|-----------|------------|----------------------------|
-| **Decision Review API** (`/api/decision-review/route.ts`) | Hauptsystem: Nimmt Text, gibt Intervention zurück | **REFRACTOR** | Pipeline ist solide, aber Input/Output fördert Denkabgabe. Nutzer wirft Text rein, bekommt fertige Antwort. Keine Strukturierungshilfe, keine Hypothesenbildung. | Nutzer lernt nicht, selbst zu strukturieren. System wird als "Quality Checker" genutzt, nicht als "Thinking Trainer". |
-| **Decision Suite v1 API** (`/api/decision-suite-v1/route.ts`) | Parallelsystem: Observational, keine Interventionen | **KEEP** | Konservativ, urteilt nicht, beobachtet nur. Näher an der Vision "KI schärft Denken". Aber: Wird nicht genutzt, da UI auf Decision Review zeigt. | Gute Basis, aber isoliert. Muss in Hauptsystem integriert werden. |
-| **Trigger-Engine** (`triggers.ts`) | Regelbasierte Pattern-Erkennung (TR-01, TR-02, TR-03) | **KEEP** | Technisch solide, operationally deterministic. Pattern-Erkennung ist korrekt. Aber: Wird nur für Interventionen genutzt, nicht für Training. | Kann als Basis für strukturierte Denkübungen dienen. Muss erweitert werden, um Nutzer zu Hypothesenbildung zu führen. |
-| **Response Generator** (`response-generator.ts`) | LLM generiert strukturierte Antworten | **REFRACTOR** | LLM generiert Antworten statt Templates. Dies fördert Denkabgabe: Nutzer lernt nicht, selbst zu formulieren. Temperature 0.3 ist zu hoch für deterministische Antworten. | Nutzer verlässt sich auf KI-Formulierungen statt selbst zu denken. Keine kognitive Reibung. |
-| **Response Guard** (`responseGuard.ts`) | Validiert und korrigiert LLM-Output | **ISOLATE** | Technisch robust, aber symptomatisch. Er korrigiert LLM-Fehler, statt die Ursache zu beheben. Wenn LLM nicht generieren sollte, was korrigiert werden muss, dann ist der Guard ein Workaround. | Maskiert das eigentliche Problem: LLM sollte nicht generieren, was korrigiert werden muss. |
-| **Parser Prompt** (`prompts.ts`) | LLM parst freien Text in strukturiertes JSON | **REFRACTOR** | Extrem lang (113 Zeilen), versucht LLM-Verhalten zu kontrollieren. Stattdessen sollte der Nutzer strukturiert eingeben. Parser sollte nur Validierung sein, nicht Interpretation. | Nutzer lernt nicht, strukturiert zu denken. Er wirft Text rein, KI interpretiert. |
-| **Classifier Prompt** (`prompts.ts`) | LLM klassifiziert Entscheidung in 8 binäre Flags | **REFRACTOR** | 354 Zeilen Prompt. Versucht, LLM zu präzisem Verhalten zu zwingen. Stattdessen sollte der Nutzer selbst klassifizieren (oder strukturiert eingeben, sodass Klassifikation trivial ist). | Nutzer delegiert Denkprozess an KI. Er lernt nicht, selbst zu klassifizieren. |
-| **Response Prompt** (`prompts.ts`) | LLM generiert strukturierte Antworten | **REFRACTOR** | 178 Zeilen Prompt (DE/EN). LLM formuliert Antworten statt Templates. Dies fördert Denkabgabe. | Nutzer lernt nicht, selbst zu formulieren. KI wird als "Schreiber" genutzt. |
-| **UI: App Page** (`app/page.tsx`) | Single Entry Point: Textarea + "Analyze decision" | **REFRACTOR** | Fragt "What decision are you making right now?" aber gibt keine Strukturierungshilfe. Keine MECE-Frameworks, keine Hypothesenbildung, keine strukturierte Eingabe. | Nutzer wirft Text rein, bekommt Antwort. Keine kognitive Reibung, kein Training. |
-| **UI: Decision Suite V1 Result** (`DecisionSuiteV1Result.tsx`) | Zeigt observational Signale | **KEEP** | Konservativ, urteilt nicht. Zeigt nur strukturelle Signale. Aber: Wird nicht genutzt, da UI auf Decision Review zeigt. | Gute Basis für Training, aber isoliert. |
-| **Signals System** (`signals.ts`) | Beobachtet strukturelle Signale, urteilt nicht | **KEEP** | Konservativ, observational. Näher an der Vision. Kann als Basis für strukturierte Denkübungen dienen. | Gute Basis, aber muss erweitert werden, um Training zu ermöglichen. |
-| **Copy System** (`copy.ts`) | Deterministische UI-Copy aus Signalen | **KEEP** | Template-basiert, deterministisch. Keine LLM-Generierung. Gute Basis für Training. | Kann erweitert werden, um strukturierte Denkübungen zu unterstützen. |
-| **Fallback Parser** (`route.ts`) | Regex-basierter Parser bei LLM-Fehlern | **ISOLATE** | Technisch robust, aber symptomatisch. Wenn Parser nicht benötigt wird (strukturierte Eingabe), dann ist Fallback unnötig. | Maskiert das eigentliche Problem: Nutzer sollte strukturiert eingeben. |
-| **Fallback Classifier** (`route.ts`) | Konservative Defaults bei LLM-Fehlern | **ISOLATE** | Technisch robust, aber symptomatisch. Wenn Klassifikation nicht benötigt wird (strukturierte Eingabe), dann ist Fallback unnötig. | Maskiert das eigentliche Problem: Nutzer sollte selbst klassifizieren oder strukturiert eingeben. |
-| **MAPIC Lens Mapping** (`mapping/`) | Paralleles Mapping-System für Explainability | **ISOLATE** | Technisch solide, aber isoliert. Wird nur für Explainability genutzt, nicht für Training. | Kann als Basis für strukturierte Denkübungen dienen, aber aktuell nicht genutzt. |
-| **Persistenz** (`route.ts`) | Asynchrone Speicherung in Supabase | **KEEP** | Technisch solide. Kann für Progress-Tracking und Vergleich genutzt werden. | Gute Basis für Training, aber aktuell nicht genutzt. |
+| Komponente                                                     | Zweck heute                                           | Kategorie     | Begründung                                                                                                                                                                                     | Risiko bei Weiterverwendung                                                                                           |
+| -------------------------------------------------------------- | ----------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **Decision Review API** (`/api/decision-review/route.ts`)      | Hauptsystem: Nimmt Text, gibt Intervention zurück     | **REFRACTOR** | Pipeline ist solide, aber Input/Output fördert Denkabgabe. Nutzer wirft Text rein, bekommt fertige Antwort. Keine Strukturierungshilfe, keine Hypothesenbildung.                               | Nutzer lernt nicht, selbst zu strukturieren. System wird als "Quality Checker" genutzt, nicht als "Thinking Trainer". |
+| **Decision Suite v1 API** (`/api/decision-suite-v1/route.ts`)  | Parallelsystem: Observational, keine Interventionen   | **KEEP**      | Konservativ, urteilt nicht, beobachtet nur. Näher an der Vision "KI schärft Denken". Aber: Wird nicht genutzt, da UI auf Decision Review zeigt.                                                | Gute Basis, aber isoliert. Muss in Hauptsystem integriert werden.                                                     |
+| **Trigger-Engine** (`triggers.ts`)                             | Regelbasierte Pattern-Erkennung (TR-01, TR-02, TR-03) | **KEEP**      | Technisch solide, operationally deterministic. Pattern-Erkennung ist korrekt. Aber: Wird nur für Interventionen genutzt, nicht für Training.                                                   | Kann als Basis für strukturierte Denkübungen dienen. Muss erweitert werden, um Nutzer zu Hypothesenbildung zu führen. |
+| **Response Generator** (`response-generator.ts`)               | LLM generiert strukturierte Antworten                 | **REFRACTOR** | LLM generiert Antworten statt Templates. Dies fördert Denkabgabe: Nutzer lernt nicht, selbst zu formulieren. Temperature 0.3 ist zu hoch für deterministische Antworten.                       | Nutzer verlässt sich auf KI-Formulierungen statt selbst zu denken. Keine kognitive Reibung.                           |
+| **Response Guard** (`responseGuard.ts`)                        | Validiert und korrigiert LLM-Output                   | **ISOLATE**   | Technisch robust, aber symptomatisch. Er korrigiert LLM-Fehler, statt die Ursache zu beheben. Wenn LLM nicht generieren sollte, was korrigiert werden muss, dann ist der Guard ein Workaround. | Maskiert das eigentliche Problem: LLM sollte nicht generieren, was korrigiert werden muss.                            |
+| **Parser Prompt** (`prompts.ts`)                               | LLM parst freien Text in strukturiertes JSON          | **REFRACTOR** | Extrem lang (113 Zeilen), versucht LLM-Verhalten zu kontrollieren. Stattdessen sollte der Nutzer strukturiert eingeben. Parser sollte nur Validierung sein, nicht Interpretation.              | Nutzer lernt nicht, strukturiert zu denken. Er wirft Text rein, KI interpretiert.                                     |
+| **Classifier Prompt** (`prompts.ts`)                           | LLM klassifiziert Entscheidung in 8 binäre Flags      | **REFRACTOR** | 354 Zeilen Prompt. Versucht, LLM zu präzisem Verhalten zu zwingen. Stattdessen sollte der Nutzer selbst klassifizieren (oder strukturiert eingeben, sodass Klassifikation trivial ist).        | Nutzer delegiert Denkprozess an KI. Er lernt nicht, selbst zu klassifizieren.                                         |
+| **Response Prompt** (`prompts.ts`)                             | LLM generiert strukturierte Antworten                 | **REFRACTOR** | 178 Zeilen Prompt (DE/EN). LLM formuliert Antworten statt Templates. Dies fördert Denkabgabe.                                                                                                  | Nutzer lernt nicht, selbst zu formulieren. KI wird als "Schreiber" genutzt.                                           |
+| **UI: App Page** (`app/page.tsx`)                              | Single Entry Point: Textarea + "Analyze decision"     | **REFRACTOR** | Fragt "What decision are you making right now?" aber gibt keine Strukturierungshilfe. Keine MECE-Frameworks, keine Hypothesenbildung, keine strukturierte Eingabe.                             | Nutzer wirft Text rein, bekommt Antwort. Keine kognitive Reibung, kein Training.                                      |
+| **UI: Decision Suite V1 Result** (`DecisionSuiteV1Result.tsx`) | Zeigt observational Signale                           | **KEEP**      | Konservativ, urteilt nicht. Zeigt nur strukturelle Signale. Aber: Wird nicht genutzt, da UI auf Decision Review zeigt.                                                                         | Gute Basis für Training, aber isoliert.                                                                               |
+| **Signals System** (`signals.ts`)                              | Beobachtet strukturelle Signale, urteilt nicht        | **KEEP**      | Konservativ, observational. Näher an der Vision. Kann als Basis für strukturierte Denkübungen dienen.                                                                                          | Gute Basis, aber muss erweitert werden, um Training zu ermöglichen.                                                   |
+| **Copy System** (`copy.ts`)                                    | Deterministische UI-Copy aus Signalen                 | **KEEP**      | Template-basiert, deterministisch. Keine LLM-Generierung. Gute Basis für Training.                                                                                                             | Kann erweitert werden, um strukturierte Denkübungen zu unterstützen.                                                  |
+| **Fallback Parser** (`route.ts`)                               | Regex-basierter Parser bei LLM-Fehlern                | **ISOLATE**   | Technisch robust, aber symptomatisch. Wenn Parser nicht benötigt wird (strukturierte Eingabe), dann ist Fallback unnötig.                                                                      | Maskiert das eigentliche Problem: Nutzer sollte strukturiert eingeben.                                                |
+| **Fallback Classifier** (`route.ts`)                           | Konservative Defaults bei LLM-Fehlern                 | **ISOLATE**   | Technisch robust, aber symptomatisch. Wenn Klassifikation nicht benötigt wird (strukturierte Eingabe), dann ist Fallback unnötig.                                                              | Maskiert das eigentliche Problem: Nutzer sollte selbst klassifizieren oder strukturiert eingeben.                     |
+| **MAPIC Lens Mapping** (`mapping/`)                            | Paralleles Mapping-System für Explainability          | **ISOLATE**   | Technisch solide, aber isoliert. Wird nur für Explainability genutzt, nicht für Training.                                                                                                      | Kann als Basis für strukturierte Denkübungen dienen, aber aktuell nicht genutzt.                                      |
+| **Persistenz** (`route.ts`)                                    | Asynchrone Speicherung in Supabase                    | **KEEP**      | Technisch solide. Kann für Progress-Tracking und Vergleich genutzt werden.                                                                                                                     | Gute Basis für Training, aber aktuell nicht genutzt.                                                                  |
 
 ---
 
@@ -120,11 +120,13 @@
 ### 30 Tage: Schneiden vor Bauen
 
 **Priorität 1: Entscheidung treffen**
+
 - **Entscheidung:** Training oder Tool?
   - Wenn Training: Decision Suite v1 als Basis, strukturierte Eingabe, Templates, Iteration.
   - Wenn Tool: Aktuelle Implementierung beibehalten, aber klar positionieren als "Quality Checker", nicht "Thinking Trainer".
 
 **Priorität 2: UI refactoren**
+
 - **Entfernen:** Freier Text-Input
 - **Hinzufügen:** Strukturierte Eingabe mit MECE-Frameworks
   - Ziel (mit Constraints)
@@ -133,11 +135,13 @@
   - Hypothesen (mit Test-Möglichkeiten)
 
 **Priorität 3: Response Generator refactoren**
+
 - **Entfernen:** LLM-Generierung (Temperature 0.3)
 - **Hinzufügen:** Template-basierte Antworten (wie Decision Suite v1 Copy System)
 - **Beibehalten:** Response Guard für Validierung, nicht für Korrektur
 
 **Priorität 4: Parser refactoren**
+
 - **Entfernen:** LLM-Interpretation
 - **Hinzufügen:** Validierung von strukturierter Eingabe
 - **Beibehalten:** Fallback nur für Migration, nicht für Produktion
@@ -147,24 +151,28 @@
 ### 60 Tage: Training-Architektur aufbauen
 
 **Priorität 1: Hypothesenbildung**
+
 - **Hinzufügen:** Strukturierte Hypothesenbildung
   - Nutzer formuliert Hypothesen
   - System validiert Struktur (nicht Inhalt)
   - Nutzer testet Hypothesen
 
 **Priorität 2: Iteration**
+
 - **Hinzufügen:** Iterative Denkprozesse
   - Nutzer präzisiert Annahmen
   - System zeigt Vergleich (vorher/nachher)
   - Nutzer reflektiert Denkprozess
 
 **Priorität 3: Progress-Tracking**
+
 - **Hinzufügen:** Progress-Tracking für Denkprozesse
   - Nutzer sieht Fortschritt
   - System zeigt Vergleich mit früheren Entscheidungen
   - Nutzer reflektiert Lernen
 
 **Priorität 4: Vergleich**
+
 - **Hinzufügen:** Vergleichsmöglichkeiten
   - Nutzer vergleicht eigene Entscheidungen
   - System zeigt Muster (nicht Urteile)
@@ -175,20 +183,24 @@
 ### 90 Tage: Integration und Kalibrierung
 
 **Priorität 1: System-Integration**
+
 - **Entscheidung:** Decision Suite v1 als Basis, Decision OS Interventionen als optional
 - **Integration:** Einheitliches System mit observational Basis und optionalen Interventionen
 
 **Priorität 2: Prompts kürzen**
+
 - **Kürzen:** Parser Prompt (nur Validierung)
 - **Kürzen:** Classifier Prompt (nur Validierung)
 - **Kürzen:** Response Prompt (nur Validierung)
 
 **Priorität 3: Kalibrierung**
+
 - **Testen:** Mit echten Nutzern
 - **Kalibrieren:** Strukturierte Eingabe, Templates, Iteration
 - **Reflektieren:** Was funktioniert, was nicht?
 
 **Priorität 4: Dokumentation**
+
 - **Dokumentieren:** Neue Architektur
 - **Dokumentieren:** Training-Philosophie
 - **Dokumentieren:** Nutzer-Guidelines
@@ -256,4 +268,3 @@ Die aktuelle Implementierung ist technisch solide, aber philosophisch falsch. Si
 **Lösung:** Strukturierte Eingabe, Templates, Iteration, Reflexion. Decision Suite v1 Signals-System als Basis, Decision OS Interventionen als optional.
 
 **Leitmaxime:** Wenn ein Feature Denken bequemer macht, aber nicht besser – dann ist es für navaa falsch.
-

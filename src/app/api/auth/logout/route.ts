@@ -1,16 +1,24 @@
 import { createServerClient } from '@/lib/db';
 import { getAuthUser } from '@/lib/auth/guards';
-import { NextResponse } from 'next/server';
+import { assertAllowedOrigin } from '@/lib/security/guard';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  // Origin validation
+  try {
+    assertAllowedOrigin(request);
+  } catch (error) {
+    // assertAllowedOrigin throws a Response on validation failure
+    if (error instanceof Response) {
+      return error;
+    }
+    throw error;
+  }
   try {
     // Prüfe, ob User eingeloggt ist
     const user = await getAuthUser();
     if (!user) {
-      return NextResponse.json(
-        { error: 'Unauthorized. Please log in first.' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized. Please log in first.' }, { status: 401 });
     }
 
     const supabase = await createServerClient();

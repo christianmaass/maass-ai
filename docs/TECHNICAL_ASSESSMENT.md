@@ -16,12 +16,14 @@ Das System ist **solide, durchdacht und production-ready**. Die Architektur zeig
 ### 1. Architektur & Design (9/10)
 
 **Hervorragend:**
+
 - **Production-First Ansatz**: Von Anfang an auf Stabilität gesetzt, nicht nur Features
 - **Modulare Struktur**: Klare Trennung (LLM-Client, Prompts, Schemas, Triggers)
 - **Provider-Agnostik**: Flexibilität bei LLM-Anbietern
 - **Server-Only**: Keine unnötigen Client-Bundles, bessere Sicherheit
 
 **Besonders gut:**
+
 - Versionierte Prompts (`v1.0`) ermöglichen kontrollierte Updates
 - Strikte Schema-Validierung verhindert Datenkorruption
 - Klare Error-Codes für Monitoring und Debugging
@@ -29,21 +31,24 @@ Das System ist **solide, durchdacht und production-ready**. Die Architektur zeig
 ### 2. Code-Qualität (9/10)
 
 **Exzellent:**
+
 - **100% TypeScript**: Vollständige Typisierung, keine `any`-Types
 - **Strikte Validierung**: Zod-Schemas mit `.strict()` - keine unbekannten Keys
 - **Konsistente Patterns**: Einheitliche Fehlerbehandlung, Logging, Retries
 - **Dokumentation**: Gute Code-Kommentare, READMEs vorhanden
 
 **Beispiel für Qualität:**
+
 ```typescript
 // Sehr gut: Klare Trennung von Concerns
-export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
+export function evaluateTR01(decision: Decision, flags: ClassifierFlags);
 // vs. schlecht: Alles in einer Funktion
 ```
 
 ### 3. Production-Readiness (8.5/10)
 
 **Sehr gut implementiert:**
+
 - ✅ **Timeouts**: 30s Default, verhindert hängende Requests
 - ✅ **Retries**: Intelligente Retry-Logik (Validation vs. Request-Fehler)
 - ✅ **Error Handling**: Strukturierte Fehlercodes, keine generischen 500s
@@ -51,6 +56,7 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 - ✅ **Determinismus**: Temperature 0 für konsistente Ergebnisse
 
 **Kleinere Lücken:**
+
 - ⚠️ Kein Rate Limiting auf API-Ebene (nur auf LLM-Ebene)
 - ⚠️ Kein Request-Tracing/Correlation-IDs
 - ⚠️ Keine Metriken/Monitoring-Integration
@@ -58,6 +64,7 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 ### 4. Sicherheit (9/10)
 
 **Exzellent:**
+
 - ✅ `server-only` Import verhindert Client-Bundle-Inklusion
 - ✅ Logging-Redaction (Secrets, E-Mails, Telefonnummern)
 - ✅ Input-Validierung mit Zod
@@ -65,17 +72,20 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 - ✅ Timeouts verhindern DoS
 
 **Kleinere Verbesserungen:**
+
 - ⚠️ Keine Request-Size-Limits (könnte zu großen Payloads führen)
 - ⚠️ Keine CORS-Konfiguration dokumentiert
 
 ### 5. Testbarkeit (7/10)
 
 **Gut:**
+
 - ✅ Smoke Test Suite vorhanden (12 Test-Cases)
 - ✅ Klare Test-Struktur
 - ✅ Automatisierbar
 
 **Verbesserungspotenzial:**
+
 - ⚠️ Keine Unit-Tests für Trigger-Logik
 - ⚠️ Keine Integration-Tests für API-Route
 - ⚠️ Keine Mock-LLM-Provider für Tests
@@ -88,11 +98,13 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 ### 1. LLM-Abhängigkeit (Risiko: Mittel)
 
 **Problem:**
+
 - System ist vollständig abhängig von externen LLM-APIs
 - Keine Fallback-Strategie bei Provider-Ausfall
 - Kosten können bei Skalierung explodieren
 
 **Empfehlung:**
+
 - Circuit Breaker Pattern implementieren
 - Kosten-Monitoring einbauen
 - Optional: Lokale Fallback-Logik für einfache Fälle
@@ -100,11 +112,13 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 ### 2. Prompt-Stabilität (Risiko: Mittel)
 
 **Problem:**
+
 - Prompts sind "magic strings" - schwer zu testen
 - LLM-Verhalten kann sich ändern (Model-Updates)
 - Keine A/B-Testing-Infrastruktur für Prompts
 
 **Empfehlung:**
+
 - Prompt-Tests mit festen Inputs/Outputs
 - Prompt-Versionierung erweitern (A/B-Testing)
 - Monitoring: Prompt-Performance-Tracking
@@ -112,16 +126,19 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 ### 3. Skalierbarkeit (Risiko: Niedrig-Mittel)
 
 **Aktuell:**
+
 - Synchroner Request-Flow (Parser → Classifier)
 - Keine Caching-Strategie
 - Keine Batch-Processing
 
 **Bei Skalierung:**
+
 - ⚠️ Jeder Request = 2 LLM-Calls (kostspielig)
 - ⚠️ Keine Request-Queue bei hoher Last
 - ⚠️ Keine Result-Caching für identische Inputs
 
 **Empfehlung:**
+
 - Caching für identische Parser-Inputs
 - Optional: Async-Processing für große Batches
 - Rate Limiting auf API-Ebene
@@ -129,11 +146,13 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 ### 4. Observability (Risiko: Mittel)
 
 **Fehlend:**
+
 - Keine strukturierten Metriken (Prometheus, etc.)
 - Keine Distributed Tracing
 - Keine Alerting-Strategie
 
 **Empfehlung:**
+
 - Metriken: Request-Rate, Error-Rate, Latency, LLM-Costs
 - Tracing: Correlation-IDs für Request-Flow
 - Alerting: Bei hoher Error-Rate oder Timeouts
@@ -141,11 +160,13 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 ### 5. Test-Coverage (Risiko: Niedrig)
 
 **Aktuell:**
+
 - Nur Smoke Tests (End-to-End)
 - Keine Unit-Tests für Business-Logik
 - Keine Edge-Case-Tests
 
 **Empfehlung:**
+
 - Unit-Tests für `evaluateTR01()` mit verschiedenen Inputs
 - Integration-Tests für API-Route (mit Mock-LLM)
 - Edge-Cases: Leere Strings, sehr lange Inputs, Sonderzeichen
@@ -159,12 +180,14 @@ export function evaluateTR01(decision: Decision, flags: ClassifierFlags)
 **Bewertung: 9/10**
 
 **Stärken:**
+
 - Exzellente Retry-Logik (separate für Validation vs. Request-Fehler)
 - Exponential Backoff implementiert
 - AbortController für Timeouts
 - Gute Error-Klassifizierung
 
 **Verbesserungen:**
+
 ```typescript
 // Aktuell: Hardcoded Backoff-Delays
 const backoffDelays = [200, 800]; // ms
@@ -178,11 +201,13 @@ const backoffDelays = config.backoffDelays || [200, 800];
 **Bewertung: 8/10**
 
 **Stärken:**
+
 - Versionierung vorhanden
 - Sehr restriktive Prompts (keine Halluzinationen)
 - Klare Output-Schemas definiert
 
 **Risiken:**
+
 - Prompts sind lang und komplex → schwer zu optimieren
 - Keine Metriken: Welche Prompts funktionieren besser?
 - Keine A/B-Testing-Infrastruktur
@@ -192,11 +217,13 @@ const backoffDelays = config.backoffDelays || [200, 800];
 **Bewertung: 8.5/10**
 
 **Stärken:**
+
 - Klare, deterministische Logik
 - Gut testbar
 - Einfach erweiterbar
 
 **Verbesserungen:**
+
 ```typescript
 // Aktuell: Hardcoded Intervention
 if (trigger_id === 'TR-01') {
@@ -207,8 +234,8 @@ if (trigger_id === 'TR-01') {
 const interventions = {
   'TR-01': {
     v1: 'You are selecting...',
-    v2: 'Alternative wording...'
-  }
+    v2: 'Alternative wording...',
+  },
 };
 ```
 
@@ -217,11 +244,13 @@ const interventions = {
 **Bewertung: 8/10**
 
 **Stärken:**
+
 - Klare Fehlerbehandlung
 - Gute Input-Validierung
 - Saubere Struktur
 
 **Verbesserungen:**
+
 - ⚠️ Kein Rate Limiting
 - ⚠️ Keine Request-ID für Tracing
 - ⚠️ Keine Metriken-Logging
@@ -230,16 +259,16 @@ const interventions = {
 
 ## 📊 Vergleich: MVP vs. Production-System
 
-| Aspekt | MVP (Aktuell) | Production (Empfohlen) | Status |
-|--------|---------------|------------------------|--------|
-| **Funktionalität** | ✅ Vollständig | ✅ | ✅ Ready |
-| **Error Handling** | ✅ Sehr gut | ✅ | ✅ Ready |
-| **Security** | ✅ Sehr gut | ✅ | ✅ Ready |
-| **Testing** | ⚠️ Smoke Tests | ✅ Unit + Integration | ⚠️ Erweiterbar |
-| **Monitoring** | ❌ Fehlt | ✅ Metriken + Tracing | ❌ Nachrüstbar |
-| **Caching** | ❌ Fehlt | ✅ Result-Caching | ❌ Nachrüstbar |
-| **Rate Limiting** | ⚠️ Teilweise | ✅ API-Level | ⚠️ Erweiterbar |
-| **Documentation** | ✅ Gut | ✅ | ✅ Ready |
+| Aspekt             | MVP (Aktuell)  | Production (Empfohlen) | Status         |
+| ------------------ | -------------- | ---------------------- | -------------- |
+| **Funktionalität** | ✅ Vollständig | ✅                     | ✅ Ready       |
+| **Error Handling** | ✅ Sehr gut    | ✅                     | ✅ Ready       |
+| **Security**       | ✅ Sehr gut    | ✅                     | ✅ Ready       |
+| **Testing**        | ⚠️ Smoke Tests | ✅ Unit + Integration  | ⚠️ Erweiterbar |
+| **Monitoring**     | ❌ Fehlt       | ✅ Metriken + Tracing  | ❌ Nachrüstbar |
+| **Caching**        | ❌ Fehlt       | ✅ Result-Caching      | ❌ Nachrüstbar |
+| **Rate Limiting**  | ⚠️ Teilweise   | ✅ API-Level           | ⚠️ Erweiterbar |
+| **Documentation**  | ✅ Gut         | ✅                     | ✅ Ready       |
 
 ---
 
@@ -351,12 +380,14 @@ const interventions = {
 **Das System ist für ein MVP außergewöhnlich gut.**
 
 **Stärken:**
+
 - Solide Architektur
 - Production-Ready Features
 - Gute Code-Qualität
 - Durchdachte Fehlerbehandlung
 
 **Verbesserungspotenzial:**
+
 - Observability (Monitoring, Tracing)
 - Test-Coverage (Unit-Tests)
 - Skalierungs-Features (Caching, Rate Limiting)
@@ -370,6 +401,5 @@ const interventions = {
 
 ---
 
-*Bewertung erstellt: 2025-01-27*  
-*Bewerter: Technische Analyse*
-
+_Bewertung erstellt: 2025-01-27_  
+_Bewerter: Technische Analyse_

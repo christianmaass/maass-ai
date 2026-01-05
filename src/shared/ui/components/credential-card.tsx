@@ -12,7 +12,9 @@ export function CredentialCard({ icon, title, description }: CredentialCardProps
       </div>
       <div className="flex-1">
         <h3 className="text-lg font-semibold text-navaa-gray-900 mb-2">{title}</h3>
-        {description && <p className="text-base text-navaa-gray-700 leading-relaxed">{description}</p>}
+        {description && (
+          <p className="text-base text-navaa-gray-700 leading-relaxed">{description}</p>
+        )}
       </div>
     </div>
   );

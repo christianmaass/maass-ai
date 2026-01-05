@@ -1,15 +1,20 @@
 import { createServerClient } from '@/lib/db';
 import { LoginSchema } from '@/lib/schemas';
 import { rateLimit } from '@/lib/rate-limit';
-import { validateOrigin } from '@/lib/security/csrf';
+import { assertAllowedOrigin } from '@/lib/security/guard';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 export async function POST(request: NextRequest) {
-  // CSRF-Schutz: Origin-Header-Validierung
-  const csrfError = validateOrigin(request);
-  if (csrfError) {
-    return csrfError;
+  // Origin validation
+  try {
+    assertAllowedOrigin(request);
+  } catch (error) {
+    // assertAllowedOrigin throws a Response on validation failure
+    if (error instanceof Response) {
+      return error;
+    }
+    throw error;
   }
   // Rate-Limiting: 5 Requests pro 15 Minuten
   const rateLimitResult = await rateLimit(request, 5, 900);

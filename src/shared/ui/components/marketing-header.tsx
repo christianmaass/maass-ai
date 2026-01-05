@@ -78,10 +78,7 @@ export function MarketingHeader() {
           </div>
         </div>
       </header>
-      <LoginOverlay
-        isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-      />
+      <LoginOverlay isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </>
   );
 }

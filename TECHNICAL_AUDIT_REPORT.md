@@ -37,24 +37,28 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
 ### ⚠️ Probleme
 
 1. **Component hat eigene Validierung:**
+
    ```typescript
    // src/components/ArtifactForm.tsx:33-40
    if (!objective.trim() || !problemStatement.trim()) {
      return;
    }
-   if (options.filter(opt => opt.text.trim()).length < 2) {
+   if (options.filter((opt) => opt.text.trim()).length < 2) {
      return;
    }
    ```
+
    **Problem:** Validierungslogik ist dupliziert (Component + Schema).  
    **Impact:** Niedrig - Component-Validierung ist nur für UX, Schema ist authoritative.  
    **Empfehlung:** Optional - kann bleiben für bessere UX, aber dokumentieren dass Schema authoritative ist.
 
 2. **API-Route orchestriert 11 Steps:**
+
    ```typescript
    // src/app/api/artifacts/route.ts:29-62
    // Step 1-11 sind alle in der Route
    ```
+
    **Problem:** Route ist lang (185 Zeilen), aber alle Steps sind notwendig.  
    **Impact:** Niedrig - Struktur ist klar, könnte aber in Service-Layer extrahiert werden.  
    **Empfehlung:** Optional - für bessere Testbarkeit könnte ein `ArtifactService` die Orchestrierung übernehmen.
@@ -62,7 +66,7 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
 3. **Leere API-Verzeichnisse:**
    - `/api/decision-review/` existiert, ist aber leer
    - `/api/decision-suite-v1/` existiert, ist aber leer
-   
+
    **Problem:** Tote Verzeichnisse suggerieren unvollständige Migration.  
    **Impact:** Mittel - Verwirrung für neue Entwickler, könnte zu versehentlichen Commits führen.  
    **Empfehlung:** **SOFORT ENTFERNEN** - Cleanup nach Refactoring.
@@ -80,11 +84,13 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
 ### ✅ Stärken
 
 1. **Zod-Schema ist Single Source of Truth:**
+
    ```typescript
    // src/lib/schemas/artifact.ts:10-44
    export const ArtifactSchema = z.object({...}).strict();
    export type Artifact = z.infer<typeof ArtifactSchema>;
    ```
+
    - Schema ist strikt (`.strict()`)
    - Type wird korrekt abgeleitet (`z.infer`)
    - Validierung ist zentralisiert
@@ -96,7 +102,7 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
 ### ❌ Kritische Probleme
 
 1. **Doppelte Typ-Definition: `ArtifactFormData` vs `Artifact`**
-   
+
    ```typescript
    // src/components/ArtifactForm.tsx:7-13
    export interface ArtifactFormData {
@@ -106,52 +112,52 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
      assumptions: Array<{ id?: string; text: string; evidence?: string }>;
      hypotheses: Array<{ id?: string; text: string; test?: string }>;
    }
-   
+
    // src/lib/schemas/artifact.ts:46
    export type Artifact = z.infer<typeof ArtifactSchema>;
    ```
-   
-   **Problem:** 
+
+   **Problem:**
    - `ArtifactFormData` ist manuell definiert
    - `Artifact` wird aus Schema abgeleitet
    - Struktur ist identisch, aber nicht type-safe verknüpft
    - Bei Schema-Änderungen kann `ArtifactFormData` out-of-sync werden
-   
+
    **Impact:** **HOCH** - Type-Safety ist gebrochen, Refactoring-Risiko.  
    **Empfehlung:** **SOFORT BEHEBEN** - `ArtifactFormData` sollte `Artifact` verwenden oder entfernt werden.
 
 2. **Doppelte Type-Definitionen: `Pattern`, `HintBand`, `Signals`**
-   
+
    ```typescript
    // src/lib/decisionReview/signals.ts:198, 206, 213
    export type Pattern = 'OUTCOME_AS_VALIDATION' | 'MEANS_BEFORE_ENDS' | 'OBJECTIVE_VAGUENESS';
    export type HintBand = 'NO_HINT' | 'CLARIFICATION_NEEDED' | 'STRUCTURALLY_UNCLEAR';
    export type Signals = ReturnType<typeof observeAllSignals>;
-   
+
    // src/lib/decisionSuite/types.ts:13, 21, 28-37
    export type Pattern = 'OUTCOME_AS_VALIDATION' | 'MEANS_BEFORE_ENDS' | 'OBJECTIVE_VAGUENESS';
    export type HintBand = 'NO_HINT' | 'CLARIFICATION_NEEDED' | 'STRUCTURALLY_UNCLEAR';
    export interface Signals { ... }
    ```
-   
+
    **Problem:**
    - `Pattern` und `HintBand` sind identisch dupliziert
    - `Signals` ist einmal als `ReturnType` und einmal als `interface` definiert
    - Inkonsistenz-Risiko bei Änderungen
-   
+
    **Impact:** **MITTEL** - Funktioniert aktuell, aber Refactoring-Risiko.  
    **Empfehlung:** **BEHEBEN** - Konsolidiere in `src/lib/decisionSuite/types.ts` (client-seitig verwendbar) und importiere in `signals.ts`.
 
 3. **Doppelte `DecisionSuiteV1AggregatedResult` Definition:**
-   
+
    ```typescript
    // src/lib/decisionReview/signals.ts:225-254
    export interface DecisionSuiteV1AggregatedResult { ... }
-   
+
    // src/lib/decisionSuite/types.ts:49-78
    export interface DecisionSuiteV1AggregatedResult { ... }
    ```
-   
+
    **Problem:** Identische Interface-Definition an zwei Stellen.  
    **Impact:** **MITTEL** - Refactoring-Risiko.  
    **Empfehlung:** **BEHEBEN** - Konsolidiere in `types.ts` (wird bereits von `copy.ts` importiert).
@@ -173,6 +179,7 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
    - RESTful und intuitiv
 
 2. **Fehlerbehandlung ist strukturiert:**
+
    ```typescript
    // src/app/api/artifacts/route.ts:128-142
    if (error instanceof z.ZodError) {
@@ -182,6 +189,7 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
      );
    }
    ```
+
    - Klare Error-Codes (`VALIDATION_ERROR`, `UNAUTHORIZED`, `DATABASE_ERROR`, `INTERNAL_ERROR`)
    - Korrekte HTTP-Status-Codes
 
@@ -193,18 +201,22 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
 ### ⚠️ Probleme
 
 1. **Keine API-Versionierung:**
+
    ```
    /api/artifacts  (keine /v1/)
    ```
+
    **Problem:** Wenn API geändert wird, gibt es keine Versionierung.  
    **Impact:** Niedrig - aktuell noch v1, aber sollte für Zukunft geplant werden.  
    **Empfehlung:** Optional - Dokumentiere Versionierungs-Strategie für zukünftige Änderungen.
 
 2. **GET-Endpoint hat Hardcoded Limit:**
+
    ```typescript
    // src/app/api/artifacts/route.ts:164
    .limit(10);
    ```
+
    **Problem:** Limit ist hardcoded, nicht konfigurierbar.  
    **Impact:** Niedrig - kann später erweitert werden.  
    **Empfehlung:** Optional - Query-Parameter für Pagination/Limit hinzufügen.
@@ -212,7 +224,7 @@ Das NAVAA-Projekt wurde kürzlich radikal refaktoriert (Entfernung von Decision 
 3. **POST-Endpoint hat keine Idempotenz:**
    - Jeder POST erstellt ein neues Artefakt
    - Keine Möglichkeit, bestehendes Artefakt zu aktualisieren
-   
+
    **Problem:** Kein `PUT` oder `PATCH` für Updates.  
    **Impact:** Niedrig - aktuell nicht benötigt, aber sollte dokumentiert werden.  
    **Empfehlung:** Optional - Dokumentiere, dass Updates aktuell nicht unterstützt werden.
@@ -265,10 +277,12 @@ try {
    - Service-Layer würde Testbarkeit verbessern
 
 3. **Alte Decision-Types existieren noch:**
+
    ```typescript
    // src/types/decision.ts
    export interface Decision { ... }  // Altes Format
    ```
+
    - Wird noch von `artifactToDecision` verwendet (Konvertierung)
    - Sollte dokumentiert werden, dass dies Legacy-Format ist
 
@@ -305,13 +319,13 @@ try {
 
 ## Gesamtbewertung
 
-| Kriterium | Bewertung | Kommentar |
-|-----------|-----------|-----------|
-| **Saubere Struktur** | ✅ Gut | Klare Trennung von Concerns |
-| **Wartbarkeit** | ⚠️ Bedingt | Type-Duplikationen müssen behoben werden |
-| **Konsistenz** | ⚠️ Bedingt | Mehrere doppelte Type-Definitionen |
-| **Erweiterbarkeit** | ✅ Gut | Struktur unterstützt Erweiterungen |
-| **Technische Schuld** | ⚠️ Niedrig-Mittel | Type-Duplikationen sind Hauptproblem |
+| Kriterium             | Bewertung         | Kommentar                                |
+| --------------------- | ----------------- | ---------------------------------------- |
+| **Saubere Struktur**  | ✅ Gut            | Klare Trennung von Concerns              |
+| **Wartbarkeit**       | ⚠️ Bedingt        | Type-Duplikationen müssen behoben werden |
+| **Konsistenz**        | ⚠️ Bedingt        | Mehrere doppelte Type-Definitionen       |
+| **Erweiterbarkeit**   | ✅ Gut            | Struktur unterstützt Erweiterungen       |
+| **Technische Schuld** | ⚠️ Niedrig-Mittel | Type-Duplikationen sind Hauptproblem     |
 
 **Fazit:** Das System hat eine **solide architektonische Basis**. Die identifizierten Probleme sind **behebbar** und sollten **vor weiteren Features** adressiert werden, um technische Schuld zu vermeiden.
 
@@ -334,4 +348,3 @@ try {
 ---
 
 **Ende des Audits**
-

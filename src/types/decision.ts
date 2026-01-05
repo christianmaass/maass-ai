@@ -1,6 +1,6 @@
 /**
  * Decision OS Type Definitions
- * 
+ *
  * These types define the core data structures for Decision OS.
  * They are prepared for future implementation.
  */
@@ -46,7 +46,7 @@ export interface DecisionCriterion {
 
 /**
  * Decision Quality Score
- * 
+ *
  * Evaluates decision quality across 5 dimensions, each scored 1-10
  */
 export interface DecisionScore {
@@ -63,7 +63,7 @@ export interface DecisionScore {
 
 /**
  * Decision Log Entry
- * 
+ *
  * Immutable history of decisions
  */
 export interface DecisionLogEntry {
@@ -76,4 +76,3 @@ export interface DecisionLogEntry {
   createdAt: Date;
   // Immutable - no updatedAt
 }
-

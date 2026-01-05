@@ -21,7 +21,7 @@ class RedisCache {
     this.baseUrl = serverEnv.UPSTASH_REDIS_REST_URL || '';
     this.token = serverEnv.UPSTASH_REDIS_REST_TOKEN || '';
     this.enabled = Boolean(this.baseUrl && this.token);
-    
+
     if (this.enabled) {
       console.log('Redis cache enabled with Upstash');
     } else {
@@ -96,7 +96,7 @@ class RedisCache {
         value: JSON.stringify(cacheData),
         ex: ttl,
       });
-      
+
       console.log(`Cache set for key: ${key} with TTL: ${ttl}s`);
     } catch (error) {
       console.warn(`Error setting cache for key ${key}:`, error);

@@ -9,6 +9,7 @@
 Dieses Dokument definiert, **WIE NAVAA konzipiert und erweitert werden darf** – aus Produkt- und Trainingsperspektive.
 
 Es regelt:
+
 - Die Rolle der KI als Senior Partner
 - Was KI darf / nicht darf
 - Artefakte als Single Source of Truth
@@ -28,6 +29,7 @@ Es regelt:
 Die KI in NAVAA agiert **nicht als Berater** und **nicht als Entscheider**.
 
 Sie agiert als:
+
 - **Sparringspartner** – stellt präzise, fordernde Rückfragen
 - **Coach** – gibt konkretes, normatives Feedback zur Denkqualität
 - **Senior-Partner-Perspektive** – erklärt, warum etwas strategisch unsauber oder riskant ist
@@ -37,12 +39,14 @@ Sie agiert als:
 > **Ohne vorherigen Nutzer-Input hat die KI nichts zu sagen.**
 
 Die KI:
+
 - ✅ **darf** auf Nutzer-Artefakte reagieren (Feedback, Coaching, Challenge)
 - ✅ **darf** Schwächen, Lücken und Inkonsistenzen benennen
 - ✅ **darf** präzise, fordernde Rückfragen stellen
 - ✅ **darf** erklären, warum etwas strategisch unsauber oder riskant ist
 
 Die KI:
+
 - ❌ **darf nicht** fertige Lösungen liefern
 - ❌ **darf nicht** Optionen oder Hypothesen erfinden
 - ❌ **darf nicht** Denkleistung des Nutzers ersetzen
@@ -59,6 +63,7 @@ Die KI darf **nicht** Denkprozesse übernehmen, die der Nutzer selbst leisten so
 - ❌ **Klassifikator**: KI darf nicht Denkmuster klassifizieren. Nutzer muss selbst reflektieren.
 
 **Ausnahme (Validierung):**
+
 - ✅ KI darf **validieren**, ob Nutzer-Input den Artefakt-Standards entspricht
 - ✅ KI darf **Feedback** geben, wenn Artefakte unvollständig oder inkonsistent sind
 
@@ -124,6 +129,7 @@ KI-Feedback muss sein:
 ### Guided Training Cases
 
 Vordefinierte Trainingsfälle mit:
+
 - klarem Kontext
 - didaktischem Lernziel
 - typischen Denkfehlern
@@ -226,4 +232,3 @@ Wenn du unsicher bist:
 
 Wenn ein Feature Denken bequemer macht, aber nicht besser,  
 ist es für NAVAA falsch.
-

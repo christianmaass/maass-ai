@@ -1,4 +1,5 @@
 # Daily Technical Debt Obligio-Diskurs
+
 **Datum:** 2025-01-27  
 **Rolle:** Senior Code Reviewer & Architekt  
 **Scope:** Änderungen der letzten 24h
@@ -24,6 +25,7 @@
 **Status:** ✅ **FIXED** - Rate-Limiting hinzugefügt (3 Requests/Stunde)
 
 **Änderungen:**
+
 - Rate-Limiting implementiert: 3 Requests pro Stunde (striktes Limit für Email-APIs)
 - Standard Rate-Limit-Headers hinzugefügt
 - Konsistent mit anderen Auth-APIs
@@ -37,6 +39,7 @@
 **Status:** ✅ **FIXED** - ZodError-Behandlung hinzugefügt
 
 **Änderungen:**
+
 - Explizite ZodError-Behandlung
 - Konsistent mit `/api/auth/login`
 - Verbesserte Fehlermeldungen für Clients
@@ -48,10 +51,12 @@
 **Datei:** `src/lib/rate-limit.ts:152-158`
 
 **Problem:**
+
 - Cleanup nur bei `memoryStore.size > 1000`
 - Keine periodische Bereinigung, könnte Memory-Leak bei vielen IPs verursachen
 
 **Begründung:**
+
 ```typescript
 // Cleanup alte Einträge (alle 100 Requests)
 if (memoryStore.size > 1000) {
@@ -72,11 +77,13 @@ if (memoryStore.size > 1000) {
 ### ✅ Abgeschlossen
 
 **1. ✅ Rate-Limiting für `/api/auth/reset-password` hinzugefügt**
+
 - **Status:** Implementiert
 - **Limit:** 3 Requests pro Stunde (striktes Limit für Email-APIs)
 - **Commit-Message:** `security(api): add rate-limiting to reset-password endpoint`
 
 **2. ✅ Error Handling in reset-password verbessert**
+
 - **Status:** Implementiert
 - **ZodError-Behandlung:** Explizite Fehlerbehandlung hinzugefügt
 - **Commit-Message:** `refactor(api): improve error handling in reset-password`
@@ -144,5 +151,4 @@ Die Änderungen folgen konsistenten Mustern und verbessern die Code-Qualität. *
 
 ---
 
-*Report generiert am 2025-01-27*
-
+_Report generiert am 2025-01-27_

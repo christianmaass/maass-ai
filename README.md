@@ -15,6 +15,7 @@ NAVAA trainiert **Urteilsfähigkeit**.
 NAVAA hilft Menschen, **besser zu denken**, nicht schneller zu antworten.
 
 Im Fokus stehen:
+
 - sauberes Problem Framing
 - klare Strukturierung (MECE-Denken)
 - hypothesengetriebenes Arbeiten
@@ -57,17 +58,20 @@ Die KI in NAVAA agiert **nicht als Berater**
 und **nicht als Entscheider**.
 
 Sie agiert als:
+
 - Sparringspartner
 - Coach
 - Senior-Partner-Perspektive
 
 Die KI:
+
 - gibt **konkretes, normatives Feedback** zur Denkqualität
 - benennt Schwächen, Lücken und Inkonsistenzen
 - erklärt, **warum** etwas strategisch unsauber oder riskant ist
 - stellt präzise, fordernde Rückfragen
 
 Die KI:
+
 - liefert **keine fertigen Lösungen**
 - erfindet **keine Optionen oder Hypothesen**
 - ersetzt **keine Denkleistung des Nutzers**
@@ -81,16 +85,20 @@ Die KI:
 NAVAA arbeitet mit mehreren Trainingsmodi:
 
 ### 1. Guided Training Cases
+
 Vordefinierte Trainingsfälle mit:
+
 - klarem Kontext
 - didaktischem Lernziel
 - typischen Denkfehlern
 - Referenz-Artefakten zur Kalibrierung
 
 ### 2. Freies Sparring
+
 Eigene Fragestellungen mit dialogischem Feedback im Stil eines Senior Partners.
 
 ### 3. Advanced (Ausbaustufe)
+
 KI-generierte Trainingscases, gezielt entlang erkannter Denk-Schwächen  
 – **der Fall wird generiert, nicht die Lösung**.
 

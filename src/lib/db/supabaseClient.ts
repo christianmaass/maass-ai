@@ -10,8 +10,5 @@ export function createBrowserClient() {
     throw new Error('Supabase configuration not found. Please check your environment variables.');
   }
 
-  return createSupabaseBrowserClient(
-    supabaseUrl,
-    supabaseKey
-  );
+  return createSupabaseBrowserClient(supabaseUrl, supabaseKey);
 }

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const ClientSchema = z.object({
-  NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
+  NEXT_PUBLIC_SUPABASE_URL: z.string().trim().url().optional(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
   NEXT_PUBLIC_APP_VERSION: z.string().optional(),
   NEXT_PUBLIC_APP_URL: z.string().url().optional(),

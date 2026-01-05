@@ -36,12 +36,7 @@ export function ImpressumOverlay({ isOpen, onClose }: ImpressumOverlayProps) {
           className="absolute top-4 right-4 text-navaa-gray-600 hover:text-navaa-gray-900 transition-colors"
           aria-label="Schließen"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -54,7 +49,15 @@ export function ImpressumOverlay({ isOpen, onClose }: ImpressumOverlayProps) {
         {/* Content */}
         <div className="pr-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Impressum</h2>
-          
+
+          <div className="mb-6 p-4 bg-navaa-warm-beige/30 rounded-lg border border-navaa-gray-200">
+            <p className="text-sm text-navaa-gray-700">
+              <strong>Legal Notice (Impressum)</strong> — This legal notice is provided in German as
+              required by German law (§ 5 TMG - Telemediengesetz). It contains the legally required
+              information about the website operator.
+            </p>
+          </div>
+
           <div className="space-y-4 text-navaa-gray-700">
             <div>
               <p className="font-semibold mb-2">Angaben gemäß § 5 TMG:</p>
@@ -87,4 +90,3 @@ export function ImpressumOverlay({ isOpen, onClose }: ImpressumOverlayProps) {
     </div>
   );
 }
-

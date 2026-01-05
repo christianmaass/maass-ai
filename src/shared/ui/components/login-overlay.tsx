@@ -37,12 +37,7 @@ export function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
           className="absolute top-4 right-4 text-navaa-gray-600 hover:text-navaa-gray-900 transition-colors"
           aria-label="Schließen"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -57,14 +52,17 @@ export function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
           <h2 className="text-3xl font-bold text-navaa-gray-900 mb-6 text-center">
             Access only by invitation
           </h2>
-          
+
           <div className="bg-white">
             <AuthForm type="login" />
           </div>
-          
+
           <p className="mt-4 text-navaa-gray-700 text-center">
             Request access{' '}
-            <a href="mailto:christian@christianmaass.com" className="text-navaa-accent hover:underline">
+            <a
+              href="mailto:christian@christianmaass.com"
+              className="text-navaa-accent hover:underline"
+            >
               here
             </a>
           </p>
@@ -73,4 +71,3 @@ export function LoginOverlay({ isOpen, onClose }: LoginOverlayProps) {
     </div>
   );
 }
-

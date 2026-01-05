@@ -6,7 +6,7 @@ import { deriveDecisionSuiteCopy } from '@/lib/decisionSuite/copy';
 
 /**
  * Einfache Client-seitige Sprachdetektion
- * 
+ *
  * Vereinfachte Version für Client-Komponenten.
  * Gibt "DE" oder "EN" zurück basierend auf dem Input-Text.
  */
@@ -61,18 +61,15 @@ interface DecisionSuiteV1ResultProps {
 
 /**
  * Decision Suite v1 Result Component
- * 
+ *
  * Rendert Decision Suite v1 Ergebnisse mit konsistentem Layout:
  * - Badge: hint_label
  * - Main line: result_line
  * - Focus question: focus_question (nur wenn vorhanden)
- * 
+ *
  * Zeigt KEINE internen Felder (signals, patterns_detected, primary_pattern, hint_intensity).
  */
-export function DecisionSuiteV1Result({
-  aggregatedResult,
-  inputText,
-}: DecisionSuiteV1ResultProps) {
+export function DecisionSuiteV1Result({ aggregatedResult, inputText }: DecisionSuiteV1ResultProps) {
   // Detektiere Sprache aus Input-Text
   const language = detectLanguageClient(inputText);
 
@@ -107,20 +104,14 @@ export function DecisionSuiteV1Result({
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Main result line */}
-        <p className="text-navaa-gray-700 text-base leading-relaxed">
-          {copy.result_line}
-        </p>
+        <p className="text-navaa-gray-700 text-base leading-relaxed">{copy.result_line}</p>
 
         {/* Focus question (only if present) */}
         {copy.focus_question && (
           <div className="pt-4 border-t border-gray-200">
             <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                Focus
-              </div>
-              <p className="text-sm text-navaa-gray-700 leading-relaxed">
-                {copy.focus_question}
-              </p>
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">Focus</div>
+              <p className="text-sm text-navaa-gray-700 leading-relaxed">{copy.focus_question}</p>
             </div>
           </div>
         )}
@@ -128,4 +119,3 @@ export function DecisionSuiteV1Result({
     </Card>
   );
 }
-

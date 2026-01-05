@@ -17,9 +17,7 @@ export function MarketingFooter() {
           {/* Logo and Description */}
           <div className="lg:col-span-2">
             <h3 className="text-xl font-bold mb-4">navaa</h3>
-            <p className="text-navaa-gray-600">
-              Train judgment, not prompts.
-            </p>
+            <p className="text-navaa-gray-600">Train judgment, not prompts.</p>
           </div>
 
           {/* Solutions Column */}
@@ -115,10 +113,7 @@ export function MarketingFooter() {
           </p>
         </div>
       </div>
-      <ImpressumOverlay
-        isOpen={isImpressumOpen}
-        onClose={() => setIsImpressumOpen(false)}
-      />
+      <ImpressumOverlay isOpen={isImpressumOpen} onClose={() => setIsImpressumOpen(false)} />
       <PrivacyPolicyOverlay
         isOpen={isPrivacyPolicyOpen}
         onClose={() => setIsPrivacyPolicyOpen(false)}

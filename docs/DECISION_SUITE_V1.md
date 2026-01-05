@@ -22,11 +22,11 @@
 
 **Mapping-Tabelle (Decision OS Trigger → Decision Suite Pattern):**
 
-| Decision OS Trigger | Decision Suite v1 Pattern | Hinweis |
-|---------------------|--------------------------|---------|
-| TR-01 | MEANS_BEFORE_ENDS | Means-before-Ends (Lösung vor Zielvalidierung) |
-| TR-02 | OBJECTIVE_VAGUENESS | Nur wenn `objective_present === false`; sonst kann zu NO_INTERVENTION/Silence in Decision OS mappen |
-| TR-03 | OUTCOME_AS_VALIDATION | Outcome-as-Validation (falsche Gewissheit) |
+| Decision OS Trigger | Decision Suite v1 Pattern | Hinweis                                                                                             |
+| ------------------- | ------------------------- | --------------------------------------------------------------------------------------------------- |
+| TR-01               | MEANS_BEFORE_ENDS         | Means-before-Ends (Lösung vor Zielvalidierung)                                                      |
+| TR-02               | OBJECTIVE_VAGUENESS       | Nur wenn `objective_present === false`; sonst kann zu NO_INTERVENTION/Silence in Decision OS mappen |
+| TR-03               | OUTCOME_AS_VALIDATION     | Outcome-as-Validation (falsche Gewissheit)                                                          |
 
 ---
 
@@ -91,6 +91,7 @@ Das System leitet deterministisch eine primäre Pattern aus patterns_detected ab
 
 **Schritt 8: Response-Zusammenstellung**
 Die API gibt zurück:
+
 - `signals`: Strukturelle Signale (nur beobachtet, nicht beurteilt)
 - `hint_intensity`: Hinweis-Intensität (0.0 - 1.0)
 - `hint_band`: Hint-Band (NO_HINT, CLARIFICATION_NEEDED, STRUCTURALLY_UNCLEAR)
@@ -128,6 +129,7 @@ Die API gibt zurück:
 Ja. Das System ist operationally deterministic: Gleiche Eingabe → gleiche Pipeline → gleiches Produktergebnis. Die LLM-Komponenten (Parser, Classifier) sind intern nicht mathematisch deterministisch, aber das System verwendet feste Regeln, deterministische Fallbacks und Schema-Enforcement, um stabiles Produktverhalten zu garantieren. Alle Berechnungen (Hint-Intensität, Hint-Band, Primary Pattern) sind vollständig regelbasiert.
 
 **Deterministische Fallbacks:**
+
 - **Parser-Fallback**: Bei LLM-Parser-Fehlern greift ein regex-basierter Fallback-Parser
 - **Classifier-Fallback**: Bei Classifier-Fehlern greift ein deterministischer Fallback mit konservativen Defaults ("unknown ⇒ false")
 - **Berechnungen**: Alle Berechnungen (Hint-Intensität, Hint-Band, Primary Pattern) sind vollständig deterministisch
@@ -136,38 +138,42 @@ Ja. Das System ist operationally deterministic: Gleiche Eingabe → gleiche Pipe
 
 ## 7. Unterschied zu Decision OS
 
-| Aspekt | Decision Suite v1 | Decision OS |
-|--------|-------------------|--------------|
-| **Zweck** | Observational Signal System | Intervention System |
-| **Output** | Signale, Hint-Intensität, Pattern-IDs | Interventionen oder NO_INTERVENTION |
-| **Urteile** | Keine Urteile | FRAGILE/NOT_FRAGILE Urteile |
-| **Interventionen** | Keine Interventionen | Kann Fragen stellen oder still bleiben |
-| **Pattern-Logik** | Strukturelle Pattern-Erkennung | TR-01/TR-02/TR-03 Trigger-Logik |
-| **Response-Mapping** | Kein Response-Mapping | Response-Mapping, Response-Generierung, Response-Guard |
-| **LLM-Textgenerierung** | Kein LLM Textizer (v1) | LLM-basierte Response-Generierung |
+| Aspekt                  | Decision Suite v1                     | Decision OS                                            |
+| ----------------------- | ------------------------------------- | ------------------------------------------------------ |
+| **Zweck**               | Observational Signal System           | Intervention System                                    |
+| **Output**              | Signale, Hint-Intensität, Pattern-IDs | Interventionen oder NO_INTERVENTION                    |
+| **Urteile**             | Keine Urteile                         | FRAGILE/NOT_FRAGILE Urteile                            |
+| **Interventionen**      | Keine Interventionen                  | Kann Fragen stellen oder still bleiben                 |
+| **Pattern-Logik**       | Strukturelle Pattern-Erkennung        | TR-01/TR-02/TR-03 Trigger-Logik                        |
+| **Response-Mapping**    | Kein Response-Mapping                 | Response-Mapping, Response-Generierung, Response-Guard |
+| **LLM-Textgenerierung** | Kein LLM Textizer (v1)                | LLM-basierte Response-Generierung                      |
 
 ---
 
 ## 8. Definition of Done – Production
 
 ### A) Hard Guarantees (non-negotiable)
+
 - **Keine 5xx-Fehler durch LLM-Fehler**: System antwortet nie mit HTTP 502 bei LLM-Fehlern; deterministische Fallbacks (Parser, Classifier) greifen immer
 - **Alle API-Responses sind schema-valid**: DecisionSuiteV1ResponseSchema validiert alle Responses (Zod strict mode)
 - **Konservative Strategie ist immer durchgesetzt**: "unknown ⇒ false" Defaults bei Classifier-Fehlern
 - **Deterministische Berechnungen**: Hint-Intensität, Hint-Band und Primary Pattern sind vollständig regelbasiert
 
 ### B) Operational Guarantees (product behavior)
+
 - **Gleiche Eingabe führt zu stabilem Produktverhalten**: Operational Determinism durch Regel-Engines (Pattern-Erkennung, Hint-Berechnung), deterministische Fallbacks, Schema-Enforcement
 - **Konservative Signal-Beobachtung**: Nur explizit vorhandene Merkmale werden als true markiert
 - **Prioritätsreihenfolge für Primary Pattern**: OUTCOME_AS_VALIDATION > MEANS_BEFORE_ENDS > OBJECTIVE_VAGUENESS
 
 ### C) Monitoring & Observability
+
 - **Pattern-Detection-Frequenz**: Tracke, wie oft MEANS_BEFORE_ENDS, OBJECTIVE_VAGUENESS, OUTCOME_AS_VALIDATION erkannt werden
 - **Hint-Band-Verteilung**: NO_HINT, CLARIFICATION_NEEDED, STRUCTURALLY_UNCLEAR Ratio
 - **Primary Pattern-Verteilung**: Anteil der Responses mit primary_pattern !== null
 - **Persistenz-Fehler-Logs**: Asynchrone, non-blocking Persistenz-Fehler werden geloggt (falls implementiert)
 
 ### D) Known and Accepted Trade-offs
+
 - **LLMs sind nicht mathematisch deterministisch**: System ist operationally deterministic, nicht mathematisch deterministisch; LLM-Interna können variieren, Produktverhalten bleibt stabil
 - **Persistenz ist asynchron und non-retrying**: Falls implementiert, Fehler werden nur geloggt, keine Retry-Logik (akzeptabel für non-blocking Design)
 - **Semantische Klassifikation ist probabilistisch**: Mitigated durch konservative Defaults ("unknown ⇒ false") und deterministische Fallbacks
@@ -180,6 +186,7 @@ Ja. Das System ist operationally deterministic: Gleiche Eingabe → gleiche Pipe
 **Status:** ✅ **PRODUCTION-SAFE**
 
 **Begründung:**
+
 - Alle Berechnungen sind operationally deterministic
 - Deterministische Fallbacks für alle LLM-Komponenten
 - Konservative Strategie ("unknown ⇒ false") reduziert False Positives
@@ -187,10 +194,10 @@ Ja. Das System ist operationally deterministic: Gleiche Eingabe → gleiche Pipe
 - Vollständig typisiert (TypeScript, Zod)
 
 **Bekannte Trade-offs:**
+
 - LLM-Abhängigkeit bleibt bestehen (Parser, Classifier), aber Fallbacks reduzieren das Risiko erheblich
 - Konservative Strategie kann False Negatives produzieren (akzeptabel für Observational System)
 
 ---
 
 **Dokument abgeschlossen.**
-

@@ -20,6 +20,7 @@ Dieses Dokument beschreibt Best Practices für die Optimierung von Bildern und A
 ### 1. Format-Konvertierung
 
 #### WebP (Empfohlen)
+
 - **Vorteile:** 25-35% kleinere Dateien als PNG
 - **Browser-Support:** 96%+ (alle modernen Browser)
 - **Qualität:** 85% ist gute Balance
@@ -33,6 +34,7 @@ cwebp -q 85 input.png -o output.webp
 ```
 
 #### AVIF (Modernste Option)
+
 - **Vorteile:** 50%+ kleinere Dateien als PNG
 - **Browser-Support:** 85%+ (Chrome, Firefox, Safari 16+)
 - **Qualität:** 50% reicht meist aus
@@ -70,6 +72,7 @@ const nextConfig: NextConfig = {
 ```
 
 **Wichtig:** Next.js konvertiert automatisch, wenn:
+
 - `next/image` Komponente verwendet wird ✅
 - Bilder in `public/` liegen ✅
 - `formats` konfiguriert ist ✅
@@ -125,11 +128,13 @@ Optional: Bild-Optimierung in CI/CD Pipeline:
 ## Tools & Ressourcen
 
 ### Online-Tools
+
 - [Squoosh](https://squoosh.app/) - Google's Image Compressor
 - [TinyPNG](https://tinypng.com/) - PNG/JPEG Compressor
 - [ImageOptim](https://imageoptim.com/) - macOS App
 
 ### Command-Line Tools
+
 - **ImageMagick**: `brew install imagemagick`
 - **pngquant**: `brew install pngquant`
 - **cwebp**: `brew install webp`
@@ -151,4 +156,3 @@ Optional: Bild-Optimierung in CI/CD Pipeline:
    - [ ] CDN für Assets (Cloudflare, Vercel)
    - [ ] Lazy Loading für alle Below-the-Fold Bilder
    - [ ] Responsive Image-Sets für verschiedene Breakpoints
-
